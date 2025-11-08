@@ -1784,7 +1784,7 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(88);
 
                 }
-                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 250) //ハイスコア
+                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 300) //ハイスコア
                 {
                     sc.PlaySe(76);
                     sc.PlaySe(31);
@@ -1793,7 +1793,7 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(88);
                     //sc.PlaySe(43); 同時に5つ以上のSEはならないので一旦オフ
                 }
-                else if (okashi_totalscore >= 250) //250点以上のときは、ファンファーレ
+                else if (okashi_totalscore >= 300) //250点以上のときは、ファンファーレ
                 {
                     sc.PlaySe(76);
                     sc.PlaySe(31);

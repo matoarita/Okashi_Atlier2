@@ -1961,24 +1961,28 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 else
                 {
                     //食べた後、〇〇点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
-                    if (total_score >= GameMgr.sp_omoide_high_score)
+                    foreach (string items in GameMgr.Highscore_SPEventlist.Keys)
                     {
-                        foreach (string items in GameMgr.Highscore_SPEventlist.Keys)
+                        if (_basename == items)
                         {
-                            if (_basename == items)
+                            if (total_score >= GameMgr.sp_omoide_high_score)
                             {
                                 //さらに思い出イベントリストをチェックし、一致するおかしの名前があれば、そのイベントは思い出イベントでもあるので、回想シーン用にフラグ解禁する
                                 GameMgr.SetHikariOmoideFlag(items, true);
 
                                 GameMgr.SpecialSubevent_EatAfterflag = true;
                                 GameMgr.SpecialSubevent_Num = GameMgr.Highscore_SPEventlist[items];
+
+                                //プリンセストータは、魔法おぼえる
+                                if (items == "princess_tota")
+                                {
+                                    magicskill_database.skillHyoujiKaikin("Parfect_Princess");
+                                }
                                 break;
 
                             }
                         }
-                    }
-
-                    
+                    }                  
                 }
 
                 /*
@@ -7068,7 +7072,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_2(_kaisu);
     }
 
-    public void LvUpPanel3() //同時に2個仕上げできるようになった
+    public void LvUpPanel3(int _kosu) //同時に2個仕上げできるようになった
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
@@ -7086,7 +7090,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_5(_statustext, _param);
     }
 
-    public void LvUpPanel6(string _magicname) //同時に2個仕上げできるようになった
+    public void LvUpPanel6(string _magicname) //魔法おぼえた
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_6(_magicname);

@@ -2091,8 +2091,20 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     {
         for (i = 0; i < conteststart_lists.Count; i++)
         {
-                conteststart_lists[i].ContestFightsCount = 0;
-                conteststart_lists[i].ContestVictory = 0;
+            conteststart_lists[i].ContestFightsCount = 0;
+            conteststart_lists[i].ContestVictory = 0;
+            conteststart_lists[i].Contest_VictoryItemData = new Item(0, "", "", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+        "Non", "Non", "Non", "Non",
+        0, 0, 0, 0,
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
+        "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0,
+        0, 0,
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
         }
     }
 
@@ -2137,6 +2149,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
 
         return total_count;
+    }
+
+    //指定したコンテストに、優勝時のアイテムデータを保存する
+    public void SetVictoryItemData(string _name, Item _victoryItem)
+    {
+        for (i = 0; i < conteststart_lists.Count; i++)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                conteststart_lists[i].Contest_VictoryItemData = _victoryItem;
+                //Debug.Log("conteststart_lists[i].Contest_VictoryItemData.itemName: " + conteststart_lists[i].ContestName + " " +conteststart_lists[i].Contest_VictoryItemData.itemName);
+            }
+        }
     }
 
     //名前を入れると、そのコンテストの最高順位を返す

@@ -3401,17 +3401,14 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case "mg_buttelfy_illumination_book":
-
                 magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
                 break;
 
             case "mg_glitter_book":
-
                 magicskill_database.skillHyoujiKaikin("Glitter");
                 break;
 
             case "mg_mp_regenaration_book":
-
                 magicskill_database.skillHyoujiKaikin("MP_Regenaration");
                 magicskill_database.skillLearnLv_Name("MP_Regenaration", 1);
                 break;

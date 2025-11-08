@@ -298,7 +298,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //全てのカードを削除する。
     public void DeleteCard_DrawView()
     {
-        for (j = 0; j < _cardImage_obj.Count; j++) //最後から削除していく。
+        for (j = 0; j < _cardImage_obj.Count; j++) //
         {
             //Destroy(_cardImage_obj[_cardImage_obj.Count - 1 - i]);
             Destroy(_cardImage_obj[j]);
@@ -893,6 +893,26 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = 0;
         _cardImage.check_counter = _result_item;
         _cardImage.SetInitContestClear();
+
+        //位置とスケール
+        Draw5();
+    }
+
+    //
+    //コンテスト優勝したときのお菓子データをカード表示処理　２の機能
+    //
+    public void ContestVictoryItemDataHyouji(int _result_item)
+    {
+        //初期化しておく
+        DeleteCard_DrawView();
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 10000;
+
+        _cardImage.Pitem_or_Origin = 0;
+        _cardImage.check_counter = _result_item;
+        _cardImage.SetInitCommonItemData();
 
         //位置とスケール
         Draw5();

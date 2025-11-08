@@ -213,7 +213,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             _temp_contestdatabase_list.Add(new ContestSaveList(conteststartList_database.conteststart_lists[i].ContestName, 
                 0, 0, 0, 0,
-                conteststartList_database.conteststart_lists[i].ContestFightsCount, conteststartList_database.conteststart_lists[i].ContestVictory));
+                conteststartList_database.conteststart_lists[i].ContestFightsCount, conteststartList_database.conteststart_lists[i].ContestVictory,
+                conteststartList_database.conteststart_lists[i].Contest_VictoryItemData));
         }
 
         //アイテムの前回得点のみ取得
@@ -1259,6 +1260,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 playerData.save_contest_data_list[i].FightsCount, playerData.save_contest_data_list[i].Victory);
         }
 
+        //おもに優勝時のおかしデータ
+        for (i = 0; i < playerData.save_contest_data_list.Count; i++)
+        {
+            conteststartList_database.SetVictoryItemData(playerData.save_contest_data_list[i].contestName,
+                playerData.save_contest_data_list[i].VictoryItemData);
+        }
+
         //コンテスト受付のリスト読み込み　DBの受付中フラグもセットする
         GameMgr.contest_accepted_list = playerData.save_contest_accepted_list;
         for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
@@ -1463,7 +1471,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         quest_database.ResetQuestTakeSet();
 
         //エクストリームパネルも空に。
-        pitemlist.deleteAllExtremePanelItem();        
+        pitemlist.deleteAllExtremePanelItem();
+
+        //ねこデータを削除
+        catDataBase.CatDataAllDelete();
 
     }
 

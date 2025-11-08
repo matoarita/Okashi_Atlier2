@@ -1116,7 +1116,7 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
 
-            case "Or_Contest_030":　//ベオルヴ家のディナー　見た目を高くしないと通らない 飲み物系は×
+            case "Or_Contest_030":　//ベオルヴ家のディナー 飲み物系は×
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
@@ -1146,7 +1146,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.75f);
+                    //Contest_CookieHosei(0.75f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1223,7 +1223,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.9f);
+                    //Contest_CookieHosei(0.9f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -2378,41 +2378,50 @@ public class Contest_Judge : MonoBehaviour {
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
         if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.6f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.45f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 60)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.6f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 60 && GameMgr.contest_Taste_Score[2] < 80)
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.8f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 100)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.85f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 100 && GameMgr.contest_Taste_Score[2] < 150)
+        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 90)
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.9f);
         }
-
-        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 220) //150のかべ
+        else if (GameMgr.contest_Taste_Score[2] >= 90 && GameMgr.contest_Taste_Score[2] < 100)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.25f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 220 && GameMgr.contest_Taste_Score[2] < 300)
+
+        else if (GameMgr.contest_Taste_Score[2] >= 100 && GameMgr.contest_Taste_Score[2] < 120) //100のかべ
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 120 && GameMgr.contest_Taste_Score[2] < 150) 
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.3f);
         }
 
+        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 200) //150のかべ
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 200 && GameMgr.contest_Taste_Score[2] < 300)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.6f);
+        }
+
         else if (GameMgr.contest_Taste_Score[2] >= 300 && GameMgr.contest_Taste_Score[2] < 400) //300のかべ
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.55f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 400 && GameMgr.contest_Taste_Score[2] < 500)
-        {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.75f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 400 && GameMgr.contest_Taste_Score[2] < 500) //400
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.8f);
         }
 
         else if (GameMgr.contest_Taste_Score[2] >= 500 && GameMgr.contest_Taste_Score[2] < 650) //500のかべ
@@ -2434,11 +2443,11 @@ public class Contest_Judge : MonoBehaviour {
         }
         else if (GameMgr.contest_Taste_Score[2] >= 1500) 
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.7f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
         }
         else if (GameMgr.contest_Taste_Score[2] < 0)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.5f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.3f);
         }        
 
         total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算

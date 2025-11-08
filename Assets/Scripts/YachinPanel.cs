@@ -155,13 +155,8 @@ public class YachinPanel : MonoBehaviour {
 
     public void Setting_CullentYachin()
     {
-        if (GameMgr.OrCompound_RoomNum == 0)
-        {
-            cullent_yachin = GameMgr.System_Yachin_Cost02;
-        }else
-        {
-            cullent_yachin = GameMgr.System_Yachin_Cost_SPRoom;
-        }
+
+        cullent_yachin = GameMgr.System_Yachin_Cost_SPRoom;
 
         //現在の家賃額を設定
         switch (GameMgr.yachin_otetsuki_count)

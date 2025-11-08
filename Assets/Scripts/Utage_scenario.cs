@@ -3413,6 +3413,17 @@ public class Utage_scenario : MonoBehaviour
                         engine.Param.TrySetParameter("RoomNameHyouji9", GameMgr.OrRoomNameHyouji[8]);
                         engine.Param.TrySetParameter("RoomNameHyouji10", GameMgr.OrRoomNameHyouji[9]);
 
+                        engine.Param.TrySetParameter("RoomKoukaHyouji1", GameMgr.OrRoomNameBufKouka[0]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji2", GameMgr.OrRoomNameBufKouka[1]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji3", GameMgr.OrRoomNameBufKouka[2]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji4", GameMgr.OrRoomNameBufKouka[3]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji5", GameMgr.OrRoomNameBufKouka[4]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji6", GameMgr.OrRoomNameBufKouka[5]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji7", GameMgr.OrRoomNameBufKouka[6]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji8", GameMgr.OrRoomNameBufKouka[7]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji9", GameMgr.OrRoomNameBufKouka[8]);
+                        engine.Param.TrySetParameter("RoomKoukaHyouji10", GameMgr.OrRoomNameBufKouka[9]);
+
                         if (GameMgr.OrRoomBuy[0])
                         {
                             engine.Param.TrySetParameter("RoomCost1", 0);
@@ -4675,7 +4686,7 @@ public class Utage_scenario : MonoBehaviour
                             case 1: //最初の家を選んだ 家賃がかかる
 
                                 GameMgr.OrCompound_RoomNum = 0;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.System_Yachin_Cost_SPRoom = GameMgr.System_Yachin_Cost02;
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 RoomBuyCheck(0);                                                          
@@ -4684,8 +4695,8 @@ public class Utage_scenario : MonoBehaviour
                             case 2: //
 
                                 GameMgr.OrCompound_RoomNum = 1;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(1);
@@ -4694,8 +4705,8 @@ public class Utage_scenario : MonoBehaviour
                             case 3: //
 
                                 GameMgr.OrCompound_RoomNum = 2;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(2);
@@ -4704,8 +4715,8 @@ public class Utage_scenario : MonoBehaviour
                             case 4: //
 
                                 GameMgr.OrCompound_RoomNum = 3;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(3);
@@ -4714,8 +4725,8 @@ public class Utage_scenario : MonoBehaviour
                             case 5: //
 
                                 GameMgr.OrCompound_RoomNum = 4;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(4);
@@ -4724,8 +4735,8 @@ public class Utage_scenario : MonoBehaviour
                             case 6: //
 
                                 GameMgr.OrCompound_RoomNum = 5;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(5);
@@ -4734,8 +4745,8 @@ public class Utage_scenario : MonoBehaviour
                             case 7: //
 
                                 GameMgr.OrCompound_RoomNum = 6;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(6);
@@ -4744,8 +4755,8 @@ public class Utage_scenario : MonoBehaviour
                             case 8: //
 
                                 GameMgr.OrCompound_RoomNum = 7;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(7);
@@ -4754,8 +4765,8 @@ public class Utage_scenario : MonoBehaviour
                             case 9: //
 
                                 GameMgr.OrCompound_RoomNum = 8;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(8);
@@ -4764,8 +4775,8 @@ public class Utage_scenario : MonoBehaviour
                             case 10: //
 
                                 GameMgr.OrCompound_RoomNum = 9;
-                                GameMgr.System_Yachin_Cost_SPRoom = 0;
-                                GameMgr.yachinSPRoomON_Flag = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 3000;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(9);
@@ -5800,21 +5811,21 @@ public class Utage_scenario : MonoBehaviour
         //審査員３の感想をセット。じいさんは、食感の値に対して、感想を述べる。補正後の点数を基準にコメント変更。
         judge_num++;
         CommentID += 4; //８はじまり
-        if (GameMgr.contest_Taste_Score[judge_num] >= 225) //
+        if (GameMgr.contest_Taste_Score[judge_num] >= 300) //300のかべ
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
             engine.Param.TrySetParameter("contest_judge3_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
             engine.Param.TrySetParameter("contest_judge3_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
         }
-        else if (GameMgr.contest_Taste_Score[judge_num] >= 120 && GameMgr.contest_Taste_Score[judge_num] < 225) //
+        else if (GameMgr.contest_Taste_Score[judge_num] >= 100 && GameMgr.contest_Taste_Score[judge_num] < 300) //100のかべ
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
             engine.Param.TrySetParameter("contest_judge3_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
             engine.Param.TrySetParameter("contest_judge3_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
         }
-        else if (GameMgr.contest_Taste_Score[judge_num] >= 45 && GameMgr.contest_Taste_Score[judge_num] < 120) //
+        else if (GameMgr.contest_Taste_Score[judge_num] >= 45 && GameMgr.contest_Taste_Score[judge_num] < 100) //
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);

@@ -206,7 +206,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 case 20:
 
                     MagicLearnPanelHyouji("Warming_Handmade"); //下の欄の「魔法をおぼえる」のほうも更新すること
-                    //girlEat_judge.LvUpPanel3(); //二種類～同時トッピングできるようになる。
+                    //girlEat_judge.LvUpPanel3(GameMgr.topping_Set_Count); //二種類～同時トッピングできるようになる。
+
                     ShiageUpPanelHyouji();
                     break;
 
@@ -215,9 +216,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     //MagicLearnPanelHyouji("Magic_Soda");
                     break;
 
-                case 25: //おかしの個数が一個増える　神スキル
+                case 25:
 
-                    OkashiKosuAddPanelHyouji();
+                    
                     break;
 
                 case 26:
@@ -241,6 +242,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 case 35:
 
                     //MagicLearnPanelHyouji("Moonlight_Banana");
+                    break;
+
+                case 45: //おかしの個数が一個増える　神スキル
+
+                    OkashiKosuAddPanelHyouji();
                     break;
 
                 case 50:
@@ -332,7 +338,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }*/
 
         //複数個まとめて数のせる
-        /*
+        
         if (_lv < 25)
         {
             GameMgr.System_Topping_Multiple_Flag = false;
@@ -340,20 +346,20 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         else if (_lv >= 25)
         {
             GameMgr.System_Topping_Multiple_Flag = true;
-            GameMgr.System_Topping_Multiple_Max = 2;
+            GameMgr.System_Topping_Multiple_Max = 3;
 
             if (_lv >= 35)
             {
                 GameMgr.System_Topping_Multiple_Max = 3;
             }
-        }*/
+        }
 
         //おかし個数+1
-        if (_lv < 25)
+        if (_lv < 45)
         {
             PlayerStatus.player_okashi_kosuup_max = 0;
         }
-        else if (_lv >= 25)
+        else if (_lv >= 45)
         {
             PlayerStatus.player_okashi_kosuup_max = 1;
         }

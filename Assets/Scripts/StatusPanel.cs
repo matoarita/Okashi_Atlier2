@@ -40,6 +40,10 @@ public class StatusPanel : MonoBehaviour {
     private GameObject paramview3;
     private GameObject HikariOkashiParamView;
     private GameObject HikariOkashiParamView2;
+    private GameObject HikariStatusList01;
+    private GameObject HikariStatusList02;
+    private GameObject HikariStatusList_changebutton01;
+    private GameObject HikariStatusList_changebutton02;
 
     private GameObject StatusList_obj;
     private GameObject StatusList_SelectView_obj;
@@ -55,6 +59,9 @@ public class StatusPanel : MonoBehaviour {
 
     private GameObject hikariokashiparam_Prefab;
     private List<GameObject> hikariokashiparam_list = new List<GameObject>();
+
+    private GameObject hikaristatuscontent_Prefab;
+    private List<GameObject> hikaristatuscontent_list = new List<GameObject>();
 
     private List<GameObject> costume_list = new List<GameObject>();
     private List<GameObject> accesory_list = new List<GameObject>();
@@ -169,6 +176,7 @@ public class StatusPanel : MonoBehaviour {
         paramview1 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView1/Viewport/Content").gameObject;
         paramview2 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView2/Scroll View/Viewport/Content").gameObject;
         paramview3 = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
+        
 
         StatusList_obj = this.transform.Find("StatusList").gameObject;
         StatusList_SelectView_obj = this.transform.Find("StatusPanelSelect_ScrollView").gameObject;
@@ -178,6 +186,11 @@ public class StatusPanel : MonoBehaviour {
         HikariStatusList_obj = this.transform.Find("HikariStatusList").gameObject;
         Equip_Panel_obj = this.transform.Find("EquipList").gameObject;
         OmoideList_obj = this.transform.Find("OmoideList").gameObject;
+
+        HikariStatusList01 = HikariStatusList_obj.transform.Find("HikariStatusList01").gameObject;
+        HikariStatusList02 = HikariStatusList_obj.transform.Find("HikariStatusList02").gameObject;
+        HikariStatusList_changebutton01 = HikariStatusList_obj.transform.Find("ChangeButton1").gameObject;
+        HikariStatusList_changebutton02 = HikariStatusList_obj.transform.Find("ChangeButton2").gameObject;
 
         contentCos = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
         costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
@@ -239,6 +252,7 @@ public class StatusPanel : MonoBehaviour {
 
         //ヒカリお菓子ステータス関係
         InitHikariOkashiParam_View();
+        InitHikariLearnSkill_View();
 
         HikariParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/HikariParam_Toggle").gameObject;
         if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
@@ -502,8 +516,10 @@ public class StatusPanel : MonoBehaviour {
         WindowAllOFF();
         HikariStatusList_obj.SetActive(true);
 
-        //パラメータ更新
-
+        HikariStatusList01.SetActive(true);
+        HikariStatusList02.SetActive(false);
+        HikariStatusList_changebutton01.SetActive(true);
+        HikariStatusList_changebutton02.SetActive(false);
     }
 
     public void OnEquipParamPanel()
@@ -742,8 +758,8 @@ public class StatusPanel : MonoBehaviour {
 
     void InitHikariOkashiParam_View()
     {
-        HikariOkashiParamView = this.transform.Find("HikariStatusList/Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").gameObject;
-        HikariOkashiParamView2 = this.transform.Find("HikariStatusList/Viewport/Content/Panel/HikariOkashiParamView2/ScrollView/Viewport/Content").gameObject;
+        HikariOkashiParamView = this.transform.Find("HikariStatusList/HikariStatusList01/Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").gameObject;
+        HikariOkashiParamView2 = this.transform.Find("HikariStatusList/HikariStatusList01/Viewport/Content/Panel/HikariOkashiParamView2/ScrollView/Viewport/Content").gameObject;
         hikariokashiparam_Prefab = (GameObject)Resources.Load("Prefabs/HikariOkashiParam");
 
         foreach (Transform child in HikariOkashiParamView.transform) //
@@ -858,5 +874,67 @@ public class StatusPanel : MonoBehaviour {
         }
         
         hikariokashiparam_list[_id].transform.Find("param_guage").GetComponent<Slider>().value = _exp;
+    }
+
+    void InitHikariLearnSkill_View()
+    {
+        hikaristatuscontent_Prefab = (GameObject)Resources.Load("Prefabs/HikariStatusContent");
+
+        foreach (Transform child in HikariStatusList02.transform.Find("Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").transform) //
+        {
+            Destroy(child.gameObject);
+        }
+
+        hikaristatuscontent_list.Clear();
+        count = 0;
+
+        if (GameMgr.System_HikariMakeUse_Flag)
+        {
+            hikaristatuscontent_list.Add(Instantiate(hikaristatuscontent_Prefab, HikariStatusList02.transform.Find("Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").transform));
+            hikaristatuscontent_list[count].transform.Find("Text").GetComponent<Text>().text = "ヒカリおかし作れる";
+            count++;
+        }
+
+        if (GameMgr.topping_Set_Count > 1)
+        {
+            hikaristatuscontent_list.Add(Instantiate(hikaristatuscontent_Prefab, HikariStatusList02.transform.Find("Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").transform));
+            hikaristatuscontent_list[count].transform.Find("Text").GetComponent<Text>().text = GameMgr.topping_Set_Count.ToString() + "種　同時トッピング";
+            count++;
+        }
+
+        if (GameMgr.System_Topping_Multiple_Flag)
+        {
+            hikaristatuscontent_list.Add(Instantiate(hikaristatuscontent_Prefab, HikariStatusList02.transform.Find("Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").transform));
+            hikaristatuscontent_list[count].transform.Find("Text").GetComponent<Text>().text = "トッピング個数 +" + GameMgr.System_Topping_Multiple_Max.ToString() + "個";
+            count++;
+        }
+
+        if (PlayerStatus.player_okashi_kosuup_max > 0)
+        {
+            hikaristatuscontent_list.Add(Instantiate(hikaristatuscontent_Prefab, HikariStatusList02.transform.Find("Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").transform));
+            hikaristatuscontent_list[count].transform.Find("Text").GetComponent<Text>().text = "おかし個数 +" + PlayerStatus.player_okashi_kosuup_max.ToString();
+            count++;
+        }
+
+        //家の効果テキスト表示
+        HikariStatusList02.transform.Find("Viewport/Content/Panel/RoomKoukaText").GetComponent<Text>().text = GameMgr.OrRoomNameBufKouka[GameMgr.OrCompound_RoomNum];
+    }
+
+    public void HikariStatusPanel_Change01()
+    {
+        HikariStatusList01.SetActive(false);
+        HikariStatusList02.SetActive(true);
+
+        HikariStatusList_changebutton01.SetActive(false);
+        HikariStatusList_changebutton02.SetActive(true);
+    }
+
+    public void HikariStatusPanel_Change02()
+    {
+        HikariStatusList01.SetActive(true);
+        HikariStatusList02.SetActive(false);
+
+        HikariStatusList_changebutton01.SetActive(true);
+        HikariStatusList_changebutton02.SetActive(false);
     }
 }

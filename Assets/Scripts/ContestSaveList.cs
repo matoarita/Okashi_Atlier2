@@ -16,11 +16,12 @@ public class ContestSaveList
     public int Flag; //イベントアイテム用の項目
     public int FightsCount; //出場回数
     public int Victory; //そのコンテストの過去のランキング
+    public Item VictoryItemData;
     //ここまで
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ContestSaveList(string _name, int _month, int _day, int _param1, int _flag, int _fcount, int _victory)
+    public ContestSaveList(string _name, int _month, int _day, int _param1, int _flag, int _fcount, int _victory, Item _victoryitem)
     {
         contestName = _name;
         Month = _month;
@@ -29,5 +30,6 @@ public class ContestSaveList
         Flag = _flag;
         FightsCount = _fcount;
         Victory = _victory;
+        VictoryItemData = _victoryitem;
     }
 }

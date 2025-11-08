@@ -75,6 +75,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int final_select_kaisu; //繰り返す回数　オレンジクッキー4個をレシピから作るなら、4セット。（1セットあたりの材料が、クッキーは1個、オレンジ2）　レシピでしか使ってない。
     private int nokori_kosu;
 
+    private int delete_base_kosu;
+    private int delete_kosu1;
+    private int delete_kosu2;
+    private int delete_kosu3;
+
     private int result_item;
     private int result_compID;
     private int new_item;
@@ -489,9 +494,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
             Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
 
-            //セット数　updowncounterの値をもとに設定してる。現在は、セット数は選択できないようにしているので、1に固定
-            //final_select_kaisu = exp_Controller.set_kaisu;
-            final_select_kaisu = 1;
+            //セット数　updowncounterの値をもとにCompound_Checkで設定してる。
+            final_select_kaisu = exp_Controller.set_kaisu;
+            //final_select_kaisu = 1;
 
             //パラメータを取得
             result_item = GameMgr.Final_result_itemID1;
@@ -563,13 +568,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 kettei_item3 = 9999;
             }
 
-            base_kosu = 1;
+            base_kosu = GameMgr.Final_kettei_basekosu;
             final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
             final_kette_kosu2 = GameMgr.Final_kettei_kosu2;
             final_kette_kosu3 = GameMgr.Final_kettei_kosu3;
 
-            //オリジナル・トッピングは、現在のところ、1セットのみの対応
-            final_select_kaisu = 1;
+            //トッピングのセット数
+            final_select_kaisu = exp_Controller.set_kaisu;
         }
 
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合の場合　アイテムDBに、あえて空のアイテムデータを用意し、それを計算する 他、処理はオリジナルと一緒
@@ -622,7 +627,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             //セット数　updowncounterの値をもとに設定してる。現在は、セット数は選択できないようにしているので、1に固定
             //final_select_kaisu = exp_Controller.set_kaisu;
-            final_select_kaisu = 1;
+            final_select_kaisu = 1; //魔法はセット数を選ばない
 
             //パラメータを取得
             result_item = GameMgr.Final_result_itemID1;
@@ -1861,7 +1866,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_compo_select == 2) //トッピング調合の場合
         {
-            result_kosu = 1;
+            result_kosu = _set_kaisu;
         }
         /*else if (exp_Controller.roast_result_ok == true) //「焼く」の場合
         {
@@ -2485,40 +2490,50 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else if (totalkyori >= 0.1 && totalkyori < 0.5)
                 {
-                    kyori_hosei = 1.5f;
+                    kyori_hosei = 1.85f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 0.5 && totalkyori < 1.0)
                 {
-                    kyori_hosei = 1.35f;
+                    kyori_hosei = 1.65f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
-                else if (totalkyori >= 1.0 && totalkyori < 2.0)
+                else if (totalkyori >= 1.0 && totalkyori < 2.0)　//現在小数以下はでないので、実質ここが一番最強の距離になる。
                 {
-                    kyori_hosei = 1.2f;
+                    kyori_hosei = 1.5f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
-                else if (totalkyori >= 2.0 && totalkyori < 4.0)
+                else if (totalkyori >= 2.0 && totalkyori < 3.0)
+                {
+                    kyori_hosei = 1.25f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
+                }
+                else if (totalkyori >= 3.0 && totalkyori < 4.0)
                 {
                     kyori_hosei = 1.0f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 4.0 && totalkyori < 5.0)
                 {
-                    kyori_hosei = 0.75f;
+                    kyori_hosei = 0.95f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 5.0 && totalkyori < 6.0)
                 {
-                    kyori_hosei = 0.5f;
+                    kyori_hosei = 0.8f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 6.0 && totalkyori < 8.0)
                 {
-                    kyori_hosei = 0.25f;
+                    kyori_hosei = 0.7f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
-                else if (totalkyori >= 8.0)
+                else if (totalkyori >= 8.0 && totalkyori < 12.0)
+                {
+                    kyori_hosei = 0.5f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
+                }
+                else if (totalkyori >= 12.0)
                 {
                     kyori_hosei = 0.125f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
@@ -2634,16 +2649,16 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
                 //A. お菓子の食感ごとに、バフをかける処理
-                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _basecrispy, _basename, result_compID); //中の数字でどの食感パラムかの指定
-                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _basefluffy, _basename, result_compID);
-                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _basesmooth, _basename, result_compID);
-                _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _basehardness, _basename, result_compID);
-                _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _basejuice, _basename, result_compID);
-                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _basebeauty, _basename, result_compID);
-                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_Keisan(6, _basetea_flavor, _basename, result_compID);
-                _basepowdery += bufpower_keisan.Buf_OkashiParamUp_Keisan(50, _basepowdery, _basename, result_compID);
-                _baseoily += bufpower_keisan.Buf_OkashiParamUp_Keisan(51, _baseoily, _basename, result_compID);
-                _basewatery += bufpower_keisan.Buf_OkashiParamUp_Keisan(52, _basewatery, _basename, result_compID);
+                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _basecrispy, _basename, result_compID, _basemagic); //中の数字でどの食感パラムかの指定
+                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _basefluffy, _basename, result_compID, _basemagic);
+                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _basesmooth, _basename, result_compID, _basemagic);
+                _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _basehardness, _basename, result_compID, _basemagic);
+                _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _basejuice, _basename, result_compID, _basemagic);
+                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _basebeauty, _basename, result_compID, _basemagic);
+                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_Keisan(6, _basetea_flavor, _basename, result_compID, _basemagic);
+                _basepowdery += bufpower_keisan.Buf_OkashiParamUp_Keisan(50, _basepowdery, _basename, result_compID, _basemagic);
+                _baseoily += bufpower_keisan.Buf_OkashiParamUp_Keisan(51, _baseoily, _basename, result_compID, _basemagic);
+                _basewatery += bufpower_keisan.Buf_OkashiParamUp_Keisan(52, _basewatery, _basename, result_compID, _basemagic);
 
 
                 //B. 固有のお菓子のみにバフをかける処理
@@ -3675,6 +3690,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //生地合成、もしくはトッピング調合などの場合、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
         if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22)             
         {
+            delete_base_kosu = base_kosu * final_select_kaisu;
 
             //ベースアイテムを削除する。
             switch (base_toggle_type)
@@ -3689,7 +3705,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        pitemlist.deletePlayerItem(database.items[_id].itemName, base_kosu);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, delete_base_kosu);
                     }
                     break;
 
@@ -3703,8 +3719,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         deleteOriginalList.Add(_id, final_kette_kosu1);
                     }
                     else
-                    {                        
-                        deleteOriginalList.Add(_id, base_kosu);
+                    {
+                        deleteOriginalList.Add(_id, delete_base_kosu);
                     }
                     break;
 
@@ -3719,7 +3735,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        deleteExtremeList.Add(_id, base_kosu);
+                        deleteExtremeList.Add(_id, delete_base_kosu);
                     }
                     break;
 
@@ -3729,6 +3745,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //削除処理
+        delete_kosu1 = final_kette_kosu1 * final_select_kaisu;
+        delete_kosu2 = final_kette_kosu2 * final_select_kaisu;
+        delete_kosu3 = final_kette_kosu3 * final_select_kaisu;
 
         if (Comp_method_bunki == 2) //レシピで生成する場合の削除処理
         {
@@ -3739,11 +3758,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
         else if (Comp_method_bunki == 0 || Comp_method_bunki == 20) //オリジナルか魔法調合の新規作成時
-        {
-            final_kette_kosu1 = final_kette_kosu1 * final_select_kaisu;
-            final_kette_kosu2 = final_kette_kosu2 * final_select_kaisu;
-            final_kette_kosu3 = final_kette_kosu3 * final_select_kaisu;
-
+        {           
             DeleteMethod1();
         }
         else
@@ -3761,7 +3776,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             case 0: //プレイヤーアイテムリストから選択している。ただちに削除
 
                 _id = kettei_item1;
-                //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
 
                 //器具と一部の特殊なデータは、削除しない
                 if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
@@ -3770,7 +3784,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu1);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, delete_kosu1);
                 }
                 break;
 
@@ -3778,14 +3792,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                 _id = kettei_item1;
 
-                deleteOriginalList.Add(_id, final_kette_kosu1);
+                deleteOriginalList.Add(_id, delete_kosu1);
                 break;
 
             case 2: //お菓子パネルリストから選択している。
 
                 _id = kettei_item1;
 
-                deleteExtremeList.Add(_id, final_kette_kosu1);
+                deleteExtremeList.Add(_id, delete_kosu1);
                 break;
 
             default:
@@ -3800,7 +3814,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 case 0: //プレイヤーアイテムリストから選択している。
 
                     _id = kettei_item2;
-                    //Debug.Log("_id: " + _id + " final_kette_kosu2: " + final_kette_kosu2);
 
                     //器具と一部の特殊なデータは、削除しない
                     if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
@@ -3809,7 +3822,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu2);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, delete_kosu2);
                     }
                     break;
 
@@ -3817,14 +3830,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     _id = kettei_item2;
 
-                    deleteOriginalList.Add(_id, final_kette_kosu2);
+                    deleteOriginalList.Add(_id, delete_kosu2);
                     break;
 
                 case 2: //お菓子パネルリストから選択している。
 
                     _id = kettei_item2;
 
-                    deleteExtremeList.Add(_id, final_kette_kosu2);
+                    deleteExtremeList.Add(_id, delete_kosu2);
                     break;
 
                 default:
@@ -3840,7 +3853,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 case 0: //プレイヤーアイテムリストから選択している。
 
                     _id = kettei_item3;
-                    //Debug.Log("_id: " + _id + " final_kette_kosu3: " + final_kette_kosu3);
 
                     //器具と一部の特殊なデータは、削除しない
                     if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
@@ -3849,7 +3861,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu3);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, delete_kosu3);
                     }
                     break;
 
@@ -3857,14 +3869,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     _id = kettei_item3;
 
-                    deleteOriginalList.Add(_id, final_kette_kosu3);
+                    deleteOriginalList.Add(_id, delete_kosu3);
                     break;
 
                 case 2: //お菓子パネルリストから選択している。
 
                     _id = kettei_item3;
 
-                    deleteExtremeList.Add(_id, final_kette_kosu3);
+                    deleteExtremeList.Add(_id, delete_kosu3);
                     break;
 
                 default:

@@ -442,6 +442,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //そのコンテストの順位を更新する。1位と2位は、名前の横に王冠がでる。
             conteststartList_database.SetContestVictroyString(GameMgr.Contest_Name, GameMgr.contest_Rank_Count);       
 
+            //優勝した場合、そのコンテスト優勝時のアイテムデータを記録
+            if(GameMgr.contest_Rank_Count == 1)
+            {
+                conteststartList_database.SetVictoryItemData(GameMgr.Contest_Name, GameMgr.Contest_tempSubmitItemData);
+            }
+
             GameMgr.scenario_ON = true;
 
             sceneBGM.MuteBGM();
@@ -1197,6 +1203,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
 
                 GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+                GameMgr.Contest_tempSubmitItemData = pitemlist.player_extremepanel_itemlist[0];
 
                 StartCoroutine("WaitForJudge");
 

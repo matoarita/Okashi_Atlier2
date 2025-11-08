@@ -3069,6 +3069,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             _touchface_comment_lib.Add("にいちゃんの手元よく見る！　おかし作りってむずかし～！");
                             _touchface_comment_lib.Add("にいちゃん..。まじまじ。なんでもな～い！");
                             _touchface_comment_lib.Add("まほうでシュガーがキラキラ..。おいしそ～♪");
+                            _touchface_comment_lib.Add("にいちゃん！　今日は何するの～？");
                             break;
 
                         case 1:

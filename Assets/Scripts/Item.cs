@@ -103,6 +103,7 @@ public class Item
 
     //以下パラメータはExcel上には記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
+    public string user_customname; //ユーザーが決めたお菓子のオリジナル名前
 
     //
     public int Eat_kaisu;

@@ -387,6 +387,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //店売りかオリジナルか、アイテムID        
         _cardImage.check_counter = pitemlist.player_yosokuitemlist.Count - 1;
         //Debug.Log("_cardImage.check_counter: " + _cardImage.check_counter);
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 1300;
         _cardImage.SetInitYosoku();
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.7f, 0.7f, 1);
@@ -399,9 +400,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         {
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0); //1枚のときの表示
         }     
-        
-        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 1300;
-
+               
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
         _cardImage_obj[0].GetComponent<SetImage>().CardParamSpScoreOFF(); //SPスコア表示はオフにする。
 
@@ -421,10 +420,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
         _cardImage = _cardImage_obj2[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
-        //_cardImage_obj2[0].GetComponent<Canvas>().sortingOrder = 1000;
-        
+               
         //店売りかオリジナルか、アイテムID        
         _cardImage.check_counter = pitemlist.player_yosokuitemlist.Count - 1;
+        _cardImage_obj2[0].GetComponent<Canvas>().sortingOrder = 10000;
         _cardImage.SetInitYosoku();
        
         _cardImage_obj2[0].GetComponent<SetImage>().CardParamOFF_2();

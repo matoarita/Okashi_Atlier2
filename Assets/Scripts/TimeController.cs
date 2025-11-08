@@ -637,8 +637,16 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 { }
 
                 //寝るイベントチェックが入ったら、エリア解禁チェックイベントをチェックする。
-                GameMgr.NewAreaRelease_flag = false; //スターに応じて、エリア解禁をするチェック こっちはfalseでOK
-                Debug.Log("スターに応じて、エリア解禁をするチェック このタイミングでON");
+                if (PlayerStatus.player_ninki_param >= GameMgr.System_StampStarMax)
+                {
+                    PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param); //パティシエランクのチェックとセット　現在の状態に更新　念のため
+                    Debug.Log("すでにスターマックスなので、パネルのチェックをしない");
+                }
+                else
+                {
+                    GameMgr.NewAreaRelease_flag = false; //スターに応じて、エリア解禁をするチェック こっちはfalseでOK
+                    Debug.Log("スターに応じて、エリア解禁をするチェック このタイミングでON");
+                }
             }
         }
     }

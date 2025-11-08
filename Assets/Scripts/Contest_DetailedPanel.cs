@@ -15,6 +15,12 @@ public class Contest_DetailedPanel : MonoBehaviour {
     private TimeController time_controller;
 
     private GameObject contestPrizePanel;
+    private GameObject contestVictory_ItemDataPanel;
+
+    private GameObject VictoryItemCheckButton_obj;
+
+    private GameObject card_view_obj;
+    private CardView card_view;
 
     private Text contest_title;
     private Text contest_cost;
@@ -33,6 +39,9 @@ public class Contest_DetailedPanel : MonoBehaviour {
     private Color newColor;
 
     private string _contest_Grade;
+
+    private GameObject msg_window;
+    private GameObject yes_no_panel;
 
     // Use this for initialization
     void Start () {
@@ -56,9 +65,17 @@ public class Contest_DetailedPanel : MonoBehaviour {
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
         contestPrizeScore_dataBase = ContestPrizeScoreDataBase.Instance.GetComponent<ContestPrizeScoreDataBase>();
 
+        //カード表示用オブジェクトの取得
+        card_view_obj = GameObject.FindWithTag("CardView");
+        card_view = card_view_obj.GetComponent<CardView>();
+
         contestPrizePanel = this.transform.parent.Find("ContestPrizePanel").gameObject;
         contestPrizePanel.SetActive(false);
 
+        contestVictory_ItemDataPanel = this.transform.parent.Find("Contest_VictoryItemCheckPanel").gameObject;
+        contestVictory_ItemDataPanel.SetActive(false);
+
+        
         contest_detailed_datapanel = this.transform.Find("ContestDetailed_datapanel").gameObject;
         contest_title = contest_detailed_datapanel.transform.Find("background/ContestTitle").GetComponent<Text>();
         contest_cost = contest_detailed_datapanel.transform.Find("background/ContestCost").GetComponent<Text>();
@@ -69,6 +86,12 @@ public class Contest_DetailedPanel : MonoBehaviour {
         contest_condition = contest_detailed_datapanel.transform.Find("background/ContestCondition").GetComponent<Text>();
         contest_theme = contest_detailed_datapanel.transform.Find("background/ContestThemeComment").GetComponent<Text>();
         contest_icon = contest_detailed_datapanel.transform.Find("background/ContestImgIcon").GetComponent<Image>();
+
+        VictoryItemCheckButton_obj = contest_detailed_datapanel.transform.Find("background/VictoryItemCheckButton").gameObject;
+        VictoryItemCheckButton_obj.SetActive(false);
+
+        msg_window = canvas.transform.Find("MessageWindow").gameObject;
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
     }
 
     //
@@ -175,6 +198,14 @@ public class Contest_DetailedPanel : MonoBehaviour {
         }
 
         contest_theme.text = conteststartList_database.conteststart_lists[_list].Contest_themeComment;
+
+        //優勝してた場合は、過去優勝したおかしのボタンが表示される
+        if(conteststartList_database.conteststart_lists[_list].ContestVictory == 1 && 
+            conteststartList_database.conteststart_lists[_list].Contest_VictoryItemData.itemName != "" &&
+            conteststartList_database.conteststart_lists[_list].Contest_VictoryItemData.itemName != "Non")
+        {
+            VictoryItemCheckButton_obj.SetActive(true);
+        }
     }
 
     //各コンテストの賞品確認ページを開く
@@ -194,5 +225,25 @@ public class Contest_DetailedPanel : MonoBehaviour {
         contestPrizePanel.SetActive(true);
     }
 
-    
+    //過去優勝したときのおかしデータを見る
+    public void OnVictoryItemData_Button()
+    {
+        GameMgr.common_itemdatahyouji_list.Clear();
+
+        //Debug.Log("リスト選択番号: " + _list + " " + conteststartList_database.conteststart_lists[_list].ContestName);
+        GameMgr.common_itemdatahyouji_list.Add(conteststartList_database.conteststart_lists[_list].Contest_VictoryItemData);
+        card_view.ContestVictoryItemDataHyouji(0);
+
+        contestVictory_ItemDataPanel.SetActive(true);
+        msg_window.SetActive(false);
+        yes_no_panel.SetActive(false);
+    }
+
+    public void CloseVictory_ItemDataPanel() //閉じるをおす
+    {
+        card_view.DeleteCard_DrawView();
+        contestVictory_ItemDataPanel.SetActive(false);
+        msg_window.SetActive(true);
+        yes_no_panel.SetActive(true);
+    }
 }

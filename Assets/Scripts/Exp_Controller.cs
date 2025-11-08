@@ -1167,7 +1167,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 PlayerStatus.First_extreme_on = true;
             }
 
-            result_kosu = 1;
+            result_kosu = GameMgr.Result_Kosu;
 
             //右側パネルに、作ったやつを表示する。
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。

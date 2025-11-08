@@ -55,7 +55,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = false; //家賃システムの有無
+    public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
     public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
     
@@ -294,6 +294,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OrRoomBuy = new bool[ReleaseEvent_num]; //購入のフラグ
     public static int[] OrRoomCost = new int[ReleaseEvent_num]; //部屋の費用　これはセーブ不要
     public static string[] OrRoomNameHyouji = new string[ReleaseEvent_num]; //部屋の名前　セーブ不要
+    public static string[] OrRoomNameBufKouka = new string[ReleaseEvent_num]; //部屋の効果表記　セーブ不要
 
     //酒場クエストの更新フラグ
     public static bool BarQuest_NewReset; //falseなら更新し、trueに。寝るとリセットされる
@@ -665,6 +666,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
     public static int QuestClearButtonMessage_EvNum; //クエストクリア時のイベント番号
 
+    //コンテスト優勝したおかしを表示するときに使う一時リスト
+    public static List<Item> common_itemdatahyouji_list = new List<Item>(); //
+
     //現在のクエストが、クエスト全体の何番目か。デバッグでハートレベル更新の際、使う。
     public static int NextQuestID; //次クエストのgirlLikeCompoSetの_compIDを指定。GirlEatJudgeで使用する。
 
@@ -717,7 +721,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int low_score;
     public static int high_score;
     public static int high_score_2;
-    public static int sp_omoide_high_score;
+    public static int sp_omoide_high_score = 500; //お菓子の高得点で思い出イベントが発生する点数
 
     //水っぽさなどの基準値
     public static int Watery_Line;
@@ -1069,6 +1073,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_BGMON; //コンテスト出場日に、コンテストBGMに変える
     public static bool Contest_PanelON; //コンテスト出場日に、コンテストへ行くボタンを常時表示する。
     public static int Contest_MainStoryPlaceNum; //そのときにいく会場場所
+    public static Item Contest_tempSubmitItemData; //コンテスト提出時のアイテムデータ　一時保存
     public static int Compo_FinalCostTime; //バフも計算したあとの、最終の調合にかかる時間
     public static bool System_PoolEnd; //プールに入り終わったフラグ
     public static bool System_HotelEnd; //ホテルに入り終わったフラグ
@@ -1701,7 +1706,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scene_BarName = "";
         System_BarGetNinki = 0;
         NPC_mirabo_mizuabi = false;
-        yachinSPRoomON_Flag = true; //デフォルトの家だと最初からON
         Ending_counterenshutu_on = false;
         Fullmoon_judge_on = false;
         System_Fullmoon_month = 4;
@@ -1749,7 +1753,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         TitleMain_Live2DMode_ON = false;
         MagicUseTypeSelect = 0;
         MagicUseType_StatusText = "";
+        common_itemdatahyouji_list.Clear();
 
+        //最初の家賃額
+        System_Yachin_Cost_SPRoom = System_Yachin_Cost02;
+        yachinSPRoomON_Flag = true; //デフォルトの家だと最初からON
 
         //Tempのattriを初期化
         for (system_i = 0; system_i < temp_attriID1.Length; system_i++)
@@ -1821,6 +1829,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             OrRoomBuy[system_i] = false;
             OrRoomCost[system_i] = 0;
             OrRoomNameHyouji[system_i] = "";
+            OrRoomNameBufKouka[system_i] = "";
         }
         
 
@@ -2077,8 +2086,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mazui_score = 30;
         low_score = 60;
         high_score = 100;
-        high_score_2 = 150;
-        sp_omoide_high_score = 150; //お菓子の高得点で思い出イベントが発生する点数
+        high_score_2 = 150;       
 
         //水っぽさなどのマイナス効果の基準
         Watery_Line = 50;
@@ -2205,13 +2213,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomCost[0] = 0;
         OrRoomCost[1] = 20000;
         OrRoomCost[2] = 50000;
-        OrRoomCost[3] = 50000;
-        OrRoomCost[4] = 70000;
+        OrRoomCost[3] = 60000;
+        OrRoomCost[4] = 100000;
 
-        OrRoomCost[5] = 100000;
+        OrRoomCost[5] = 200000;
         OrRoomCost[6] = 35000;
-        OrRoomCost[7] = 60000;
-        OrRoomCost[8] = 80000;
+        OrRoomCost[7] = 120000;
+        OrRoomCost[8] = 180000;
         OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";
@@ -2225,6 +2233,19 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomNameHyouji[7] = "ねこ";
         OrRoomNameHyouji[8] = "ゲージュツ";
         OrRoomNameHyouji[9] = "最初のへや";
+
+        OrRoomNameBufKouka[0] = "";
+        OrRoomNameBufKouka[1] = "秘密のお庭つき　特別な採取地へいける";
+        OrRoomNameBufKouka[2] = "ティーとコーヒーの「香り」が1.3倍アップする。";
+        OrRoomNameBufKouka[3] = "魔法のお菓子の食感が少し上がる。";
+        OrRoomNameBufKouka[4] = "毎朝「リッチミルク」が採れる。";
+
+        OrRoomNameBufKouka[5] = "消費MPが半減（コンテストも効果あり）";
+        OrRoomNameBufKouka[6] = "採取時、個数が＋１";
+        OrRoomNameBufKouka[7] = "ねこがよく家に来るようになる。";
+        OrRoomNameBufKouka[8] = "演出魔法の効果が1.3倍アップする。";
+        OrRoomNameBufKouka[9] = "";
+
     }
 
 
@@ -2743,6 +2764,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //解放なしで読むイベントのみ（下の思い出リストには入ってないよ～という意味）
         Highscore_SPEventlist.Add("figure_bear_choco", 253); //くまのおにいさんかいもうと　食べると、ふたりのおうち制作のヒントレシピ解放
         Highscore_SPEventlist.Add("figure_bear_whitechoco", 253);
+        Highscore_SPEventlist.Add("princess_tota", 255);
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
@@ -2837,6 +2859,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiAtFirst_eventlist.Add("lumi_banana", 211);
         OkashiAtFirst_eventlist.Add("soda_galaxy", 212);
         OkashiAtFirst_eventlist.Add("potate_jewerybox", 213);
+        OkashiAtFirst_eventlist.Add("star_cookie", 214);
 
         //サブタイプでの反応
         OkashiAtFirst_eventlist.Add("GlowFruits", 230); //サブタイプやタイプBにも対応　ただし、固有を優先したい場合は、↑サブよりも上に置く

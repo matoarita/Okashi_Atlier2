@@ -66,6 +66,8 @@ public class SetImage : MonoBehaviour
 
     private HikariMakeStartPanel hikarimake_startpanel;
 
+    private SlotHyoujiButton slot_hyouji_button;
+
     public int itemID; //CardViewなどから呼び出すこともあり。
     private Image item_Icon;
     private Text item_Name;
@@ -180,6 +182,7 @@ public class SetImage : MonoBehaviour
 
     private int i, j, count;
     private int _mid;
+    private int _itemid;
 
     private int _quality_score;
     private int _rich_score;
@@ -414,8 +417,11 @@ public class SetImage : MonoBehaviour
         Slot_SubWindow = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot").gameObject;
         TasteSubWindow = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow").gameObject;
         SlotChangeButton = this.transform.Find("Card_Param_window/Card_Parameter/SlotHyoujiButton").gameObject;
+        slot_hyouji_button = SlotChangeButton.GetComponent<SlotHyoujiButton>();
         //TasteSubWindow.SetActive(false);
-        
+
+
+
 
         _slot = new string[database.items[0].toppingtype.Length];
         _koyuslot = new string[database.items[0].koyu_toppingtype.Length];
@@ -593,6 +599,13 @@ public class SetImage : MonoBehaviour
     public void SetInitContestClear()
     {
         Card_drawContestClear();
+        CardParamOFF_2();
+    }
+
+    //２で優勝したおかしを表示の場合など　一時アイテムリストにカードデータを入れて汎用的に表示
+    public void SetInitCommonItemData()
+    {
+        Card_drawCommonHyouji();
         CardParamOFF_2();
     }
 
@@ -1339,6 +1352,124 @@ public class SetImage : MonoBehaviour
         DrawCardParam();
     }
 
+    //カード描画用のパラメータ　汎用　ここに入れたリストのアイテムデータをカード表示する
+    void Card_drawCommonHyouji()
+    {
+        //アイテムID
+        itemID = GameMgr.common_itemdatahyouji_list[check_counter].itemID;
+
+        //アイテムタイプを代入//
+        item_type = GameMgr.common_itemdatahyouji_list[check_counter].itemType.ToString();
+
+        //サブカテゴリーの代入
+        item_type_sub = GameMgr.common_itemdatahyouji_list[check_counter].itemType_sub.ToString();
+        item_type_subB = GameMgr.common_itemdatahyouji_list[check_counter].itemType_subB.ToString();
+        item_type_sub_category = GameMgr.common_itemdatahyouji_list[check_counter].itemType_sub_category.ToString();
+
+        /* アイテム解説の表示 */
+        item_RankDesc.text = GameMgr.common_itemdatahyouji_list[check_counter].itemDesc;
+
+        // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
+        _itemid = database.SearchItemID(itemID);
+        texture2d = database.items[_itemid].itemIcon_sprite; //ロードすると画像データは読み込みされないので、直接itemsの画像をいれる
+
+        //カードのスロット部分の名
+        item_SlotName = GameMgr.common_itemdatahyouji_list[check_counter].item_SlotName;
+
+        //カードのアイテム名
+        _name = GameMgr.common_itemdatahyouji_list[check_counter].itemNameHyouji;
+
+        //アイテムの品質値
+        _quality = GameMgr.common_itemdatahyouji_list[check_counter].Quality.ToString();
+
+        //レアリティ
+        _rare = GameMgr.common_itemdatahyouji_list[check_counter].Rare;
+
+        //シークレット表示フラグ
+        _secretFlag = GameMgr.common_itemdatahyouji_list[check_counter].SecretFlag;
+
+        //甘さなどのパラメータを代入
+        _quality_score = GameMgr.common_itemdatahyouji_list[check_counter].Quality;
+        _rich_score = GameMgr.common_itemdatahyouji_list[check_counter].Rich;
+        _sweat_score = GameMgr.common_itemdatahyouji_list[check_counter].Sweat;
+        _bitter_score = GameMgr.common_itemdatahyouji_list[check_counter].Bitter;
+        _sour_score = GameMgr.common_itemdatahyouji_list[check_counter].Sour;
+
+        _crispy_score = GameMgr.common_itemdatahyouji_list[check_counter].Crispy;
+        _fluffy_score = GameMgr.common_itemdatahyouji_list[check_counter].Fluffy;
+        _smooth_score = GameMgr.common_itemdatahyouji_list[check_counter].Smooth;
+        _hardness_score = GameMgr.common_itemdatahyouji_list[check_counter].Hardness;
+
+        _juice_score = GameMgr.common_itemdatahyouji_list[check_counter].Juice;
+
+        _beauty_score = GameMgr.common_itemdatahyouji_list[check_counter].Beauty;
+        _tea_flavor_score = GameMgr.common_itemdatahyouji_list[check_counter].Tea_Flavor;
+        _spwind_score = GameMgr.common_itemdatahyouji_list[check_counter].SP_wind;
+        _sp_score2 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score2;
+        _sp_score3 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score3;
+        _sp_score4 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score4;
+        _sp_score5 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score5;
+        _sp_score6 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score6;
+        _sp_score7 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score7;
+        _sp_score8 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score8;
+        _sp_score9 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score9;
+        _sp_score10 = GameMgr.common_itemdatahyouji_list[check_counter].SP_Score10;
+
+        _attri1 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute1;
+        _attri2 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute2;
+        _attri3 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute3;
+        _attri4 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute4;
+        _attri5 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute5;
+        _attri6 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute6;
+        _attri7 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute7;
+        _attri8 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute8;
+        _attri9 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute9;
+        _attri10 = GameMgr.common_itemdatahyouji_list[check_counter].Attribute10;
+
+        _powdery_score = GameMgr.common_itemdatahyouji_list[check_counter].Powdery;
+        _oily_score = GameMgr.common_itemdatahyouji_list[check_counter].Oily;
+        _watery_score = GameMgr.common_itemdatahyouji_list[check_counter].Watery;
+
+        //前回の味読み込み
+        _lastrich_score = GameMgr.common_itemdatahyouji_list[check_counter].last_rich_score;
+        _lastsweat_score = GameMgr.common_itemdatahyouji_list[check_counter].last_sweat_score;
+        _lastbitter_score = GameMgr.common_itemdatahyouji_list[check_counter].last_bitter_score;
+        _lastsour_score = GameMgr.common_itemdatahyouji_list[check_counter].last_sour_score;
+
+        _lastcrispy_score = GameMgr.common_itemdatahyouji_list[check_counter].last_crispy_score;
+        _lastfluffy_score = GameMgr.common_itemdatahyouji_list[check_counter].last_fluffy_score;
+        _lastsmooth_score = GameMgr.common_itemdatahyouji_list[check_counter].last_smooth_score;
+        _lasthardness_score = GameMgr.common_itemdatahyouji_list[check_counter].last_hardness_score;
+        _lastjuice_score = GameMgr.common_itemdatahyouji_list[check_counter].last_juice_score;
+
+        _eat_kaisu = GameMgr.common_itemdatahyouji_list[check_counter].Eat_kaisu;
+        _highscore_flag = GameMgr.common_itemdatahyouji_list[check_counter].HighScore_flag;
+        _lasttotal_score = GameMgr.common_itemdatahyouji_list[check_counter].last_total_score;
+        _lasthint_text = GameMgr.common_itemdatahyouji_list[check_counter].last_hinttext;
+
+        for (i = 0; i < _slot.Length; i++)
+        {
+            _slot[i] = GameMgr.common_itemdatahyouji_list[check_counter].toppingtype[i].ToString();
+        }
+
+        for (i = 0; i < _koyuslot.Length; i++)
+        {
+            _koyuslot[i] = GameMgr.common_itemdatahyouji_list[check_counter].koyu_toppingtype[i].ToString();
+        }
+
+        for (i = 0; i < _magicslot.Length; i++)
+        {
+            _magicslot[i] = GameMgr.common_itemdatahyouji_list[check_counter].item_MagicSlot[i].ToString();
+            _msvalue[i] = GameMgr.common_itemdatahyouji_list[check_counter].item_MagicSlotValue[i];
+        }
+
+        //カード　スロット名 現在は、特に表示はしていない
+        Slotname_Hyouji();
+
+        //実際にカードの表示を更新する部分
+        DrawCardParam();
+    }
+
     void DrawCardParam()
     {
         CardTasteView_flag1 = false;
@@ -1778,6 +1909,9 @@ public class SetImage : MonoBehaviour
 
         //味ビュー１が表示されてるかどうかをフラグにも入れる
         CheckTasteViewStatus();
+
+        //スロット切り替えボタンの描画順を更新
+        SlotButtonOrderKoushin();
     }
 
     void DrawTasteWindow1()
@@ -2236,6 +2370,11 @@ public class SetImage : MonoBehaviour
             TasteSubWindow.SetActive(true);
             Slot_SubWindow.SetActive(false);
         }
+    }
+
+    public void SlotButtonOrderKoushin() //スロット切り替えボタンの描画順を更新
+    {
+        slot_hyouji_button.Koushin();
     }
 
     public void SlotChangeButtonON()

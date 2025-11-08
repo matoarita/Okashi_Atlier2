@@ -542,4 +542,10 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         SetInit_CustomCatData("メリー", 1, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("シヴァ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);
     }
+
+    //ねこリストを全削除
+    public void CatDataAllDelete()
+    {
+        catdata_list.Clear();
+    }
 }

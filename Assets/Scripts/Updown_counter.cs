@@ -43,6 +43,7 @@ public class Updown_counter : MonoBehaviour {
     private int listkosu_count;
 
     private int i, count, _zaiko_max;
+    private int _baseitem_max;
     private int _item_max1;
     private int _item_max2;
     private int _item_max3;
@@ -78,6 +79,7 @@ public class Updown_counter : MonoBehaviour {
     private int itemdb_id2;
     private int itemdb_id3;
 
+    private int player_baseitemkosu;
     private int player_itemkosu1;
     private int player_itemkosu2;
     private int player_itemkosu3;
@@ -174,6 +176,8 @@ public class Updown_counter : MonoBehaviour {
             recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
             recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
+            compound_check = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Compound_Check").GetComponent<Compound_Check>();
+
             _p_or_recipi_flag = 0;
             //レシピ調合とそれ以外で、YesNoの取得オブジェクトが違う
             if (recipilistController_obj.activeSelf == true)
@@ -191,11 +195,13 @@ public class Updown_counter : MonoBehaviour {
 
             if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
             {
-                updown_counter_setpanel.SetActive(true);
+                
                 this.transform.Find("counter_img1").gameObject.SetActive(false);
 
                 if (GameMgr.compound_select == 21)
                 {
+                    updown_counter_setpanel.SetActive(true);
+
                     switch (GameMgr.Comp_kettei_bunki)
                     {
                         case 21: //魔法のレベル選択時のポス
@@ -361,7 +367,10 @@ public class Updown_counter : MonoBehaviour {
 
             case 2: //トッピング調合の場合の、カウンターの位置
 
-                this.transform.localPosition = new Vector3(50, -87, 0);
+                if (this.gameObject.name != "updown_counter_extremeset")
+                {
+                    this.transform.localPosition = new Vector3(50, -87, 0);
+                }
                 break;
 
             case 3: //オリジナル調合の場合の、カウンターの位置
@@ -461,10 +470,37 @@ public class Updown_counter : MonoBehaviour {
             {
                 if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7 || GameMgr.compound_select == 9) //オリジナル調合のとき
+                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || 
+                        GameMgr.compound_select == 7 || GameMgr.compound_select == 9) //オリジナル調合のとき 2=トッピング 7=ヒカリ
                     {
                         //カウントをとりあえず１足す
                         ++GameMgr.updown_kosu;
+
+                        if (GameMgr.compound_select == 2) //トッピング
+                        {
+                            switch (GameMgr.Final_toggle_baseType)
+                            {
+                                case 0:
+
+                                    _baseitem_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_baseitemID].itemName];
+                                    break;
+
+                                case 1:
+
+                                    _baseitem_max = pitemlist.player_originalitemlist[GameMgr.Final_list_baseitemID].ItemKosu;
+                                    break;
+
+                                case 2:
+
+                                    _baseitem_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_baseitemID].ItemKosu;
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+                            player_baseitemkosu = GameMgr.Final_kettei_basekosu * GameMgr.updown_kosu;
+                        }
 
                         switch (GameMgr.Final_toggle_Type1)
                         {
@@ -486,26 +522,32 @@ public class Updown_counter : MonoBehaviour {
                             default:
                                 break;
                         }
+                        player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
 
-                        switch (GameMgr.Final_toggle_Type2)
+                        if (GameMgr.Final_list_itemID2 != 9999) //
                         {
-                            case 0:
+                            switch (GameMgr.Final_toggle_Type2)
+                            {
+                                case 0:
 
-                                _item_max2 = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName];
-                                break;
+                                    _item_max2 = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName];
+                                    break;
 
-                            case 1:
+                                case 1:
 
-                                _item_max2 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].ItemKosu;
-                                break;
+                                    _item_max2 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].ItemKosu;
+                                    break;
 
-                            case 2:
+                                case 2:
 
-                                _item_max2 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].ItemKosu;
-                                break;
+                                    _item_max2 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].ItemKosu;
+                                    break;
 
-                            default:
-                                break;
+                                default:
+                                    break;
+                            }
+
+                            player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
                         }
 
                         if (GameMgr.Final_list_itemID3 != 9999) //３個目も選んでいれば、下の処理を起動
@@ -534,8 +576,8 @@ public class Updown_counter : MonoBehaviour {
                             player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
                         }
 
-                        player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
-                        player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
+                        
+                        
 
                         /*Debug.Log("アイテム1 所持数: " + _item_max1 + " プレイヤーカウンタ個数1 : " + player_itemkosu1);
                         Debug.Log("アイテム2 所持数: " + _item_max2 + " プレイヤーカウンタ個数2 : " + player_itemkosu2);
@@ -544,31 +586,97 @@ public class Updown_counter : MonoBehaviour {
 
 
                         //判定。もしどれかのアイテムの一つでも、個数がmaxより超えたら、そこがセット数の上限
-                        if (GameMgr.Final_list_itemID3 == 9999) //３個目も選んでいれば、下の処理を起動
+                        if (GameMgr.compound_select != 2)
                         {
-                            if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
+                            if (GameMgr.Final_list_itemID3 == 9999) //３個目も選んでいれば、下の処理を起動
                             {
-                                //Debug.Log("どれか一つのアイテムが、所持数を超えた");
-                                GameMgr.updown_kosu--;
+                                if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
+                                {
+                                    //Debug.Log("どれか一つのアイテムが、所持数を超えた");
+                                    GameMgr.updown_kosu--;
+
+                                    player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                                    player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
+                                }
+                                else
+                                {
+                                }
                             }
                             else
                             {
+                                if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2 || player_itemkosu3 > _item_max3)
+                                {
+                                    //Debug.Log("どれか一つのアイテムが、所持数を超えた");
+                                    GameMgr.updown_kosu--;
+
+                                    player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                                    player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
+                                    player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
+                                }
+                                else
+                                {
+                                }
                             }
                         }
                         else
                         {
-                            if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2 || player_itemkosu3 > _item_max3)
+                            //トッピング調合の場合
+                            if (GameMgr.Final_list_itemID2 == 9999) //３個目も選んでいれば、下の処理を起動
                             {
-                                //Debug.Log("どれか一つのアイテムが、所持数を超えた");
-                                GameMgr.updown_kosu--;
+                                if (player_baseitemkosu > _baseitem_max || player_itemkosu1 > _item_max1)
+                                {
+                                    //Debug.Log("どれか一つのアイテムが、所持数を超えた");
+                                    GameMgr.updown_kosu--;
+
+                                    player_baseitemkosu = GameMgr.Final_kettei_basekosu * GameMgr.updown_kosu;
+                                    player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                                }
+                                else
+                                {
+                                }
                             }
                             else
                             {
+                                if (GameMgr.Final_list_itemID3 == 9999) //４個目も選んでいれば、下の処理を起動
+                                {
+                                    if (player_baseitemkosu > _baseitem_max || player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
+                                    {
+                                        //Debug.Log("どれか一つのアイテムが、所持数を超えた");
+                                        GameMgr.updown_kosu--;
+
+                                        player_baseitemkosu = GameMgr.Final_kettei_basekosu * GameMgr.updown_kosu;
+                                        player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                                        player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
+                                else
+                                {
+                                    if (player_baseitemkosu > _baseitem_max || player_itemkosu1 > _item_max1 || 
+                                        player_itemkosu2 > _item_max2 || player_itemkosu3 > _item_max3)
+                                    {
+                                        //Debug.Log("どれか一つのアイテムが、所持数を超えた");
+                                        GameMgr.updown_kosu--;
+
+                                        player_baseitemkosu = GameMgr.Final_kettei_basekosu * GameMgr.updown_kosu;
+                                        player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                                        player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
+                                        player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
                             }
                         }
 
-                        //表示を更新は下にある。
-
+                        if (GameMgr.compound_select == 3)
+                        {
+                            //表示を更新
+                            compound_check.FinalCheck_KosuKeisan(player_itemkosu1, player_itemkosu2, player_itemkosu3);
+                        }
                     }
 
                     if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10)
@@ -1278,12 +1386,22 @@ public class Updown_counter : MonoBehaviour {
 
                     if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                     {
+                        if (GameMgr.compound_select == 2)
+                        {
+                            player_baseitemkosu = GameMgr.Final_kettei_basekosu * GameMgr.updown_kosu;
+                        }
                         player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
                         player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
 
                         if (GameMgr.Final_list_itemID3 != 9999) //３個目も選んでいれば、下の処理を起動
                         {
                             player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
+                        }
+
+                        if (GameMgr.compound_select == 3) //オリジナル調合のみファイナルチェック画面を更新
+                        {
+                            //表示を更新
+                            compound_check.FinalCheck_KosuKeisan(player_itemkosu1, player_itemkosu2, player_itemkosu3);
                         }
                     }
                 }

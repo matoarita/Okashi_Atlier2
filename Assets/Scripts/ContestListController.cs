@@ -510,26 +510,37 @@ public class ContestListController : MonoBehaviour
         //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
         if (GameMgr.Contest_NewReleaseList[40])
         {
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200)
+            //ただし、よそでエデンのレシピを獲得した場合、コンテストには出場できなくなる。
+            if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1)
+            { }
+            else
             {
-                if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
-                { }
-                else
+                if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200)
                 {
-                    DrawContest();
+                    if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
+                    { }
+                    else
+                    {
+                        DrawContest();
+                    }
                 }
             }
         }
 
         if (GameMgr.Contest_NewReleaseList[41])
         {
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300)
+            if (pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+            { }
+            else
             {
-                if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1)
-                { }
-                else
+                if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300)
                 {
-                    DrawContest();
+                    if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1)
+                    { }
+                    else
+                    {
+                        DrawContest();
+                    }
                 }
             }
         }
@@ -571,8 +582,8 @@ public class ContestListController : MonoBehaviour
                 //ラスククリアででる。
                 _listID = conteststartList_database.SearchContestString("Or_Contest_050");
                 _listID2 = conteststartList_database.SearchContestString("Or_Contest_100");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2 ||
-                    conteststartList_database.conteststart_lists[_listID2].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID2].ContestVictory == 2)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 ||
+                    conteststartList_database.conteststart_lists[_listID2].ContestVictory == 1)
                 {
                     if (!GameMgr.Contest_NewReleaseList[1])
                     {

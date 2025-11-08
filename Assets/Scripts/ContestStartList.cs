@@ -36,6 +36,9 @@ public class ContestStartList
 
     public Sprite ContestIcon_sprite;
 
+    //Excelには記載なし
+    public Item Contest_VictoryItemData; //優勝したときのお菓子のデータ
+
     //ここでリスト化時に渡す引数をあてがいます   
     public ContestStartList(int id, int placenum, string fileName, string _name, string _name_Hyouji, string _enshutu_name, string _theme, 
         int _pmonth, int _pday, int _endmonth, int _endday, int _cost, int _flag, int _Prank,

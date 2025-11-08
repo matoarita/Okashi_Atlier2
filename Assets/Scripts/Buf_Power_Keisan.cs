@@ -22,7 +22,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _magicup_f;
     private int original_shokukan_p;
     private int taste_score;
-    private int _magic_attri;
+    private int magic_attri;
     private int _magic_rate;
     private int _magicLearnLv;
     private int _magic_kakuritsu;
@@ -995,7 +995,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
     //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
     //
-    public int Buf_OkashiParamUp_Keisan(int _status, int _origin_param, string _result_item, int _compID)
+    public int Buf_OkashiParamUp_Keisan(int _status, int _origin_param, string _result_item, int _compID, int _magic_attri)
     {
         InitSetup();
 
@@ -1005,6 +1005,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
         _itemType_subB = database.items[_id].itemType_subB.ToString();
+        magic_attri = _magic_attri;
         _compoID = _compID;
 
         original_shokukan_p = _origin_param;
@@ -1064,6 +1065,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     YonetsuStoneBuf();
                 }
 
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
 
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
@@ -1133,6 +1136,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     YonetsuStoneBuf();
                 }
 
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
+
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
 
@@ -1163,6 +1169,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         ChocolateBuf();
                         break;
                 }
+
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
 
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
@@ -1198,6 +1207,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
+
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
 
@@ -1224,6 +1236,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         JuiceMixerBuf();
                         break;
                 }
+
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
 
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
@@ -1274,6 +1289,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
+
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
 
@@ -1307,9 +1325,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //魔法おかしにかかるバフ
+                MagicOkashiBuf();
+
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
-
+               
                 AllShokukanBuf();
 
                 //ステータスによる食感バフ
@@ -1651,6 +1672,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
         }
 
+    }
+
+    void MagicOkashiBuf()
+    {
+        if(magic_attri >= 1)
+        {
+            //家によるバフ
+            if (GameMgr.OrCompound_RoomNum == 3)
+            {
+                _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
+            }           
+        }
     }
 
     void MagicGlowBuf_method()

@@ -41,6 +41,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
     private bool cat_comecheck;
     private int cat_maxcount;
+    private int cat_come_day;
 
     private int _Limit_day;
     private int _Nokori_day;
@@ -2242,7 +2243,16 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     //HLV12~  
                     if (GameMgr.System_CatGetMat_Flag)
                     {
-                        if (PlayerStatus.player_cullent_day % 5 == 0) //5日がつく日だけ、抽選する
+                        if(GameMgr.OrCompound_RoomNum == 7) //ねこの家にいると、猫がよくくるようになる。
+                        {
+                            cat_come_day = 5;
+                        }
+                        else
+                        {
+                            cat_come_day = 15;
+                        }
+
+                        if (PlayerStatus.player_cullent_day % cat_come_day == 0) //15日or30日だけ、抽選する
                         {
                             if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 15) //12時から15時の間に、サイコロふる
                             {
