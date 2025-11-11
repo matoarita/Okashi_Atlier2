@@ -1210,7 +1210,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
+                        girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低10は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
                     }
                     GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
 
@@ -1274,11 +1274,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score9[i] = 20; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
+                        girl1_status.girl1_SP_Score9[i] = 30; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
                     }
                     GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： キラキラ感 " + 20);
+                    Debug.Log("判定値追加： キラキラ感 " + 30);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1)
@@ -2171,6 +2171,19 @@ public class Contest_Judge : MonoBehaviour {
 
             case "Or_Contest_630":　//フェド・フルラージュ
 
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Chocolate"
+                        || item_subType == "Cake" || item_subType == "CheeseCake" || item_subType == "Jelly")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
                     //じいさんの見た目判定を0に。
@@ -2178,11 +2191,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score7[i] = 5; //メルヘンの値が最低3は必要
+                        girl1_status.girl1_SP_Score7[i] = 20; //メルヘンの値が最低3は必要
                     }
                     GameMgr.contest_SPJudgeCommentNum = 7; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： メルヘン " + 5);
+                    Debug.Log("判定値追加： メルヘン " + 20);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正

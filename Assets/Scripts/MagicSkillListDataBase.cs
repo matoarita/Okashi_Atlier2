@@ -211,7 +211,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         }
     }
 
-    //スキルのカテゴリー番号をいれると、そのカテゴリーのスキルの現在の習得数を返す　カテゴリービュー表示用に使う
+    //スキルのカテゴリー番号をいれると、そのカテゴリーのスキルの現在の解放数を返す（習得はしてない可能性あり）　カテゴリービュー表示用に使う
     public int skillType_SearchAllLearnCount(int _cate)
     {
         i = 0;
@@ -220,9 +220,35 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         {
             if (magicskill_lists[i].skillCategory == _cate)
             {
-                if(magicskill_lists[i].skillFlag >= 1)
+                if (magicskill_lists[i].skillFlag != 9999) //9999はゲーム中で使用しないメッセージなので外す
                 {
-                    count++;
+                    if (magicskill_lists[i].skillFlag >= 1)
+                    {
+                        count++;
+                    }
+                }
+            }
+            i++;
+        }
+
+        return count;
+    }
+
+    //スキルのカテゴリー番号をいれると、そのカテゴリーのスキルの現在の習得数を返す　カテゴリービュー表示用に使う
+    public int skillType_SearchAllGainCount(int _cate)
+    {
+        i = 0;
+        count = 0;
+        while (i < magicskill_lists.Count)
+        {
+            if (magicskill_lists[i].skillCategory == _cate)
+            {
+                if (magicskill_lists[i].skillFlag != 9999) //9999はゲーム中で使用しないメッセージなので外す
+                {
+                    if (magicskill_lists[i].skillLv >= 1)
+                    {
+                        count++;
+                    }
                 }
             }
             i++;

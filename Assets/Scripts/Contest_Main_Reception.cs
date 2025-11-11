@@ -634,7 +634,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
                     yes_no_panel.SetActive(true);
                     text_area.SetActive(true);
-                    time_panel.SetActive(true);
+                    time_panel.SetActive(false);
                     money_panel.SetActive(true);
                     ninki_panel.SetActive(true);
                     GameMgr.Scene_Status = 100;
@@ -1319,6 +1319,10 @@ public class Contest_Main_Reception : MonoBehaviour
             contestList_ScrollView_obj.SetActive(true);
             backshopfirst_obj.SetActive(true);
             mainlist_controller_obj.SetActive(false);
+
+            time_panel.SetActive(false);
+            //money_panel.SetActive(false);
+            //ninki_panel.SetActive(false);
 
             _text.text = GameMgr.ContestRep_text1;
 

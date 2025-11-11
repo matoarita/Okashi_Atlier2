@@ -4831,6 +4831,12 @@ public class Utage_scenario : MonoBehaviour
             moneyStatus_Controller.UseMoney(GameMgr.OrRoomCost[_id]);
             GameMgr.OrRoomBuy[_id] = true;
         }
+
+        if(_id == 1) //花と森の部屋は、秘密の花園解放
+        {
+            //次回以降、秘密の花園にいけるようになる。
+            matplace_database.matPlaceKaikin("Secret_Garden");
+        }
     }
 
     void Live2DCostume_UtageChange()

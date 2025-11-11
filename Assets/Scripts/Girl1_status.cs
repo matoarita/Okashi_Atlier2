@@ -1903,9 +1903,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 hukidashiitem = Instantiate(hukidashiPrefab, chara_hukidashiPos.transform);
 
+                if (GameMgr.Bend_FadeAnimStart)
+                {
+                    //半透明モードのときは、音を鳴らさない。
+                }
+                else
+                {
+                    //音を鳴らす
+                    sc.PlaySe(7);
+                }
+
                 break;
 
             default:
+
+                //音を鳴らす
+                sc.PlaySe(7);
 
                 hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
                 break;
@@ -1914,8 +1927,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashion = true; //今吹き出しがゲームに表示されている状態
         _text = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
 
-        //音を鳴らす
-        sc.PlaySe(7);
+        
         
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
@@ -1959,10 +1971,29 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             Destroy(hukidashiitem);
             hukidashion = false; //吹き出しが削除されて、見えない状態
 
-            //音を鳴らす
-            sc.PlaySe(8);
-        }     
+            switch (GameMgr.Scene_Category_Num)
+            {
+                case 1000: //タイトルシーンは、モデルでなく、キャラ吹き出し用OBJの座標を選ぶ
 
+                    if (GameMgr.Bend_FadeAnimStart)
+                    {
+                        //半透明モードのときは、音を鳴らさない。
+                    }
+                    else
+                    {
+                        //音を鳴らす
+                        sc.PlaySe(8);
+                    }
+
+                    break;
+
+                default:
+
+                    //音を鳴らす
+                    sc.PlaySe(8);
+                    break;
+            }          
+        }     
     }
 
     public void DeleteHukidashiOnly() //こっちは消すだけ。音無し。

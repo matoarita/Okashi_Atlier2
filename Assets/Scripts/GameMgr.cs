@@ -1097,6 +1097,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float[] Contest_archivement_percent = new float[10]; //各コンテストの達成率
     public static bool puraton_houseFirst_flag; //家かりるイベント初めての場合説明がある。
     public static bool TitleMain_Live2DMode_ON; //タイトル画面でLive2D表示がONになってるか否か。
+    public static Sprite System_newrecipi_sprite; //新しいレシピ表示用の一時スプライト画像
+    public static string System_newrecipi_name; //新しいレシピ表示用のアイテム名
 
 
 
@@ -2073,7 +2075,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
+                        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "");
         contest_okashiID = 0;
         contest_lasthint_text = ""; //
         contest_shokukan_param = 0; //
@@ -2217,9 +2219,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomCost[4] = 100000;
 
         OrRoomCost[5] = 200000;
-        OrRoomCost[6] = 35000;
-        OrRoomCost[7] = 120000;
-        OrRoomCost[8] = 180000;
+        OrRoomCost[6] = 70000;
+        OrRoomCost[7] = 150000;
+        OrRoomCost[8] = 300000;
         OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";
@@ -2241,7 +2243,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomNameBufKouka[4] = "毎朝「リッチミルク」が採れる。";
 
         OrRoomNameBufKouka[5] = "消費MPが半減（コンテストも効果あり）";
-        OrRoomNameBufKouka[6] = "採取時、個数が＋１";
+        OrRoomNameBufKouka[6] = "採取時、通常アイテムの個数が＋１";
         OrRoomNameBufKouka[7] = "ねこがよく家に来るようになる。";
         OrRoomNameBufKouka[8] = "演出魔法の効果が1.3倍アップする。";
         OrRoomNameBufKouka[9] = "";

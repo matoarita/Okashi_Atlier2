@@ -4952,6 +4952,13 @@ public class Compound_Main : MonoBehaviour
             random = Random.Range(1, 3);
             pitemlist.addPlayerItemString("water_soda", random);
         }
+
+        //オーシャン部屋だと毎朝リッチミルクが手に入る
+        if (GameMgr.OrCompound_RoomNum == 4)
+        {
+            random = Random.Range(1, 2);
+            pitemlist.addPlayerItemString("rich_milk", random);
+        }
     }
 
     void RandomFoodLottery()

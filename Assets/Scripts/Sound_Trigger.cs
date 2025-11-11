@@ -289,7 +289,6 @@ public class Sound_Trigger : MonoBehaviour {
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
-
                 //クリックしたときに鳴る音
                 SE_point_click(34);
                 break;
@@ -299,6 +298,14 @@ public class Sound_Trigger : MonoBehaviour {
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
+                //クリックしたときに鳴る音
+                SE_point_click(36);
+                break;
+
+            case "ContestKakuninButton": //コンテスト確認パネル開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
 
                 //クリックしたときに鳴る音
                 SE_point_click(36);

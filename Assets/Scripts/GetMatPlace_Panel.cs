@@ -2761,6 +2761,43 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                 }
                 break;
+
+            case "Secret_Garden":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(108);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                //次回以降、秘密の花園にいけるようになる。
+                matplace_database.matPlaceKaikin("Secret_Garden");
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "美しいお花畑だ。鳥たちが鳴いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[500])
+                    {
+                        GameMgr.MapEvent_Or[500] = true;
+
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(7); //喜び顔
+                        _text.text = "にいちゃん。..ここはヒカリたちの秘密きちだよ～！！";
+
+                        OnMapEvent(2000, 0, false);
+                    }
+                    else
+                    {
+                        //顔アイコンも切り替え
+                        //msg_window.Setting_WindowIcon(7); //喜び顔
+                        _text.text = "にいちゃん！" + "\n" + "たくさんお花つんでかえろ～ね♪";
+                    }
+                }
+                break;
         }
     }
 

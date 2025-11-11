@@ -660,7 +660,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10, string _basefileName)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -698,7 +698,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
-            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
+            1, _basefileName));
     }
 
     //エクストリームパネル設定用アイテムを登録する。
@@ -711,7 +712,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10, string _basefileName)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -748,7 +749,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
-            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
+            2, _basefileName));
     }
 
     //ヒカリオリジナルアイテムを登録する。
@@ -761,7 +763,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10, string _basefileName)
     {
 
         player_yosokuitemlist.Clear();
@@ -800,7 +802,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
-            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
+            3, _basefileName));
     }
 
     //チェック用のオリジナルアイテムを登録する。
@@ -814,7 +817,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10, string _basefileName)
     {
 
         player_check_itemlist.Clear();
@@ -853,7 +856,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
-            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
+            1, _basefileName));
     }
 
     void ItemDatabase_Setting()
@@ -967,7 +971,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].MS7_mariage, player_extremepanel_itemlist[tempID].MS7_pointup,
             player_extremepanel_itemlist[tempID].MS8_mariage, player_extremepanel_itemlist[tempID].MS8_pointup,
             player_extremepanel_itemlist[tempID].MS9_mariage, player_extremepanel_itemlist[tempID].MS9_pointup,
-            player_extremepanel_itemlist[tempID].MS10_mariage, player_extremepanel_itemlist[tempID].MS10_pointup));
+            player_extremepanel_itemlist[tempID].MS10_mariage, player_extremepanel_itemlist[tempID].MS10_pointup, 1, ""));
     }
 
     void KoyuID_Set()

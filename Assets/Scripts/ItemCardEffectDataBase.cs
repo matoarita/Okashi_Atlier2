@@ -226,6 +226,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score2 += 10; //ŠC‚ç‚µ‚³‚ð‘«‚·   
                 _ms_sp_score6 += 10;
+                RoomBufKeisan();
+
                 aisho_text2 = "ŠC‚ç‚µ‚³ + " + _ms_sp_score2.ToString();
                 aisho_text3 = "Žq‹Ÿ‚Á‚Û‚¢ + " + _ms_sp_score6.ToString();
 
@@ -256,6 +258,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·                
                 _ms_sp_score7 += 10;
                 _ms_sp_score9 += 5; //Œõ‚ç‚µ‚³‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "ƒƒ‹ƒwƒ“ + " + _ms_sp_score7.ToString();
                 aisho_text3 = "‘ål " + _ms_sp_score5.ToString();
 
@@ -287,6 +291,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score2 += 5; //ŠC‚ç‚µ‚³‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "ŠC‚ç‚µ‚³ + " + _ms_sp_score2.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -315,6 +321,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score6 += 7;
+                RoomBufKeisan();
+
                 aisho_text2 = "Žq‹Ÿ‚Á‚Û‚¢ + " + _ms_sp_score6.ToString();
                 aisho_text3 = "‘ål " + _ms_sp_score5.ToString();
 
@@ -352,6 +360,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score2 += 10; //ŠC‚ç‚µ‚³‚ð‰ÁŽZ
                 _ms_sp_score6 += 5; //Žq‹Ÿ‚Á‚Û‚³‚ð‘«‚·
+                RoomBufKeisan();
+
                 aisho_text2 = "ŠC‚ç‚µ‚³ + " + _ms_sp_score2.ToString();
                 aisho_text3 = "Žq‹Ÿ‚Á‚Û‚¢ + " + _ms_sp_score6.ToString();
 
@@ -378,6 +388,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score9 += 10; //Œõ‚ç‚µ‚³‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "ƒLƒ‰ƒLƒ‰Š´ + " + _ms_sp_score9.ToString();
 
                 _add_magicbeauty += 5; //Œ©‚½–Ú‚Í+5
@@ -406,6 +418,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score10 += 10; //˜a•—Š´‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "˜a•—Š´ + " + _ms_sp_score10.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -432,6 +446,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score7 += 10; //ƒƒ‹ƒwƒ“‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "ƒƒ‹ƒwƒ“ + " + _ms_sp_score7.ToString();
                 aisho_text3 = "‘ål " + _ms_sp_score5.ToString();
 
@@ -460,6 +476,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score3 += 10; //ˆ¤‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "ˆ¤‚ç‚µ‚³ + " + _ms_sp_score3.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -489,6 +507,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _ms_sp_score7 += 10; //ƒƒ‹ƒwƒ“‚ð‰ÁŽZ
                 _ms_sp_score8 += 12; //Œ|p‰ÁŽZ
                 _ms_sp_score6 += 10; //Žq‹Ÿ‚à‰ÁŽZi•\‹L–³j
+                RoomBufKeisan();
+
                 aisho_text2 = "ƒƒ‹ƒwƒ“ + " + _ms_sp_score7.ToString();
                 aisho_text3 = "Œ|p " + _ms_sp_score8.ToString();
 
@@ -517,6 +537,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score5 += 10; //‘ål‚ð‰ÁŽZ
+                RoomBufKeisan();
+
                 aisho_text2 = "‘ål + " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -547,6 +569,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _ms_sp_score4 += 12; //‰F’ˆ‚ð‰ÁŽZ
                 _ms_sp_score8 += 6; //Œ|p‚ð‰ÁŽZ
                 _ms_sp_score7 += 10; //ƒƒ‹ƒwƒ“‚ð‰ÁŽZi•\‹L–³j
+                RoomBufKeisan();
+
                 aisho_text2 = "‰F’ˆ + " + _ms_sp_score4.ToString();
                 aisho_text3 = "Œ|p " + _ms_sp_score8.ToString();
 
@@ -569,26 +593,22 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         if (_compa < 0)
         {
             _add_magicbeauty -= _compa * 2;
-            _ms_aisho = "~";
-            aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
+            _ms_aisho = "~";           
         }
         if (_compa >= 0 && _compa < 10) //‘Š«‚Æ‚­‚É‚È‚µ
         {
             _add_magicbeauty += _compa;
             _ms_aisho = "£";
-            aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
         }
         else if (_compa >= 10 && _compa < 30) //‚Ü‚ ‚Ü‚ 
         {
             _add_magicbeauty += (int)(_compa * 1.25f);
             _ms_aisho = "Z";
-            aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
         }
         else if (_compa >= 30 && _compa < 50) //‘Š«‚Ò‚Á‚½‚è
         {
             _add_magicbeauty += (int)(_compa * 1.5f);
             _ms_aisho = "";
-            aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
 
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
@@ -596,10 +616,32 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         {
             _add_magicbeauty += (int)(_compa * 2.0f);
             _ms_aisho = "™";
-            aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
-       
+
+        if (GameMgr.OrCompound_RoomNum == 8)
+        {
+            _add_magicbeauty = (int)(_add_magicbeauty * 1.3f);
+        }
+
+        aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
+    }
+
+    void RoomBufKeisan()
+    {
+        if (GameMgr.OrCompound_RoomNum == 8)
+        {
+            _ms_sp_score1 = (int)(_ms_sp_score1 * 1.3f);
+            _ms_sp_score2 = (int)(_ms_sp_score2 * 1.3f);
+            _ms_sp_score3 = (int)(_ms_sp_score3 * 1.3f);
+            _ms_sp_score4 = (int)(_ms_sp_score4 * 1.3f);
+            _ms_sp_score5 = (int)(_ms_sp_score5 * 1.3f);
+            _ms_sp_score6 = (int)(_ms_sp_score6 * 1.3f);
+            _ms_sp_score7 = (int)(_ms_sp_score7 * 1.3f);
+            _ms_sp_score8 = (int)(_ms_sp_score8 * 1.3f);
+            _ms_sp_score9 = (int)(_ms_sp_score9 * 1.3f);
+            _ms_sp_score10 = (int)(_ms_sp_score10 * 1.3f);
+        }
     }
 
     void Common_Keisan(int _compa)

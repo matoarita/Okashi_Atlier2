@@ -602,6 +602,11 @@ public class GetMaterial : MonoBehaviour
                         event_dreameater_Swamp();
                         break;
 
+                    case "Secret_Garden":
+
+                        event_Secret_Garden();
+                        break;
+
                     default:
 
                         //イベント１
@@ -753,6 +758,11 @@ public class GetMaterial : MonoBehaviour
                         break;
 
                     case "DreamEater_Swamp":
+
+                        treasure_no();
+                        break;
+
+                    case "Secret_Garden":
 
                         treasure_no();
                         break;
@@ -947,6 +957,11 @@ public class GetMaterial : MonoBehaviour
                     break;
                 }
                 ++i;
+            }
+
+            if (GameMgr.OrCompound_RoomNum == 6)
+            {
+                kettei_kosu[_count] = kettei_kosu[_count] + 1; //家バフで個数が増える        
             }
 
             cullent_total_mat += kettei_kosu[_count]; //現在拾った材料の数
@@ -1908,7 +1923,7 @@ public class GetMaterial : MonoBehaviour
                 random_param = Random.Range(1, 4);
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
-                _text.text = "あ！ちっちゃいリスさんがいる～！（うずうず）" + "\n" +
+                _text.text = "あ！ちっちゃいリスさんがいる～！うずうず..。" + "\n" +
                     "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 break;
 
@@ -2341,13 +2356,69 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
+    //秘密の花園
+    void event_Secret_Garden()
+    {
+        random = Random.Range(0, 5);
+
+        switch (random)
+        {
+            case 0:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //目キラキラでよろこび
+                _text.text = "にいちゃん。青色のお花がじゅうたんみたい。きれい～♪";
+                break;
+
+            case 1:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(35); //めとじ
+                _text.text = "くんくん..。このお花、お茶っぱにできないかなぁ～？";
+                break;
+
+            case 2:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(7); //よろこび
+
+                random_param = Random.Range(2, 4);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "にいちゃん！　あそこでピクニック～！　持ってきたぱん食べよ♪" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+
+            default:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
+
+                random_param = Random.Range(2, 4);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "いてぇっ！　にいちゃん、トゲがささったぁ～・・！！" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
 
 
 
 
-    //
-    //
-    //
+        //
+        //
+        //
 
 
     //レアイベント関係

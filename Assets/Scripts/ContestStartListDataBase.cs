@@ -2104,7 +2104,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "");
         }
     }
 

@@ -144,7 +144,16 @@ public class MagicSkillListController : MonoBehaviour
             }            
         }
 
-        ViewFlagCheck();
+        if (this.gameObject.name == "MagicSkillList_ScrollView")
+        {
+            ViewFlagCheck();
+        }
+        else if (this.gameObject.name == "MagicSkillList_ScrollView2")
+        {
+            ViewFlagCheck2();
+        }
+            
+        StartRead = true;
 
         //レイアウトの再配置　SetActiveのon/offだけだと、再配置されない
         grid_layout_content.enabled = false;
@@ -209,8 +218,66 @@ public class MagicSkillListController : MonoBehaviour
         {
             OnCateViewName("Cate_09");
         }
+        
+    }
 
-        StartRead = true;
+    void ViewFlagCheck2()
+    {
+        //光
+        if (magicskill_database.skillType_SearchAllGainCount(2) >= 1) //光先生に魔法教えてもらった
+        {
+            OnCateViewName("Cate_03");
+        }
+
+        //火
+        if (magicskill_database.skillType_SearchAllGainCount(9) >= 1) //
+        {
+            OnCateViewName("Cate_10");
+        }
+
+        //氷
+        if (magicskill_database.skillType_SearchAllGainCount(1) >= 1) //
+        {
+            OnCateViewName("Cate_02");
+        }
+
+        //風
+        if (magicskill_database.skillType_SearchAllGainCount(3) >= 1) //
+        {
+            OnCateViewName("Cate_04");
+        }
+
+        //星
+        if (magicskill_database.skillType_SearchAllGainCount(4) >= 1) //
+        {
+            OnCateViewName("Cate_05");
+        }
+
+        //森
+        if (magicskill_database.skillType_SearchAllGainCount(5) >= 1) //
+        {
+            OnCateViewName("Cate_06");
+        }
+
+        //時
+        if (magicskill_database.skillType_SearchAllGainCount(6) >= 1) //
+        {
+            OnCateViewName("Cate_07");
+        }
+
+        //音
+        if (magicskill_database.skillType_SearchAllGainCount(7) >= 1) //
+        {
+            OnCateViewName("Cate_08");
+        }
+
+        //心
+        if (magicskill_database.skillType_SearchAllGainCount(8) >= 1) //
+        {
+            OnCateViewName("Cate_09");
+        }
+
+
     }
 
 

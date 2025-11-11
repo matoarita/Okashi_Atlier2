@@ -87,6 +87,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private bool Pate_flag;
     private int result_kosu;
     private bool Kosu_ExSetting;
+    private string base_filename;
 
     private string kettei_originalitemID1;
     private string kettei_originalitemID2;
@@ -432,6 +433,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //分岐を取得
         Comp_method_bunki = exp_Controller.Comp_method_bunki;
 
+        //バグ回避のため、リセット
+        base_filename = database.items[database.SearchItemID(0)].fileName;
+
         if (Comp_method_bunki == 0) //オリジナル調合の場合
         {
             //オリジナル調合の設定
@@ -485,6 +489,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     _before_itemtype_Sub = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType_sub.ToString();
                 }
+               
             }
 
             /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
@@ -592,6 +597,21 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
                 final_kette_kosu2 = 1;
                 final_kette_kosu3 = 0;
+
+                //この変数は、魔法をかけたときに、元アイテム画像のfilenameをひっぱって、オリジナルアイテムの画像に差し替えする目的で使ってる。なので、ここの設定だけでOK。
+                if (toggle_type1 == 0)
+                {
+                    base_filename = database.items[database.SearchItemID(kettei_item1)].fileName;
+                }
+                else if (toggle_type1 == 1)
+                {
+                    base_filename = pitemlist.player_originalitemlist[kettei_item1].fileName;
+                }
+                else if (toggle_type1 == 2)
+                {
+                    base_filename = pitemlist.player_extremepanel_itemlist[kettei_item1].fileName;
+                }
+                
             }
             else if (Comp_method_bunki == 22) //こっちはトッピング調合として扱うため、一個ずれる
             {
@@ -653,6 +673,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //分岐を取得
         Comp_method_bunki = 0;
+
+        //バグ回避のため、リセット
+        base_filename = database.items[database.SearchItemID(0)].fileName;
 
         if (Comp_method_bunki == 0) //オリジナル調合の場合
         {
@@ -728,6 +751,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     void SetParamDatabaseInit()
     {
         Comp_method_bunki = 2;
+
+        //バグ回避のため、リセット
+        base_filename = database.items[database.SearchItemID(0)].fileName;
 
         if (databaseCompo.compoitems[result_compID].cmpitemID >= 0 && databaseCompo.compoitems[result_compID].cmpitemID < 10000)
         {
@@ -1177,7 +1203,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
             _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
             _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
-            _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10);
+            _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10,
+            base_filename);
 
             new_item = pitemlist.player_yosokuitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1547,6 +1574,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     void GetItemCheck(int _compo_select, string _useMagic)
     {
+       
         //最初に、チェック用に一度お菓子をいれて、それが生地かどうか判定する。カードの表示は、このリストのものを使う。
         pitemlist.addCheckOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
         _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly,
@@ -1558,7 +1586,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
         _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
         _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
-        _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10);
+        _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10, base_filename);
 
         //Debug.Log("_baseattri2: " + _baseattri2);
 
@@ -1609,7 +1637,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
         _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
         _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
-        _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
+        _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_sub == "FloatFruits" || _base_itemType_sub == "FloatSuger" ||
+        _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
         _base_itemType_subB == "a_Mazipan" ||
         _basename == "lumi_banana" || _base_itemType_subCategory == "Original")
         {
@@ -1668,6 +1697,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             case 0: //オリジナルアイテムリストに追加する場合
 
                 Debug.Log("オリジナルアイテムにセット");
+
                 //新しく作ったアイテムをオリジナルアイテムリストに追加。
                 pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
                 _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, 
@@ -1679,7 +1709,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
                 _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
                 _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
-                _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10);
+                _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10,
+                base_filename);
+                //base_filenameを実際に使用する場所は、現在はここだけ。トッピングとかでは（設定だけとりあえず必要だが）使用していない。
 
                 new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1697,6 +1729,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 itemfullname = itemslotname + pitemlist.player_originalitemlist[new_item].itemNameHyouji;
                 pitemlist.player_originalitemlist[new_item].item_FullName = itemfullname;
 
+                GameMgr.System_newrecipi_sprite = pitemlist.player_originalitemlist[new_item].itemIcon_sprite;
+                GameMgr.System_newrecipi_name = pitemlist.player_originalitemlist[new_item].itemNameHyouji;
                 break;
 
             case 1: //お菓子パネルにセットする場合。通常はこっちが多い。                    
@@ -1772,7 +1806,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
                 _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
                 _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
-                _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10);
+                _baseattri1, _baseattri2, _baseattri3, _baseattri4, _baseattri5, _baseattri6, _baseattri7, _baseattri8, _baseattri9, _baseattri10,
+                base_filename);
 
                 new_item = pitemlist.player_extremepanel_itemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1790,6 +1825,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 itemfullname = itemslotname + pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji;
                 pitemlist.player_extremepanel_itemlist[new_item].item_FullName = itemfullname;
 
+                GameMgr.System_newrecipi_sprite = pitemlist.player_extremepanel_itemlist[new_item].itemIcon_sprite;
+                GameMgr.System_newrecipi_name = pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji;
                 break;
 
             case 2:
@@ -1813,6 +1850,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     void MakeMethodMaterial()
     {
         pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result, result_kosu);
+
+        new_item = database.SearchItemIDString(databaseCompo.compoitems[result_compID].cmpitemID_result);
+        GameMgr.System_newrecipi_sprite = database.items[new_item].itemIcon_sprite;
+        GameMgr.System_newrecipi_name = database.items[new_item].itemNameHyouji;
     }
 
     //個数計算メソッド HikariMakeStartPanelからも読み出し
@@ -3345,7 +3386,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, ""));
     }
 
     void Set_add_originparam()
@@ -3436,7 +3477,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 1, ""));
     }
 
     void Set_add_extremeparam()
@@ -3527,7 +3568,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 2, ""));
     }
 
 

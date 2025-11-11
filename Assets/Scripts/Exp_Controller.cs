@@ -1668,6 +1668,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //なにもなければ通常のMP消費
         }
 
+        if (GameMgr.OrCompound_RoomNum == 5)
+        {
+            _mp = _mp / 2; //ほしのへや　MP消費半減            
+        }
+        else
+        { }
+
         return _mp;
     }
 

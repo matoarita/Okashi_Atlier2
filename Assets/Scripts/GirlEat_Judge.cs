@@ -3795,7 +3795,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
-            if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 80)
+            /*if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 80)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.85f);
             }
@@ -3820,7 +3820,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (pitemlist.KosuCount("aroma_potion1") >= 1)
             {
                 Getlove_exp = (int)(Getlove_exp * 1.2f);
-            }
+            }*/
+            Getlove_exp = (int)(Getlove_exp * 0.3f); //コンテスト攻略を軸にするため、おかしでのハート上げはほぼ効果なしバージョン。コンテストクリアでハート上がる。
 
             //仕送りお金関係　装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();

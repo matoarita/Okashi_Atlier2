@@ -2103,7 +2103,7 @@ public class SetImage : MonoBehaviour
                 newrecipi_id = exp_Controller.NewRecipi_compoID;
 
                 //調合DBの名前と一致するものを、アイテムDBから検索。表示名前と画像を取得
-                i = 0;
+                /*i = 0;
                 while (i < database.items.Count)
                 {
                     if (database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
@@ -2113,7 +2113,10 @@ public class SetImage : MonoBehaviour
                         break;
                     }
                     i++;
-                }
+                }*/
+
+                newrecipi_name = GameMgr.System_newrecipi_name;
+                newrecipi_Img = GameMgr.System_newrecipi_sprite;
 
                 //取得
                 NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);

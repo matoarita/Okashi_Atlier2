@@ -65,6 +65,28 @@ public class HukidashiAction : MonoBehaviour {
 
         _enter_flag = false;
 
+        //透明モードのときは音を消す
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 1000: //タイトルシーンは、モデルでなく、キャラ吹き出し用OBJの座標を選ぶ
+
+                if (GameMgr.Bend_FadeAnimStart)
+                {
+                    //半透明モードのときは、音を鳴らさない。
+                    this.gameObject.transform.Find("hukidashi_Image").GetComponent<Sound_Trigger>().enabled = false;
+                    this.gameObject.transform.Find("hukidashi_mini2").GetComponent<Sound_Trigger>().enabled = false;
+                    this.gameObject.transform.Find("hukidashi_mini1").GetComponent<Sound_Trigger>().enabled = false;
+                }
+                else
+                { }
+
+                break;
+
+            default:
+
+                break;
+        }
+        
     }
 	
 	// Update is called once per frame
@@ -101,6 +123,8 @@ public class HukidashiAction : MonoBehaviour {
             .SetRelative()
             .SetEase(Ease.OutExpo)); //30px右から、元の位置に戻る。
         sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+
+        
     }
 
     void LateUpdate()

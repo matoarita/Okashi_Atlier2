@@ -1276,7 +1276,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Suger") //check_itemType_sub == "Fruits" || check_itemType_sub == "GlowFruits" || check_itemType_sub == "Berry"
                 {
-                    if (check_itemType_subB != "a_SugerSimple") //基本の砂糖などは外す
+                    if (check_itemType_subB != "a_SugerSimple" && check_itemName != "suger" && check_itemName != "suger_supplied") //基本の砂糖などは外す
                     {
                         itemlist_hyouji_Check(check_itemListType, 0);
                     }

@@ -92,6 +92,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound78;  //各部屋のテーマ
     public AudioClip sound79;  //各部屋のテーマ
     public AudioClip sound80;  //大会コンテストのBGM エデンコンテスト3
+    public AudioClip sound81;  //教会風BGM ルミエールコンテスト系
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -803,6 +804,11 @@ public class BGM : MonoBehaviour {
                 _send_clip = sound80;
                 break;
 
+            case "sound81":
+
+                _send_clip = sound81;
+                break;
+
             default:
 
                 _send_clip = sound46;
@@ -1286,6 +1292,11 @@ public class BGM : MonoBehaviour {
             case 107: //ダイアモンド山
 
                 _send_clip = sound59;
+                break;
+
+            case 108: //ひみつの花園
+
+                _send_clip = sound51;
                 break;
         }
 

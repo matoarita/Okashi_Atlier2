@@ -727,7 +727,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(200);
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2000);
-        GameMgr.PrizeGetMoneyList.Add(4000);
+        GameMgr.PrizeGetMoneyList.Add(3000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -888,7 +888,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_parfect_princess_book");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("cream_brulee_recipi");
 
         //賞金リスト 5位から順番に入れる

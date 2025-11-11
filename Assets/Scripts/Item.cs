@@ -104,6 +104,7 @@ public class Item
     //以下パラメータはExcel上には記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
     public string user_customname; //ユーザーが決めたお菓子のオリジナル名前
+    public int ItemMode; //デフォルトかオリジナルかエクストリームかヒカリ制作かを判別する
 
     //
     public int Eat_kaisu;
@@ -230,6 +231,7 @@ public class Item
         Topping,
         Vegetable,
         Bubble,
+        FloatSuger,
         FloatFruits,
         GlowFruits,
         AromaPotion,
@@ -267,7 +269,8 @@ public class Item
         string _ms1_mariage, int _ms1_pointup, string _ms2_mariage, int _ms2_pointup, string _ms3_mariage, int _ms3_pointup,
         string _ms4_mariage, int _ms4_pointup, string _ms5_mariage, int _ms5_pointup,
         string _ms6_mariage, int _ms6_pointup, string _ms7_mariage, int _ms7_pointup, string _ms8_mariage, int _ms8_pointup,
-        string _ms9_mariage, int _ms9_pointup, string _ms10_mariage, int _ms10_pointup)
+        string _ms9_mariage, int _ms9_pointup, string _ms10_mariage, int _ms10_pointup,
+        int _mode, string baseitemName)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -275,10 +278,23 @@ public class Item
 
         itemName = name;
         itemNameHyouji = nameHyouji;
+        ItemMode = _mode;
+
         
+        if (_mode == 1 || _mode == 2 || _mode == 3) //オリジナルアイテムかエクストリームアイテムとして登録する _mode=3はヒカリが制作したアイテム
+        {
+            if (fileName == "origin_image") //オリジナルアイテムに登録されるとき、元々の画像のアイコンを差し替えて使う
+            {
+                fileName = baseitemName;
+            }
+            else
+            { }
+        }else
+        { }
         //アイコンはnameとイコールにするのでアイコンがあるパス＋nameで取ってきます    
         //itemIcon = Resources.Load<Texture2D>("Sprites/Items/" + fileName);
         itemIcon_sprite = Resources.Load<Sprite>("Sprites/Items/" + fileName);
+
         itemDesc = desc;
         itemHP = hp;
         item_day = day;
