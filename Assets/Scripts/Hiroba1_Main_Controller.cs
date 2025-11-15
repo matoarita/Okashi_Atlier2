@@ -722,7 +722,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case 10:
 
-                On_ContestActive01(); //春コンテスト会場外へ移動
+                On_ContestOutActive01(); //春コンテスト会場外へ移動
                 //GameMgr.SceneSelectNum = 0;
                 //FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
                 break;
@@ -752,7 +752,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_CentralPark": //中央噴水
 
                 //On_Active31();
-                On_ContestActive01(); //会場前へ
+                On_ContestOutActive01(); //会場前へ
                 break;
 
             case "Or_Hiroba_CentralPark2":
@@ -901,12 +901,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Autumn_MainStreet":
 
                 //On_Active102();
-                On_ContestActive03();
+                On_ContestOutActive03();
                 break;
 
             case "Or_Hiroba_Autumn_DepartMae":
 
-                On_ContestActive03();
+                On_ContestOutActive03();
                 break;
 
             case "Or_Hiroba_Autumn_BarStreet":
@@ -1508,7 +1508,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_Oku":
 
-                On_ContestActive01();
+                On_ContestOutActive01();
                 break;
 
             case "Or_Hiroba_Spring_BarStreet":
@@ -1905,6 +1905,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active1004_Alice();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_Enter":
+
+                On_ContestActive02();
+                break;
+
             case "Or_Hiroba_Autumn_MainStreet": //
 
                 On_BarActive03();
@@ -1950,6 +1955,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_RotenStreet":
 
                 On_Active1603_Roten_Gelato();
+                break;
+
+            case "Or_Hiroba_Autumn_MainStreet": //
+
+                On_ContestActive03();
                 break;
 
             default:
@@ -2088,7 +2098,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_ContestActive01(); //会場前へ
+                On_ContestOutActive01(); //会場前へ
                 break;
 
             case "Or_Hiroba_Spring_Shoping_Moll": //
@@ -3059,7 +3069,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GoAreaMove("Or_Farm");
     }
 
-    void On_ContestActive01()
+    void On_ContestOutActive01()
     {
         //_text.text = "春エリアのコンテスト01";
 
@@ -3069,7 +3079,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GoAreaMove("Or_Outside_the_Contest");
     }
 
-    void On_ContestActive02()
+    void On_ContestOutActive02()
     {
         //_text.text = "夏エリアのコンテスト01";
 
@@ -3079,7 +3089,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GoAreaMove("Or_Outside_the_Contest");
     }
 
-    void On_ContestActive03()
+    void On_ContestOutActive03()
     {
         //_text.text = "秋エリアのコンテスト01";
 
@@ -3089,7 +3099,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GoAreaMove("Or_Outside_the_Contest");
     }
 
-    void On_ContestActive04()
+    void On_ContestOutActive04()
     {
         //_text.text = "冬エリアのコンテスト01";
 
@@ -3097,6 +3107,46 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
         GoAreaMove("Or_Outside_the_Contest");
+    }
+
+    void On_ContestActive01()
+    {
+        //_text.text = "春エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        GoAreaMove("Or_Contest_Reception");
+    }
+
+    void On_ContestActive02()
+    {
+        //_text.text = "夏エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 10;
+        GoAreaMove("Or_Contest_Reception");
+    }
+
+    void On_ContestActive03()
+    {
+        //_text.text = "秋エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 20;
+        GoAreaMove("Or_Contest_Reception");
+    }
+
+    void On_ContestActive04()
+    {
+        //_text.text = "冬エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 30;
+        GoAreaMove("Or_Contest_Reception");
     }
 
     void On_NPC_MagicActive01()

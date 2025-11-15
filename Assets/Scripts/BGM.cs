@@ -794,6 +794,11 @@ public class BGM : MonoBehaviour {
                 _send_clip = sound49;
                 break;
 
+            case "sound55":
+
+                _send_clip = sound55;
+                break;
+
             case "sound73":
 
                 _send_clip = sound73;

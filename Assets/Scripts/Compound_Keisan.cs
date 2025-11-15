@@ -587,6 +587,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (Comp_method_bunki == 20)
             {                
                 kettei_item1 = GameMgr.Final_list_itemID1;
+                Debug.Log("GameMgr.Final_list_itemID1: " + GameMgr.Final_list_itemID1);
                 kettei_item2 = database.SearchItemIDString("magic_comp_setting");
                 kettei_item3 = 9999;
 
@@ -601,7 +602,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //この変数は、魔法をかけたときに、元アイテム画像のfilenameをひっぱって、オリジナルアイテムの画像に差し替えする目的で使ってる。なので、ここの設定だけでOK。
                 if (toggle_type1 == 0)
                 {
-                    base_filename = database.items[database.SearchItemID(kettei_item1)].fileName;
+                    base_filename = database.items[kettei_item1].fileName;
                 }
                 else if (toggle_type1 == 1)
                 {

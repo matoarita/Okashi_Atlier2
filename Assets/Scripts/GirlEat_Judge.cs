@@ -3748,12 +3748,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
-                    Debug.Log("食べたいお菓子をあげた　ハート*1.5倍");
+                    
 
                     GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
                     GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
 
-                    Getlove_exp = (int)(Getlove_exp * 1.5f);
+                    Getlove_exp = (int)(Getlove_exp * 3.0f); //下で、ふつうにお菓子をあげたときに、ハートをかなり上がりにくくしたので、ここで上がりやすくした。
+                    Debug.Log("食べたいお菓子をあげた　ハート*3.0倍");
+
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
                     if (PlayerStatus.player_girl_eatCount_tabetai >= 999)

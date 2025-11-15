@@ -25,6 +25,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
 
     private GameObject KiraEffect_1;
     private GameObject magicstart_panel;
+    private GameObject ExcellentEffect;
 
     private Button closebutton;
 
@@ -76,6 +77,8 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         //キラエフェクトはオフに。
         KiraEffect_1 = this.transform.Find("Comp/Slider/Handle Slide Area/Handle/effPanel").gameObject;
         KiraEffect_1.SetActive(false);
+        ExcellentEffect = this.transform.Find("Comp/ExcellentEffect").gameObject;
+        ExcellentEffect.SetActive(false);
 
         closebutton = this.transform.Find("Comp/Button").GetComponent<Button>();
         closebutton.interactable = true;
@@ -186,6 +189,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
 
             magicstart_panel.transform.DOShakePosition(0.5f, 5f, 30, 1, false, true);
 
+            ExcellentEffect.SetActive(true);
             KiraEffect_1.SetActive(true); //さらに光りのエフェクト
         }
         else if (_guage_param >= 465 && _guage_param < 500)

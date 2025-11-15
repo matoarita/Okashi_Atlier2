@@ -2776,9 +2776,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_01", "スターチップシュガーでクッキーを作ると・・？"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_12", "スターチップシュガーでクッキーを作ると・・？"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "マリトッツォで高得点を出す"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "lumi_sapphire_neko_cookie", "サファイアクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "光るサファイアクッキーで高得点を出す"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "lumi_sapphire_neko_cookie", "サファイアクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_13", "光るサファイアクッキーで高得点を出す"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_a2_03", "ショートケーキで高得点を出す"));
 
         //ハートで発生するイベント系

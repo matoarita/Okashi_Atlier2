@@ -697,13 +697,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_B1", 1);
             //matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
-            matplace_database.ReSetMapFlagString("Or_Contest_B1", 1);
+            //matplace_database.ReSetMapFlagString("Or_Contest_B1", 1);
 
             //秋エリア解放
             //matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
             //matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
-            matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
+            //matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
             matplace_database.ReSetMapFlagString("Amber_Lake", 1);
 
             //冬エリア解放

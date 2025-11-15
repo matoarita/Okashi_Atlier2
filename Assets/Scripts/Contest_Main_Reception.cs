@@ -42,6 +42,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     private GameObject npc2sub_toggle_obj;
     private GameObject npc3sub_toggle_obj;
+    private GameObject npc4sub_toggle_obj;
 
     private ContestStartListDataBase conteststartList_database;
     private ItemMatPlaceDataBase matplace_database;
@@ -80,7 +81,8 @@ public class Contest_Main_Reception : MonoBehaviour
     private int ev_id;
 
     private int i, rndnum;
-    private int backnum;
+    private int backnum, backnum_hiroba;
+    private string back_scenename;
     private int contest_list, _id;
 
     private int _Limit_day;
@@ -194,6 +196,9 @@ public class Contest_Main_Reception : MonoBehaviour
         npc3sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView3_SelectToggle").gameObject;
         npc3sub_toggle_obj.SetActive(true);
 
+        npc4sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView4_SelectToggle").gameObject;
+        npc4sub_toggle_obj.SetActive(false);
+
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
@@ -261,8 +266,11 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 SettingCharacterPanel(0);
                 backnum = 0; //バックボタン押したときの戻り先
+                backnum_hiroba = 0; //戻る押したときの広場の戻り先
+                back_scenename = "Or_Outside_the_Contest";
                 GameMgr.Window_CharaName = "ガトー";
                 npc3sub_toggle_obj.SetActive(true);
+                npc4sub_toggle_obj.SetActive(true);
 
                 default_scenetext = "いらっシャ～イ！" + "\n" + "ここは、春コンテストの受付デ～スよ～！";
                 SettingCharacterComment(0);                
@@ -275,8 +283,11 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(1); //Map〇〇のリスト番号を指定
                 SettingCharacterPanel(1);
                 backnum = 10; //バックボタン押したときの戻り先
+                backnum_hiroba = 151; //戻る押したときの広場の戻り先
+                back_scenename = "Or_Hiroba1";
                 GameMgr.Window_CharaName = "ガトー"; //ジョニー
                 npc3sub_toggle_obj.SetActive(false);
+                npc4sub_toggle_obj.SetActive(true);
 
                 //default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付だぜ！！";
                 default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付デ～スよ～！！";
@@ -290,8 +301,11 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(2); //Map〇〇のリスト番号を指定
                 SettingCharacterPanel(2);
                 backnum = 20; //バックボタン押したときの戻り先
+                backnum_hiroba = 202; //戻る押したときの広場の戻り先
+                back_scenename = "Or_Hiroba1";
                 GameMgr.Window_CharaName = "ガトー"; //ミズタニ
                 npc3sub_toggle_obj.SetActive(false);
+                npc4sub_toggle_obj.SetActive(true);
 
                 //default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございます。";
                 default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございマース！";
@@ -305,6 +319,8 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(3); //Map〇〇のリスト番号を指定
                 SettingCharacterPanel(3);
                 backnum = 30; //バックボタン押したときの戻り先
+                backnum_hiroba = 0; //戻る押したときの広場の戻り先
+                back_scenename = "Or_Hiroba1";
                 GameMgr.Window_CharaName = "ガトー"; //ジェリ～オバケ
                 npc3sub_toggle_obj.SetActive(false);
 
@@ -1363,7 +1379,12 @@ public class Contest_Main_Reception : MonoBehaviour
     //SubView4
     public void OnSubNPC4_toggle()
     {
+        //入店の音
+        sc.PlaySe(150);
 
+        //広場に戻る
+        GameMgr.SceneSelectNum = backnum_hiroba;
+        FadeManager.Instance.LoadScene(back_scenename, GameMgr.SceneFadeTime);
     }
 
     //SubView5 アトリエに戻る

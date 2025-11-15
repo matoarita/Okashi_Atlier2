@@ -1042,10 +1042,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
                     {
-                        if (check_itemListType == 2) //お菓子パネルのもののみ表示
-                        {
-                            itemlist_hyouji_Check(check_itemListType, 1);
-                        }
+                        itemlist_hyouji_Check(check_itemListType, 1);
                     }
                 }
                 break;
@@ -1059,16 +1056,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     if (check_itemType_subB == "a_AppaleiliceCream" || check_itemType_subB == "a_AppaleilChocolate" || 
                         check_itemType_subB == "a_AppaleilChocolateTwister" ||
                         check_itemType_subB == "a_AppaleilChocolateBar" || check_itemType_subB == "a_AppaleilChocolateHeart" ||
-                        check_itemType_subB == "a_AppaleilChocolateCrown")
+                        check_itemType_subB == "a_AppaleilChocolateCrown" || check_itemType_subB == "a_AppaleilJelly")
                     {
                         itemlist_hyouji_Check(check_itemListType, 0);
                     }
                 }
                 if (_lv >= 2) //水・ミルク系全般
                 {
-                    if (
-                        check_itemType_subB == "a_AppaleilJelly" ||
-                        check_itemType_subB == "a_AppaleilTwister" ||
+                    if (check_itemType_subB == "a_AppaleilTwister" ||
                         check_itemType_sub == "Water" || check_itemType_sub == "Milk")
                     {
                         itemlist_hyouji_Check(check_itemListType, 0);

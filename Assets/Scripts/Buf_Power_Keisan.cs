@@ -1840,15 +1840,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("shokukan_powerup1") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 5;
         }
         if (pitemlist.KosuCount("shokukan_powerup2") >= 1) //
         {
-            _buf_shokukanup += 25;
+            _buf_shokukanup += 10;
         }
         if (pitemlist.KosuCount("shokukan_powerup3") >= 1) //
         {
-            _buf_shokukanup += 50;
+            _buf_shokukanup += 30;
         }
     }
 

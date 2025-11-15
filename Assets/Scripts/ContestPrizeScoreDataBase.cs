@@ -936,9 +936,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(67);
-        GameMgr.PrizeScoreAreaList.Add(102);
-        GameMgr.PrizeScoreAreaList.Add(121);
-        GameMgr.PrizeScoreAreaList.Add(152);
+        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(104);
+        GameMgr.PrizeScoreAreaList.Add(122);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -982,7 +982,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
     }
 
-    //〇ボンボヤージュ・カップ　ジュース系
+    //〇ボンボヤージュ・カップ　自由課題
     void PrizeRankingSet22()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1003,10 +1003,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(67);
-        GameMgr.PrizeScoreAreaList.Add(88);
-        GameMgr.PrizeScoreAreaList.Add(122);
-        GameMgr.PrizeScoreAreaList.Add(197);
+        GameMgr.PrizeScoreAreaList.Add(97);
+        GameMgr.PrizeScoreAreaList.Add(118);
+        GameMgr.PrizeScoreAreaList.Add(132);
+        GameMgr.PrizeScoreAreaList.Add(157);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1072,8 +1072,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(156);
-        GameMgr.PrizeScoreAreaList.Add(208);
-        GameMgr.PrizeScoreAreaList.Add(242);
+        GameMgr.PrizeScoreAreaList.Add(248);
+        GameMgr.PrizeScoreAreaList.Add(282);
         GameMgr.PrizeScoreAreaList.Add(383);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
@@ -1105,10 +1105,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(178);
-        GameMgr.PrizeScoreAreaList.Add(272);
-        GameMgr.PrizeScoreAreaList.Add(325);
-        GameMgr.PrizeScoreAreaList.Add(432);
+        GameMgr.PrizeScoreAreaList.Add(248);
+        GameMgr.PrizeScoreAreaList.Add(332);
+        GameMgr.PrizeScoreAreaList.Add(375);
+        GameMgr.PrizeScoreAreaList.Add(532);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1118,7 +1118,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //マジックパティスリー・アワード　魔法おかし限定　見た目が変わっているお菓子でクリア　難しい　ウィンドツイスター系・ライフストリームのおかし・マジックソーダ・フォーゲットの上位種
+    //マジックパティスリー・アワード　魔法おかし限定　見た目が変わっているお菓子でクリア　難しめ　ウィンドツイスター系・ライフストリームのおかし・マジックソーダ・フォーゲットの上位種
     void PrizeRankingSet26()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1142,7 +1142,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Add(138);
         GameMgr.PrizeScoreAreaList.Add(191);
         GameMgr.PrizeScoreAreaList.Add(234);
-        GameMgr.PrizeScoreAreaList.Add(407);
+        GameMgr.PrizeScoreAreaList.Add(357);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1235,8 +1235,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
         GameMgr.PrizeGetMoneyList.Add(3000);
-        GameMgr.PrizeGetMoneyList.Add(5000);
         GameMgr.PrizeGetMoneyList.Add(8000);
 
         //相手の点数リスト

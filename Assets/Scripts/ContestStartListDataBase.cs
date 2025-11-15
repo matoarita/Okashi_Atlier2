@@ -773,7 +773,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 117; //
+        GameMgr.contest_boss_score = 127; //
         GameMgr.contest_boss_name = "シスター・リーシュ";
     }
 
@@ -783,11 +783,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 22000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 22000;
         GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた至高の一品を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた至高の一品を作ってください。" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 135; //
         GameMgr.contest_boss_name = "ハーマイオニー";

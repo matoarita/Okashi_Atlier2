@@ -1370,20 +1370,7 @@ public class Quest_Judge : MonoBehaviour {
                 }
             }
 
-            //⑤油っこいなどのマイナスの値がついてた場合、マイナス補正
-            if (_basepowdery > 50)
-            {
-                okashi_score -= 30;
-            }
-            if (_baseoily > 50)
-            {
-                okashi_score -= 30;
-            }
-            if (_basewatery > 50)
-            {
-                okashi_score -= 30;
-            }
-
+            
             //
             //見た目点数の計算
             //
@@ -1420,6 +1407,19 @@ public class Quest_Judge : MonoBehaviour {
                 crispy_score + fluffy_score + smooth_score + hardness_score + jiggly_score + chewy_score +
                 juice_score + beauty_score + tea_flavor_score + topping_score + spscore_total + Hosei_score;
 
+            //⑤油っこいなどのマイナスの値がついてた場合、マイナス補正
+            if (_basepowdery > 50)
+            {
+                okashi_score = (int)(okashi_score * 0.2f);
+            }
+            if (_baseoily > 50)
+            {
+                okashi_score = (int)(okashi_score * 0.2f);
+            }
+            if (_basewatery > 50)
+            {
+                okashi_score = (int)(okashi_score * 0.2f);
+            }
             //採点はここまで
 
 

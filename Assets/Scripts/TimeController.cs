@@ -744,7 +744,14 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         }
         else
         {
-            GameMgr.sleep_status = 0;
+            if (GameMgr.Contest_afterHomeEventFlag)
+            {
+                GameMgr.sleep_status = 3; //コンテストから帰ってきて寝るときのセリフ
+            }
+            else
+            {
+                GameMgr.sleep_status = 0;
+            }
         }
         compound_main.OnSleepReceive();
     }

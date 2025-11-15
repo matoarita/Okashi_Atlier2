@@ -37,6 +37,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     private GameObject KiraEffect_1;
     private GameObject KiraEffect_2;
     private GameObject KiraEffect_3;
+    private GameObject ExcellentEffect;
 
     private int _status;
     private int _magiclv;
@@ -131,6 +132,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         KiraEffect_2.SetActive(false);
         KiraEffect_3 = this.transform.Find("Comp/Slider3/Handle Slide Area/Handle/effPanel").gameObject;
         KiraEffect_3.SetActive(false);
+        ExcellentEffect = this.transform.Find("Comp/ExcellentEffect").gameObject;
+        ExcellentEffect.SetActive(false);
 
         success_1 = false;
         success_2 = false;
@@ -427,6 +430,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
                 sc.PlaySe(247);
 
                 magicstart_panel.transform.DOShakePosition(0.5f, 5f, 30, 1, false, true);
+                ExcellentEffect.SetActive(true);
             }
             else
             {
