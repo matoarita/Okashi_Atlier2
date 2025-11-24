@@ -388,7 +388,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 break;
 
-            case 307: //冬エリア　祭壇
+            case 307: //冬エリア　祭壇　禁忌の図書館
 
                 GameMgr.Scene_Name = "Or_Hiroba_Winter_altar";
                 SettingBGPanel("Map307"); //Map〇〇のリスト番号を指定

@@ -281,6 +281,7 @@ public class Compound_Main : MonoBehaviour
     private string _bg_str1, _bg_str2, _bg_str3;
     private int cat_cost;
     private bool closebutton;
+    private string _getheart_text;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -4279,6 +4280,7 @@ public class Compound_Main : MonoBehaviour
             girlEat_judge.EffectClear();
 
             GameMgr.ending_on = false;
+            _getheart_text = "";
 
             //イベント後に、ハートを獲得するなどの演出がある場合
             if (GameMgr.SubEvAfterHeartGet)
@@ -4290,7 +4292,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 60:
 
-                        _textmain.text = "ぽんぽんの力で、より元気になってきた。";
+                        _getheart_text = "ぽんぽんの力で、より元気になってきた。";
                         //girlEat_judge.loveGetPlusAnimeON(30, false);    
                         girl1_status.GirlExpressionKoushin(50);
 
@@ -4305,7 +4307,7 @@ public class Compound_Main : MonoBehaviour
                         {
                             case 0:
 
-                                _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
+                                _getheart_text = "あまりピクニックは喜ばなかったようだ..。";
                                 girlEat_judge.UpDegHeart(-1 * (int)SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0), true);
                                 girl1_status.GirlExpressionKoushin(-20);
                                 break;
@@ -4314,7 +4316,7 @@ public class Compound_Main : MonoBehaviour
 
                                 //get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
                                 get_heart = 10;
-                                _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                                _getheart_text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                                 girl1_status.GirlExpressionKoushin(10);
 
                                 heartget_ON = true;
@@ -4324,7 +4326,7 @@ public class Compound_Main : MonoBehaviour
 
                                 //get_heart = GameMgr.event_okashi_score;
                                 get_heart = 20;
-                                _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                                _getheart_text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
                                 girl1_status.GirlExpressionKoushin(30);
                                 GameMgr.picnic_after = true;
@@ -4337,7 +4339,7 @@ public class Compound_Main : MonoBehaviour
 
                                 //get_heart = GameMgr.event_okashi_score;
                                 get_heart = 30;
-                                _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                                _getheart_text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
                                 girl1_status.GirlExpressionKoushin(50);
                                 GameMgr.picnic_after = true;
@@ -4350,7 +4352,7 @@ public class Compound_Main : MonoBehaviour
 
                                 //get_heart = GameMgr.event_okashi_score;
                                 get_heart = 50;
-                                _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                                _getheart_text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
                                 girl1_status.GirlExpressionKoushin(100);
                                 GameMgr.picnic_after = true;
@@ -4366,98 +4368,98 @@ public class Compound_Main : MonoBehaviour
 
                     case 70:
 
-                        _textmain.text = "メガネによろこんだ！";
+                        _getheart_text = "メガネによろこんだ！";
                         get_heart = 20;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 71:
 
-                        _textmain.text = "スク水をよろこんだようだ！";
+                        _getheart_text = "スク水をよろこんだようだ！";
                         get_heart = 50;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 72:
 
-                        _textmain.text = "黒メイド服をよろこんだようだ！";
+                        _getheart_text = "黒メイド服をよろこんだようだ！";
                         get_heart = 50;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 73:
 
-                        _textmain.text = "天使のワンピースをよろこんだようだ！";
+                        _getheart_text = "天使のワンピースをよろこんだようだ！";
                         get_heart = 50;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 74:
 
-                        _textmain.text = "深紅のハートドレスをよろこんだようだ！";
+                        _getheart_text = "深紅のハートドレスをよろこんだようだ！";
                         get_heart = 50;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 75:
 
-                        _textmain.text = "バルーンハットをたいそうよろこんだようだ！";
+                        _getheart_text = "バルーンハットをたいそうよろこんだようだ！";
                         get_heart = 30;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 76:
 
-                        _textmain.text = "天使の羽根にこころを浄化された！";
+                        _getheart_text = "天使の羽根にこころを浄化された！";
                         get_heart = 30;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 77:
 
-                        _textmain.text = "ねこみみに興味をひいたようだ！";
+                        _getheart_text = "ねこみみに興味をひいたようだ！";
                         get_heart = 10;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 78:
 
-                        _textmain.text = "お花のヘアピンを気に入ったようだ！";
+                        _getheart_text = "お花のヘアピンを気に入ったようだ！";
                         get_heart = 10;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 79:
 
-                        _textmain.text = "ティンクルスターダストを気に入ったようだ！";
+                        _getheart_text = "ティンクルスターダストを気に入ったようだ！";
                         get_heart = 30;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 80:
 
-                        _textmain.text = "ラベンダードレスをよろこんだようだ！";
+                        _getheart_text = "ラベンダードレスをよろこんだようだ！";
                         get_heart = 50;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 81:
 
-                        _textmain.text = "どんぐりポシェットを気に入っている！";
+                        _getheart_text = "どんぐりポシェットを気に入っている！";
                         get_heart = 20;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 82:
 
-                        _textmain.text = "パティシエハットに興奮している！";
+                        _getheart_text = "パティシエハットに興奮している！";
                         get_heart = 20;
                         girl1_status.GirlExpressionKoushin(50);
                         break;
 
                     case 100:
 
-                        _textmain.text = "ぬいぐるみに喜んだようだ！";
+                        _getheart_text = "ぬいぐるみに喜んだようだ！";
                         get_heart = 30;
                         girl1_status.GirlExpressionKoushin(50);
 
@@ -4466,7 +4468,7 @@ public class Compound_Main : MonoBehaviour
 
                     case 110:
 
-                        _textmain.text = "ほんの少し、ヒカリの勇気がわいてきた！";
+                        _getheart_text = "ほんの少し、ヒカリの勇気がわいてきた！";
                         get_heart = 15;
                         girl1_status.GirlExpressionKoushin(50);
 
@@ -4475,7 +4477,7 @@ public class Compound_Main : MonoBehaviour
 
                     case 130:
 
-                        _textmain.text = "いっぱい遊んで、喜んでいるようだ！";
+                        _getheart_text = "いっぱい遊んで、喜んでいるようだ！";
                         get_heart = 10;
                         girl1_status.GirlExpressionKoushin(50);
 
@@ -4491,13 +4493,13 @@ public class Compound_Main : MonoBehaviour
                             {
                                 case 1:
 
-                                    _textmain.text = "ヒカリの勇気が少しわいてきた！";
+                                    _getheart_text = "ヒカリの勇気が少しわいてきた！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！"; ;
                                     get_heart = 100;
                                     break;
 
                                 case 0:
 
-                                    _textmain.text = "ヒカリは励ましている！";
+                                    _getheart_text = "ヒカリは励ましている！";
                                     get_heart = 2;
                                     break;
                             }
@@ -4508,37 +4510,37 @@ public class Compound_Main : MonoBehaviour
                             {
                                 case 1:
 
-                                    _textmain.text = "ヒカリは喜びのダンスを踊っている！";
+                                    _getheart_text = "ヒカリは喜びのダンスを踊っている！";
                                     get_heart = 80;
                                     break;
 
                                 case 2:
 
-                                    _textmain.text = "ヒカリは応援している！";
+                                    _getheart_text = "ヒカリは応援している！";
                                     get_heart = 30;
                                     break;
 
                                 case 3:
 
-                                    _textmain.text = "ヒカリは応援している！";
+                                    _getheart_text = "ヒカリは応援している！";
                                     get_heart = 10;
                                     break;
 
                                 case 4:
 
-                                    _textmain.text = "ヒカリは励ましている！";
+                                    _getheart_text = "ヒカリは励ましている！";
                                     get_heart = 3;
                                     break;
 
                                 case 5:
 
-                                    _textmain.text = "ヒカリは励ましている！";
+                                    _getheart_text = "ヒカリは励ましている！";
                                     get_heart = 1;
                                     break;
                                
                                 default:
 
-                                    _textmain.text = "ヒカリは応援している！";
+                                    _getheart_text = "ヒカリは応援している！";
                                     get_heart = 1;
                                     break;
                             }
@@ -4552,7 +4554,7 @@ public class Compound_Main : MonoBehaviour
                     case 210: //コンテスト終了　提出おかしが違って失格だった場合
 
 
-                        _textmain.text = "ヒカリは励ましている！";
+                        _getheart_text = "ヒカリは励ましている！";
                         get_heart = 5;
 
                         girl1_status.GirlExpressionKoushin(10);
@@ -4563,7 +4565,7 @@ public class Compound_Main : MonoBehaviour
                     case 211: //コンテスト終了　時間がすぎて失格だった場合
 
 
-                        _textmain.text = "ヒカリは、ぼくの肩をもみもみしている！";
+                        _getheart_text = "ヒカリは、ぼくの肩をもみもみしている！";
                         get_heart = 0;
 
                         girl1_status.GirlExpressionKoushin(10);
@@ -4585,6 +4587,14 @@ public class Compound_Main : MonoBehaviour
                     }
                 }
 
+                if(get_heart > 0)
+                {
+                    _textmain.text = _getheart_text + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                }
+                else
+                {
+                    _textmain.text = _getheart_text;
+                }
 
                 StartCoroutine("ReadGirlLoveEventAfter");
 

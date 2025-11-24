@@ -410,6 +410,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     break;
 
+                case "Or_Hiroba_Spring_Out_alter": //春のさいだんマップ
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[150]) //
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[150] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 200030;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_Map": //遊園地入口マップ
 
                     if (!GameMgr.NPCHiroba_HikarieventList[250]) //はじめてソーダアイランドきた
@@ -435,6 +450,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 300000;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
+
+                case "Or_Hiroba_Winter_altar": //冬のさいだんマップ　禁忌の図書館
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[151]) //
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[151] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 200040;
 
                         check_event = true;
 
@@ -954,7 +984,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_11) //エデンレシピが隠されている祭壇へ
                 {
-                    On_Active2000(200020); //まだ通れない
+                    On_Active2000(200010); //まだ通れない
                 }
                 else
                 {
@@ -1530,7 +1560,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_10) //エデンレシピが隠されている祭壇へ
                 {
-                    On_Active2000(200010); //まだ通れない
+                    On_Active2000(200005); //まだ通れない
                 }
                 else
                 {
@@ -1790,9 +1820,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_Out_alter":
 
-                On_Active2000(200011);　//サンプル
-                ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
-                pitemlist.add_eventPlayerItem(ev_id, 1);
+                if (!GameMgr.NPCHiroba_HikarieventList[160])
+                {
+                    GameMgr.NPCHiroba_HikarieventList[160] = true;
+
+                    On_Active2000(200031); //春のさいだん
+                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
+                    pitemlist.add_eventPlayerItem(ev_id, 1);
+                }
+                else
+                {
+                    On_Active2000(200032); //春のさいだん
+                }
                 break;
 
             case "Or_Hiroba_Summer_Entrance":
@@ -1828,9 +1867,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_altar":
 
-                On_Active2000(200021); //サンプル
-                ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
-                pitemlist.add_eventPlayerItem(ev_id, 1);
+                if (!GameMgr.NPCHiroba_HikarieventList[161])
+                {
+                    GameMgr.NPCHiroba_HikarieventList[161] = true;
+
+                    On_Active2000(200041); //禁忌の図書館
+                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
+                    pitemlist.add_eventPlayerItem(ev_id, 1);
+                }
+                else
+                {
+                    On_Active2000(200042); //禁忌の図書館
+                }
                 break;
 
             default:
@@ -4826,10 +4874,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //ヒカリが一緒にいないと、ぬねは登場しない
                 if (GameMgr.outgirl_Nowprogress) //trueだとヒカリがいない
                 {
-                    mainlist_controller_obj.transform.Find("NPC2_SelectToggle").gameObject.SetActive(false);
+                    mainlist_controller_obj.transform.Find("Viewport/Content_Main/NPC2_SelectToggle").gameObject.SetActive(false);
                 }else
                 {
-                    mainlist_controller_obj.transform.Find("NPC2_SelectToggle").gameObject.SetActive(true);
+                    mainlist_controller_obj.transform.Find("Viewport/Content_Main/NPC2_SelectToggle").gameObject.SetActive(true);
                 }
                 break;
 
