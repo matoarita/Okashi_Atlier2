@@ -8427,28 +8427,28 @@ MonoBehaviour:
       - DestinationId: ParamSkirtYure
         ParticleIndex: 1
         TranslationScale: {x: 0, y: 0}
-        AngleScale: 2.5
+        AngleScale: 2
         Weight: 100
         SourceComponent: 2
         IsInverted: 0
       - DestinationId: ParamSkirtYure2
         ParticleIndex: 2
         TranslationScale: {x: 0, y: 0}
-        AngleScale: 2.5
+        AngleScale: 2
         Weight: 100
         SourceComponent: 2
         IsInverted: 0
       - DestinationId: ParamSkirtYureB1
         ParticleIndex: 1
         TranslationScale: {x: 0, y: 0}
-        AngleScale: 2.5
+        AngleScale: 2
         Weight: 100
         SourceComponent: 2
         IsInverted: 0
       - DestinationId: ParamSkirtYureB2
         ParticleIndex: 2
         TranslationScale: {x: 0, y: 0}
-        AngleScale: 2.5
+        AngleScale: 2
         Weight: 100
         SourceComponent: 2
         IsInverted: 0
@@ -8531,14 +8531,14 @@ MonoBehaviour:
       - DestinationId: ParamSkirtScaleB1
         ParticleIndex: 2
         TranslationScale: {x: 0, y: 0}
-        AngleScale: 3
+        AngleScale: 2
         Weight: 100
         SourceComponent: 2
         IsInverted: 0
       - DestinationId: ParamSkirtScaleB2
         ParticleIndex: 3
         TranslationScale: {x: 0, y: 0}
-        AngleScale: 3
+        AngleScale: 2
         Weight: 100
         SourceComponent: 2
         IsInverted: 0
@@ -8559,7 +8559,7 @@ MonoBehaviour:
         Acceleration: 0.24
         Radius: 15.7
       - InitialPosition: {x: 0, y: 50}
-        Mobility: 0.97
+        Mobility: 0.95
         Delay: 0.93
         Acceleration: 0.17
         Radius: 12.5

@@ -1540,10 +1540,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(300);
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2000);
         GameMgr.PrizeGetMoneyList.Add(3000);
-        GameMgr.PrizeGetMoneyList.Add(5000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();

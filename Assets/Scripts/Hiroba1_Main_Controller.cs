@@ -984,7 +984,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_11) //エデンレシピが隠されている祭壇へ
                 {
-                    On_Active2000(200010); //まだ通れない
+                    On_Active2000(200010, false); //まだ通れない
                 }
                 else
                 {
@@ -1519,7 +1519,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_01)
                 {
-                    On_Active2000(200000); //まだ通れない
+                    On_Active2000(200000, false); //まだ通れない
                 }
                 else
                 {
@@ -1560,7 +1560,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_10) //エデンレシピが隠されている祭壇へ
                 {
-                    On_Active2000(200005); //まだ通れない
+                    On_Active2000(200005, false); //まだ通れない
                 }
                 else
                 {
@@ -1824,13 +1824,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     GameMgr.NPCHiroba_HikarieventList[160] = true;
 
-                    On_Active2000(200031); //春のさいだん
+                    On_Active2000(200031, true); //春のさいだん
                     ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
                     pitemlist.add_eventPlayerItem(ev_id, 1);
                 }
                 else
                 {
-                    On_Active2000(200032); //春のさいだん
+                    On_Active2000(200032, false); //春のさいだん
                 }
                 break;
 
@@ -1871,13 +1871,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     GameMgr.NPCHiroba_HikarieventList[161] = true;
 
-                    On_Active2000(200041); //禁忌の図書館
+                    On_Active2000(200041, true); //禁忌の図書館
                     ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
                     pitemlist.add_eventPlayerItem(ev_id, 1);
                 }
                 else
                 {
-                    On_Active2000(200042); //禁忌の図書館
+                    On_Active2000(200042, false); //禁忌の図書館
                 }
                 break;
 
@@ -4196,7 +4196,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         GameMgr.hiroba_event_placeNum = 1700; //
 
-        //sceneBGM.FadeOutBGM();
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         //bgm_change_flag = true;
         GameMgr.hiroba_event_ID = 170000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
@@ -4207,7 +4207,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         GameMgr.hiroba_event_placeNum = 1700; //
 
-        //sceneBGM.FadeOutBGM();
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         //bgm_change_flag = true;
         GameMgr.hiroba_event_ID = 170001; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
@@ -4218,7 +4218,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         GameMgr.hiroba_event_placeNum = 1700; //
 
-        //sceneBGM.FadeOutBGM();
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         //bgm_change_flag = true;
         GameMgr.hiroba_event_ID = 170002; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
@@ -4229,7 +4229,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         GameMgr.hiroba_event_placeNum = 1700; //
 
-        //sceneBGM.FadeOutBGM();
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         //bgm_change_flag = true;
         GameMgr.hiroba_event_ID = 170003; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
@@ -4238,12 +4238,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     //ヒカリ関連のマップイベントはActive2000～
     //
-    void On_Active2000(int _num)
+    void On_Active2000(int _num, bool bgmchange)
     {
         GameMgr.hiroba_event_placeNum = 2000; //
 
-        //sceneBGM.FadeOutBGM();
-        //bgm_change_flag = true;
+        if (bgmchange)
+        {
+            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            bgm_change_flag = true;
+        }
         GameMgr.hiroba_event_ID = _num; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
         EventReadingStart();
@@ -4257,7 +4260,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             GameMgr.NPCHiroba_HikarieventList[100] = true;
 
-            //sceneBGM.FadeOutBGM();
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
             //bgm_change_flag = true;
             GameMgr.hiroba_event_ID = 210000; //そのときに呼び出すイベント番号 placeNumとセットで使う。    
             check_event = true;

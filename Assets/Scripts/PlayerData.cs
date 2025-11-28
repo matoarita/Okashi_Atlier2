@@ -174,6 +174,7 @@ public class PlayerData
     public int save_yachin_otetsuki_count;
     public int save_yachin_tainou_count;
     public bool save_yachinSPRoomON_Flag;
+    public int save_System_Yachin_Cost_SPRoom;
 
     //マップイベントフラグ
     public bool[] save_MapEvent_01;         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

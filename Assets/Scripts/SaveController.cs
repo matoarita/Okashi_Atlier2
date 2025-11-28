@@ -421,6 +421,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_yachin_otetsuki_count = GameMgr.yachin_otetsuki_count,
             save_yachin_tainou_count = GameMgr.yachin_tainou_count,
             save_yachinSPRoomON_Flag = GameMgr.yachinSPRoomON_Flag,
+            save_System_Yachin_Cost_SPRoom = GameMgr.System_Yachin_Cost_SPRoom,
 
             //お菓子クエストフラグ
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
@@ -902,6 +903,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.yachin_otetsuki_count = playerData.save_yachin_otetsuki_count;
         GameMgr.yachin_tainou_count = playerData.save_yachin_tainou_count;
         GameMgr.yachinSPRoomON_Flag = playerData.save_yachinSPRoomON_Flag;
+        GameMgr.System_Yachin_Cost_SPRoom = playerData.save_System_Yachin_Cost_SPRoom;
 
         //お菓子クエストフラグ
         GameMgr.OkashiQuest_flag_stage1 = playerData.save_OkashiQuest_flag_stage1; //各SPイベントのクリアしたかどうかのフラグ。
@@ -1115,7 +1117,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
-            pitemlist.player_originalitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+
+            pitemlist.player_originalitemlist[i].itemIcon_sprite = pitemlist.SearchFileName_ToItemSprite(pitemlist.player_originalitemlist[i].fileName);
             pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;
             pitemlist.player_originalitemlist[i].girl1_itemLike = database.items[_itemID].girl1_itemLike;
             pitemlist.player_originalitemlist[i].cost_price = database.items[_itemID].cost_price;
@@ -1130,7 +1133,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < pitemlist.player_yosokuitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_yosokuitemlist[i].itemName);
-            pitemlist.player_yosokuitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+            pitemlist.player_yosokuitemlist[i].itemIcon_sprite = pitemlist.SearchFileName_ToItemSprite(pitemlist.player_yosokuitemlist[i].fileName);
             pitemlist.player_yosokuitemlist[i].itemID = database.items[_itemID].itemID;
             pitemlist.player_yosokuitemlist[i].girl1_itemLike = database.items[_itemID].girl1_itemLike;
             pitemlist.player_yosokuitemlist[i].cost_price = database.items[_itemID].cost_price;
@@ -1145,7 +1148,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_extremepanel_itemlist[i].itemName);
-            pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+            pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite = pitemlist.SearchFileName_ToItemSprite(pitemlist.player_extremepanel_itemlist[i].fileName);
             pitemlist.player_extremepanel_itemlist[i].itemID = database.items[_itemID].itemID;
             pitemlist.player_extremepanel_itemlist[i].girl1_itemLike = database.items[_itemID].girl1_itemLike;
             pitemlist.player_extremepanel_itemlist[i].cost_price = database.items[_itemID].cost_price;
@@ -2009,7 +2012,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                         if (GameMgr.contestclear_collection_list[i].ItemData.itemID != 9999)
                         {
                             _itemID = pitemlist.SearchItemString(GameMgr.contestclear_collection_list[i].ItemData.itemName);
-                            GameMgr.contestclear_collection_list[i].ItemData.itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+                            GameMgr.contestclear_collection_list[i].ItemData.itemIcon_sprite = pitemlist.SearchFileName_ToItemSprite(GameMgr.contestclear_collection_list[i].ItemData.fileName);
                         }
                         break;
                     }

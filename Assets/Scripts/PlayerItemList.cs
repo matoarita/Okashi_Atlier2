@@ -89,6 +89,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     private string _original_id_string;
 
+    private Sprite itemIcon_sprite;
+
     //プレイヤーの所持アイテムリスト。Dictionaryなので、｛アイテム名, 個数｝の関係で格納する。
     public Dictionary<string, int> playeritemlist = new Dictionary<string, int>();
 
@@ -1363,5 +1365,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         {
             player_originalitemlist = new List<Item>(keep_player_originalitemlist);
         }
+    }
+
+    //ファイルネームをいれると、スプライトを返す
+    public Sprite SearchFileName_ToItemSprite(string fileName)
+    {
+        itemIcon_sprite = Resources.Load<Sprite>("Sprites/Items/" + fileName);
+        return itemIcon_sprite;
     }
 }

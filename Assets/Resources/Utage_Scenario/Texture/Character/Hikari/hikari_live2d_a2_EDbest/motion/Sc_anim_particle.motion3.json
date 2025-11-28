@@ -1,0 +1,195 @@
+{
+	"Version": 3,
+	"Meta": {
+		"Duration": 6,
+		"Fps": 30.0,
+		"Loop": true,
+		"AreBeziersRestricted": true,
+		"CurveCount": 8,
+		"TotalSegmentCount": 21,
+		"TotalPointCount": 55,
+		"UserDataCount": 0,
+		"TotalUserDataSize": 0
+	},
+	"Curves": [
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveA1",
+			"Segments": [
+				0,
+				0,
+				1,
+				2,
+				0,
+				4,
+				1,
+				6,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveA2",
+			"Segments": [
+				0,
+				0.741,
+				1,
+				0.656,
+				0.83,
+				1.311,
+				0.911,
+				1.967,
+				1,
+				3,
+				2,
+				0,
+				1,
+				3.333,
+				0,
+				4.667,
+				0.309,
+				6,
+				0.741
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveA3",
+			"Segments": [
+				0,
+				0.926,
+				1,
+				0.322,
+				0.953,
+				0.644,
+				0.978,
+				0.967,
+				1,
+				3,
+				1,
+				0,
+				1,
+				2.667,
+				0,
+				4.333,
+				0.432,
+				6,
+				0.926
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveB1",
+			"Segments": [
+				0,
+				0.611,
+				0,
+				1.333,
+				1,
+				3,
+				3.733,
+				0,
+				0,
+				6,
+				0.611
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveB2",
+			"Segments": [
+				0,
+				0,
+				1,
+				2,
+				0,
+				4,
+				1,
+				6,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveB3",
+			"Segments": [
+				0,
+				0.959,
+				0,
+				0.667,
+				1,
+				3,
+				1.667,
+				0,
+				0,
+				6,
+				0.959
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamParticleMoveB4",
+			"Segments": [
+				0,
+				0,
+				1,
+				2,
+				0,
+				4,
+				1,
+				6,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffLightChika",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.333,
+				0,
+				0.667,
+				1,
+				1,
+				1,
+				1,
+				1.333,
+				1,
+				1.667,
+				0,
+				2,
+				0,
+				1,
+				2.333,
+				0,
+				2.667,
+				1,
+				3,
+				1,
+				1,
+				3.333,
+				1,
+				3.667,
+				0,
+				4,
+				0,
+				1,
+				4.333,
+				0,
+				4.667,
+				1,
+				5,
+				1,
+				1,
+				5.333,
+				1,
+				5.667,
+				1,
+				6,
+				1
+			]
+		}
+	]
+}

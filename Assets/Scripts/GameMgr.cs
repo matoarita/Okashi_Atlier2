@@ -145,8 +145,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン
-    public static int System_Yachin_Cost_SPRoom; //特別な部屋の家賃
+    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン    
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
@@ -347,6 +346,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int yachin_otetsuki_count; //お手付きの回数　2回目までたまるとゲームオーバー
     public static int yachin_tainou_count; //家賃滞納した回数
     public static bool yachinSPRoomON_Flag; //その家で家賃があるかどうかをチェック
+    public static int System_Yachin_Cost_SPRoom; //特別な部屋の家賃 これはセーブする
 
     //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
@@ -2213,15 +2213,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         
 
         OrRoomCost[0] = 0;
-        OrRoomCost[1] = 20000;
-        OrRoomCost[2] = 50000;
-        OrRoomCost[3] = 60000;
-        OrRoomCost[4] = 100000;
+        OrRoomCost[1] = 10000;
+        OrRoomCost[2] = 10000;
+        OrRoomCost[3] = 10000;
+        OrRoomCost[4] = 10000;
 
-        OrRoomCost[5] = 200000;
-        OrRoomCost[6] = 70000;
-        OrRoomCost[7] = 150000;
-        OrRoomCost[8] = 300000;
+        OrRoomCost[5] = 10000;
+        OrRoomCost[6] = 10000;
+        OrRoomCost[7] = 10000;
+        OrRoomCost[8] = 10000;
         OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";

@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 33,
-		"TotalSegmentCount": 85,
-		"TotalPointCount": 276,
+		"CurveCount": 28,
+		"TotalSegmentCount": 68,
+		"TotalPointCount": 232,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -109,6 +109,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeLSmile",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
@@ -127,6 +142,21 @@
 				1,
 				3,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeRSmile",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
 			]
 		},
 		{
@@ -292,6 +322,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamCheek",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
@@ -373,12 +418,12 @@
 				0.5,
 				0,
 				1,
-				0.6,
+				0.9,
 				1.5,
-				0.6,
+				0.9,
 				1,
 				2,
-				0.6,
+				0.9,
 				2.5,
 				0,
 				3,
@@ -569,186 +614,6 @@
 				2.667,
 				1,
 				2.833,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveA1",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.222,
-				0,
-				0.444,
-				1,
-				0.667,
-				1,
-				1,
-				0.944,
-				1,
-				1.222,
-				0,
-				1.5,
-				0,
-				1,
-				1.722,
-				0,
-				1.944,
-				1,
-				2.167,
-				1,
-				1,
-				2.444,
-				1,
-				2.722,
-				1,
-				3,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveA2",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.511,
-				0,
-				1.022,
-				1,
-				1.533,
-				1,
-				1,
-				2.022,
-				1,
-				2.511,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveA3",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.222,
-				0,
-				0.444,
-				1,
-				0.667,
-				1,
-				1,
-				0.889,
-				1,
-				1.111,
-				0,
-				1.333,
-				0,
-				1,
-				1.611,
-				0,
-				1.889,
-				1,
-				2.167,
-				1,
-				1,
-				2.444,
-				1,
-				2.722,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveB1",
-			"Segments": [
-				0,
-				0.611,
-				0,
-				0.667,
-				1,
-				3,
-				1.867,
-				0,
-				0,
-				3,
-				0.611
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveB2",
-			"Segments": [
-				0,
-				0,
-				1,
-				1,
-				0,
-				2,
-				1,
-				3,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveB3",
-			"Segments": [
-				0,
-				0.959,
-				0,
-				0.333,
-				1,
-				3,
-				0.833,
-				0,
-				0,
-				3,
-				0.959
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamParticleMoveB4",
-			"Segments": [
-				0,
-				0,
-				1,
-				1,
-				0,
-				2,
-				1,
-				3,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEffLightChika",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.5,
-				0,
-				1,
-				1,
-				1.5,
-				1,
-				1,
-				2,
-				1,
-				2.5,
 				0,
 				3,
 				0

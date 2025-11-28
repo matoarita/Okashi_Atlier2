@@ -385,6 +385,11 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound51;
                                 break;
 
+                            case "Or_Hiroba_Spring_Out_alter": //春エリア　祭壇
+
+                                _send_clip = sound51;
+                                break;
+
                             case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
 
                                 _send_clip = sound49;
@@ -582,6 +587,11 @@ public class BGM : MonoBehaviour {
                             case "Or_Hiroba_Winter_PatissierHouseMae": //冬のエリア入口から奥の広場通り
 
                                 _send_clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_altar": //冬エリア　祭壇　禁忌の図書館
+
+                                _send_clip = sound51;
                                 break;
 
                             case "Or_Hiroba_MainGate_Street": //正門前ストリート

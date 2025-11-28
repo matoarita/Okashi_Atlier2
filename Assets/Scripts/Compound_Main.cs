@@ -1863,6 +1863,10 @@ public class Compound_Main : MonoBehaviour
                 gameQuestPanel_Panel.SetActive(true);
                 gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
 
+                //デバッグ用
+                magicskill_database.skillHyoujiKaikin("Float_Material");
+                //
+
 
                 //
                 //アニメーション、キャラの表情関係

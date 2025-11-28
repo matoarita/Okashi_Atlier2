@@ -160,3 +160,5 @@
 ・BGM_156		PerituneMaterial_Sweet_loop		【宴用】家選び中のごほうびBGM
 ・BGM_157		PerituneMaterial_Firmament3_Active_loop	大会コンテスト調合時のBGM04　イセヤ戦闘
 ・BGM_158		PerituneMaterial_Tir_sonas_inst		教会の讃美歌風BGM　ルミエール系のコンテストなど
+・BGM_159		Antan					怖い曲　冬の図書館BGM
+・BGM_160		PerituneMaterial_Forest_Sage_loop	春の祭壇BGM　隠された魔法研究室
