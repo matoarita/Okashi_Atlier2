@@ -3883,6 +3883,23 @@ public class Utage_scenario : MonoBehaviour
             engine.ResumeScenario();
         }
 
+        //広場マップ　最初にシーン背景黒にしておき、宴BGが表示されてから黒を解除する
+        if (GameMgr.hiroba_event_startblack)
+        {
+            GameMgr.hiroba_event_startblack = false;
+
+            //「宴」のシナリオ終了待ち
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.Utage_SceneStart_BlackON = true;
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+        }
+
         //広場マップからマップ移動の場合　シーン暗くしておく
         if (GameMgr.Utage_MapMoveBlackON)
         {
@@ -4002,8 +4019,8 @@ public class Utage_scenario : MonoBehaviour
             engine.ResumeScenario();
         }
 
-        //エンド待ち部分
 
+        //エンド待ち部分
         //Debug.Log("BGM宴途中変更フラグ=true");
 
         //「宴」のシナリオ終了待ち
@@ -5612,6 +5629,17 @@ public class Utage_scenario : MonoBehaviour
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオポーズ待ち
+        while (!Engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.Utage_SceneEnd_BlackON = true;
+
+        //元のシナリオにもどる。
+        engine.ResumeScenario();
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

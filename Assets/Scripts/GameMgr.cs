@@ -639,6 +639,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ   
     public static int hiroba_event_placeNum;  //どの場所を選んだか
     public static int hiroba_event_ID; //イベントID
+    public static bool hiroba_event_startblack; //広場イベント最初に、シーンの背景をオフのままにしておく。宴途中で黒を解除する。
 
     //通常お菓子を食べた後の感想
     public static int OkashiComment_ID;
@@ -1007,6 +1008,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Utage_Prizepanel_WaitHyouji; //プライズパネルが完全に開くまで、宴の続きを再生しないフラグ
     public static bool Utage_Prizepanel_OFF; //賞品リストをオフにする。
     public static bool Utage_SceneStart_BlackOFF; //うたげ　コンテスト開始時　背景のデータ読み込み用のフラグ　このタイミングでブラックをオフにする
+    public static bool Utage_SceneStart_BlackON; //うたげ開始時、シーン背景を黒のままにしておく。宴BG表示してから解除する。
     public static bool Utage_SceneEnd_BlackON; //うたげ終了時、シーン移動する際に、ゲーム本編の黒をONにする。でないと、一瞬切り替え表示が見えてしまう。
     public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
     public static bool Utage_MapMoveBlackON; //宴読み終わり後に、マップ移動のとき、シーンをあらかじめブラックに消すフラグ　こっちは、SceneEnd_BlackONをTrueにするため分岐する用
@@ -1678,6 +1680,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_Prizepanel_ON = false;
         Utage_Prizepanel_WaitHyouji = false;
         Utage_Prizepanel_OFF = false;
+        Utage_SceneStart_BlackON = false;
         Utage_SceneStart_BlackOFF = false;
         Utage_SceneEnd_BlackON = false;
         Utage_MapMoveBlackON = false;
@@ -1756,6 +1759,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MagicUseTypeSelect = 0;
         MagicUseType_StatusText = "";
         common_itemdatahyouji_list.Clear();
+        hiroba_event_startblack = false;
 
         //最初の家賃額
         System_Yachin_Cost_SPRoom = System_Yachin_Cost02;

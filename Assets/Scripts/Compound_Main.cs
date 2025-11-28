@@ -4515,13 +4515,13 @@ public class Compound_Main : MonoBehaviour
                                 case 1:
 
                                     _getheart_text = "ヒカリは喜びのダンスを踊っている！";
-                                    get_heart = 80;
+                                    get_heart = 100;
                                     break;
 
                                 case 2:
 
                                     _getheart_text = "ヒカリは応援している！";
-                                    get_heart = 30;
+                                    get_heart = 25;
                                     break;
 
                                 case 3:

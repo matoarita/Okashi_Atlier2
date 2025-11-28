@@ -136,7 +136,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン全てをブラックに消すパネル
         scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
-        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //黒い画面はオフ
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f); //黒い画面は最初ON　イベントチェックしてからオフ
 
         fadeout_panel_obj = canvas.transform.Find("FadeOutPanel").gameObject;
         fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //白い画面はオフ
@@ -176,6 +176,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         GameMgr.Utage_MapMoveON = false;
         GameMgr.utage_charaHyouji_flag = false;
+
+        GameMgr.hiroba_event_startblack = false;
 
         StartRead = false;
         check_event = false;
@@ -226,7 +228,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
         }
 
-        //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
+        //宴途中でブラックをオフにする 宴のBGを最初に表示したい場合などに使用
+        if (GameMgr.Utage_SceneStart_BlackON)
+        {
+            GameMgr.Utage_SceneStart_BlackON = false;
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //こっちはフェードで。
+        }
+
+        //宴途中でブラックをオンにする ドアをあけて会場へ移動する演出用
         if (GameMgr.Utage_SceneEnd_BlackON)
         {
             GameMgr.Utage_SceneEnd_BlackON = false;
@@ -259,6 +268,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         {
                             text_area.SetActive(true);
                         }
+
+                        //黒をオフ
+                        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
 
                         //placename_panel.SetActive(true);
                         mainlist_controller_obj.SetActive(true);
@@ -418,6 +430,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 200030;
+                        GameMgr.hiroba_event_startblack = true; //シーン背景最初は黒のままで、宴のBG表示されてからオフにする。
 
                         check_event = true;
 
@@ -465,6 +478,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 200040;
+                        //GameMgr.hiroba_event_startblack = true; //シーン背景最初は黒のままで、宴のBG表示されてからオフにする。
 
                         check_event = true;
 
@@ -534,6 +548,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //キャラ表示パネルも一時的にオフ
         Character_panel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
 
+        //通常シーンブラックはオフだが、マップの背景を見せたくない場合（宴のBGを使う場合）に最初黒を残す処理
+        if (GameMgr.hiroba_event_startblack)
+        { }
+        else
+        {
+            //ここのタイミングを黒をOFF
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //ブラックをオフ
+        }
+
         //Debug.Log("広場イベント　読み中");
 
         while (!GameMgr.scenario_read_endflag)
@@ -543,6 +566,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
+        GameMgr.hiroba_event_startblack = false;
 
         if (GameMgr.Utage_FadeOutWhiteON)
         {
@@ -605,6 +629,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             //テキストあらたに変わってたら更新
             SceneToggleDefaultSetup();
             text_scenario(); //テキストの更新
+
+            
         }
     }
 

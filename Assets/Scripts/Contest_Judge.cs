@@ -367,6 +367,13 @@ public class Contest_Judge : MonoBehaviour {
 
             if (judge_flag_type2) //trueだとこっちは失格
             {
+                for (i = 0; i < GameMgr.contest_Score.Length; i++)
+                {
+                    GameMgr.contest_Score[i] = 0;
+                }
+
+                GameMgr.contest_TotalScore = 0;
+
                 GameMgr.contest_Disqualification3 = true;
                 Debug.Log("前の戦いですでに出したお菓子と被っていたので、失格！: " + GameMgr.contest_okashiName);
             }
@@ -1668,6 +1675,15 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score8[i] = 25; //芸術性の値が最低20は必要 足りない場合、-数値*5倍 + -30 最大の減点が-130点
+                    }
+                    GameMgr.contest_SPJudgeCommentNum = 8; //コンテストコメント番号
+
+                    Debug.Log("判定値追加： 芸術性 " + 25);
+                    Debug.Log("### ###");
+
                     //じいさんの見た目判定を0に。
                     Contest_KyotuHosei_1();
                 }

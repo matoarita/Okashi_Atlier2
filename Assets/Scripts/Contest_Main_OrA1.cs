@@ -372,7 +372,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             GameMgr.scenario_ON = true;
 
-            sceneBGM.MuteBGM();            
+            sceneBGM.MuteBGM();      
+            
+            //会場ホールのBGMは宴で鳴らしてるので、Utage_Scenarioの「SubRoutine」で選択する。
+            //コンテスト中BGMは、スクリプトのBGM.cs
 
             GameMgr.contest_event_num = GameMgr.ContestSelectNum;
             GameMgr.contest_or_event_flag = true;
@@ -1226,7 +1229,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     IEnumerator WaitForJudge()
     {
-        yield return new WaitForSeconds(1f); //1秒待つ
+        yield return new WaitForSeconds(2.0f); //2秒待つ
 
         //お菓子を採点する
         contest_judge.Contest_Judge_Start();
@@ -1259,7 +1262,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     IEnumerator WaitForLimitTimeOver()
     {
-        yield return new WaitForSeconds(1f); //1秒待つ
+        yield return new WaitForSeconds(2.0f); //1秒待つ
 
         GameMgr.scenario_ON = true;
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;

@@ -1093,12 +1093,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         CreamBuf();
                         break;
 
-                    case "Crepe":
+                    /*case "Crepe":
 
                         CrepeBuf();
-                        break;
+                        break;*/
 
-                    case "Crepe_Mat":
+                    case "Crepe_Mat": //クレープ生地ができるときだけ効果がある
 
                         CrepeBuf();
                         break;
@@ -2517,7 +2517,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //食感への補正
         if (_mstatus == 0)
         {
-            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 2.0f); //最大LVで、にいちゃんの1.5倍上がる LVあげなくても普通に作れる　あまりやると強すぎ
+            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 1.5f); //最大LVで、にいちゃんの1.5倍上がる LVあげなくても普通に作れる　あまりやると強すぎ
             _buf_hikari_okashiparam = 0.1f + _a;
         }
         else if (_mstatus == 1)
@@ -2637,7 +2637,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         else
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
-            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.5f); //LV1~9までで、1.0~1.5倍まで上昇
+            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.3f); //LV1~9までで、1.0~1.3倍まで上昇
         }
 
         Debug.Log("ヒカリのおかしLVによる作ったお菓子へのバフ LV: " + hikari_okashiLV + " Param: " + _buf_hikari_okashi_paramup);

@@ -1466,7 +1466,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：魔法お菓子限定";
-        GameMgr.Contest_ProblemSentence2 = "魔法で作る、ちょっと変わった見た目のお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence2 = "魔法で作った、おいしくて見た目の美しいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();

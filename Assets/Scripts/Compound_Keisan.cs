@@ -2522,47 +2522,43 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 
                 if (mstatus != 99)
                 {
+                    Debug.Log("距離補正前　元のさくさく感: " + _basecrispy);
                     Debug.Log("ベスト配合との距離: " + totalkyori);
                 }
 
                 if (totalkyori >= 0 && totalkyori < 0.1)
                 {
-                    kyori_hosei = 2.0f;
+                    kyori_hosei = 1.5f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 0.1 && totalkyori < 0.5)
                 {
-                    kyori_hosei = 1.85f;
+                    kyori_hosei = 1.3f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 0.5 && totalkyori < 1.0)
                 {
-                    kyori_hosei = 1.65f;
+                    kyori_hosei = 1.2f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
-                else if (totalkyori >= 1.0 && totalkyori < 2.0)　//現在小数以下はでないので、実質ここが一番最強の距離になる。
+                else if (totalkyori >= 1.0 && totalkyori < 2.0)
                 {
-                    kyori_hosei = 1.5f;
+                    kyori_hosei = 1.15f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 2.0 && totalkyori < 3.0)
                 {
-                    kyori_hosei = 1.25f;
+                    kyori_hosei = 1.05f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
-                else if (totalkyori >= 3.0 && totalkyori < 4.0)
+                else if (totalkyori >= 3.0 && totalkyori < 5.0)
                 {
                     kyori_hosei = 1.0f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
-                else if (totalkyori >= 4.0 && totalkyori < 5.0)
-                {
-                    kyori_hosei = 0.95f;
-                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
-                }
                 else if (totalkyori >= 5.0 && totalkyori < 6.0)
                 {
-                    kyori_hosei = 0.8f;
+                    kyori_hosei = 0.85f;
                     kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 6.0 && totalkyori < 8.0)
@@ -2588,6 +2584,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basehardness = (int)(_basehardness * kyori_hosei);
                 _basejiggly = (int)(_basejiggly * kyori_hosei);
                 _basechewy = (int)(_basechewy * kyori_hosei);
+                Debug.Log("距離補正値: " + kyori_hosei + "倍");
             }           
         }
         Debug.Log("距離補正後のさくさく感: " + _basecrispy);
