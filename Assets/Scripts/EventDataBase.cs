@@ -1866,212 +1866,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                         conteststartList_database.Contest_ArchivementKeisan(); //各コンテスト達成率を計算
 
-                        //各コンテストでチェック
-                        i = 0;
-                        while (i < 4)
-                        {
-                            switch (i)
-                            {
-                                case 0:
+                        //A 春・夏・秋・冬とコンテスト分かれてる場合のチェックパターン
+                        Check_ContestTasseiListA(); 
 
-                                    read_ID = 0; //春
-                                    archive_area = 0;
-                                    archivement_percent = GameMgr.Contest_archivement_percent[0];
-                                    break;
-
-                                case 1:
-
-                                    read_ID = 1000; //春
-                                    archive_area = 1000;
-                                    archivement_percent = GameMgr.Contest_archivement_percent[1];
-                                    break;
-
-                                case 2:
-
-                                    read_ID = 2000; //春
-                                    archive_area = 2000;
-                                    archivement_percent = GameMgr.Contest_archivement_percent[2];
-                                    break;
-
-                                case 3:
-
-                                    read_ID = 3000; //春
-                                    archive_area = 3000;
-                                    archivement_percent = GameMgr.Contest_archivement_percent[3];
-                                    break;
-                            }
-
-                            contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
-                            contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
-
-                            Debug.Log("contest_allcount: " + contest_allcount);
-                            Debug.Log("contest_victorycount: " + contest_victorycount);
-                            Debug.Log("contest_archivement_percent: " + archivement_percent);
-
-                            //100%達成をまずチェック
-                            if (contest_allcount == contest_victorycount)
-                            {
-
-                                //どのエリアを達成したか
-                                switch (archive_area)
-                                {
-                                    case 0:
-
-                                        //春エリア100%達成
-                                        if (!GameMgr.GirlLoveSubEvent_stage1[720])
-                                        {
-                                            GameMgr.GirlLoveSubEvent_stage1[720] = true;
-
-                                            GameMgr.GirlLoveSubEvent_num = 720;
-
-                                            //GameMgr.OrRoomRelease[1] = true;
-                                            GameMgr.OrRoomRelease[2] = true;
-
-                                            contest_Master_TasseiFlag = true;
-                                        }
-                                        break;
-
-                                    case 1000:
-
-                                        //夏エリア100%達成
-                                        if (!GameMgr.GirlLoveSubEvent_stage1[721])
-                                        {
-                                            GameMgr.GirlLoveSubEvent_stage1[721] = true;
-
-                                            GameMgr.GirlLoveSubEvent_num = 721;
-
-                                            //GameMgr.OrRoomRelease[3] = true;
-                                            GameMgr.OrRoomRelease[4] = true;
-                                            GameMgr.OrRoomRelease[5] = true;
-
-                                            contest_Master_TasseiFlag = true;
-                                        }
-                                        break;
-
-                                    case 2000:
-
-                                        //秋エリア100%達成
-                                        if (!GameMgr.GirlLoveSubEvent_stage1[722])
-                                        {
-                                            GameMgr.GirlLoveSubEvent_stage1[722] = true;
-
-                                            GameMgr.GirlLoveSubEvent_num = 722;
-
-                                            //GameMgr.OrRoomRelease[6] = true;
-                                            GameMgr.OrRoomRelease[7] = true;
-                                            GameMgr.OrRoomRelease[8] = true;
-
-                                            contest_Master_TasseiFlag = true;
-                                        }
-                                        break;
-
-                                    case 3000:
-
-                                        //冬エリア100%達成
-                                        if (!GameMgr.GirlLoveSubEvent_stage1[723])
-                                        {
-                                            GameMgr.GirlLoveSubEvent_stage1[723] = true;
-
-                                            GameMgr.GirlLoveSubEvent_num = 723;
-
-                                            contest_Master_TasseiFlag = true;
-                                        }
-                                        break;
-                                }
-
-                                if (contest_Master_TasseiFlag)
-                                {
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GameMgr.Mute_on = true;
-
-                                    break;
-                                }
-
-                            }
-                            else
-                            {
-                                //５０％達成
-                                if ( 50.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
-                                {
-                                    //どのエリアを達成したか
-                                    switch (archive_area)
-                                    {
-                                        case 0:
-
-                                            //春エリア50%達成
-                                            if (!GameMgr.GirlLoveSubEvent_stage1[724])
-                                            {
-                                                GameMgr.GirlLoveSubEvent_stage1[724] = true;
-
-                                                GameMgr.GirlLoveSubEvent_num = 724;
-
-                                                GameMgr.OrRoomRelease[1] = true;
-                                                //GameMgr.OrRoomRelease[2] = true;
-
-                                                contest_Master_TasseiFlag_half = true;
-                                            }
-                                            break;
-
-                                        case 1000:
-
-                                            //夏エリア50%達成
-                                            if (!GameMgr.GirlLoveSubEvent_stage1[725])
-                                            {
-                                                GameMgr.GirlLoveSubEvent_stage1[725] = true;
-
-                                                GameMgr.GirlLoveSubEvent_num = 725;
-
-                                                GameMgr.OrRoomRelease[3] = true;
-                                                //GameMgr.OrRoomRelease[4] = true;
-                                                //GameMgr.OrRoomRelease[5] = true;
-
-                                                contest_Master_TasseiFlag_half = true;
-                                            }
-                                            break;
-
-                                        case 2000:
-
-                                            //秋エリア50%達成
-                                            if (!GameMgr.GirlLoveSubEvent_stage1[726])
-                                            {
-                                                GameMgr.GirlLoveSubEvent_stage1[726] = true;
-
-                                                GameMgr.GirlLoveSubEvent_num = 726;
-
-                                                GameMgr.OrRoomRelease[6] = true;
-                                                //GameMgr.OrRoomRelease[7] = true;
-                                                //GameMgr.OrRoomRelease[8] = true;
-
-                                                contest_Master_TasseiFlag_half = true;
-                                            }
-                                            break;
-
-                                        case 3000:
-
-                                            //冬エリア50%達成
-                                            if (!GameMgr.GirlLoveSubEvent_stage1[727])
-                                            {
-                                                GameMgr.GirlLoveSubEvent_stage1[727] = true;
-
-                                                GameMgr.GirlLoveSubEvent_num = 727;
-
-                                                contest_Master_TasseiFlag_half = true;
-                                            }
-                                            break;
-                                    }
-
-                                    if (contest_Master_TasseiFlag_half)
-                                    {
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GameMgr.Mute_on = true;
-
-                                        break;
-                                    }
-                                }
-                            }
-
-                            i++;
-                        }
+                        //B 春コンのみでコンテストを一括管理してる場合のパターン
+                        //Check_ContestTasseiListB();
                     }
                 }
             }
@@ -2094,6 +1893,353 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             }
             else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
             { }
+        }
+    }
+
+    void Check_ContestTasseiListA()
+    {
+        //各コンテストでチェック
+        i = 0;
+        while (i < 4)
+        {
+            switch (i)
+            {
+                case 0:
+
+                    read_ID = 0; //春
+                    archive_area = 0;
+                    archivement_percent = GameMgr.Contest_archivement_percent[0];
+                    break;
+
+                case 1:
+
+                    read_ID = 1000; //春
+                    archive_area = 1000;
+                    archivement_percent = GameMgr.Contest_archivement_percent[1];
+                    break;
+
+                case 2:
+
+                    read_ID = 2000; //春
+                    archive_area = 2000;
+                    archivement_percent = GameMgr.Contest_archivement_percent[2];
+                    break;
+
+                case 3:
+
+                    read_ID = 3000; //春
+                    archive_area = 3000;
+                    archivement_percent = GameMgr.Contest_archivement_percent[3];
+                    break;
+            }
+
+            contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
+            contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+
+            Debug.Log("contest_allcount: " + contest_allcount);
+            Debug.Log("contest_victorycount: " + contest_victorycount);
+            Debug.Log("contest_archivement_percent: " + archivement_percent);
+
+            //100%達成をまずチェック
+            if (contest_allcount == contest_victorycount)
+            {
+
+                //どのエリアを達成したか
+                switch (archive_area)
+                {
+                    case 0:
+
+                        //春エリア100%達成
+                        if (!GameMgr.GirlLoveSubEvent_stage1[720])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[720] = true;
+
+                            GameMgr.GirlLoveSubEvent_num = 720;
+
+                            //GameMgr.OrRoomRelease[1] = true;
+                            GameMgr.OrRoomRelease[2] = true;
+
+                            contest_Master_TasseiFlag = true;
+                        }
+                        break;
+
+                    case 1000:
+
+                        //夏エリア100%達成
+                        if (!GameMgr.GirlLoveSubEvent_stage1[721])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[721] = true;
+
+                            GameMgr.GirlLoveSubEvent_num = 721;
+
+                            //GameMgr.OrRoomRelease[3] = true;
+                            GameMgr.OrRoomRelease[4] = true;
+                            GameMgr.OrRoomRelease[5] = true;
+
+                            contest_Master_TasseiFlag = true;
+                        }
+                        break;
+
+                    case 2000:
+
+                        //秋エリア100%達成
+                        if (!GameMgr.GirlLoveSubEvent_stage1[722])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[722] = true;
+
+                            GameMgr.GirlLoveSubEvent_num = 722;
+
+                            //GameMgr.OrRoomRelease[6] = true;
+                            GameMgr.OrRoomRelease[7] = true;
+                            GameMgr.OrRoomRelease[8] = true;
+
+                            contest_Master_TasseiFlag = true;
+                        }
+                        break;
+
+                    case 3000:
+
+                        //冬エリア100%達成
+                        if (!GameMgr.GirlLoveSubEvent_stage1[723])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[723] = true;
+
+                            GameMgr.GirlLoveSubEvent_num = 723;
+
+                            contest_Master_TasseiFlag = true;
+                        }
+                        break;
+                }
+
+                if (contest_Master_TasseiFlag)
+                {
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                    GameMgr.Mute_on = true;
+
+                    break;
+                }
+
+            }
+            else
+            {
+                //100%以下をチェック　こっちは数字より上だったらでOK
+                //５０％達成
+                if (50.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
+                {
+                    //どのエリアを達成したか
+                    switch (archive_area)
+                    {
+                        case 0:
+
+                            //春エリア50%達成
+                            if (!GameMgr.GirlLoveSubEvent_stage1[724])
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[724] = true;
+
+                                GameMgr.GirlLoveSubEvent_num = 724;
+
+                                GameMgr.OrRoomRelease[1] = true;
+                                //GameMgr.OrRoomRelease[2] = true;
+
+                                contest_Master_TasseiFlag_half = true;
+                            }
+                            break;
+
+                        case 1000:
+
+                            //夏エリア50%達成
+                            if (!GameMgr.GirlLoveSubEvent_stage1[725])
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[725] = true;
+
+                                GameMgr.GirlLoveSubEvent_num = 725;
+
+                                GameMgr.OrRoomRelease[3] = true;
+                                //GameMgr.OrRoomRelease[4] = true;
+                                //GameMgr.OrRoomRelease[5] = true;
+
+                                contest_Master_TasseiFlag_half = true;
+                            }
+                            break;
+
+                        case 2000:
+
+                            //秋エリア50%達成
+                            if (!GameMgr.GirlLoveSubEvent_stage1[726])
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[726] = true;
+
+                                GameMgr.GirlLoveSubEvent_num = 726;
+
+                                GameMgr.OrRoomRelease[6] = true;
+                                //GameMgr.OrRoomRelease[7] = true;
+                                //GameMgr.OrRoomRelease[8] = true;
+
+                                contest_Master_TasseiFlag_half = true;
+                            }
+                            break;
+
+                        case 3000:
+
+                            //冬エリア50%達成
+                            if (!GameMgr.GirlLoveSubEvent_stage1[727])
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[727] = true;
+
+                                GameMgr.GirlLoveSubEvent_num = 727;
+
+                                contest_Master_TasseiFlag_half = true;
+                            }
+                            break;
+                    }
+
+                    if (contest_Master_TasseiFlag_half)
+                    {
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                        GameMgr.Mute_on = true;
+
+                        break;
+                    }
+                }
+            }
+
+            i++;
+        }
+    }
+
+    void Check_ContestTasseiListB()
+    {
+        read_ID = 0; //春
+        archive_area = 0;
+        archivement_percent = GameMgr.Contest_archivement_percent[0];
+
+        contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
+        contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+
+        Debug.Log("contest_allcount: " + contest_allcount);
+        Debug.Log("contest_victorycount: " + contest_victorycount);
+        Debug.Log("contest_archivement_percent: " + archivement_percent);
+
+        //100%達成をまずチェック
+        if (contest_allcount == contest_victorycount)
+        {
+            //エリア100%達成
+            if (!GameMgr.GirlLoveSubEvent_stage1[720])
+            {
+                GameMgr.GirlLoveSubEvent_stage1[720] = true;
+
+                GameMgr.GirlLoveSubEvent_num = 720;
+
+                //GameMgr.OrRoomRelease[1] = true;
+                GameMgr.OrRoomRelease[2] = true;
+
+                contest_Master_TasseiFlag = true;
+            }
+        }
+        else
+        {
+            //100%以下をチェック　こっちは数字より上だったらでOK
+
+            //90％達成
+            if (!contest_Master_TasseiFlag_half)
+            {
+                if (90.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[722])
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[722] = true;
+
+                        GameMgr.GirlLoveSubEvent_num = 722;
+
+                        GameMgr.OrRoomRelease[1] = true;
+                        //GameMgr.OrRoomRelease[2] = true;
+
+                        contest_Master_TasseiFlag_half = true;
+                    }
+                }
+            }
+
+            //75％達成
+            if (!contest_Master_TasseiFlag_half)
+            {
+                if (75.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[721])
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[721] = true;
+
+                        GameMgr.GirlLoveSubEvent_num = 721;
+
+                        GameMgr.OrRoomRelease[1] = true;
+                        //GameMgr.OrRoomRelease[2] = true;
+
+                        contest_Master_TasseiFlag_half = true;
+                    }
+                }
+            }
+
+            //50％達成
+            if (!contest_Master_TasseiFlag_half)
+            {
+                if (50.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[726])
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[726] = true;
+
+                        GameMgr.GirlLoveSubEvent_num = 726;
+
+                        GameMgr.OrRoomRelease[1] = true;
+                        //GameMgr.OrRoomRelease[2] = true;
+
+                        contest_Master_TasseiFlag_half = true;
+                    }
+                }
+            }
+
+            //35％達成
+            if (!contest_Master_TasseiFlag_half)
+            {
+                if (35.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[725])
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[725] = true;
+
+                        GameMgr.GirlLoveSubEvent_num = 725;
+
+                        GameMgr.OrRoomRelease[1] = true;
+                        //GameMgr.OrRoomRelease[2] = true;
+
+                        contest_Master_TasseiFlag_half = true;
+                    }
+                }
+            }
+
+            //20％達成
+            if (!contest_Master_TasseiFlag_half)
+            {
+                if (20.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[724])
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[724] = true;
+
+                        GameMgr.GirlLoveSubEvent_num = 724;
+
+                        GameMgr.OrRoomRelease[1] = true;
+                        //GameMgr.OrRoomRelease[2] = true;
+
+                        contest_Master_TasseiFlag_half = true;
+                    }
+                }
+            }
+        }
+
+        if (contest_Master_TasseiFlag_half)
+        {
+            GameMgr.check_GirlLoveSubEvent_flag = false;
+            GameMgr.Mute_on = true;
         }
     }
 

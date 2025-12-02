@@ -272,7 +272,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 npc3sub_toggle_obj.SetActive(true);
                 npc4sub_toggle_obj.SetActive(true);
 
-                default_scenetext = "いらっシャ～イ！" + "\n" + "ここは、春コンテストの受付デ～スよ～！";
+                default_scenetext = "いらっシャ～イ！" + "\n" + "ここは、コンテストの受付デ～スよ～！";
                 SettingCharacterComment(0);                
                 break;
 

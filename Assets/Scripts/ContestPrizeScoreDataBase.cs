@@ -1577,15 +1577,15 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2500);
-        GameMgr.PrizeGetMoneyList.Add(5000);
-        GameMgr.PrizeGetMoneyList.Add(7500);
+        GameMgr.PrizeGetMoneyList.Add(4000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(267);
-        GameMgr.PrizeScoreAreaList.Add(298);
-        GameMgr.PrizeScoreAreaList.Add(310);
-        GameMgr.PrizeScoreAreaList.Add(343);
+        GameMgr.PrizeScoreAreaList.Add(167);
+        GameMgr.PrizeScoreAreaList.Add(198);
+        GameMgr.PrizeScoreAreaList.Add(210);
+        GameMgr.PrizeScoreAreaList.Add(273);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

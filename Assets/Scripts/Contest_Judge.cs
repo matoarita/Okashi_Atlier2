@@ -2207,11 +2207,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score7[i] = 20; //メルヘンの値が最低3は必要
+                        girl1_status.girl1_SP_Score7[i] = 35; //メルヘンの値が最低35は必要
                     }
                     GameMgr.contest_SPJudgeCommentNum = 7; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： メルヘン " + 20);
+                    Debug.Log("判定値追加： メルヘン " + 35);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正

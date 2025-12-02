@@ -3101,9 +3101,30 @@ public class Compound_Main : MonoBehaviour
     {
         GameMgr.compound_status = 140;
 
+        //**コンテスト場所アイコンパネルを開く場合
         contest_CheckPanel_obj.SetActive(true);
-
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+        //**
+
+        //****パネルを開かず直接春コン受付へ行く
+        //入店の音
+        /*sc.PlaySe(150);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。        
+        TimeKoushin_AfterSceneMove(30);
+
+        GameMgr.SceneSelectNum = 0; //春コンを指定
+        FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);*/
+
+        //****ここまで
+        
+    }
+
+    void TimeKoushin_AfterSceneMove(int _time)
+    {
+        GameMgr.SceneMoveAfter_Koushin = true; //コンテスト会場いってから、時間を変動
+        GameMgr.SceneMoveAfter_TimeParam = _time;
     }
 
     public void OnStarPanelOpen_button() //スターパネルを開いた　ボタンで押した場合
@@ -4941,14 +4962,14 @@ public class Compound_Main : MonoBehaviour
         {
             //まれにプレミアム卵うんでくれる
             random2 = Random.Range(0, 100);
-            if (random2 <= 10) //10%
+            if (random2 <= 1) //1%
             {
                 random = Random.Range(1, 2);
                 pitemlist.addPlayerItemString("egg_premiaum", random);
             }
             else
             {
-                random = Random.Range(1, 3);
+                random = Random.Range(0, 3); //うまないときもある
                 pitemlist.addPlayerItemString("egg", random);
             }
         }
