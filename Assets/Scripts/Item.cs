@@ -165,6 +165,7 @@ public class Item
         BakedSweets,
         Bread,
         Bread_Sliced,
+        Bread_Fluffy,
         Biscotti,
         Cookie,
         Cookie_Hard,

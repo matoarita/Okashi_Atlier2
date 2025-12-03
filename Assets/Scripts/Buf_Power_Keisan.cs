@@ -1042,12 +1042,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         OvenBuf();
                         CookieBuf();
+                        RodsBuf(); //めんぼう
                         break;
 
                     case "Cookie_Hard":
 
                         OvenBuf();
                         CookieBuf();
+                        RodsBuf(); //めんぼう
                         break;
 
                     case "Rusk":
@@ -1060,8 +1062,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 //おかし全てに効果があるバフ
                 if (_itemType == "Okashi")
-                {
-                    RodsBuf(); //めんぼうは、おかしであれば種類は問わず。全体のさくさく感をあげる
+                {                  
                     YonetsuStoneBuf();
                 }
 

@@ -2300,6 +2300,11 @@ public class SetImage : MonoBehaviour
         CheckTasteViewStatus();
     }
 
+    public void CardMagicEffect_OFF() //演出魔法エフェクトの表示をオフ
+    {
+        itemEffectPanel.SetActive(false);
+    }
+
     public void CardParamMagic_Hyouji(string _magicname)
     {
         _mid = magicskill_database.SearchSkillString(_magicname);

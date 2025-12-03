@@ -1183,7 +1183,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     void InitUwasaList()
     {
         shopuwasa_List.Clear();
-        uwasalist_count = 5;
+        uwasalist_count = 5; //一度に5個ずつ
         count = 0;
 
         //うわさ　エクセルの番号を指定　頭から5ずつをカウント
@@ -1217,73 +1217,84 @@ public class Bar_Main_Controller : MonoBehaviour {
 
         //***  うわさリスト選択 ***//
         //ハートレベルかスターで増えていく
-        if (GameMgr.Story_Mode == 0)
+        //初期値
+        for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
         {
-            //初期値
+            shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
+        }
+
+        //
+        if (PlayerStatus.player_ninki_param >= 5)
+        {
+            count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
-            }
-
-            //
-            if (PlayerStatus.player_ninki_param >= 5)
-            {
-                count++;
-                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-                {
-                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-                }
-            }
-            //
-            if (PlayerStatus.player_ninki_param >= 10)
-            {
-                count++;
-                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-                {
-                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-                }
-            }
-            //
-            if (PlayerStatus.player_ninki_param >= 15)
-            {
-                count++;
-                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-                {
-                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-                }
-            }
-            //
-            if (PlayerStatus.player_ninki_param >= 20)
-            {
-                count++;
-                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-                {
-                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-                }
-            }
-            //
-            if (PlayerStatus.player_ninki_param >= 25)
-            {
-                count++;
-                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-                {
-                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-                }
-            }
-            //
-            if (PlayerStatus.player_ninki_param >= 30)
-            {
-                count++;
-                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-                {
-                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-                }
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
             }
         }
+        //
+        if (PlayerStatus.player_ninki_param >= 10)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+        //
+        if (PlayerStatus.player_ninki_param >= 15)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+        //
+        if (PlayerStatus.player_ninki_param >= 20)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+        //
+        if (PlayerStatus.player_ninki_param >= 25)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+        //
+        if (PlayerStatus.player_ninki_param >= 30)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+        //
+        if (PlayerStatus.player_ninki_param >= 35)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+
+
+        if (GameMgr.Story_Mode == 0)
+        { }
         else
         {
+            shopuwasa_List.Clear();
             //エクストラモードは全てでてる。
-            for (i = 0; i < uwasalist_count * 6; i++) //頭から５個ずつ
+            for (i = 0; i < uwasalist_count * count; i++) //頭から５個ずつ　* の横の数字は、上のリストのトータルカウント
             {
                 shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
             }

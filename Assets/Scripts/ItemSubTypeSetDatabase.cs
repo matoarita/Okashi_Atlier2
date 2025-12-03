@@ -47,6 +47,11 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_OkashiSubType_Num = 14;
                 Crispy_Text();
                 break;
+            case "Bread_Fluffy":
+                GameMgr.Item_subcategoryText = "ふわふわパン";
+                GameMgr.Item_OkashiSubType_Num = 14;
+                Fluffy_Text();
+                break;
             case "Cookie":
                 GameMgr.Item_subcategoryText = "クッキー";
                 GameMgr.Item_OkashiSubType_Num = 1;

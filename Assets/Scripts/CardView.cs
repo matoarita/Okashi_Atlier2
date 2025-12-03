@@ -908,11 +908,12 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
-        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 10000;
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 5000;
 
         _cardImage.Pitem_or_Origin = 0;
         _cardImage.check_counter = _result_item;
         _cardImage.SetInitCommonItemData();
+        _cardImage.CardMagicEffect_OFF(); //なぜかパーティクルの座標系が狂ってしまい正常に表示されない..。しょうがないのでオフ
 
         //位置とスケール
         Draw5();

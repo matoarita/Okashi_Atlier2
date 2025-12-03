@@ -274,6 +274,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b09b09d38c16dcf42a65db2356c77b7a, type: 3}
   - {fileID: 21300000, guid: 7a40d0e34a437ac418ee617871cc79bc, type: 3}
   - {fileID: 21300000, guid: 17e073f38b3b15a418488be688440e91, type: 3}
+  - {fileID: 21300000, guid: d7d4e3f362b640340920473d03567100, type: 3}
   - {fileID: 21300000, guid: c2c94df3cbed267408162fa41e3b7362, type: 3}
   - {fileID: 21300000, guid: b83ba80486ba1d9418b91142151c0b20, type: 3}
   - {fileID: 21300000, guid: 12210904acf3d6a4980c63f922a98e50, type: 3}
@@ -648,6 +649,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 99ea4cfa78f2bbd41af1bb6b39fd73ea, type: 3}
   - {fileID: 21300000, guid: 797c300bd40cee54a88484fa22b0622b, type: 3}
   - {fileID: 21300000, guid: e431120bb795fc34382d634bb0d13c93, type: 3}
+  - {fileID: 21300000, guid: 9874e40b20f880c4a97ef748bcb21b53, type: 3}
   - {fileID: 21300000, guid: c97b9d0b891fb484fb988b850a7f63b4, type: 3}
   - {fileID: 21300000, guid: ee01f11bb861cdc4f970fea813b0568c, type: 3}
   - {fileID: 21300000, guid: 8ce9031b91a944c43876123da6d3df38, type: 3}
@@ -1108,6 +1110,7 @@ SpriteAtlas:
   - honey_neko_cookie
   - pan_cake_berry_vanillaice
   - cacao_beans_roasted
+  - lumi_scarlet_berry
   - choco_pen
   - maron_boiled
   - ice_cube
@@ -1482,6 +1485,7 @@ SpriteAtlas:
   - tart_base
   - lumi_silver_suger
   - apareiyu_mint
+  - frozen_cream_crepe
   - apareiyu_lavender
   - jelly_jasmin
   - row_cream

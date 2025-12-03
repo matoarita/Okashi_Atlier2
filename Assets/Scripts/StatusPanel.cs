@@ -189,8 +189,8 @@ public class StatusPanel : MonoBehaviour {
 
         HikariStatusList01 = HikariStatusList_obj.transform.Find("HikariStatusList01").gameObject;
         HikariStatusList02 = HikariStatusList_obj.transform.Find("HikariStatusList02").gameObject;
-        HikariStatusList_changebutton01 = HikariStatusList_obj.transform.Find("ChangeButton1").gameObject;
-        HikariStatusList_changebutton02 = HikariStatusList_obj.transform.Find("ChangeButton2").gameObject;
+        HikariStatusList_changebutton01 = HikariStatusList_obj.transform.Find("Sta_HikariStatus_ChangeButton1").gameObject;
+        HikariStatusList_changebutton02 = HikariStatusList_obj.transform.Find("Sta_HikariStatus_ChangeButton2").gameObject;
 
         contentCos = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
         costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
@@ -254,7 +254,7 @@ public class StatusPanel : MonoBehaviour {
         InitHikariOkashiParam_View();
         InitHikariLearnSkill_View();
 
-        HikariParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/HikariParam_Toggle").gameObject;
+        HikariParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_HikariParam_Toggle").gameObject;
         if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
         {
             HikariParam_Toggle_obj.SetActive(true);
@@ -264,7 +264,7 @@ public class StatusPanel : MonoBehaviour {
             HikariParam_Toggle_obj.SetActive(false);
         }
 
-        EquipParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/EquipParam_Toggle").gameObject;
+        EquipParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_EquipParam_Toggle").gameObject;
         if (GameMgr.System_TabetaiOkashiStatusUp) //食べたいお菓子をあげたときに、食感も上がる仕様の有無
         {
             EquipParam_Toggle_obj.SetActive(true);
@@ -283,12 +283,12 @@ public class StatusPanel : MonoBehaviour {
         }*/
 
         /* メインステータス画面更新 */
-        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/StatusMain_Toggle").GetComponent<Toggle>().isOn = true;
-        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Costume_Toggle").GetComponent<Toggle>().isOn = false;
-        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Collection_Toggle").GetComponent<Toggle>().isOn = false;
-        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/HikariParam_Toggle").GetComponent<Toggle>().isOn = false;
-        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/EquipParam_Toggle").GetComponent<Toggle>().isOn = false;
-        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Omoide_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_StatusMain_Toggle").GetComponent<Toggle>().isOn = true;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_Costume_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_Collection_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_HikariParam_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_EquipParam_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_Omoide_Toggle").GetComponent<Toggle>().isOn = false;
         OnStatusMainPanel();
 
         //画面のアニメ

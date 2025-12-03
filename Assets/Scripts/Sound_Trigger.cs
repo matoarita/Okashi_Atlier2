@@ -284,6 +284,128 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "ItemMenu_Toggle": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "GirlEat_Toggle": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "Sleep_Toggle": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "Status_Toggle": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "System_Toggle": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "Sta_StatusMain_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_EquipParam_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_HikariParam_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_Costume_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_Collection_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_Omoide_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_HikariStatus_ChangeButton1": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Sta_HikariStatus_ChangeButton2": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
             case "CGgelleryButton": //メモ開くときの音
 
                 //ポインタが入ったときに鳴る音
@@ -321,11 +443,49 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "ContestListSelectToggle(Clone)": //メニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "SaveloadListSelectToggle(Clone)": //メニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
             case "ContestClearButton": //メモ開くときの音
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "PrizeGet_CheckButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "VictoryItem_CheckButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
 
                 //クリックしたときに鳴る音
                 SE_point_click(34);
@@ -381,6 +541,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(46);
                 break;
 
+            case "emeralditemSelectToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
             case "MatPlace_toggle1(Clone)": //レシピリストで、アイテム選択するときの音
 
                 //ポインタが入ったときに鳴る音
@@ -389,6 +559,166 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(2);
+                break;
+
+            case "magicskillSelectToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
+            case "magicskillLearnToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(30); //46
+                break;
+
+            case "Cate_Basic": //お店カテゴリー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
+            case "Cate_Topping": //お店カテゴリー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
+            case "Cate_Machine": //お店カテゴリー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
+            case "Cate_Recipi": //お店カテゴリー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
+            case "Cate_Etc": //お店カテゴリー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
+            case "Cate_02": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_03": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_04": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_05": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_06": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_07": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_08": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_09": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "Cate_10": //メモを開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
                 break;
 
             case "ExtremeButton": //Get_Materialを押したときのSE
@@ -422,14 +752,14 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(0);
                 break;
 
-            /*case "ShopOn_Toggle_Buy":
+            case "ShopOn_Toggle_Buy":
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(23);
+                SE_point_click(0);
                 break;
 
             case "ShopOn_Toggle_Quest":
@@ -439,7 +769,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(23);
+                SE_point_click(0);
                 break;
 
             case "ShopOn_Toggle_Uwasa":
@@ -449,7 +779,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(23);
+                SE_point_click(0);
                 break;
 
             case "ShopOn_Toggle_Talk":
@@ -459,8 +789,28 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(23);
-                break;*/
+                SE_point_click(0);
+                break;
+
+            case "ShopOn_Toggle_Present":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(0);
+                break;
+
+            case "ShopOn_Toggle_SPEvent":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(0);
+                break;
 
             case "ShopOn_Toggle_Back2":
 
@@ -582,15 +932,6 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(28);
                 break;
 
-            case "CatGetMatButton":
-
-                //ポインタが入ったときに鳴る音
-                SE_point_enter(2);
-
-                //クリックしたときに鳴る音。
-                SE_point_click(0);
-                break;
-
             case "CatFireButton":
 
                 //ポインタが入ったときに鳴る音
@@ -695,6 +1036,15 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(46);
                 break;
 
+            case "CatGetMatButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(46);
+                break;
+
             case "SaveButton":
 
                 //ポインタが入ったときに鳴る音
@@ -723,6 +1073,15 @@ public class Sound_Trigger : MonoBehaviour {
                 break;
 
             case "OptionButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(0);
+                break;
+
+            case "ExtraOptionButton":
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
