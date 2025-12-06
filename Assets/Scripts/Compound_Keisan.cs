@@ -1637,7 +1637,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" ||
         _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
         _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
-        _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
+        _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerWaterGlow"
+        || _base_itemType_subB == "a_SugerFlower" ||
         _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_sub == "FloatFruits" || _base_itemType_sub == "FloatSuger" ||
         _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
         _base_itemType_subB == "a_Mazipan" ||
@@ -3650,6 +3651,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 _tempbeauty = 0; //お菓子タイプの見た目は、加算しない
 
+                /*
                 _tempsp_wind = 0;
                 _tempsp_score2 = 0;
                 _tempsp_score3 = 0;
@@ -3659,7 +3661,18 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _tempsp_score7 = 0;
                 _tempsp_score8 = 0;
                 _tempsp_score9 = 0;
-                _tempsp_score10 = 0;
+                _tempsp_score10 = 0;*/
+
+                _tempsp_wind += _additemlist[i].SP_wind * _additemlist[i].ItemKosu;
+                _tempsp_score2 += _additemlist[i].SP_Score2 * _additemlist[i].ItemKosu;
+                _tempsp_score3 += _additemlist[i].SP_Score3 * _additemlist[i].ItemKosu;
+                _tempsp_score4 += _additemlist[i].SP_Score4 * _additemlist[i].ItemKosu;
+                _tempsp_score5 += _additemlist[i].SP_Score5 * _additemlist[i].ItemKosu;
+                _tempsp_score6 += _additemlist[i].SP_Score6 * _additemlist[i].ItemKosu;
+                _tempsp_score7 += _additemlist[i].SP_Score7 * _additemlist[i].ItemKosu;
+                _tempsp_score8 += _additemlist[i].SP_Score8 * _additemlist[i].ItemKosu;
+                _tempsp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
+                _tempsp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
             }
         }
 

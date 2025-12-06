@@ -471,7 +471,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             }
             else
             {
-                if (GameMgr.Scene_Category_Num == 10)
+                if (GameMgr.Scene_Category_Num == 10) //メインシーン
                 {
                     switch (GameMgr.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
                     {                       
@@ -495,7 +495,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         case 1000: //イベント
 
-
                             if (check_itemType == "Okashi")
                             {
                                 itemlist_hyouji_Check(check_itemListType, 0);
@@ -508,11 +507,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else if (GameMgr.Scene_Category_Num == 20) //お店でリストを開くとき
+                else if (GameMgr.Scene_Category_Num == 20) //ショップシーン　お店でリストを開くとき
                 {
                     switch (GameMgr.Scene_Select)
                     {
-                        case 3:
+                        case 3: //ショップでは使ってないけど、依頼
 
                             //お菓子のみ表示
                             if (check_itemType == "Okashi")
@@ -525,20 +524,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             //フルーツかレアアイテムを表示
                             if (check_itemType == "Mat" || check_itemType == "Potion" || check_itemType == "Okashi" ||
-                                    check_itemType_sub == "Rare" || check_itemType_sub == "Equip" || check_itemType_sub == "Garbage" || check_itemType_sub == "Object")
+                                    check_itemType_sub == "Rare" || check_itemType_sub == "Garbage")
                             {
-
                                 itemlist_hyouji_Check(check_itemListType, 0);
                             }
                             break;
 
-                        case 6:
+                        case 6: //おかしあげるとき もしくはアイテムをあげるとき
 
-                            //お菓子のみ表示
-                            if (check_itemType == "Okashi")
-                            {
-                                itemlist_hyouji_Check(check_itemListType, 0);
-                            }
+                            Present_ItemHyouji();
                             break;
 
                         default:
@@ -547,7 +541,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else if (GameMgr.Scene_Category_Num == 30) //納品時にリストを開くとき
+                else if (GameMgr.Scene_Category_Num == 30) //酒場シーン　納品時にリストを開くとき
                 {
                     switch (GameMgr.Scene_Select)
                     {
@@ -560,13 +554,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             }
                             break;
 
-                        case 6: //おかしあげるとき
+                        case 6: //おかしあげるとき もしくはアイテムをあげるとき
 
-                            //お菓子のみ表示
-                            if (check_itemType == "Okashi" || check_itemType_sub == "GlowFruits")
-                            {
-                                itemlist_hyouji_Check(check_itemListType, 0);
-                            }
+                            Present_ItemHyouji();
                             break;
 
                         default:
@@ -575,14 +565,47 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else
+                else //それ以外　広場シーンでNPCにアイテムを渡すなど
                 {
-                    if (check_itemType == "Okashi")
-                    {
-                        itemlist_hyouji_Check(check_itemListType, 0);
-                    }
+                    Present_ItemHyouji();                                   
                 }
             }
+        }
+    }
+
+    void Present_ItemHyouji()
+    {
+        switch (GameMgr.event_pitem_itemtype_select)
+        {
+            case "okashi":
+
+                if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check(check_itemListType, 0);
+                }
+                break;
+
+            case "okashi_glowfruits":
+
+                if (check_itemType == "Okashi" || check_itemType_sub == "GlowFruits")
+                {
+                    itemlist_hyouji_Check(check_itemListType, 0);
+                }
+                break;
+
+            case "event":
+
+                if (check_itemType_sub == "Rare")
+                {
+                        itemlist_hyouji_Check(check_itemListType, 0);
+                }
+                break;
+
+            default:
+
+                itemlist_hyouji_Check(check_itemListType, 0);
+                break;
+
         }
     }
 

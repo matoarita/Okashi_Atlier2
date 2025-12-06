@@ -2652,7 +2652,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 else
                 { //共通エフェクト時のシュイイン音
                     sc.PlaySe(244);
-                    sc.PlaySe(254);
+                    //sc.PlaySe(254);
                     //sc.PlaySe(177);
                 }
 

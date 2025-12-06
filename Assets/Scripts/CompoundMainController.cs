@@ -1165,6 +1165,13 @@ public class CompoundMainController : MonoBehaviour {
                     magiceffect_result_setting(1);
                     break;
 
+                case "Glitter":
+
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Glitter").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
+                    magiceffect_result_setting(1);
+                    break;
+
                 case "Fire_Flowers":
 
                     magic_minigame_Panel.SetActive(true);
@@ -1353,88 +1360,114 @@ public class CompoundMainController : MonoBehaviour {
                     magic_minigame_Panel.transform.Find("True_of_Myheart").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
                     magiceffect_result_setting(9);
                     break;
+
+                default:
+
+                    Common_MagicEffect();
+                    break;
             }
         }
         else //固有エフェクトを使用しない場合
         {
-               
-            _category = magicskill_database.SearchSkillCategory(GameMgr.UseMagicSkill);
-            switch(_category)
-            {
-                case 1: //氷
+            Common_MagicEffect();           
+        }
+    }
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect01").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
-                    magiceffect_result_setting(0); //
-                    break;
+    void Common_MagicEffect()
+    {
+        _category = magicskill_database.SearchSkillCategory(GameMgr.UseMagicSkill);
+        switch (_category)
+        {
+            case 1: //氷
 
-                case 2: //光
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect01").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
+                magiceffect_result_setting(0); //
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect02").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
-                    magiceffect_result_setting(1); //
-                    break;
+                sc.PlaySe(186);
+                break;
 
-                case 3: //風
+            case 2: //光
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect03").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(3); //
-                    break;
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect02").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
+                magiceffect_result_setting(1); //
 
-                case 4: //星
+                sc.PlaySe(254);
+                break;
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect04").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(4); //
-                    break;
+            case 3: //風
 
-                case 5: //森
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect03").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(3); //
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect05").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(5); //
-                    break;
+                sc.PlaySe(177);
+                break;
 
-                case 6: //時
+            case 4: //星
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect06").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(6); //
-                    break;
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect04").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(4); //
 
-                case 7: //音
+                sc.PlaySe(177);
+                break;
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect07").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(7); //
-                    break;
+            case 5: //森
 
-                case 8: //心
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect05").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(5); //
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect08").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(9); //
-                    break;
+                sc.PlaySe(177);
+                break;
 
-                case 9: //火
+            case 6: //時
 
-                    //共通のエフェクト
-                    magic_minigame_Panel.SetActive(true);
-                    magic_minigame_Panel.transform.Find("CommonEffect09").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
-                    magiceffect_result_setting(2); //
-                    break;
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect06").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(6); //
 
-            }
-            
+                sc.PlaySe(177);
+                break;
+
+            case 7: //音
+
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect07").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(7); //
+
+                sc.PlaySe(177);
+                break;
+
+            case 8: //心
+
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect08").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(9); //
+
+                sc.PlaySe(177);
+                break;
+
+            case 9: //火
+
+                //共通のエフェクト
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("CommonEffect09").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
+                magiceffect_result_setting(2); //
+
+                sc.PlaySe(181);
+                break;
+
         }
     }
 
@@ -1534,8 +1567,6 @@ public class CompoundMainController : MonoBehaviour {
                 main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
         }
-        
-
     }
 
     void Sound_magicresult1()

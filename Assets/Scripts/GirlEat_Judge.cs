@@ -2206,8 +2206,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore1_score += 0;
-            spscore1_score += _base_sp_wind / 2;
+            spscore1_score = 0;
+            //spscore1_score += _base_sp_wind / 2;
             spscore1_score_debugtext = "・風らしさ計算OFF　SP値を加点: " + spscore1_score;
             //Debug.Log("コンテスト　風らしさ計算OFF");
         }
@@ -2236,8 +2236,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore2_score += 0;
-            spscore2_score += _base_sp_score2 / 2;
+            spscore2_score = 0;
+            //spscore2_score += _base_sp_score2 / 2;
             spscore2_score_debugtext = "・海らしさ計算OFF　SP値を加点: " + spscore2_score;
             //Debug.Log("コンテスト　海らしさ計算OFF");
         }
@@ -2266,8 +2266,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore3_score += 0;
-            spscore3_score += _base_sp_score3 / 2;
+            spscore3_score = 0;
+            //spscore3_score += _base_sp_score3 / 2;
             spscore3_score_debugtext = "・愛らしさ計算OFF　SP値を加点: " + spscore3_score;
             //Debug.Log("コンテスト　愛らしさ計算OFF");
         }
@@ -2296,8 +2296,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore4_score += 0;
-            spscore4_score += _base_sp_score4 / 2;
+            spscore4_score = 0;
+            //spscore4_score += _base_sp_score4 / 2;
             spscore4_score_debugtext = "・宇宙らしさ計算OFF　SP値を加点: " + spscore4_score;
             //Debug.Log("コンテスト　宇宙らしさ計算OFF");
         }
@@ -2326,8 +2326,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore5_score += 0;
-            spscore5_score += _base_sp_score5 / 2;
+            spscore5_score = 0;
+            //spscore5_score += _base_sp_score5 / 2;
             spscore5_score_debugtext = "・大人らしさ計算OFF　SP値を加点: " + spscore5_score;
             //Debug.Log("コンテスト　大人らしさ計算OFF");
         }
@@ -2356,8 +2356,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore6_score += 0;
-            spscore6_score += _base_sp_score6 / 2;
+            spscore6_score = 0;
+            //spscore6_score += _base_sp_score6 / 2;
             spscore6_score_debugtext = "・子供らしさ計算OFF　SP値を加点: " + spscore6_score;
             //Debug.Log("コンテスト　子供らしさ計算OFF");
         }
@@ -2386,8 +2386,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore7_score += 0;
-            spscore7_score += _base_sp_score7 / 2;
+            spscore7_score = 0;
+            //spscore7_score += _base_sp_score7 / 2;
             spscore7_score_debugtext = "・メルヘンらしさ計算OFF　SP値を加点: " + spscore7_score;
             //Debug.Log("コンテスト　メルヘンらしさ計算OFF");
         }
@@ -2416,8 +2416,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore8_score += 0;
-            spscore8_score += _base_sp_score8 / 2;
+            spscore8_score = 0;
+            //spscore8_score += _base_sp_score8 / 2;
             spscore8_score_debugtext = "・芸術性計算OFF　SP値を加点(TPスロットの長さでも芸術点上がる): " + spscore8_score;
             //Debug.Log("コンテスト　芸術性計算OFF");
         }
@@ -2446,8 +2446,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore9_score += 0;
-            spscore9_score += _base_sp_score9 / 2;
+            spscore9_score = 0;
+            //spscore9_score += _base_sp_score9 / 2;
             spscore9_score_debugtext = "・キラキラ感計算OFF　SP値を加点: " + spscore9_score;
             //Debug.Log("コンテスト　鉱石らしさ計算OFF");
         }
@@ -2476,8 +2476,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            spscore10_score += 0;
-            spscore10_score += _base_sp_score10 / 2;
+            spscore10_score = 0;
+            //spscore10_score += _base_sp_score10 / 2;
             spscore10_score_debugtext = "・和風感計算OFF　SP値を加点: " + spscore10_score;
             //Debug.Log("コンテスト　鉱石らしさ計算OFF");
         }
@@ -7227,9 +7227,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //デバッグ用　コンテスト計算結果の表示
 
         debug_taste_resultText.text +=
-            "\n" + "\n" + "###  補正後　結果　###"
-        + "\n" + "\n" + "食感補正後点: " + GameMgr.contest_Taste_Score[0] + " " + GameMgr.contest_Taste_Score[1] + " " + GameMgr.contest_Taste_Score[2]
-        + "\n" + "\n" + "見た目補正後点: " + GameMgr.contest_Beauty_Score[0] + " " + GameMgr.contest_Beauty_Score[1] + " " + GameMgr.contest_Beauty_Score[2];
+            "\n" + "\n" + "###  コンテスト補正後　###"
+        + "\n" + "\n" + "食感　補正後点: " + GameMgr.contest_Taste_Score[0] + " " + GameMgr.contest_Taste_Score[1] + " " + GameMgr.contest_Taste_Score[2]
+        + "\n" + "\n" + "見た目　補正後点: " + GameMgr.contest_Beauty_Score[0] + " " + GameMgr.contest_Beauty_Score[1] + " " + GameMgr.contest_Beauty_Score[2];
+    }
+
+    public void ContestFinalScore_DebugTextLog()
+    {
+        //デバッグ用　コンテスト計算結果の表示
+
+        debug_taste_resultText.text +=
+            "\n" + "\n" + "\n" + "###  コンテスト　最終結果　###"
+        + "\n" + "\n" + "最終点数: " +
+        "\n" + "審査員１: " + GameMgr.contest_Score[0] +
+        "\n" + "審査員２: " + GameMgr.contest_Score[1] +
+        "\n" + "審査員３: " + GameMgr.contest_Score[2] +
+        "\n" +
+        "\n" + "総合得点: " + GameMgr.contest_TotalScore;
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

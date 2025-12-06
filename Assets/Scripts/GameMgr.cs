@@ -42,6 +42,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_StarPanelCheck = false; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
+    public static bool System_DebugCommonSet_ON = true; //デバッグ用　テストプレイ時などでいろいろな汎用処理をこの中でかく。本編のときは、必ずオフにする。
     //** **//
 
     //ゲーム基本システムの使用有無
@@ -49,7 +50,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
     public static bool System_ExtremeCompo_BaseitemON = true; //仕上げのときに、ベースアイテムを選択するところから選べる
 
     //各システムの使用の有無   
@@ -1206,6 +1207,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //イベント中、アイテムリストを開き、選択画面がある場合のフラグ
     public static bool event_pitem_use_select;
+    public static string event_pitem_itemtype_select; //おかしかそれともイベントアイテムなどをあげるのか　表示を変える
     public static bool event_pitem_use_OK;
     public static int event_kettei_itemID;
     public static int event_kettei_item_Type;
@@ -1531,6 +1533,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scenario_read_endflag = false;
         KeyInputOff_flag = false;
         event_pitem_use_select = false;
+        event_pitem_itemtype_select = "";
         event_pitem_use_OK = false;
         event_pitem_cancel = false;
 
@@ -2217,15 +2220,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         
 
         OrRoomCost[0] = 0;
-        OrRoomCost[1] = 10000;
-        OrRoomCost[2] = 10000;
-        OrRoomCost[3] = 10000;
-        OrRoomCost[4] = 10000;
+        OrRoomCost[1] = 30000;
+        OrRoomCost[2] = 50000;
+        OrRoomCost[3] = 50000;
+        OrRoomCost[4] = 50000;
 
-        OrRoomCost[5] = 10000;
-        OrRoomCost[6] = 10000;
-        OrRoomCost[7] = 10000;
-        OrRoomCost[8] = 10000;
+        OrRoomCost[5] = 50000;
+        OrRoomCost[6] = 50000;
+        OrRoomCost[7] = 50000;
+        OrRoomCost[8] = 300000;
         OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";
@@ -2274,6 +2277,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("hikari_speed_up1"); //エメラルショップ
         CollectionItemsName.Add("hikari_speed_up2"); //エメラルショップ
         CollectionItemsName.Add("aroma_potion1"); //エメラルショップ
+        CollectionItemsName.Add("residual_heatstone"); //エメラルショップ
         CollectionItemsName.Add("shokukan_powerup2"); //エメラルショップ
         CollectionItemsName.Add("shokukan_powerup3"); //冬のお店　★ヒカリが拾ってくる
         CollectionItemsName.Add("hikari_powerup1"); //エメラルショップ
@@ -2290,11 +2294,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("otona_powerup1"); //コンテスト賞品　★ヒカリが拾ってくる
         CollectionItemsName.Add("mugen_niwatori"); //コンテスト賞品
         CollectionItemsName.Add("infinity_fountain"); //コンテスト賞品
-        CollectionItemsName.Add("infinity_fountain_tansan");
+        CollectionItemsName.Add("infinity_fountain_tansan"); //エメラルショップで購入
         CollectionItemsName.Add("teaset_normal"); //初期
         CollectionItemsName.Add("teaset_wizard"); //コンテスト賞品
         CollectionItemsName.Add("teaset_flower"); //コンテスト賞品
         CollectionItemsName.Add("jewery_master_proof"); //コンテスト賞品
+        CollectionItemsName.Add("coin_npc_01"); //ルーティからもらう仲良くなった証
         //CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
     }    
@@ -2679,6 +2684,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //２～から
         NPC_OkashiJudge_num[100] = 100100; //ルーティ　ムーンバナナ
+        NPC_OkashiJudge_num[101] = 100110; //おそうじアリス　古びたコイン
     }
 
     //ミラボ先生のプレゼントリストの初期化　メイン魔法の本

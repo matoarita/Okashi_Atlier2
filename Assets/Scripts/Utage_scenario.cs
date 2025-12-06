@@ -2850,6 +2850,9 @@ public class Utage_scenario : MonoBehaviour
                     if (stationevent_num == 1) //ぶじムーンバナナあげた
                     {
                         GameMgr.Or_ShopEvent_stage[107] = true;
+
+                        //お礼にルーティのコインもらえる
+                        pitemlist.addPlayerItemString("coin_npc_01", 1);
                     }
                 }
                 break;
@@ -4236,6 +4239,33 @@ public class Utage_scenario : MonoBehaviour
                         break;
                 }
                 break;
+
+            case "Or_NPC04_alice":
+
+                switch (GameMgr.hiroba_event_ID)
+                {
+                    case 10:
+
+                        stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                        switch (stationevent_num)
+                        {
+                            case 0: //
+
+                                break;
+
+                            case 1: //コインをわたした　正解
+
+                                GameMgr.NPCHiroba_eventList[161] = true;
+
+                                //サンティマンの魔法をゲット
+                                ev_id = pitemlist.Find_eventitemdatabase("mg_santiman_book");
+                                pitemlist.add_eventPlayerItem(ev_id, 1); //
+                                break;
+                        }
+                        break;
+                }
+                break;
+                
 
             case "Or_NPC100_soda_guide": //ソーダゴンドラ乗り場のイベント お金の処理など
 
@@ -6370,6 +6400,8 @@ public class Utage_scenario : MonoBehaviour
                 resipi_getflag_afteritemuse = false;
             }
 
+            GameMgr.event_pitem_itemtype_select = ""; //わたすアイテムタイプのみここでリセット
+
             //続きから再度読み込み
             engine.ResumeScenario();
         }
@@ -6417,6 +6449,7 @@ public class Utage_scenario : MonoBehaviour
 
                 PitemPresentJudge(); //判定処理   
                 PitemDelete(); //アイテム削除処理
+                GameMgr.event_pitem_itemtype_select = ""; //わたすアイテムタイプのみここでリセット
 
                 if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
                 {
@@ -6462,6 +6495,7 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.shop_event_ON = false;
                 GameMgr.farm_event_ON = false;
                 GameMgr.bar_event_ON = false;
+                GameMgr.event_pitem_itemtype_select = ""; //わたすアイテムタイプのみここでリセット
 
                 if (GameMgr.GirlLoveSubEvent_num == 801) //一度NPCから依頼うけてたのにキャンセルしたので評価が下がる。
                 {
@@ -6613,6 +6647,10 @@ public class Utage_scenario : MonoBehaviour
                     break;
 
                 //以下オランジーナ関連
+                case 1230: //OrNPCおそうじアリス
+
+                    NPCPresentCheck("");
+                    break;
 
                 case 1604: //Or露店条件競売
 
@@ -6650,7 +6688,7 @@ public class Utage_scenario : MonoBehaviour
                     //２～から　NPC個別依頼でお菓子をわたした
                 case 801:
 
-                    KoyuNPCPresentCheck();
+                    NPCPresentCheck("KojinClient");
                     break;
             }
         }
@@ -6687,7 +6725,7 @@ public class Utage_scenario : MonoBehaviour
         {
             GameMgr.bar_event_ON = false;
 
-            BarPresentCheck();            
+            NPCPresentCheck("Bar");            
         }
         // *** //
     }
@@ -7071,7 +7109,7 @@ public class Utage_scenario : MonoBehaviour
     //
     //２～からNPCプレゼント
     //
-    void BarPresentCheck()
+    void NPCPresentCheck(string _NPCname)
     {
         //判定
         if (!GameMgr.NPC_DislikeFlag) //NPC_DislikeFlagはGirlEat_Judge内でも判定　お菓子が違う場合はfalseになる。
@@ -7080,7 +7118,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 GameMgr.event_judge_status = 100;
                 engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("酒場あげる　お菓子が違ってた");
+                Debug.Log("NPCあげる　アイテムが違ってた");
                 type_okcheck = false;
             }
             else
@@ -7089,13 +7127,13 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.event_judge_status = 101;
                     engine.Param.TrySetParameter("EventJudge_num", 101);
-                    Debug.Log("酒場あげる　お菓子が違ってた　まずい");
+                    Debug.Log("NPCあげる　お菓子が違ってた　まずい");
                 }
                 else
                 {
                     GameMgr.event_judge_status = 100;
                     engine.Param.TrySetParameter("EventJudge_num", 100);
-                    Debug.Log("酒場あげる　お菓子が違ってた　でもおいしい");
+                    Debug.Log("NPCあげる　お菓子が違ってた　でもおいしい");
                 }
             }
         }
@@ -7105,6 +7143,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 engine.Param.TrySetParameter("EventJudge_num", 0); //お菓子　タイプあってる
                 type_okcheck = true;
+                Debug.Log("NPCあげる　アイテム正解");
             }
             else
             {
@@ -7114,74 +7153,56 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
                 engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
 
-                if (GameMgr.event_judge_status >= 2)
+                switch(_NPCname)
                 {
-                    if (total_score < 300)
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 2);
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 3); //
-                    }
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
-                }
-            }
-            Debug.Log("酒場あげる　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
-        }
-    }
+                    case "Bar":
 
-    void KoyuNPCPresentCheck()
-    {
+                        if (GameMgr.event_judge_status >= 2)
+                        {
+                            if (total_score < 300)
+                            {
+                                engine.Param.TrySetParameter("EventJudge_num", 2);
+                            }
+                            else
+                            {
+                                engine.Param.TrySetParameter("EventJudge_num", 3); //
+                            }
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+                        }
+                        break;
 
-        //初回の判定はこちら。こっちは、モーセの食べたいお菓子だったかどうかの判定もする。
-        if (!GameMgr.NPC_DislikeFlag)
-        {
-            if (total_score < GameMgr.mazui_score) //まずい
-            {
-                GameMgr.event_judge_status = 101;
-                engine.Param.TrySetParameter("EventJudge_num", 101);
-                Debug.Log("酒場あげる　お菓子が違ってた　まずい");
-            }
-            else
-            {
-                GameMgr.event_judge_status = 100;
-                engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("酒場あげる　お菓子が違ってた　でもおいしい");
-            }
-        }
-        else
-        {
-            //食感、甘さ、苦さ、酸味についてもセリフ
-            engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
-            engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
-            engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
-            engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
-           
-            if (total_score >= GameMgr.GirlLoveSubEvent_NPC_score) //各NPCのクリア条件点数
-            {
-                GameMgr.event_judge_status = 2;      
-            }
-            else
-            {
-                if (total_score >= GameMgr.high_score)
-                {
-                    GameMgr.event_judge_status = 1;
-                }
-                else
-                {
-                    GameMgr.event_judge_status = 0;
-                }
-            }
+                    case "KojinClient":
 
-            engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、条件にたらず。
-            Debug.Log("NPC　お菓子合ってる 判定: " + GameMgr.event_judge_status);
-            Debug.Log("個人依頼　クリア点数のボーダー: " + GameMgr.GirlLoveSubEvent_NPC_score);
+                        if (total_score >= GameMgr.GirlLoveSubEvent_NPC_score) //各NPCのクリア条件点数
+                        {
+                            GameMgr.event_judge_status = 2;
+                        }
+                        else
+                        {
+                            if (total_score >= GameMgr.high_score)
+                            {
+                                GameMgr.event_judge_status = 1;
+                            }
+                            else
+                            {
+                                GameMgr.event_judge_status = 0;
+                            }
+                        }
+                        break;
+
+
+                    default:
+
+                        engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、条件にたらず。
+                        break;
+                }              
+            }
+            Debug.Log("NPCあげる　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
         }
-    }
+    }    
 
     void NPCJoukenKyobai_Clearcheck()
     {

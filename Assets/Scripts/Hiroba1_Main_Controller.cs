@@ -3577,12 +3577,36 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            if (GameMgr.NPCHiroba_eventList[160]) //ほかに発生するイベントがなく、すでに友達になった。
+            if (!GameMgr.NPCHiroba_eventList[161]) //まだコインをわたしてない
             {
-                GameMgr.hiroba_event_ID = 10;
-                //BGMかえる
-                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                //bgm_change_flag = true;
+                if (GameMgr.NPCHiroba_eventList[160]) //ほかに発生するイベントがなく、すでに友達になった。
+                {
+                    GameMgr.hiroba_event_ID = 10;
+
+                    //BGMかえる
+                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                    bgm_change_flag = true;
+
+                    //**コインを渡す画面へ
+
+                    //アイテムを使用するときのフラグ
+                    GameMgr.event_pitem_use_select = true;
+                    GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+
+                    //下は、使うときだけtrueにすればOK
+                    GameMgr.event_pitem_itemtype_select = "event"; //イベントアイテム系を表示し、あげれるようにする。
+                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                    GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[101];//GirlLikeSetの番号を直接指定
+                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                    GameMgr.NPC_NoScoreCheck = true; //これがtrueだと、判定時の点数は影響しない　おもに店売りアイテムなどを渡すときに使う　また種類が違ってた場合、アイテムはなくならない
+                                                     //** **//
+
+                    check_event = true;
+                }
+            }
+            else
+            {
+                GameMgr.hiroba_event_ID = 11;
 
                 check_event = true;
             }
@@ -4101,6 +4125,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
         GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[50];//GirlLikeSetの番号を直接指定
         GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+        GameMgr.NPC_NoScoreCheck = false; //これがfalseだと、判定時の点数は通常通り影響する　つまりお菓子をあげるときはこれはfalse
 
         EventReadingStart();
     }

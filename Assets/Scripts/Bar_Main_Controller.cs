@@ -243,6 +243,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             sc.PlaySe(51);
         }
         GameMgr.ShopEnter_ButtonON = false;
+        GameMgr.Reset_SceneStatus = true; 
 
         GameMgr.Scene_LoadedOn_End = true; //シーン読み込み完了
 
@@ -274,14 +275,15 @@ public class Bar_Main_Controller : MonoBehaviour {
             }
         }
 
-        //強制的に発生するイベントをチェック。
-        EventCheck();
         
-
+        
         if (GameMgr.Reset_SceneStatus)
         {
             GameMgr.Reset_SceneStatus = false;
             GameMgr.Scene_Status = 0;
+
+            //強制的に発生するイベントをチェック。シーン最初と酒場依頼完了後にもここをチェックする。
+            EventCheck();
         }
 
 
@@ -461,13 +463,17 @@ public class Bar_Main_Controller : MonoBehaviour {
                 if(GameMgr.Or_ShopEvent_stage[107])
                 {
                     shopon_toggle_present.SetActive(false);
-                    shopon_toggle_spevent.SetActive(true);
+                    //shopon_toggle_spevent.SetActive(true);
                 }
                 else
                 {
-                    if (GameMgr.NPC_FriendPoint[40] >= 70)
+                    if (GameMgr.Or_ShopEvent_stage[106])
                     {
                         shopon_toggle_present.SetActive(true);
+                    }
+                    else
+                    {
+                        shopon_toggle_present.SetActive(false);
                     }
                 }
                 
@@ -1002,6 +1008,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                     GameMgr.talk_number = 1500;
 
                     //下は、使うときだけtrueにすればOK
+                    GameMgr.event_pitem_itemtype_select = "okashi_glowfruits";
                     GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
                     GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[100];//GirlLikeSetの番号を直接指定
                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
@@ -1156,6 +1163,8 @@ public class Bar_Main_Controller : MonoBehaviour {
         Debug.Log("UtageEndWait終了");
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
+
+        //GameMgr.Reset_SceneStatus = true; //なんらかのイベント読み終わり後も一度イベントチェック
     }
 
     IEnumerator Scenario_loading()
@@ -1175,6 +1184,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         check_event = false;
         GameMgr.Scene_Status = 0;
 
+        //GameMgr.Reset_SceneStatus = true; //なんらかのイベント読み終わり後も一度イベントチェック
     }
 
     //
@@ -1279,6 +1289,15 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
         //
         if (PlayerStatus.player_ninki_param >= 35)
+        {
+            count++;
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (uwasalist_count * count)]);
+            }
+        }
+        //
+        if (PlayerStatus.player_ninki_param >= 40)
         {
             count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ

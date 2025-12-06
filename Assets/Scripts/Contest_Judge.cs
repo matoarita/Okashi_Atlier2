@@ -459,6 +459,10 @@ public class Contest_Judge : MonoBehaviour {
             sum = 0;
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
+                if(total_score[i] <= 0) //マイナスにならないように。
+                {
+                    total_score[i] = 0;
+                }
                 GameMgr.contest_Score[i] = total_score[i];
                 sum += total_score[i];
             }
@@ -474,6 +478,8 @@ public class Contest_Judge : MonoBehaviour {
                 "審査員２　点数：" + total_score[1] + "点" + "\n" +
                 "審査員３　点数：" + total_score[2] + "点" + "\n" + 
                 "総合得点：" + GameMgr.contest_TotalScore + "点";
+
+            
         }
         else
         {
@@ -497,6 +503,7 @@ public class Contest_Judge : MonoBehaviour {
         }
 
         //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。宴へ戻る。
+        girlEat_judge.ContestFinalScore_DebugTextLog();
     }
    
 
@@ -2523,53 +2530,33 @@ public class Contest_Judge : MonoBehaviour {
         {
             GameMgr.contest_Beauty_Score[1] = 30;
         }
-        else if (GameMgr.contest_Beauty_Score[1] >= 30 && GameMgr.contest_Beauty_Score[1] < 45)
+        else if (GameMgr.contest_Beauty_Score[1] >= 30 && GameMgr.contest_Beauty_Score[1] < 80)
         {
             GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.1f);
-        }
-        else if (GameMgr.contest_Beauty_Score[1] >= 45 && GameMgr.contest_Beauty_Score[1] < 60)
+        }       
+        else if (GameMgr.contest_Beauty_Score[1] >= 80 && GameMgr.contest_Beauty_Score[1] < 130)
         {
             GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.2f);
-        }
-        else if (GameMgr.contest_Beauty_Score[1] >= 60 && GameMgr.contest_Beauty_Score[1] < 70)
-        {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.3f);
-        }
-        else if (GameMgr.contest_Beauty_Score[1] >= 70 && GameMgr.contest_Beauty_Score[1] < 80)
-        {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.5f);
-        }
-        else if (GameMgr.contest_Beauty_Score[1] >= 80 && GameMgr.contest_Beauty_Score[1] < 90)
-        {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.65f);
-        }
-        else if (GameMgr.contest_Beauty_Score[1] >= 90 && GameMgr.contest_Beauty_Score[1] < 110)
-        {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.75f);
-        }
-        else if (GameMgr.contest_Beauty_Score[1] >= 110 && GameMgr.contest_Beauty_Score[1] < 130)
-        {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.85f);
-        }
+        }        
         else if (GameMgr.contest_Beauty_Score[1] >= 130 && GameMgr.contest_Beauty_Score[1] < 150)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.35f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 150 && GameMgr.contest_Beauty_Score[1] < 220)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.05f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.5f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 220 && GameMgr.contest_Beauty_Score[1] < 270)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.1f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.85f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 270 && GameMgr.contest_Beauty_Score[1] < 320)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.15f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.9f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 320)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.3f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
         }
         else if (GameMgr.contest_Beauty_Score[1] <= 0)
         {
@@ -2593,63 +2580,56 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　じいさん　見た目点数を0に。");
     }
 
-    //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK　アントワネットのみに適用
+    //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK　各審査員に適用
     void SpScoreHosei_1(int _spscore) //_spscoreは、おかしに入っている値から、好みの判定値を引き算した値　足りてない場合マイナスもある
     {
         if (_spscore >= 0 && _spscore < 5) //少し上がる
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] * 1.0f);
+                total_score[i] = (int)(total_score[i] * 1.0f);
             }
         }
         else if (_spscore >= 5 && _spscore < 20) //ふつう
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] * 1.1f);
+                total_score[i] = (int)(total_score[i] * 1.1f);
             }
         }
         else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.15f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.15f));
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.2f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.2f));
             }
         }
-        else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
+        else if (_spscore >= 60 && _spscore < 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.25f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
             }
         }
-        else if (_spscore >= 80 && _spscore < 100) //SpScoreに補正して加算
+        else if (_spscore >= 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.3f));
-            }
-        }
-        else if (_spscore >= 100) //SpScoreに補正して加算
-        {
-            for (i = 0; i < GameMgr.contest_Score.Length; i++)
-            {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.35f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.3f));
             }
         }
         else if (_spscore < 0) //足りてないと0.75
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] * 0.75f);
+                total_score[i] = (int)(total_score[i] * 0.75f);
             }
         }
     }
@@ -2661,63 +2641,63 @@ public class Contest_Judge : MonoBehaviour {
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] * 0.5f);
+                total_score[i] = (int)(total_score[i] * 0.65f);
             }
         }
         else if (_spscore >= 5 && _spscore < 20) //ふつう
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] * 0.75f);
+                total_score[i] = (int)(total_score[i] * 0.75f);
             }
         }
-        else if (_spscore >= 20 && _spscore < 30) //SpScoreに補正して加算
+        else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 0.8f));
-            }
-        }
-        else if (_spscore >= 30 && _spscore < 40) //SpScoreに補正して加算
-        {
-            for (i = 0; i < GameMgr.contest_Score.Length; i++)
-            {
-                total_score[1] = (int)(total_score[1] + (_spscore * 0.9f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 0.95f));
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.1f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.15f));
             }
         }
         else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.35f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
             }
         }
-        else if (_spscore >= 80 && _spscore < 100) //SpScoreに補正して加算
+        else if (_spscore >= 80 && _spscore < 110) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.5f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.35f));
             }
         }
-        else if (_spscore >= 100) //SpScoreに補正して加算
+        else if (_spscore >= 110 && _spscore < 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] + (_spscore * 1.65f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.85f));
+            }
+        }
+        else if (_spscore >= 150) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 2.25f));
             }
         }
         else if (_spscore < 0) //足りてないと0.75
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[1] = (int)(total_score[1] * 0.35f);
+                total_score[i] = (int)(total_score[i] * 0.35f);
             }
         }
     }

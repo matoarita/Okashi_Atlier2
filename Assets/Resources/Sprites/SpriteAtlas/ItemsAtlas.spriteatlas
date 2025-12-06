@@ -591,6 +591,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 274c72f9e4068a84d818d460f925ec56, type: 3}
   - {fileID: 21300000, guid: 9f0282f9182f0164eaac205239b0a374, type: 3}
   - {fileID: 21300000, guid: af492af96a9763d4ea248a018d508551, type: 3}
+  - {fileID: 21300000, guid: 51ce3cf93b7c94e488ea0bcc72bce7d6, type: 3}
   - {fileID: 21300000, guid: f557730aaaa779a44ac14acfc58ed953, type: 3}
   - {fileID: 21300000, guid: c508a40a7e35cd044b847bd9cc29d462, type: 3}
   - {fileID: 21300000, guid: e528090a68fe25b41825d9a6c3a0198c, type: 3}
@@ -664,6 +665,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c17b213b43282c84d8b3ab007b1253ff, type: 3}
   - {fileID: 21300000, guid: 4289543b09f700843b4879f8f11b08ad, type: 3}
   - {fileID: 21300000, guid: a830963bec4fb1944a4277051bae5885, type: 3}
+  - {fileID: 21300000, guid: 27ccb63bcc8ec474f9595bd3eb581560, type: 3}
   - {fileID: 21300000, guid: d6bc5d3bcab92cb40ac54e8b7b400e8a, type: 3}
   - {fileID: 21300000, guid: c885d04b5b34aa54da0ec5f61f6c0861, type: 3}
   - {fileID: 21300000, guid: 4977924bd95438143ae7711b95d41b71, type: 3}
@@ -1427,6 +1429,7 @@ SpriteAtlas:
   - lumi_blackcurrant
   - milkpan
   - cocoa_sponge_cake
+  - alice_oldcoin
   - whipped cream_peach
   - soda_weather_4
   - fantasia_sponge_cake_two
@@ -1500,6 +1503,7 @@ SpriteAtlas:
   - cacao_nibs
   - apareiyu_chocolate
   - neko_cookie_strange_kusa
+  - coin_npc_01
   - satsuma_butter
   - brioche
   - oven_stone

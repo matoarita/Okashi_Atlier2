@@ -1863,8 +1863,12 @@ public class Compound_Main : MonoBehaviour
                 gameQuestPanel_Panel.SetActive(true);
                 gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
 
-                //デバッグ用
-                magicskill_database.skillHyoujiKaikin("Float_Material");
+                //デバッグ用　本編では必ずオフにする。
+                if (GameMgr.System_DebugCommonSet_ON)
+                {
+                    magicskill_database.skillHyoujiKaikin("Float_Material");
+                    pitemlist.addPlayerItemString("alice_oldcoin", 1);
+                }
                 //
 
 
@@ -4528,6 +4532,9 @@ public class Compound_Main : MonoBehaviour
                                     get_heart = 2;
                                     break;
                             }
+
+                            girl1_status.GirlExpressionKoushin(50);
+                            heartget_ON = true;
                         }
                         else
                         {
@@ -4569,11 +4576,20 @@ public class Compound_Main : MonoBehaviour
                                     get_heart = 1;
                                     break;
                             }
+
+                            if (GameMgr.Contest_pastVictory_on) //過去優勝したことがあれば、ハートはもらえない
+                            {
+                                get_heart = 0;
+                                heartget_ON = false;
+                            }
+                            else
+                            {
+                                girl1_status.GirlExpressionKoushin(50);
+                                heartget_ON = true;
+                            }
                         }
 
-                        girl1_status.GirlExpressionKoushin(50);
-
-                        heartget_ON = true;
+                        
                         break;
 
                     case 210: //コンテスト終了　提出おかしが違って失格だった場合

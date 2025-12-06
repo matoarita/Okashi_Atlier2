@@ -56,6 +56,7 @@ public class GetMaterial : MonoBehaviour
     //宝箱のデータを保持する辞書
     Dictionary<int, string> treasureInfo;
     Dictionary<int, float> treasureDropDict;
+    Dictionary<int, int> treasureKosuType; //個数の指定　イベントアイテムは一個に限定する
 
     //ヒカリや猫用
     // アイテムのデータを保持する辞書
@@ -73,6 +74,7 @@ public class GetMaterial : MonoBehaviour
     //宝箱のデータを保持する辞書
     Dictionary<int, string> treasureInfoHikari;
     Dictionary<int, float> treasureDropDictHikari;
+    Dictionary<int, int> treasureKosuTypeHikari; //個数の指定　イベントアイテムは一個に限定する
     //** **//
 
 
@@ -86,6 +88,7 @@ public class GetMaterial : MonoBehaviour
 
     private int itemId, itemKosu;
     private string itemName;
+    private int KosuType_Set;
 
     private int event_num;
 
@@ -3157,6 +3160,7 @@ public class GetMaterial : MonoBehaviour
         // 宝箱アイテムの抽選。
         itemId = TreasureChoose(0);
         itemName = treasureInfo[itemId];
+        KosuType_Set = treasureKosuType[itemId];
 
         if (itemName == "Non") //はずれ
         {
@@ -3174,11 +3178,25 @@ public class GetMaterial : MonoBehaviour
     {
         itemDropKosuDict.Clear();
 
-        //個数
-        itemDropKosuDict.Add(1, 30.0f); //1個　
-        itemDropKosuDict.Add(2, 55.0f); //2個　
-        itemDropKosuDict.Add(3, 15.0f); //3個　
-        itemDropKosuDict.Add(5, 5.0f); //5個　
+        if (KosuType_Set == 0) //デフォルトは複数個
+        {
+            //個数
+            itemDropKosuDict.Add(1, 30.0f); //1個　
+            itemDropKosuDict.Add(2, 55.0f); //2個　
+            itemDropKosuDict.Add(3, 15.0f); //3個　
+            itemDropKosuDict.Add(5, 5.0f); //5個　
+        }
+        else if (KosuType_Set == 1) //1指定の場合は、必ず一個のみ　おもにお宝のレアアイテムのとき
+        {
+            //個数
+            itemDropKosuDict.Add(1, 100.0f); //1個　
+        }
+        else if (KosuType_Set == 2) //2指定の場合は、ごっそり手に入る
+        {
+            //個数
+            itemDropKosuDict.Add(7, 50.0f); //
+            itemDropKosuDict.Add(10, 50.0f); //
+        }
 
         itemKosu = ChooseKosu(0);
 
@@ -3240,6 +3258,7 @@ public class GetMaterial : MonoBehaviour
         //音とかパネルとかは無しで、宝箱取得処理のみ
         itemId = TreasureChoose(1);
         itemName = treasureInfoHikari[itemId];
+        //KosuType_Set = treasureKosuTypeHikari[itemId]; //ヒカリのたからばこは、個数を1で指定してるのでここはいらない
 
         if (itemName == "Non") //はずれ
         { }
@@ -3260,6 +3279,7 @@ public class GetMaterial : MonoBehaviour
         //まずは初期化
         treasureInfo = new Dictionary<int, string>();
         treasureDropDict = new Dictionary<int, float>();
+        treasureKosuType = new Dictionary<int, int>();
 
         switch (_treasure_num)
         {
@@ -3281,12 +3301,21 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(6, 30.0f + rare_event_kakuritsu);
 
-                if(GameMgr.Story_Mode == 1)
+                treasureKosuType.Add(0, 0); //個数の指定　デフォルトは0。 1を指定すると、ランダム抽選でなく必ず一個を拾う
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(4, 0);
+                treasureKosuType.Add(5, 0);
+                treasureKosuType.Add(6, 0);
+
+                if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_6") == 0)
                     {
                         treasureInfo.Add(7, "Record_6");
                         treasureDropDict.Add(7, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(7, 1); //個数の指定　デフォルトは0。 1を指定すると、ランダム抽選でなく必ず一個を拾う
                     }
                 }
                 break;
@@ -3303,12 +3332,18 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(2, 20.0f);
                 treasureDropDict.Add(3, 70.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_10") == 0)
                     {
                         treasureInfo.Add(4, "Record_10");
                         treasureDropDict.Add(4, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(4, 1);
                     }
                 }
                 break;
@@ -3329,12 +3364,20 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(4, 0);
+                treasureKosuType.Add(5, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_12") == 0)
                     {
                         treasureInfo.Add(6, "Record_12");
                         treasureDropDict.Add(6, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(6, 1);
                     }
                 }
                 break;
@@ -3351,12 +3394,18 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(2, 39.0f);
                 treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.5f)); //rare_event_kakuritsu = アイテム発見力によるバフは最大で50%
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_7") == 0)
                     {
                         treasureInfo.Add(4, "Record_7");
                         treasureDropDict.Add(4, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(4, 1);
                     }
                 }
                 break;
@@ -3371,12 +3420,17 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(1, 55.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_8") == 0)
                     {
                         treasureInfo.Add(3, "Record_8");
                         treasureDropDict.Add(3, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(3, 1);
                     }
                 }
                 break;
@@ -3389,12 +3443,16 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(0, 30.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 80.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_9") == 0)
                     {
                         treasureInfo.Add(2, "Record_9");
                         treasureDropDict.Add(2, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(2, 1);
                     }
                 }
                 break;
@@ -3411,12 +3469,18 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(3, 25.0f);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_13") == 0)
                     {
                         treasureInfo.Add(4, "Record_13");
                         treasureDropDict.Add(4, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(4, 1);
                     }
                 }
                 break;
@@ -3429,12 +3493,16 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(0, 90.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 10.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+
                 if (GameMgr.Story_Mode == 1)
                 {
                     if (pitemlist.KosuCount("Record_11") == 0)
                     {
                         treasureInfo.Add(2, "Record_11");
                         treasureDropDict.Add(2, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                        treasureKosuType.Add(2, 1);
                     }
                 }
                 break;
@@ -3455,6 +3523,18 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(2, 55.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+
+                if (pitemlist.KosuCount("alice_oldcoin") == 0)
+                {
+                    treasureInfo.Add(4, "alice_oldcoin");
+                    treasureDropDict.Add(4, 10.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    treasureKosuType.Add(4, 1);
+                }
+
                 break;
 
             case 11: //お宝セットテーブル　アクアマリン
@@ -3463,11 +3543,19 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(1, "peach_white");
                 treasureInfo.Add(2, "strawberry");
                 treasureInfo.Add(3, "blackberry");
+                treasureInfo.Add(4, "strawberry");
 
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 25.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(3, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(1, 29.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 40.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 1.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(3, 2); //2だと、ごっそり手に入る　10個以上～
 
                 break;
 
@@ -3485,6 +3573,12 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(3, 5.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(4, 25.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(4, 0);
+
                 break;
 
             case 13: //お宝セットテーブル　琥珀の湖
@@ -3498,6 +3592,11 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(1, 30.0f);
                 treasureDropDict.Add(2, 35.0f);
                 treasureDropDict.Add(3, 15.0f + rare_event_kakuritsu);
+
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
 
                 break;
 
@@ -3515,6 +3614,12 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(3, 30.0f);
                 treasureDropDict.Add(4, 25.0f);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(4, 0);
+
                 break;
 
             case 15: //お宝セットテーブル　ムーンストーンの丘
@@ -3528,6 +3633,11 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(1, 35.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(2, 20.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(3, 25.0f + rare_event_kakuritsu);
+
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
 
                 break;
 
@@ -3547,6 +3657,13 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(4, 5.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
 
+                treasureKosuType.Add(0, 0);
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(4, 0);
+                treasureKosuType.Add(5, 0);
+
                 break;            
 
             default:
@@ -3562,6 +3679,12 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(2, 20.0f);
                 treasureDropDict.Add(3, 20.0f);
                 treasureDropDict.Add(4, 20.0f);
+
+                treasureKosuType.Add(0, 0);  //個数の指定　デフォルトは0。 1を指定すると、ランダム抽選でなく必ず一個を拾う
+                treasureKosuType.Add(1, 0);
+                treasureKosuType.Add(2, 0);
+                treasureKosuType.Add(3, 0);
+                treasureKosuType.Add(4, 0);
                 break;
         }
     }
@@ -3572,6 +3695,7 @@ public class GetMaterial : MonoBehaviour
         //まずは初期化
         treasureInfoHikari = new Dictionary<int, string>();
         treasureDropDictHikari = new Dictionary<int, float>();
+        treasureKosuTypeHikari = new Dictionary<int, int>();
 
         switch (_treasure_name)
         {
@@ -3720,10 +3844,10 @@ public class GetMaterial : MonoBehaviour
                 treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
                 treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
-                if (pitemlist.KosuCount("crepe_powerup3") == 0) //ここで拾ってくるしか入手法なし
+                if (pitemlist.KosuCount("crepe_powerup3") == 0) //
                 {
-                    treasureInfoHikari.Add(2, "crepe_powerup3");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "crepe_powerup3");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
 
                 break;
@@ -3733,10 +3857,16 @@ public class GetMaterial : MonoBehaviour
                 treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
-                if (pitemlist.KosuCount("cookie_powerup4") == 0) //ここで拾ってくるしか入手法なし
+                if (pitemlist.KosuCount("cookie_powerup4") == 0) //
                 {
-                    treasureInfoHikari.Add(2, "cookie_powerup4");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "cookie_powerup4");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
+                }
+
+                if (pitemlist.KosuCount("alice_oldcoin") == 0)
+                {
+                    treasureInfoHikari.Add(2, "alice_oldcoin");
+                    treasureDropDictHikari.Add(2, 20.0f + (int)(rare_event_kakuritsu));
                 }
                 break;
 
@@ -3747,8 +3877,8 @@ public class GetMaterial : MonoBehaviour
 
                 if (pitemlist.KosuCount("shokukan_powerup3") == 0)
                 {
-                    treasureInfoHikari.Add(2, "shokukan_powerup3");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "shokukan_powerup3");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -3759,8 +3889,8 @@ public class GetMaterial : MonoBehaviour
 
                 if (pitemlist.KosuCount("candy_powerup1") == 0)
                 {
-                    treasureInfoHikari.Add(2, "candy_powerup1");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "candy_powerup1");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -3771,8 +3901,8 @@ public class GetMaterial : MonoBehaviour
 
                 if (pitemlist.KosuCount("hikari_powerup3") == 0)
                 {
-                    treasureInfoHikari.Add(2, "hikari_powerup3");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "hikari_powerup3");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -3783,8 +3913,8 @@ public class GetMaterial : MonoBehaviour
 
                 if (pitemlist.KosuCount("tea_powerup4") == 0)
                 {
-                    treasureInfoHikari.Add(2, "tea_powerup4");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "tea_powerup4");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -3807,8 +3937,8 @@ public class GetMaterial : MonoBehaviour
 
                 if (pitemlist.KosuCount("otona_powerup1") == 0)
                 {
-                    treasureInfoHikari.Add(2, "otona_powerup1");
-                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "otona_powerup1");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 

@@ -46,7 +46,23 @@ public class ContestKakuninButtonPanel : MonoBehaviour {
         {
             this.transform.Find("ContestKakuninButton").gameObject.SetActive(false);
         }*/
-        
+
+        if (GameMgr.outgirl_Nowprogress) //外出中だとコンテストいけなくなる
+        {
+            this.transform.Find("ContestKakuninButton").GetComponent<Button>().interactable = false;
+            this.transform.Find("ContestKakuninButton").GetComponent<Sound_Trigger>().enabled = false;
+            this.transform.Find("ContestKakuninButton/Text_day").gameObject.SetActive(false);
+            this.transform.Find("ContestKakuninButton/Text").gameObject.SetActive(false);
+            this.transform.Find("ContestKakuninButton/Text_outhikari").gameObject.SetActive(true);
+        }
+        else
+        {
+            this.transform.Find("ContestKakuninButton").GetComponent<Button>().interactable = true;
+            this.transform.Find("ContestKakuninButton").GetComponent<Sound_Trigger>().enabled = true;
+            this.transform.Find("ContestKakuninButton/Text_day").gameObject.SetActive(true);
+            this.transform.Find("ContestKakuninButton/Text").gameObject.SetActive(true);
+            this.transform.Find("ContestKakuninButton/Text_outhikari").gameObject.SetActive(false);
+        }
     } 
 
 	// Update is called once per frame

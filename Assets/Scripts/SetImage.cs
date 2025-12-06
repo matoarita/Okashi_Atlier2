@@ -1695,7 +1695,7 @@ public class SetImage : MonoBehaviour
         //水系アイテムには水っぽいはつかない
         if (item_type_sub == "Juice" || item_type_sub == "Soda" || item_type_sub == "Tea" || item_type_sub == "Tea_Mat" || item_type_sub == "Tea_Potion" || 
             item_type_sub == "Coffee_Mat" || item_type_sub == "Coffee" || item_type_sub == "AromaPotion" ||
-            item_type_subB == "a_SugerWater" || item_type_subB == "a_AppaleilJelly")
+            item_type_subB == "a_WaterSoda" || item_type_subB == "a_SugerWater" || item_type_subB == "a_AppaleilJelly")
         {
             item_Watery.text = "";
         }
@@ -1860,10 +1860,20 @@ public class SetImage : MonoBehaviour
 
             switch (item_type_subB)
             {
+                case "a_LumiSuger":
+
+                    DrawTasteWindow1();
+                    break;
+
                 case "a_SugerFlower":
 
                     DrawTasteWindow1();
                     break;
+
+                case "a_LumiSugerFlower":
+
+                    DrawTasteWindow1();
+                    break;                
 
                 case "a_CacaoMass":
 

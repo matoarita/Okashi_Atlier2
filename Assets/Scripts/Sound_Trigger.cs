@@ -453,14 +453,14 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(0);
                 break;
 
-            case "SaveloadListSelectToggle(Clone)": //メニュー開くときの音
+            case "SaveONButton": //メニュー開くときの音
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0);
+                SE_point_click(46);
                 break;
 
             case "ContestClearButton": //メモ開くときの音

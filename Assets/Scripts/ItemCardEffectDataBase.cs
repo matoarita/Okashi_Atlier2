@@ -652,7 +652,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         }
         else if (_compa >= 10)
         {
-            _ms_sp_score8 += _compa;
+            _ms_sp_score8 += 20;
         }
         else
         {
