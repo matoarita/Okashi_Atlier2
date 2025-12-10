@@ -10,6 +10,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     //こっちは計算用
 
     private ItemDataBase database;
+    private MagicSkillListDataBase magicskill_database;
 
     private int i, j;
 
@@ -40,11 +41,16 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     public int _addMSvalue;
     public int _addMagic;
 
+    private int _mlv;
+
     // Start is called before the first frame update
     void Start()
     {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
     }
 
     // Update is called once per frame
@@ -226,16 +232,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score2 += 10; //海らしさを足す   
                 _ms_sp_score6 += 10;
-                RoomBufKeisan();
+                
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
                 aisho_text3 = "子供っぽい + " + _ms_sp_score6.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "花火: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
-
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+                
                 _basemagicslot_Name = GameMgr.System_MagicSlotName01;
 
                 GameMgr.UseMagicSkill_HikariComment = "花火～～！きれい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -258,16 +262,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //相性に関係なく、必ず点数を足す                
                 _ms_sp_score7 += 10;
                 _ms_sp_score9 += 5; //光らしさを加算
-                RoomBufKeisan();
+              
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
                 aisho_text3 = "大人 " + _ms_sp_score5.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "ちょうちょ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName02;
 
                 GameMgr.UseMagicSkill_HikariComment = "にいちゃん！　ちょうちょ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -291,15 +293,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score2 += 5; //海らしさを加算
-                RoomBufKeisan();
-
-                aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
-
+               
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
+
+                aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
                 item_MS_aisho = "あわあわ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName03;
 
                 GameMgr.UseMagicSkill_HikariComment = "あわあわ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -321,16 +321,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score6 += 7;
-                RoomBufKeisan();
+                
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "子供っぽい + " + _ms_sp_score6.ToString();
                 aisho_text3 = "大人 " + _ms_sp_score5.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "星屑: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName04;
 
                 GameMgr.UseMagicSkill_HikariComment = "おほしさまキラキラ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -339,7 +337,6 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
             if (_magicslot[i] == GameMgr.System_MagicSlotName05) //WindArc　風の円弧が周りにとびちる
             {
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName05;
             }
 
@@ -360,16 +357,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score2 += 10; //海らしさを加算
                 _ms_sp_score6 += 5; //子供っぽさを足す
-                RoomBufKeisan();
+                
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
                 aisho_text3 = "子供っぽい + " + _ms_sp_score6.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "貝殻: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName06;
 
                 GameMgr.UseMagicSkill_HikariComment = "かいがらきれい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -388,17 +383,15 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score9 += 10; //光らしさを加算
-                RoomBufKeisan();
-
-                aisho_text2 = "キラキラ感 + " + _ms_sp_score9.ToString();
-
+                
                 _add_magicbeauty += 5; //見た目は+5
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
+
+                aisho_text2 = "キラキラ感 + " + _ms_sp_score9.ToString();
                 item_MS_aisho = "キラキラ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName07;
 
                 GameMgr.UseMagicSkill_HikariComment = "キラキラがかわいい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -418,15 +411,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score10 += 10; //和風感を加算
-                RoomBufKeisan();
-
-                aisho_text2 = "和風感 + " + _ms_sp_score10.ToString();
-
+                
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
+
+                aisho_text2 = "和風感 + " + _ms_sp_score10.ToString();
                 item_MS_aisho = "さくら: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName08;
 
                 GameMgr.UseMagicSkill_HikariComment = "風流だねぇ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -446,16 +437,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score7 += 10; //メルヘンを加算
-                RoomBufKeisan();
+               
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
                 aisho_text3 = "大人 " + _ms_sp_score5.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "お花: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName09;
 
                 GameMgr.UseMagicSkill_HikariComment = "お花、かわいい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -476,15 +465,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score3 += 10; //愛を加算
-                RoomBufKeisan();
-
-                aisho_text2 = "愛らしさ + " + _ms_sp_score3.ToString();
-
+               
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
+
+                aisho_text2 = "愛らしさ + " + _ms_sp_score3.ToString();
                 item_MS_aisho = "ハート: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName10;
 
                 GameMgr.UseMagicSkill_HikariComment = "ハートかわいい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -507,16 +494,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _ms_sp_score7 += 10; //メルヘンを加算
                 _ms_sp_score8 += 12; //芸術加算
                 _ms_sp_score6 += 10; //子供も加算（表記無）
-                RoomBufKeisan();
+                
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
                 aisho_text3 = "芸術 " + _ms_sp_score8.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "虹: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName11;
 
                 GameMgr.UseMagicSkill_HikariComment = "虹がういてる～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -537,15 +522,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score5 += 10; //大人を加算
-                RoomBufKeisan();
-
-                aisho_text2 = "大人 + " + _ms_sp_score5.ToString();
-
+                
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
+
+                aisho_text2 = "大人 + " + _ms_sp_score5.ToString();
                 item_MS_aisho = "ダンディ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName12;
 
                 GameMgr.UseMagicSkill_HikariComment = "かっこいい。ダンディ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -569,16 +552,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _ms_sp_score4 += 12; //宇宙を加算
                 _ms_sp_score8 += 6; //芸術を加算
                 _ms_sp_score7 += 10; //メルヘンを加算（表記無）
-                RoomBufKeisan();
+                
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
 
                 aisho_text2 = "宇宙 + " + _ms_sp_score4.ToString();
                 aisho_text3 = "芸術 " + _ms_sp_score8.ToString();
-
-                MS_aisho_database(_compatible, _msvalue[i]);
-                Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "三日月: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName13;
 
                 GameMgr.UseMagicSkill_HikariComment = "ふしぎなお月様♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
@@ -631,21 +612,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     {
         if (GameMgr.OrCompound_RoomNum == 8)
         {
-            _ms_sp_score1 = (int)(_ms_sp_score1 * 1.3f);
-            _ms_sp_score2 = (int)(_ms_sp_score2 * 1.3f);
-            _ms_sp_score3 = (int)(_ms_sp_score3 * 1.3f);
-            _ms_sp_score4 = (int)(_ms_sp_score4 * 1.3f);
-            _ms_sp_score5 = (int)(_ms_sp_score5 * 1.3f);
-            _ms_sp_score6 = (int)(_ms_sp_score6 * 1.3f);
-            _ms_sp_score7 = (int)(_ms_sp_score7 * 1.3f);
-            _ms_sp_score8 = (int)(_ms_sp_score8 * 1.3f);
-            _ms_sp_score9 = (int)(_ms_sp_score9 * 1.3f);
-            _ms_sp_score10 = (int)(_ms_sp_score10 * 1.3f);
+            Buf_SpScoreKeisan(1.3f);
         }
     }
 
     void Common_Keisan(int _compa)
     {
+        _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+
         if (_compa >= 0 && _compa < 10)
         {
             _ms_sp_score8 += 10; //演出をかけると、どの演出魔法も全てのおかしに芸術性を10点加える。
@@ -658,5 +632,28 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         {
             _ms_sp_score8 = 0;
         }
+
+        RoomBufKeisan();
+
+        //美の研究を習得していれば、上昇値があがる
+        _mlv = magicskill_database.skillName_SearchLearnLevel("Beautiful_Power");
+        if(_mlv > 0)
+        {
+            Buf_SpScoreKeisan(1.06f * _mlv);
+        }
+    }
+
+    void Buf_SpScoreKeisan(float _buf)
+    {
+        _ms_sp_score1 = (int)(_ms_sp_score1 * _buf);
+        _ms_sp_score2 = (int)(_ms_sp_score2 * _buf);
+        _ms_sp_score3 = (int)(_ms_sp_score3 * _buf);
+        _ms_sp_score4 = (int)(_ms_sp_score4 * _buf);
+        _ms_sp_score5 = (int)(_ms_sp_score5 * _buf);
+        _ms_sp_score6 = (int)(_ms_sp_score6 * _buf);
+        _ms_sp_score7 = (int)(_ms_sp_score7 * _buf);
+        _ms_sp_score8 = (int)(_ms_sp_score8 * _buf);
+        _ms_sp_score9 = (int)(_ms_sp_score9 * _buf);
+        _ms_sp_score10 = (int)(_ms_sp_score10 * _buf);
     }
 }

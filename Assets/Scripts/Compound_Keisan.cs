@@ -2881,7 +2881,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
-
+    //
+    //お菓子ごとの特殊計算　魔法で作られるアイテムにも全て適用（ただし、バフだけとかCompNoのやつは無視）
+    //
     void Okashi_SpecialKeisan()
     {
         //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
@@ -3060,8 +3062,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _baseoily = 0;
             _basewatery = 0;            
         }
+
+        //お花ゼリーができるときは、香りの値を少し歯ごたえにプラス
+        if (_base_itemType_subB == "a_JellyFlower")
+        {
+            _basehardness += (int)(_basetea_flavor * 0.3f);
+        }
     }
 
+    //
+    //お菓子ごとの特殊計算　魔法で作成されるアイテムには適用されない
+    //
     void Okashi_SpecialKeisan_Nomagic()
     {
         //特殊補正　クッキーなどのおかしの種類で食感が伸びにくくなる

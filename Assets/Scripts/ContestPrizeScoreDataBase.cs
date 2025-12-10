@@ -795,7 +795,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(4000);
         GameMgr.PrizeGetMoneyList.Add(8000);
-        GameMgr.PrizeGetMoneyList.Add(20000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -807,9 +807,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("メンデル・スーザン");
+        GameMgr.PrizeCharacterList.Add("メーデル・スザーン");
         GameMgr.PrizeCharacterList.Add("ハーマウズ");
-        GameMgr.PrizeCharacterList.Add("モツァール三世");
+        GameMgr.PrizeCharacterList.Add("モツァールト三世");
     }
 
     //〇ディオ・ショコラ・チャンピオンシップ チョコで一番　終盤レベル
@@ -828,8 +828,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(2000);
-        GameMgr.PrizeGetMoneyList.Add(15000);
-        GameMgr.PrizeGetMoneyList.Add(30000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(20000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -1174,15 +1174,15 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(622);
-        GameMgr.PrizeScoreAreaList.Add(650);
+        GameMgr.PrizeScoreAreaList.Add(680);
         GameMgr.PrizeScoreAreaList.Add(735);
         GameMgr.PrizeScoreAreaList.Add(828);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ミント");
-        GameMgr.PrizeCharacterList.Add("黒ずきん");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("黒ずきん");
         GameMgr.PrizeCharacterList.Add("ベル");
     }
 

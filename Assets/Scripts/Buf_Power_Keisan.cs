@@ -1417,21 +1417,21 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void CreamBuf()
     {
-        if (pitemlist.KosuCount("whisk_gold") >= 1) //魔力の泡だて器をもっている
+        if (pitemlist.KosuCount("whisk_gold") >= 1) //金の泡だて器をもっている
         {
-            _buf_shokukanup = (int)(_buf_shokukanup * 1.75f);
+            _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
         }
         else
         {
-            if (pitemlist.KosuCount("whisk_silver") >= 1) //魔力の泡だて器をもっている
+            if (pitemlist.KosuCount("whisk_silver") >= 1) //銀の泡だて器をもっている
             {
-                _buf_shokukanup = (int)(_buf_shokukanup * 1.5f);
+                _buf_shokukanup = (int)(_buf_shokukanup * 1.22f);
             }
             else
             {
                 if (pitemlist.KosuCount("whisk_magic") >= 1) //魔力の泡だて器をもっている
                 {
-                    _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                    _buf_shokukanup = (int)(_buf_shokukanup * 1.15f);
                 }
             }
         }
@@ -2118,13 +2118,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                     if (_attri2 < 3) //重ね掛け2回までだと効果が小さい
                     {
-                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //大体元値の1.2倍
-                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.03f)); //大体元値の1.1倍 LV3で1.2倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.03f) 習得LV: " + _magicLearnLv);
                     }
                     else
                     {    //3回以上重ね掛けするとき、効果が大きくなる                    
-                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.15f)); //大体元値の1.25倍
-                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.06f)); //大体元値の1.25倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.06f) 習得LV: " + _magicLearnLv);
                     }
 
                     if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
@@ -2138,13 +2138,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                     if (_attri2 < 3) //重ね掛け2回までだと効果が小さい
                     {
-                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.05f)); //大体元値の1.15倍
-                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.05f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.02f)); //大体元値の1.15倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.02f) 習得LV: " + _magicLearnLv);
                     }
                     else
                     {    //3回以上重ね掛けするとき、効果が大きくなる 
-                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //1.2倍
-                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.05f)); //1.2倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.05f) 習得LV: " + _magicLearnLv);
                     }
                     if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
 
@@ -2161,13 +2161,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                     if (_attri5 < 3) //重ね掛け2回までだと効果が小さい
                     {
-                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //大体元値の1.2倍
-                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.03f)); //大体元値の1.1倍 LV3で1.2倍
+                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.03f) 習得LV: " + _magicLearnLv);
                     }
                     else
                     {    //3回以上重ね掛けするとき、効果が大きくなる                    
-                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.15f)); //大体元値の1.25倍
-                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.06f)); //大体元値の1.25倍
+                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.06f) 習得LV: " + _magicLearnLv);
                     }
 
                     if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
@@ -2185,10 +2185,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     if (_status != 5) //ただし、見た目はバフを無視。
                     {
                         _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Warming_Handmade");
-                        _magicup = (int)(_baseparam * (0.15f + _magicLearnLv * 0.05f));
+                        _magicup = (int)(_baseparam * (0.12f + _magicLearnLv * 0.03f)); //1.12倍～1.2倍
                         if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
 
-                        Debug.Log("_baseparam * (0.15f + 手作りの温もり習得LV * 0.05f) 習得LV: " + _magicLearnLv); //大体1.2~1.3倍
+                        Debug.Log("_baseparam * (0.12f + 手作りの温もり習得LV * 0.03f) 習得LV: " + _magicLearnLv); //大体1.12~1.2倍 ただしハートを消費してしまう。
                         Debug.Log("手作りの温もりの最終バフ: " + _magicup);
                         _buf_shokukanup += _magicup;
                     }
@@ -2243,7 +2243,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 if (_status == 1) //酸味を変化 すっぱくする
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Lightning_Grape");
-                    _magicup = 10;
+                    if (_magicLearnLv == 1)
+                    {
+                        _magicup = 10;
+                    }
+                    else if (_magicLearnLv >= 2)
+                    {
+                        _magicup = -1 * (_baseparam - GameMgr.UseMagicParamCustom_FinalScore);
+                    }                   
 
                     _buf_shokukanup += _magicup;
                 }
@@ -2254,17 +2261,24 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 if (_status == 0) //甘さを変化 具体的には甘さを減らす
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
-                    _magicup = -(_baseparam / 2);
+                    if (_magicLearnLv == 1)
+                    {
+                        _magicup = -(_baseparam / 2);
+                    }
+                    else if (_magicLearnLv >= 2)
+                    {
+                        _magicup = -1 * (_baseparam - GameMgr.UseMagicParamCustom_FinalScore);
+                    }
 
                     _buf_shokukanup += _magicup;
                 }
-                if (_status == 1) //酸味を変化
+                /*if (_status == 1) //酸味を変化
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
                     _magicup = 2;
 
                     _buf_shokukanup += _magicup;
-                }
+                }*/
                 break;
         }
 

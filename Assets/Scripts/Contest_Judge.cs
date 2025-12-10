@@ -2089,11 +2089,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score2[i] = 30; //海らしさの値が最低15は必要 足りない場合、-数値*5倍 + -30 最大の減点が-130点
+                        girl1_status.girl1_SP_Score2[i] = 40; //海らしさの値が最低40は必要 足りない場合、-数値*5倍 + -30 最大の減点が-130点
                     }
                     GameMgr.contest_SPJudgeCommentNum = 2; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： 海らしさ " + 30);
+                    Debug.Log("判定値追加： 海らしさ " + 40);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正

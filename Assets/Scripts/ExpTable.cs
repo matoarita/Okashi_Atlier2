@@ -583,16 +583,17 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             stage1_hlvTable.Add(_last_htable + i * 100); //14+i=15～から入っていく
         }
 
-        //LV30以上～99まで　ハートレベル*100ごとに上がるように設定
+        //LV30以上～99まで　ハートレベル*〇ごとに上がるように設定　適切な値なら何でもOK
         _hlv_last = stage1_hlvTable.Count; //上にいれたとこまでの最後
         _last_htable = stage1_hlvTable[stage1_hlvTable.Count - 1]; //最後にいれた数字　更新
-        for (i = 1; i < (99 - _hlv_last); i++)
+        for (i = 1; i < (GameMgr.System_HeartExpMax - _hlv_last); i++)
         {
             stage1_hlvTable.Add(_last_htable + i * 100); //30+i=31～から入っていく 
         }
 
-        //LV99ラストにいくための経験値
-        stage1_hlvTable[stage1_hlvTable.Count - 1] = 9999; //最後の数字 LV98→LV99までが、ここで設定した値になる。
+        //LV99ラスト（上限）にいくための経験値
+        stage1_hlvTable[stage1_hlvTable.Count - 1] = GameMgr.System_HeartExpMax; //最後の数字 LV98→LV99までが、ここで設定した値になる。
+
 
         //デバッグ用
         /*for (i = 0; i < stage1_hlvTable.Count; i++)
@@ -601,64 +602,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
         Debug.Log("stage1_hlvTable.Count: " + stage1_hlvTable.Count);*/
     }
-
-    //ジョブのレベルアップテーブル
-    void Init_JobTable()
-    {
-        stage1_joblvTable.Clear();
-        stage1_joblvTable.Add(10); //LV2。LV1で、次のレベルが上がるまでの好感度値
-        stage1_joblvTable.Add(30);　//LV3 LV1の分は含めない。
-        stage1_joblvTable.Add(60); //LV4
-        stage1_joblvTable.Add(90); //LV5
-        stage1_joblvTable.Add(130); //LV6
-        stage1_joblvTable.Add(175); //LV7
-        stage1_joblvTable.Add(215); //LV8
-        stage1_joblvTable.Add(255); //LV9
-        stage1_joblvTable.Add(325); //LV10
-        stage1_joblvTable.Add(400); //LV11
-        stage1_joblvTable.Add(480); //LV12
-        stage1_joblvTable.Add(560); //LV13
-        stage1_joblvTable.Add(660); //LV14
-        stage1_joblvTable.Add(800); //LV15
-
-        _joblv_last = stage1_joblvTable.Count;
-        //LV16以上～50まで　100ごとに上がるように設定
-        for (i = 1; i < (50 - _joblv_last); i++)
-        {
-            stage1_joblvTable.Add(stage1_joblvTable[stage1_joblvTable.Count-1] + 200 + (i*10));
-        }
-        stage1_joblvTable[stage1_joblvTable.Count - 1] = 15000; //最後だけ15000
-
-        //デバッグ用
-        /*for (i = 0; i < stage1_joblvTable.Count; i++)
-        {
-            Debug.Log("stage1_joblvTable: " + "次のLv" + (i+2) + " " + stage1_joblvTable[i]);
-        }
-        Debug.Log("stage1_joblvTable.Count: " + stage1_joblvTable.Count);*/
-    }
-
-    //更新後のrenkinExpをいれると、現在のジョブLVに再計算する
-    public void JobLVKoushin()
-    {
-        i = 0;
-        now_level = 1;
-        while (i < stage1_joblvTable.Count)
-        {
-            if(PlayerStatus.player_renkin_exp >= stage1_joblvTable[i])
-            {
-                now_level++;
-                i++;
-            }
-            else
-            {
-                break;
-            }            
-        }
-
-        PlayerStatus.player_patissier_lv = now_level;
-
-        //Debug.Log("現在のパティシエLVと経験値: " + PlayerStatus.player_patissier_lv + " " + PlayerStatus.player_renkin_exp);
-    }
+  
 
     //更新後のHeartExpをいれると、現在のHLVに再計算する　Girleat_judgeから読み出し
     public void HeartLVKoushin()
@@ -675,6 +619,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             i++;
         }
         //**  **//
+
+        //ハート経験値上限チェック
+        if(PlayerStatus.girl1_Love_exp >= GameMgr.System_HeartExpMax)
+        {
+            PlayerStatus.girl1_Love_exp = GameMgr.System_HeartExpMax;
+        }
+        if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartLvMax)
+        {
+            PlayerStatus.girl1_Love_lv = GameMgr.System_HeartLvMax;
+        }
 
         if (now_level < PlayerStatus.girl1_Love_lv)
         {
@@ -705,6 +659,68 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         //
     }
+
+
+
+    //ジョブのレベルアップテーブル
+    void Init_JobTable()
+    {
+        stage1_joblvTable.Clear();
+        stage1_joblvTable.Add(10); //LV2。LV1で、次のレベルが上がるまでの好感度値
+        stage1_joblvTable.Add(30);　//LV3 LV1の分は含めない。
+        stage1_joblvTable.Add(60); //LV4
+        stage1_joblvTable.Add(90); //LV5
+        stage1_joblvTable.Add(130); //LV6
+        stage1_joblvTable.Add(175); //LV7
+        stage1_joblvTable.Add(215); //LV8
+        stage1_joblvTable.Add(255); //LV9
+        stage1_joblvTable.Add(325); //LV10
+        stage1_joblvTable.Add(400); //LV11
+        stage1_joblvTable.Add(480); //LV12
+        stage1_joblvTable.Add(560); //LV13
+        stage1_joblvTable.Add(660); //LV14
+        stage1_joblvTable.Add(800); //LV15
+
+        _joblv_last = stage1_joblvTable.Count;
+        //LV16以上～50まで　100ごとに上がるように設定
+        for (i = 1; i < (50 - _joblv_last); i++)
+        {
+            stage1_joblvTable.Add(stage1_joblvTable[stage1_joblvTable.Count - 1] + 200 + (i * 10));
+        }
+        stage1_joblvTable[stage1_joblvTable.Count - 1] = 15000; //最後だけ15000
+
+        //デバッグ用
+        /*for (i = 0; i < stage1_joblvTable.Count; i++)
+        {
+            Debug.Log("stage1_joblvTable: " + "次のLv" + (i+2) + " " + stage1_joblvTable[i]);
+        }
+        Debug.Log("stage1_joblvTable.Count: " + stage1_joblvTable.Count);*/
+    }
+
+    //更新後のrenkinExpをいれると、現在のジョブLVに再計算する
+    public void JobLVKoushin()
+    {
+        i = 0;
+        now_level = 1;
+        while (i < stage1_joblvTable.Count)
+        {
+            if (PlayerStatus.player_renkin_exp >= stage1_joblvTable[i])
+            {
+                now_level++;
+                i++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        PlayerStatus.player_patissier_lv = now_level;
+
+        //Debug.Log("現在のパティシエLVと経験値: " + PlayerStatus.player_patissier_lv + " " + PlayerStatus.player_renkin_exp);
+    }
+
+
 
     //レベルをいれると、それまでに必要な経験値の合計を返すメソッド レベルは１始まり
     public int SumLvTable(int _count)

@@ -162,6 +162,7 @@ public class Compound_Check : MonoBehaviour {
         resultitemName_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
         MagicSelectLv_Panel = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel").gameObject;
         MagicSelectLv_Panel.SetActive(false);
+        MagicSelectLv_Panel.transform.Find("MagicSelectParam").gameObject.SetActive(false);
 
         FinalCheckPanel = compoBG_A.transform.Find("FinalCheckPanel").gameObject;
         FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Image/Text").GetComponent<Text>();
@@ -1333,7 +1334,7 @@ public class Compound_Check : MonoBehaviour {
                 //MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/TextSkill").GetComponent<TextMeshProUGUI>().text = GameMgr.UseMagicSkill_nameHyouji;
                 //MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/TextSkill").GetComponent<ArchedText>().enabled = true;
                 //魔法のときは、対象アイテムと魔法のエフェクトなどを表示する
-
+                
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
                 compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
@@ -1341,11 +1342,24 @@ public class Compound_Check : MonoBehaviour {
                 //確率に応じて、テキストが変わる。
                 //FinalCheck_Text.text = success_text;
 
+                //魔法によって、パラメータを操作できるものがある。その場合は、updown操作パネルを表示する。どの魔法で可能かはmagicskillSelectToggleで判定。
+                if (GameMgr.UseMagicParamCustom != 0)
+                {
+                    MagicSelectLv_Panel.transform.Find("MagicSelectParam").gameObject.SetActive(true);
+                    MagicSelectLv_Panel.transform.Find("MagicSelectParam/ParamCategoryText/Text").GetComponent<Text>().text = GameMgr.UseMagicParamCustomText;
+                    _text.text = GameMgr.UseMagicSkill_nameHyouji + " を使いますか？" + "\n" + "左のパネルから、好きな数字を指定できるよ。" + 
+                        "+" + GameMgr.UseMagicParamCustom_ScoreMinMax.ToString() + " ～ " + "-" + GameMgr.UseMagicParamCustom_ScoreMinMax.ToString();
+                }
+                else
+                {
+                    _text.text = GameMgr.UseMagicSkill_nameHyouji + " を使いますか？";
+                    //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
+                }
 
-                _text.text = GameMgr.UseMagicSkill_nameHyouji + " を使いますか？";
-                //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
                 //updown_counter_obj.SetActive(true);
                 yes_no_panel_magic.SetActive(true);
+
+                
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -1371,7 +1385,12 @@ public class Compound_Check : MonoBehaviour {
                         //Debug.Log("二度目チェック");
                         //CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //使う魔法レベルが決定したあと、そのレベルに沿って再び調合判定。※ただし、現在固定のため、不要。
 
-                        
+                        if (GameMgr.UseMagicParamCustom != 0) //パラメータ操作を使った場合
+                        {
+                            GameMgr.UseMagicParamCustom_FinalScore = GameMgr.updown_kosu;
+                            Debug.Log("GameMgr.UseMagicParamCustom_FinalScore: " + GameMgr.UseMagicParamCustom_FinalScore);
+                        }
+
                         //魔法によって、仕上げ回数も消費する。
                         if (magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "CompNo" ||
                         magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "Buf" ||

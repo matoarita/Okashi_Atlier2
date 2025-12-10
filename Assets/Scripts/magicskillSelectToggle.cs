@@ -63,7 +63,7 @@ public class magicskillSelectToggle : MonoBehaviour
     private int pitemlist_max;
     private int count;
     private bool selectToggle;
-    private int _id;
+    private int _id, _mlv;
 
     private List<GameObject> category_toggle = new List<GameObject>();
 
@@ -323,6 +323,7 @@ public class magicskillSelectToggle : MonoBehaviour
         GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
         GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
         GameMgr.UseMagicSkill_TimeCost = magicskilllistController.skill_timecost;
+        GameMgr.UseMagicParamCustom = 0; //使用前にリセット
 
         _skillname = GameMgr.UseMagicSkill;
         SkillUseLibrary(1);
@@ -547,7 +548,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
                 CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
-                break;
+                break;           
 
             case "Warming_Handmade":
 
@@ -571,6 +572,21 @@ public class magicskillSelectToggle : MonoBehaviour
 
                 CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
+                break;
+
+            //パラメータ変えれる関係
+            case "Dreamy_Sapphire":
+
+                CompoStatusMethod(0);
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいソーダを選んでね。";
+                Check_ParamUpdownCounter();
+                break;
+
+            case "Lightning_Grape":
+
+                CompoStatusMethod(0);
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいソーダを選んでね。";
+                Check_ParamUpdownCounter();
                 break;
 
             //プレイヤーバフ関係
@@ -691,6 +707,35 @@ public class magicskillSelectToggle : MonoBehaviour
         //Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status[sta_id]: " + PlayerStatus.player_girl_status[sta_id]);
     }
 
+    //魔法によって、パラメータを操作できる。LVによっても表示のON/OFFを変えるので、一度ここでチェック
+    void Check_ParamUpdownCounter()
+    {
+        _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+        _mlv = magicskill_database.magicskill_lists[_id].skillLv;
+
+        switch(_skillname)
+        {
+            case "Dreamy_Sapphire":
+
+                if(_mlv >= 2)
+                {
+                    GameMgr.UseMagicParamCustom = 1; //あまさを参照
+                    GameMgr.UseMagicParamCustomText = "あまさの値";
+                    GameMgr.UseMagicParamCustom_ScoreMinMax = 15;
+                }
+                break;
+
+            case "Lightning_Grape":
+
+                if (_mlv >= 2)
+                {
+                    GameMgr.UseMagicParamCustom = 2; //すっぱさを参照
+                    GameMgr.UseMagicParamCustomText = "すっぱさの値";
+                    GameMgr.UseMagicParamCustom_ScoreMinMax = 10;
+                }
+                break;
+        }
+    }
 
     //今は使ってない。魔法選択時にカードとエフェクトが表示される。
     void MagicEffectOn(string _effname)

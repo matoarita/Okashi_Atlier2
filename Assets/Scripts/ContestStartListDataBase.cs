@@ -1911,6 +1911,27 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }*/
     }
 
+    //コンテスト名とランキングをいれると、強制的にその順位に変更する
+    public void SetContestVictroyStringAbs(string _name, int _rank)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                conteststart_lists[i].ContestVictory = _rank;
+                break;
+            }
+            i++;
+        }
+
+        //デバッグ用
+        /*for(i=0; i< conteststart_lists.Count; i++)
+        {
+            Debug.Log("コンテスト順位: " + conteststart_lists[i].ContestNameHyouji + ": " + conteststart_lists[i].ContestVictory);
+        }*/
+    }
+
     //名前をいれると、そのコンテストの出場回数をかえす
     public int ContestName_FightCount(string _name)
     {
@@ -2020,6 +2041,34 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
             //初試合は関係なく、優勝したら、キャラから直接もらうという設定
             GameMgr.EdenPrizeChange = false;
             GameMgr.EdenFirstVictory = false;
+        }
+    }
+
+    //エデンコンで優勝した場合、コンテストで優勝したフラグを別にたてる　ハートルートと差別化　コンテストの順位を1位にセットするだけではこのフラグはセットされない
+    public void EdenContestVictorySet(string _contestName)
+    {
+
+        switch (_contestName)
+        {
+            case "Or_Contest_001": //春コン
+
+                GameMgr.NPCHiroba_eventList[10] = true;
+                break;
+
+            case "Or_Contest_002": //夏コン
+
+                GameMgr.NPCHiroba_eventList[11] = true;
+                break;
+
+            case "Or_Contest_003": //秋コン
+
+                GameMgr.NPCHiroba_eventList[12] = true;
+                break;
+
+            case "Or_Contest_004": //冬コン
+
+                GameMgr.NPCHiroba_eventList[13] = true;
+                break;
         }
     }
 

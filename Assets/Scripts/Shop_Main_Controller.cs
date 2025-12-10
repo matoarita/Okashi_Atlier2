@@ -24,6 +24,7 @@ public class Shop_Main_Controller : MonoBehaviour {
     private Girl1_status girl1_status;
 
     private BGM sceneBGM;
+    private bool bgm_change_flag;
 
     private GameObject text_area;
     private Text _text;
@@ -135,6 +136,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        bgm_change_flag = false;
 
         //プレイヤー所持アイテムリストパネルの取得
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
@@ -647,6 +649,10 @@ public class Shop_Main_Controller : MonoBehaviour {
             GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
             GameMgr.SubEvAfterHeartGet_num = 110;
 
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
             check_event = true;
 
             StartCoroutine("Scenario_loading");
@@ -1128,6 +1134,14 @@ public class Shop_Main_Controller : MonoBehaviour {
         //Debug.Log("シナリオ終了");
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
+
+        //音を戻す。
+        if (bgm_change_flag)
+        {
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+            sceneBGM.PlayAmbient(9999); //指定なしで、マップデフォルトのアンビエントをまた鳴らす
+        }
 
         check_event = false;
         check_lvevent = false;

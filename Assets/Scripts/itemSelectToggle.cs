@@ -91,6 +91,8 @@ public class itemSelectToggle : MonoBehaviour
 
     private int kosusum;
 
+    private int _sweat, _sour, _bitter;
+
     private float _success_rate;
 
     void Start()
@@ -1523,7 +1525,47 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.kettei_on_waiting = false;
                 GameMgr.final_select_flag = true; //調合最終確認
 
+                if (GameMgr.UseMagicParamCustom != 0) //パラメータ操作できる魔法のときは、選んだアイテムのいくつかのパラメータを参照
+                {
+                    if (GameMgr.Final_toggle_Type1 == 0)
+                    {
+                        _sweat = database.items[GameMgr.Final_list_itemID1].Sweat;
+                        _sour = database.items[GameMgr.Final_list_itemID1].Sour;
+                        _bitter = database.items[GameMgr.Final_list_itemID1].Bitter;
+                    }
+                    else if (GameMgr.Final_toggle_Type1 == 1)
+                    {
+                        _sweat = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sweat;
+                        _sour = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sour;
+                        _bitter = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Bitter;
+                    }
+                    else if (GameMgr.Final_toggle_Type1 == 2)
+                    {
+                        _sweat = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sweat;
+                        _sour = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sour;
+                        _bitter = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Bitter;
+                    }
+
+                    switch(GameMgr.UseMagicParamCustom)
+                    {
+                        case 1: //あまさ
+
+                            GameMgr.UseMagicParamCustom_OriginScore = _sweat;
+                            break;
+
+                        case 2: //酸味
+
+                            GameMgr.UseMagicParamCustom_OriginScore = _sour;
+                            break;
+
+                        case 3: //苦味
+
+                            GameMgr.UseMagicParamCustom_OriginScore = _bitter;
+                            break;
+                    }
+                }
                 //Debug.Log("一個目選択完了！");
+
                 break;
 
             case false: //キャンセルが押された

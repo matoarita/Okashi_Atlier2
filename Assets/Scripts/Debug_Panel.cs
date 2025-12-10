@@ -34,6 +34,7 @@ public class Debug_Panel : MonoBehaviour {
 
     private Text CStatus_text;
     private Text CSelect_text;
+    private Text CKetteibunki_text;
 
     private KaeruCoin_Controller kaeruCoin_Controller;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -127,6 +128,7 @@ public class Debug_Panel : MonoBehaviour {
 
         CStatus_text = this.transform.Find("Hyouji/CompoundStatusText").GetComponent<Text>();
         CSelect_text = this.transform.Find("Hyouji/CompoundSelectText").GetComponent<Text>();
+        CKetteibunki_text = this.transform.Find("Hyouji/CompoundKetteiBunkiText").GetComponent<Text>();
 
         FPSCounter_text = this.transform.Find("Hyouji/FPSCount").GetComponent<Text>();
 
@@ -190,6 +192,7 @@ public class Debug_Panel : MonoBehaviour {
 
         CStatus_text.text = "compound_Status: " + GameMgr.compound_status.ToString();
         CSelect_text.text = "_Select: " + GameMgr.compound_select.ToString();
+        CKetteibunki_text.text = "CompoundKetteiBunki: " + GameMgr.Comp_kettei_bunki.ToString();
 
         //ここに処理。時間カウント。デバッグ用。
         Counter = this.transform.Find("Hyouji/TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用

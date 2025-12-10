@@ -1008,22 +1008,36 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_Street2":
 
-                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_11) //エデンレシピが隠されている祭壇へ
+                if (GameMgr.NPCHiroba_eventList[12]) //先にエデンコンを優勝した場合
                 {
-                    On_Active2000(200010, false); //まだ通れない
+                    On_Active2000(200200, false); //不思議な力で通れない
                 }
                 else
                 {
-                    if (GameMgr.NPCHiroba_blockReleaseList[11])
+                    if (GameMgr.outgirl_Nowprogress) //ヒカリがいないと不思議な力で通れない
                     {
-                        On_Active155();
+                        On_Active2000(200200, false); //不思議な力で通れない
                     }
                     else
                     {
-                        GameMgr.NPCHiroba_blockReleaseList[11] = true; //
-                        On_BlockReleaseActive1(0); //hiroba_numの指定
+                        if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_11) //エデンレシピが隠されている祭壇へ
+                        {
+                            On_Active2000(200010, false); //まだ通れない
+                        }
+                        else
+                        {
+                            if (GameMgr.NPCHiroba_blockReleaseList[11])
+                            {
+                                On_Active155();
+                            }
+                            else
+                            {
+                                GameMgr.NPCHiroba_blockReleaseList[11] = true; //
+                                On_BlockReleaseActive1(0); //hiroba_numの指定
+                            }
+                        }
                     }
-                }              
+                }
                 break;
 
             case "Or_Hiroba_Winter_ContestBridge": //冬の橋
@@ -1584,22 +1598,36 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_RotenStreet2":
 
-                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_10) //エデンレシピが隠されている祭壇へ
+                if (GameMgr.NPCHiroba_eventList[11]) //先にエデンコンを優勝した場合
                 {
-                    On_Active2000(200005, false); //まだ通れない
+                    On_Active2000(200200, false); //不思議な力で通れない
                 }
                 else
                 {
-                    if (GameMgr.NPCHiroba_blockReleaseList[10])
+                    if (GameMgr.outgirl_Nowprogress) //ヒカリがいないと不思議な力で通れない
                     {
-                        //エデンレシピ星の祭壇へ
-                        On_Active18();
-                        
+                        On_Active2000(200200, false); //不思議な力で通れない
                     }
                     else
                     {
-                        GameMgr.NPCHiroba_blockReleaseList[10] = true; //
-                        On_BlockReleaseActive1(0); //hiroba_numの指定
+                        if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_10) //エデンレシピが隠されている祭壇へ
+                        {
+                            On_Active2000(200005, false); //まだ通れない
+                        }
+                        else
+                        {
+                            if (GameMgr.NPCHiroba_blockReleaseList[10])
+                            {
+                                //エデンレシピ星の祭壇へ
+                                On_Active18();
+
+                            }
+                            else
+                            {
+                                GameMgr.NPCHiroba_blockReleaseList[10] = true; //
+                                On_BlockReleaseActive1(0); //hiroba_numの指定
+                            }
+                        }
                     }
                 }
                 break;

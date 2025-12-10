@@ -6401,6 +6401,7 @@ public class Utage_scenario : MonoBehaviour
             }
 
             GameMgr.event_pitem_itemtype_select = ""; //わたすアイテムタイプのみここでリセット
+            GameMgr.event_pitem_bgmchange = false;
 
             //続きから再度読み込み
             engine.ResumeScenario();
@@ -6458,6 +6459,36 @@ public class Utage_scenario : MonoBehaviour
 
                 //続きから再度読み込み
                 engine.ResumeScenario();
+
+                //プレゼントあげた後に、途中でBGMを変更する際は、フラグをあらかじめもらって、ここでストップをかける。
+                if(GameMgr.event_pitem_bgmchange)
+                {                                       
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Bar_A1": //ルーティさん
+
+                            if (GameMgr.talk_number == 1500) //プレゼントボタンおしたとき
+                            {
+                                if (GameMgr.event_judge_status == 0) //ムーンバナナわたしたあと
+                                {
+                                    //
+                                    //「宴」のポーズ終了待ち
+                                    while (!engine.IsPausingScenario)
+                                    {
+                                        yield return null;
+                                    }
+
+                                    StartCoroutine("WaitPauseAndBGMChange");
+
+                                }
+                            }
+                            break;
+                    }
+                }
+
+                GameMgr.event_pitem_bgmchange = false;
+
+                //
             }
 
             //やっぱりやめた場合の処理
@@ -6496,6 +6527,7 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.farm_event_ON = false;
                 GameMgr.bar_event_ON = false;
                 GameMgr.event_pitem_itemtype_select = ""; //わたすアイテムタイプのみここでリセット
+                GameMgr.event_pitem_bgmchange = false;
 
                 if (GameMgr.GirlLoveSubEvent_num == 801) //一度NPCから依頼うけてたのにキャンセルしたので評価が下がる。
                 {
@@ -6514,6 +6546,32 @@ public class Utage_scenario : MonoBehaviour
                 engine.ResumeScenario();               
             }           
         }
+    }
+
+    IEnumerator WaitPauseAndBGMChange()
+    {
+        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1ならPause判定。
+
+        //ポーズの場合
+        if (pause_or_endnum == 1)
+        {
+            //BGMをオフにする。
+            BGMMute();
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
+
+            //BGMを再開
+            BGMMuteOFF();
+        }
+        else //エンドは、そのままエンドなので流して終了　pause_or_endnum == 0は、EndScenarioを押したときのみ。Pauseしたのにpause_or_endnum == 0は使わない
+        { }
     }
 
     void ResetKoyuNPCQuest()

@@ -99,6 +99,7 @@ public class Updown_counter : MonoBehaviour {
 
     private int _itemcount;
     private int _id, _skillLV;
+    private int origin_param, param_min;
 
     private int _p_or_recipi_flag;
 
@@ -165,7 +166,9 @@ public class Updown_counter : MonoBehaviour {
 
         updown_counter_setpanel = this.transform.Find("SetPanel").gameObject;
         updown_counter_setpanel.SetActive(false);
-       
+
+        GameMgr.updown_kosu = 1;
+        _zaiko_max = 0;
 
         //調合中に開かれた場合は、シーンに限らずプレイヤーアイテムとレシピリストを取得
         if (GameMgr.CompoundSceneStartON)
@@ -198,15 +201,39 @@ public class Updown_counter : MonoBehaviour {
                 
                 this.transform.Find("counter_img1").gameObject.SetActive(false);
 
-                if (GameMgr.compound_select == 21)
+                if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法使用時、パラメータを操作する時
                 {
                     updown_counter_setpanel.SetActive(true);
 
-                    switch (GameMgr.Comp_kettei_bunki)
+                    updown_counter_setpanel.transform.Find("counter_img2").gameObject.SetActive(true);
+                    updown_counter_setpanel.transform.Find("SetBGImage").gameObject.SetActive(false);
+                    updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(false);
+
+                    GameMgr.updown_kosu = GameMgr.UseMagicParamCustom_OriginScore;
+                    _zaiko_max = GameMgr.UseMagicParamCustom_OriginScore + GameMgr.UseMagicParamCustom_ScoreMinMax;
+                    param_min = GameMgr.UseMagicParamCustom_OriginScore - GameMgr.UseMagicParamCustom_ScoreMinMax;
+                    origin_param = GameMgr.UseMagicParamCustom_OriginScore;
+
+                    Magicparam_ContColor();
+
+                    if (_zaiko_max >= 999)
+                    {
+                        _zaiko_max = 999;
+                    }
+                    if (param_min <= 1)
+                    {
+                        param_min = 1;
+                    }
+
+                    /*switch (GameMgr.Comp_kettei_bunki)
                     {
                         case 21: //魔法のレベル選択時のポス
 
                             this.transform.localPosition = new Vector3(60, -70, 0);
+
+                            updown_counter_setpanel.transform.Find("counter_img2").gameObject.SetActive(true);
+                            updown_counter_setpanel.transform.Find("SetBGImage").gameObject.SetActive(false);
+                            updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(false);
 
                             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
                             if (magicskill_database.magicskill_lists[_id].skill_CompSelect == "Non" ||
@@ -235,7 +262,7 @@ public class Updown_counter : MonoBehaviour {
                                 updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(false);
                             }
                             break;
-                    }
+                    }*/
                 }
             }
             else
@@ -328,13 +355,11 @@ public class Updown_counter : MonoBehaviour {
             }
         }
 
-        GameMgr.updown_kosu = 1;
-        _zaiko_max = 0;
-
+        
         _count_text = transform.Find("counter_num").GetComponent<Text>();
         _count_text.text = GameMgr.updown_kosu.ToString();
 
-
+        /*
         if(GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //魔法選択してスキルレベル選択の場合
         {
             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
@@ -350,7 +375,7 @@ public class Updown_counter : MonoBehaviour {
             {
                 GameMgr.updown_kosu = 1;
             }          
-        }
+        }*/
     }
 
     void SettingPosCompound()
@@ -681,7 +706,14 @@ public class Updown_counter : MonoBehaviour {
 
                     if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10)
                     {
-                        switch (GameMgr.Comp_kettei_bunki)
+                        //魔法の習得LVで上限値が変わる　例えばサファイアシュガーLV2なら+-15など　事前にmagicskillSelectToggleで決めている
+                        AddMethod1();
+
+                        if (GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //選択後、パラメータを選ぶタイミング
+                        {
+                            Magicparam_ContColor();
+                        }
+                        /*switch (GameMgr.Comp_kettei_bunki)
                         {
                             case 21: //魔法のレベル選択
 
@@ -690,7 +722,7 @@ public class Updown_counter : MonoBehaviour {
                                 AddMethod1();
 
                                 break;
-                        }
+                        }*/
                     }
                 }
                 else
@@ -1349,7 +1381,21 @@ public class Updown_counter : MonoBehaviour {
         }
     }
 
-
+    void Magicparam_ContColor()
+    {
+        if (origin_param == GameMgr.updown_kosu)
+        {
+            _count_text.color = new Color(0.47f, 0.22f, 0.22f, 1.0f);
+        }
+        else if (origin_param < GameMgr.updown_kosu) //+　青色
+        {
+            _count_text.color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+        }
+        else if (origin_param > GameMgr.updown_kosu) //-　赤色
+        {
+            _count_text.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        }
+    }
 
     public void OnClick_down()
     {
@@ -1357,11 +1403,16 @@ public class Updown_counter : MonoBehaviour {
         if (GameMgr.CompoundSceneStartON)
         {
             if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法処理　アイテム選択画面のとき
-            {
-                if(GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //選択後、スキルレベルを選ぶタイミング
+            {                            
+                if(GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //選択後、パラメータを選ぶタイミング
                 {
+                    //魔法によって下限が決められている
+                    DegMethod1(param_min);
+
+                    Magicparam_ContColor();
+
                     //レベル選択しない魔法は、レベル固定のまま
-                    _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+                    /*_id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
                     if (magicskill_database.magicskill_lists[_id].skill_CompSelect == "Non" ||
                         magicskill_database.magicskill_lists[_id].skill_CompSelect == "CompNo")
@@ -1371,18 +1422,18 @@ public class Updown_counter : MonoBehaviour {
                     else
                     {
                         DegMethod1();
-                    }
+                    }*/
                 }
                 else
                 {
-                    DegMethod1();
+                    DegMethod1(1);
                 }
             }
             else
             {
                 if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
                 {
-                    DegMethod1();
+                    DegMethod1(1);
 
                     if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                     {
@@ -1407,7 +1458,7 @@ public class Updown_counter : MonoBehaviour {
                 }
                 else //レシピリストのときの処理
                 {
-                    DegMethod1();
+                    DegMethod1(1);
 
                     //個数を変えた際に、必要アイテム数と、所持アイテム数を比較するメソッド
                     updown_keisan_Method();
@@ -1423,33 +1474,33 @@ public class Updown_counter : MonoBehaviour {
             {
                 if (GameMgr.Scene_Select == 1) //買い物のとき
                 {
-                    DegMethod1();
+                    DegMethod1(1);
 
                     //ウィンドウの表示も変える。
                     BuyYosokuText();
                 }
                 else if (GameMgr.Scene_Select == 5) //売るとき
                 {
-                    DegMethod1();
+                    DegMethod1(1);
 
                     //ウィンドウの表示も変える。
                     SellYosokuText();
                 }
                 else
                 {
-                    DegMethod1();
+                    DegMethod1(1);
                 }
             }
             else if (GameMgr.Scene_Category_Num == 50)
             {
-                DegMethod1();
+                DegMethod1(1);
 
                 //ウィンドウの表示も変える。
                 BuyYosokuText();
             }
             else
             {
-                DegMethod1();
+                DegMethod1(1);
             }
         }
     }
@@ -1500,7 +1551,7 @@ public class Updown_counter : MonoBehaviour {
 
         _count_text.text = GameMgr.updown_kosu.ToString();
 
-        Magic_ReKeisan();
+        //Magic_ReKeisan();
     }
 
     void AddMethod2()
@@ -1514,17 +1565,17 @@ public class Updown_counter : MonoBehaviour {
         _count_text.text = GameMgr.updown_kosu.ToString();
     }
 
-    void DegMethod1()
+    void DegMethod1(int _min)
     {
         --GameMgr.updown_kosu;
-        if (GameMgr.updown_kosu <= 1)
+        if (GameMgr.updown_kosu <= _min)
         {
-            GameMgr.updown_kosu = 1;
+            GameMgr.updown_kosu = _min;
         }
 
         _count_text.text = GameMgr.updown_kosu.ToString();
 
-        Magic_ReKeisan();
+        //Magic_ReKeisan();
     }
 
     void DegMethod2()
@@ -1539,7 +1590,7 @@ public class Updown_counter : MonoBehaviour {
     }
 
     //アップorダウンしたときに調合確率も再計算する　特定のタイミングのときのみ
-    void Magic_ReKeisan()
+    /*void Magic_ReKeisan()
     {
         if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法処理　アイテム選択画面のとき
         {
@@ -1552,7 +1603,7 @@ public class Updown_counter : MonoBehaviour {
 
             }
         }
-    }
+    }*/
 
 
     //レシピリストのときの処理
@@ -2003,5 +2054,14 @@ public class Updown_counter : MonoBehaviour {
         {
             obj.interactable = false;
         }
+    }
+
+    //魔法でのパラメータ操作時　最初の値にもどす
+    public void MagicParamCustom_SetOrigin()
+    {
+        GameMgr.updown_kosu = origin_param;
+        _count_text.text = GameMgr.updown_kosu.ToString();
+
+        Magicparam_ContColor();
     }
 }

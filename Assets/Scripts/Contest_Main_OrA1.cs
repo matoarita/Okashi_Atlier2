@@ -414,7 +414,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //プレイヤーステータスのリセット
             PlayerStatus.ResetPlayerMagicStatus();
 
-            //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する まだ設定してないのでひとまずoff
+            //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する
             if (GameMgr.ContestRoundNum == GameMgr.ContestRoundNumMax)
             {
                 if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || GameMgr.Contest_Name == "Or_Contest_003"
@@ -436,7 +436,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.Contest_PrizeGet_flag = false;
 
             //エデンコンの場合、初出場かそうでないかをチェック
-            conteststartList_database.EdenFirstVictoryCheck(GameMgr.Contest_Name);      
+            conteststartList_database.EdenFirstVictoryCheck(GameMgr.Contest_Name);
+
+            //エデンコンの場合、コンテストで優勝したというフラグをたてる　ハートルートはこれの有無で封鎖する
+            conteststartList_database.EdenContestVictorySet(GameMgr.Contest_Name);
 
             Contest_PrizeGetScene = true;
             contestPrizePanel.SetActive(false); //ランキング戦で一回表示してる可能性があるので、一度オフ

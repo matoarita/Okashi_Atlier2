@@ -2813,6 +2813,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
+    //甘さ・苦さ・酸味の値が近いときほど高得点。その際、「食感」をベースに、食感が高いほど補正値も高くなる仕様。
+    //200以上のとき、100ごとに〇倍
     void TasteScore_HoseiKeisan()
     {
         if (shokukan_score < 200)
@@ -2822,7 +2824,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else if (shokukan_score >= 200)
         {
-            //200こえたとき、100ごとに1.25倍づつぐらい？大きくなる
+            //200こえたとき、100ごとに1.2倍づつぐらい？大きくなる
             _temp_tastescore = shokukan_score;
 
             _tastescore_counter = 0;
@@ -2832,16 +2834,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _tastescore_counter++;
             }
 
-            taste_score_shokukanhosei = 1.0f + _tastescore_counter * 0.25f;
+            taste_score_shokukanhosei = 1.0f + _tastescore_counter * 0.2f; //最低値でも1.4倍～を保障 食感が1000点だと3倍～
 
-            //さらにHLVに応じて、少し点数が上がる
-            taste_score_shokukanhosei = taste_score_shokukanhosei * SujiMap(PlayerStatus.girl1_Love_lv, 1f, 99f, 1.0f, 2.0f);
+            //さらにHLVに応じて、少し点数が上がる　ほんの少しでよい。
+            taste_score_shokukanhosei = taste_score_shokukanhosei * SujiMap(PlayerStatus.girl1_Love_lv, 1f, 99f, 1.0f, 1.3f);
 
             //さらにパーフェクトプリンセスでのびる
             _mlv = magicskill_database.skillName_SearchLearnLevel("Parfect_Princess");
             if (_mlv > 0)
             {
-                taste_score_shokukanhosei = taste_score_shokukanhosei * SujiMap(_mlv, 1f, 5f, 1.2f, 2.4f);
+                taste_score_shokukanhosei = taste_score_shokukanhosei * SujiMap(_mlv, 1f, 2f, 1.5f, 2.0f);
             }
         }
     }
@@ -4023,7 +4025,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
     public void GetHeartValue()
     {
-        if (PlayerStatus.girl1_Love_lv >= 99) //カンスト
+        if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartLvMax) //カンスト
         {
             girl_param.text = _ResultGirllove.ToString();
         }
@@ -4093,7 +4095,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _slider.minValue = exp_table.stage1_hlvTable[PlayerStatus.girl1_Love_lv - 2];
         }
 
-        if (PlayerStatus.girl1_Love_lv >= 99)
+        if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartLvMax)
         {
             _slider.maxValue = 99999; //Lv99でカンストしたときは、Lv100のMaxがないので、適当な数字に。
         }
@@ -4121,7 +4123,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("ハートゲージ更新アニメは終了");
 
         //実際の好感度を反映
-        if (PlayerStatus.girl1_Love_lv >= 99)
+        if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartLvMax)
         {
             PlayerStatus.girl1_Love_exp = exp_table.stage1_hlvTable[exp_table.stage1_hlvTable.Count - 1];
         }

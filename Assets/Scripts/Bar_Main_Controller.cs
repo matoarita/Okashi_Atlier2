@@ -23,6 +23,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     private SceneInitSetting sceneinit_setting;
 
     private BGM sceneBGM;
+    private bool bgm_change_flag;
 
     private GameObject text_area;
     private Text _text;
@@ -173,6 +174,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        bgm_change_flag = false;
 
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
@@ -699,6 +701,10 @@ public class Bar_Main_Controller : MonoBehaviour {
                         GameMgr.bar_event_num = 1010;
                         GameMgr.bar_event_flag = true;
 
+                        //BGMかえる
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        bgm_change_flag = true;
+
                         check_event = true;
 
                         StartCoroutine("Scenario_loading");
@@ -1013,6 +1019,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                     GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[100];//GirlLikeSetの番号を直接指定
                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
                     GameMgr.NPC_NoScoreCheck = true; //これがtrueだと、判定時の点数は影響しない　おもに店売りアイテムなどを渡すときに使う　また種類が違ってた場合、アイテムはなくならない
+                    GameMgr.event_pitem_bgmchange = true; //イベントアイテム渡した後にBGMを変更するときはこれをON　フラグがややこしいので、使うときは注意。基本なくていい。
                     break;
 
                 case "Or_Bar_B1":
@@ -1161,6 +1168,15 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
 
         Debug.Log("UtageEndWait終了");
+
+        //音を戻す。
+        if (bgm_change_flag)
+        {
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+            sceneBGM.PlayAmbient(9999); //指定なしで、マップデフォルトのアンビエントをまた鳴らす
+        }
+
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
@@ -1180,6 +1196,14 @@ public class Bar_Main_Controller : MonoBehaviour {
         //Debug.Log("シナリオ終了");
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
+
+        //音を戻す。
+        if (bgm_change_flag)
+        {
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+            sceneBGM.PlayAmbient(9999); //指定なしで、マップデフォルトのアンビエントをまた鳴らす
+        }
 
         check_event = false;
         GameMgr.Scene_Status = 0;

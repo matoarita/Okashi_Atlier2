@@ -113,6 +113,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ハート魔法の消費基本ハートポイント
     public static int System_MagicHeartCost = 30;
 
+    //ハート経験値の上限　ここで設定するだけでなく、経験値間の上げ幅も適切に設定しないとダメ。ExpTableのInit_Stage1_heartLVTable()で設定。
+    public static int System_HeartExpMax = 9999;
+    public static int System_HeartLvMax = 99; //LVの上限
+
     //スタンプラリーボードのコマ上限　すなわちスタンプのゴール
     public static int System_StampStarMax = 43;
 
@@ -171,6 +175,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_PStatusName2 = "早さ";
     public static string System_PStatusName3 = "ちえ";
 
+    public static string System_MagicLVName = "魔法Lv"; //各魔法ごとの個別LVも魔法LVとよぶから混同注意
     public static string System_MagicLVPoint = "魔法ポイント";
     public static string System_MagicEXPName = "魔法経験値";
 
@@ -909,6 +914,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int UseMagicSkill_HikariCommentFlag; //演出魔法の相性がよかったときに、セリフを変えるフラグ
     public static string UseMagicSkill_HikariComment;
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
+    public static int UseMagicParamCustom; //使う魔法によって、パラメータ操作パネルを開く　0=false 1~true かつ　どの値を取得するか
+    public static string UseMagicParamCustomText; //そのときに操作できるパラメータの名称
+    public static int UseMagicParamCustom_OriginScore; //魔法でパラメータ操作時　参照元の値
+    public static int UseMagicParamCustom_ScoreMinMax; //魔法でパラメータ操作時　上げ下げの上限
+    public static int UseMagicParamCustom_FinalScore; //魔法でパラメータ操作時　最終決定値
     public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
     public static int MagicUseTypeSelect; //魔法を使うとき、その魔法のタイプ　アイテムに魔法をかけるのか　プレイヤーに魔法をかけるのか
     public static int Magic_CheckIgnore; //プレイヤー状態魔法つかうときに、使用した直後にすぐ使用がカウントされてしまうので、それを無視する用
@@ -1225,6 +1235,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool NPC_DislikeFlag;
     public static bool NPC_Dislike_UseON;
     public static bool NPC_NoScoreCheck; //点数の影響なし　店売りアイテム（ムーンバナナのようにオリジナルアイテム扱いにして）を渡すときに使用
+    public static bool event_pitem_bgmchange; //イベントアイテム渡した後に宴内のBGMに変更する場合　
 
     public static Dictionary<int, int> Hikariokashi_Exptable = new Dictionary<int, int>();
     public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
@@ -1536,6 +1547,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         event_pitem_itemtype_select = "";
         event_pitem_use_OK = false;
         event_pitem_cancel = false;
+        event_pitem_bgmchange = false;
 
         CompoundEvent_flag = false;        
         CompoundEvent_storyflag = false;
@@ -1629,6 +1641,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         UseMagicSkill_ID = 0;
         UseMagicSkill_HikariCommentFlag = 0;
         UseMagicSkill_HikariComment = "";
+        UseMagicParamCustomText = "";
         ResultItem_nameHyouji = "";
         Result_Kosu = 0;
         Result_compound_success = false;

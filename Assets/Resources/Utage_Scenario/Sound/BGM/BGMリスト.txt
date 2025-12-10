@@ -162,3 +162,4 @@
 ・BGM_158		PerituneMaterial_Tir_sonas_inst		教会の讃美歌風BGM　ルミエール系のコンテストなど
 ・BGM_159		Antan					怖い曲　冬の図書館BGM
 ・BGM_160		PerituneMaterial_Forest_Sage_loop	春の祭壇BGM　隠された魔法研究室
+・BGM_161		PerituneMaterial_Rosa_Nera_loop		怪しげなメルヘン曲　バナナフェスの時などに使う

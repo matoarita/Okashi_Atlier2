@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 114399829189229830}
   - component: {fileID: 114662126186720766}
   m_Layer: 0
-  m_Name: text_magicLVName
+  m_Name: text_magicPointName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8123,7 +8123,7 @@ GameObject:
   - component: {fileID: 114260190115551086}
   - component: {fileID: 114313269937528136}
   m_Layer: 0
-  m_Name: text (1)
+  m_Name: text_mlv
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8190,7 +8190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D1\u30C6\u30A3\u30B7\u30A8Lv"
+  m_Text: "\u9B54\u6CD5Lv"
 --- !u!114 &114313269937528136
 MonoBehaviour:
   m_ObjectHideFlags: 0

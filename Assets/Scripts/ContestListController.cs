@@ -512,7 +512,10 @@ public class ContestListController : MonoBehaviour
         {
             //ただし、よそでエデンのレシピを獲得した場合、コンテストには出場できなくなる。
             if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1)
-            { }
+            {
+                //強制的に一位扱いになる。
+                conteststartList_database.SetContestVictroyStringAbs("Or_Contest_002", 1);
+            }
             else
             {
                 if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200)
@@ -530,7 +533,10 @@ public class ContestListController : MonoBehaviour
         if (GameMgr.Contest_NewReleaseList[41])
         {
             if (pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
-            { }
+            {
+                //強制的に一位扱いになる。
+                conteststartList_database.SetContestVictroyStringAbs("Or_Contest_003", 1);
+            }
             else
             {
                 if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300)
