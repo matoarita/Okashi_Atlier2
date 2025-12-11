@@ -98,6 +98,20 @@ public class RecipiMemoController : MonoBehaviour
 
         reset_and_DrawView();
 
+        if (GameMgr.tutorial_ON) //チュートリアルのときは、クッキーレシピ以外は、触れなくする。
+        {
+            for(i=0; i <  _recipi_listitem.Count; i++)
+            {
+                if(_recipi_listitem[i].transform.Find("recipiMemoSelectToggle_content").GetComponent<recipimemoSelectToggle>().recipi_toggleEventitem_name == "ev01_neko_cookie_recipi")
+                {
+                    _recipi_listitem[i].transform.Find("recipiMemoSelectToggle_content").GetComponent<Toggle>().interactable = true;
+                }
+                else
+                {
+                    _recipi_listitem[i].transform.Find("recipiMemoSelectToggle_content").GetComponent<Toggle>().interactable = false;
+                }
+            }
+        }
     }
 
     // リストビューの描画部分。重要。
@@ -124,7 +138,7 @@ public class RecipiMemoController : MonoBehaviour
                 _toggle_itemID = _recipi_listitem[list_count].transform.Find("recipiMemoSelectToggle_content").GetComponent<recipimemoSelectToggle>();
                 _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
                 _toggle_itemID.recipi_toggleitemType = 0; //イベントアイテムタイプなので、0
-
+                _toggle_itemID.recipi_toggleEventitem_name = pitemlist.eventitemlist[i].event_itemName;
 
                 j = 0;
 

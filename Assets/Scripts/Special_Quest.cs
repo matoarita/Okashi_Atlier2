@@ -497,12 +497,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
 
+                /*
                 if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
                 {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 0;
-                }
+                    ContestButton_WindowOn(0);
+                }*/
 
                 break;
 
@@ -535,7 +534,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 14: //スターを集めよう！（プラトンアカデミー招待状待ち）　いらんかも。
+            case 14: //スターを集めよう！（プラトンアカデミー招待状待ち）　いらんかも。現在は外した。
 
                 girl1_status.OkashiQuest_ID = 100140;
                 OkashiQuest_Count = 5;
@@ -549,7 +548,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 15: //プラトンアカデミーコンテストで優勝しよう！
 
                 girl1_status.OkashiQuest_ID = 100150;
-                OkashiQuest_Count = 6;
+                OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 

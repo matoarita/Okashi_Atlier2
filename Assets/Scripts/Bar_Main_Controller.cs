@@ -478,11 +478,19 @@ public class Bar_Main_Controller : MonoBehaviour {
                         shopon_toggle_present.SetActive(false);
                     }
                 }
-                
+
+                if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                {
+                    shopon_toggle_back.SetActive(true);
+                }
+                else
+                {
+                    shopon_toggle_back.SetActive(false);
+                }
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(true);                
-                shopon_toggle_back.SetActive(true);
+                //shopon_toggle_back.SetActive(true);
                 break;
 
             case "Or_Bar_B1":

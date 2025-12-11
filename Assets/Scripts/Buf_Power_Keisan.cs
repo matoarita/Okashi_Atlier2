@@ -1690,12 +1690,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void MagicGlowBuf_method()
     {
         //魔法のバフ
-        _magicup = 0;
+        /*_magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") >= 1)
         {
             _magicup = (int)(original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 0.06f); //元の値の6%上昇
             _buf_shokukanup += _magicup;
-        }
+        }*/
     }
 
     void RuskBuf()

@@ -40,6 +40,7 @@ public class recipimemoSelectToggle : MonoBehaviour
 
     public int recipi_toggleitemType; //選んだアイテムが、イベントアイテムか、コンポ調合DBのアイテムかを判別する。0=イベントアイテム, 1=コンポ調合用DBアイテム
     public int recipi_toggleEventitem_ID; //リストの要素にイベントアイテムIDを保持する。
+    public string recipi_toggleEventitem_name; //そのときのアイテム名
     public int recipi_itemID; //そのときのアイテムDB上のアイテムID。
     public string recipi_itemNameHyouji; //名前表示用
 

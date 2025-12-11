@@ -3818,14 +3818,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             else if (PlayerStatus.girl1_Love_lv >= 99)
             {
                 Getlove_exp = (int)(Getlove_exp * 1.0f);
-            }
+            }*/
+
+            //コンテスト攻略を軸にするため、おかしでのハート上げはほぼ効果なしバージョン。コンテストクリアでハート上がる。
+            //Getlove_exp = (int)(Getlove_exp * 0.3f);
 
             //ハート　装備品による補正
             if (pitemlist.KosuCount("aroma_potion1") >= 1)
             {
                 Getlove_exp = (int)(Getlove_exp * 1.2f);
-            }*/
-            Getlove_exp = (int)(Getlove_exp * 0.3f); //コンテスト攻略を軸にするため、おかしでのハート上げはほぼ効果なしバージョン。コンテストクリアでハート上がる。
+            }
+
+            
 
             //仕送りお金関係　装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();

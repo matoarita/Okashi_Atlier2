@@ -1272,6 +1272,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(122);
                 break;
 
+            case "Speed0": //ゲーム中の時間速度変更のボタン音　ストップの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(16);
+                break;
+
             case "SkillCommentButton": //魔法説明を開いた時の音
 
                 //ポインタが入ったときに鳴る音

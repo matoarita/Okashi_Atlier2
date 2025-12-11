@@ -1189,7 +1189,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Delete_playerItemList(0);
 
             //アイテム取得チェック
-            GetItemCheck(GameMgr.compound_select, GameMgr.UseMagicSkill);
+            GetItemCheck(GameMgr.compound_select, GameMgr.UseMagicSkill, GameMgr.Final_toggle_Type1);
 
         }
         else if (_mstatus == 2) //ヒカリのアイテムの予測処理。予測の場合、アイテムの追加処理はいらない。
@@ -1555,25 +1555,33 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (_status == 0)
         {
-            GameMgr.MakeItemStatus = 0;
-            if (_base_itemType == "Mat" || _base_itemType == "Potion")
+            GameMgr.MakeItemStatus = 0; //Exp_controllerリザルトカード表示の際に使う
+
+            if (GameMgr.hikari_makingmethod == 1) //魔法を使ってた場合
             {
-                CheckItemType_GetItem();
+                GetItemCheck(hikari_compselect, GameMgr.hikari_make_magicuseName, GameMgr.hikari_kettei_toggleType[0]);
             }
             else
             {
-                //アイテム取得処理
-                GetItemMethod(0); //パネルにはセットせずオリジナルアイテムとして受け取る
+                if (_base_itemType == "Mat" || _base_itemType == "Potion")
+                {
+                    CheckItemType_GetItem();
+                }
+                else
+                {
+                    //アイテム取得処理
+                    GetItemMethod(0); //パネルにはセットせずオリジナルアイテムとして受け取る
+                }
             }
         }
         else if (_status == 1)　//ヒカリ受け取るときにお菓子パネルにセットする
         {
-            GetItemCheck(hikari_compselect, GameMgr.hikari_make_magicuseName);         
+            GetItemCheck(hikari_compselect, GameMgr.hikari_make_magicuseName, GameMgr.hikari_kettei_toggleType[0]);         
         }
         
     }
 
-    void GetItemCheck(int _compo_select, string _useMagic)
+    void GetItemCheck(int _compo_select, string _useMagic, int _item1_toggleType)
     {
        
         //最初に、チェック用に一度お菓子をいれて、それが生地かどうか判定する。カードの表示は、このリストのものを使う。
@@ -1603,15 +1611,22 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else
             {
-                if (_base_itemType == "Mat" || _base_itemType == "Potion")
+                if (_item1_toggleType != 0) //元素材のタイプがオリジナルの場合、出来上がるアイテムもオリジナルになる
                 {
-                    CheckItemType_GetItem();
+                    GetItemMethod(0); //オリジナルアイテムに登録
                 }
                 else
                 {
-                    //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
-                    //アイテム取得処理
-                    GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+                    if (_base_itemType == "Mat" || _base_itemType == "Potion")
+                    {
+                        CheckItemType_GetItem();
+                    }
+                    else
+                    {
+                        //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
+                        //アイテム取得処理
+                        GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+                    }
                 }
             }
         }

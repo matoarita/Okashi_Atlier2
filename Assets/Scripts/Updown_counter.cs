@@ -167,6 +167,8 @@ public class Updown_counter : MonoBehaviour {
         updown_counter_setpanel = this.transform.Find("SetPanel").gameObject;
         updown_counter_setpanel.SetActive(false);
 
+        _count_text = this.transform.Find("counter_num").GetComponent<Text>();
+
         GameMgr.updown_kosu = 1;
         _zaiko_max = 0;
 
@@ -356,7 +358,7 @@ public class Updown_counter : MonoBehaviour {
         }
 
         
-        _count_text = transform.Find("counter_num").GetComponent<Text>();
+       
         _count_text.text = GameMgr.updown_kosu.ToString();
 
         /*

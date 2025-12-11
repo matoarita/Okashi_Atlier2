@@ -42,7 +42,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_StarPanelCheck = false; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
-    public static bool System_DebugCommonSet_ON = true; //デバッグ用　テストプレイ時などでいろいろな汎用処理をこの中でかく。本編のときは、必ずオフにする。
+    public static bool System_DebugCommonSet_ON = false; //デバッグ用　テストプレイ時などでいろいろな汎用処理をこの中でかく。本編のときは、必ずオフにする。
     //** **//
 
     //ゲーム基本システムの使用有無
@@ -2290,6 +2290,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("hikari_speed_up1"); //エメラルショップ
         CollectionItemsName.Add("hikari_speed_up2"); //エメラルショップ
         CollectionItemsName.Add("aroma_potion1"); //エメラルショップ
+        CollectionItemsName.Add("measuring_spoon"); //春のお店
         CollectionItemsName.Add("residual_heatstone"); //エメラルショップ
         CollectionItemsName.Add("shokukan_powerup2"); //エメラルショップ
         CollectionItemsName.Add("shokukan_powerup3"); //冬のお店　★ヒカリが拾ってくる

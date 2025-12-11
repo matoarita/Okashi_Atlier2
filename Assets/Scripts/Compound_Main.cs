@@ -317,6 +317,7 @@ public class Compound_Main : MonoBehaviour
     private bool StartRead;
     private int _baseID;
     private bool _teishutu_on;
+    private bool tutorial_itemHojyu;
 
     private int before_costume;
     private bool isLoading;
@@ -768,6 +769,7 @@ public class Compound_Main : MonoBehaviour
         check_recipi_flag = false;
         heartget_ON = false;
         map_move = false;
+        tutorial_itemHojyu = false;
 
         GameMgr.GirlLoveEvent_bunki_status = 0;
         GameMgr.girlEat_ON = false;
@@ -1451,15 +1453,7 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(true);
                 //special_quest.RedrawQuestName();
 
-                _textmain.text = "お菓子をあげてみよう！";
-
-                //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
-                if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
-                {
-                    pitemlist.addPlayerItemString("komugiko", 5 - pitemlist.KosuCount("komugiko"));
-                    pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
-                    pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
-                }
+                _textmain.text = "お菓子をあげてみよう！";               
 
                 GameMgr.tutorial_Num = 105; //退避
                 break;
@@ -1513,6 +1507,15 @@ public class Compound_Main : MonoBehaviour
                 canvas.SetActive(true);
 
                 _textmain.text = "ねこクッキーを作ってみよう！";
+
+                //このタイミングで、全てのアイテムを5ずつにリセットしなおす。
+                if (!tutorial_itemHojyu)
+                {
+                    tutorial_itemHojyu = true;
+                    pitemlist.ReSetPlayerItemString("komugiko", 5);
+                    pitemlist.ReSetPlayerItemString("butter", 5);
+                    pitemlist.ReSetPlayerItemString("suger", 5);
+                }
 
                 break;
 

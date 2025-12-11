@@ -93,6 +93,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound79;  //各部屋のテーマ
     public AudioClip sound80;  //大会コンテストのBGM エデンコンテスト3
     public AudioClip sound81;  //教会風BGM ルミエールコンテスト系
+    public AudioClip sound82;  //大会コンテストのBGM エデンコンテスト4 高難易度向け
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -784,6 +785,11 @@ public class BGM : MonoBehaviour {
     {
         switch (GameMgr.Contest_BGMSelect)
         {
+            case "sound13":
+
+                _send_clip = sound13;
+                break;
+
             case "sound38":
 
                 _send_clip = sound38;
@@ -822,6 +828,11 @@ public class BGM : MonoBehaviour {
             case "sound81":
 
                 _send_clip = sound81;
+                break;
+
+            case "sound82":
+
+                _send_clip = sound82;
                 break;
 
             default:

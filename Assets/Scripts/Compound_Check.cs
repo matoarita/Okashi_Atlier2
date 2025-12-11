@@ -1290,6 +1290,7 @@ public class Compound_Check : MonoBehaviour {
         yes.GetComponent<Button>().interactable = false;
         no.GetComponent<Button>().interactable = false;
         GameMgr.updown_kosu = 1;
+        MagicSelectLv_Panel.transform.Find("MagicSelectParam").gameObject.SetActive(false);
 
         switch (GameMgr.Comp_kettei_bunki)
         {
@@ -1352,6 +1353,7 @@ public class Compound_Check : MonoBehaviour {
                 }
                 else
                 {
+                    MagicSelectLv_Panel.transform.Find("MagicSelectParam").gameObject.SetActive(false);
                     _text.text = GameMgr.UseMagicSkill_nameHyouji + " を使いますか？";
                     //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
                 }
@@ -1700,8 +1702,11 @@ public class Compound_Check : MonoBehaviour {
                 (float)(magicskill_database.magicskill_lists[tempID_2].success_rate * 0.01);
 
                 //魔法の場合、一度に作る個数が増えるほど、確率が5%ほど下がる
-                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * GameMgr.kosu_probabilty_debuf);
-                _ex_probabilty_temp += GameMgr.kosu_probabilty_debuf; //一個だけなら下がらない
+                if (GameMgr.Final_kettei_kosu1 > 1) //一個だけなら下がらない
+                {
+                    _ex_probabilty_temp -= (float)((GameMgr.Final_kettei_kosu1 - 1) * GameMgr.kosu_probabilty_debuf);
+                }
+                //_ex_probabilty_temp += GameMgr.kosu_probabilty_debuf; //一個だけなら下がらない
 
                 //Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
 
@@ -1721,8 +1726,11 @@ public class Compound_Check : MonoBehaviour {
 
 
                 //魔法の場合、一度に作る個数が増えるほど、確率が5%ほど下がる
-                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * GameMgr.kosu_probabilty_debuf);
-                _ex_probabilty_temp += GameMgr.kosu_probabilty_debuf; //一個だけなら下がらない
+                if (GameMgr.Final_kettei_kosu1 > 1) //一個だけなら下がらない
+                {
+                    _ex_probabilty_temp -= (float)((GameMgr.Final_kettei_kosu1 - 1) * GameMgr.kosu_probabilty_debuf);
+                }
+                //_ex_probabilty_temp += GameMgr.kosu_probabilty_debuf; //一個だけなら下がらない
 
                 inputcount = 3;
             }
@@ -1851,6 +1859,7 @@ public class Compound_Check : MonoBehaviour {
 
             _final_costtime = _costTime; //_costTimeは、このあとの処理で値が変動するので、_finalに総時間（分）を入れる。
             GameMgr.Compo_FinalCostTime = _final_costtime;
+            Debug.Log("魔法調合　調合にかかる時間: " + GameMgr.Compo_FinalCostTime);
         }
         else
         { 

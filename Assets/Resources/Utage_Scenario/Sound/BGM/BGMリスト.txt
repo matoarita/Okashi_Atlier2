@@ -158,8 +158,10 @@
 ・BGM_154		PeriTune_Sugar_Sprinkle_loop		夏ほしの部屋BGM 旧:yuruyakanaasayake
 ・BGM_155		japaneseautumn				【宴用】おふろ　入浴中のBGM
 ・BGM_156		PerituneMaterial_Sweet_loop		【宴用】家選び中のごほうびBGM
-・BGM_157		PerituneMaterial_Firmament3_Active_loop	大会コンテスト調合時のBGM04　イセヤ戦闘
+・BGM_157		PerituneMaterial_Firmament3_Active_loop	大会コンテスト調合時のBGM04　イセヤ戦闘用宴中で使用　ちょっとかっこよすぎるかも..。
 ・BGM_158		PerituneMaterial_Tir_sonas_inst		教会の讃美歌風BGM　ルミエール系のコンテストなど
 ・BGM_159		Antan					怖い曲　冬の図書館BGM
 ・BGM_160		PerituneMaterial_Forest_Sage_loop	春の祭壇BGM　隠された魔法研究室
 ・BGM_161		PerituneMaterial_Rosa_Nera_loop		怪しげなメルヘン曲　バナナフェスの時などに使う
+・BGM_162		PerituneMaterial_Realm_Daytime_loop	コンテスト高難易度のお城風BGM
+・BGM_163		PianoSketch_09_颯爽と			コンテスト高難易度　調合時のBGM 

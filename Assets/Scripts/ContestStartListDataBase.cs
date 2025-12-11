@@ -952,7 +952,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         //決勝戦の場所とBGMを指定
         GameMgr.Contest_HallBGNameFinal = "h110";
         GameMgr.Contest_ChubouBGNameFinal = "t110";
-        GameMgr.Contest_BGMSelectFinal = "sound80";
+        GameMgr.Contest_BGMSelectFinal = "sound38"; //sound80 かっちょいいやつ　ただラスト感が強すぎた..。
     }
 
     void ContestData_040()
@@ -1276,6 +1276,10 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.ContestItem_supplied_KosuList.Clear();
         GameMgr.ContestItem_supplied_List.Add("bugget_supplied"); //サプライドリスト（_supplied_List）に追加したアイテムは、全て後で削除される。特に設定は必要なし。
         GameMgr.ContestItem_supplied_KosuList.Add(2);
+        GameMgr.ContestItem_supplied_List.Add("butter_supplied");
+        GameMgr.ContestItem_supplied_KosuList.Add(5);
+        GameMgr.ContestItem_supplied_List.Add("suger_supplied");
+        GameMgr.ContestItem_supplied_KosuList.Add(5);
     }
 
     void ContestRankingData_104() //ルミエールエピファニア
@@ -1481,7 +1485,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。クオリティの高いおかしを作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問いません。あなたの最高のおかしを作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();

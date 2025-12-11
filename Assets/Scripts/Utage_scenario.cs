@@ -849,6 +849,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("BarName", GameMgr.scene_BarName);
         engine.Param.TrySetParameter("StationEvent_num", 0);
         engine.Param.TrySetParameter("YachinOn_Flag", GameMgr.System_Yachin_ON);
+        engine.Param.TrySetParameter("YachinCost", GameMgr.Yachin_Cost_cullent);
+        engine.Param.TrySetParameter("YachinDay", GameMgr.System_Yachin_Day);
 
         if (GameMgr.System_BarGetNinki > 0)
         {
@@ -2702,6 +2704,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("BarPahuPahu_RandomUPName", GameMgr.barMassage_RandomUpName);
         engine.Param.TrySetParameter("BarPahuPahu_RandomUPPoint", GameMgr.barMassage_RandomUpPoint);
         engine.Param.TrySetParameter("HikariOutHome_Flag", GameMgr.outgirl_Nowprogress);
+        engine.Param.TrySetParameter("YachinOn_Flag", GameMgr.System_Yachin_ON);
+        engine.Param.TrySetParameter("YachinCost", GameMgr.Yachin_Cost_cullent);
+        engine.Param.TrySetParameter("YachinDay", GameMgr.System_Yachin_Day);
 
         //ルーティの友好度をセット
         engine.Param.TrySetParameter("event_NPC_BarFriendPoint1", GameMgr.NPC_FriendPoint[40]);

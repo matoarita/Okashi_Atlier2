@@ -42,6 +42,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     public int _addMagic;
 
     private int _mlv;
+    private float _tempf, up_magni;
 
     // Start is called before the first frame update
     void Start()
@@ -222,10 +223,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName01) //FireFlowers
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i]; //_msvalue[i]ÇÕèKìæLV
-
-                        _ms_sp_score2 += _MS_pointup[j] / 4 * _msvalue[i]; //âƒÇÁÇµÇ≥Çë´Ç∑   
-                        _ms_sp_score6 += _MS_pointup[j] / 5 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑                         
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni); //_msvalue[i]ÇÕèKìæLV
+                        _ms_sp_score2 += (int)(_MS_pointup[j] / 4 * up_magni); //âƒÇÁÇµÇ≥Çë´Ç∑   
+                        _ms_sp_score6 += (int)(_MS_pointup[j] / 5 * up_magni); //éqãüÇ¡Ç€Ç≥Çë´Ç∑                         
                     }
                 }
 
@@ -252,10 +253,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName02)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-
-                        _ms_sp_score7 += _MS_pointup[j] / 4 * _msvalue[i]; //ÉÅÉãÉwÉìÇë´Ç∑
-                        _ms_sp_score5 -= _MS_pointup[j] / 4 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score7 += (int)(_MS_pointup[j] / 4 * up_magni); //ÉÅÉãÉwÉìÇë´Ç∑
+                        _ms_sp_score5 -= (int)(_MS_pointup[j] / 4 * up_magni); //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
                     }
                 }
 
@@ -284,8 +285,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName03)
                     {
                         //Debug.Log("Ç†ÇÌÇ†ÇÌàÍívÅ@ÉeÉLÉXÉgï\é¶");
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score2 += _MS_pointup[j] / 4 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score2 += (int)(_MS_pointup[j] / 4 * up_magni); //äCÇÁÇµÇ≥Çâ¡éZ
 
                         
                     }
@@ -312,10 +314,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName04)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-
-                        _ms_sp_score6 += _MS_pointup[j] / 6 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑  
-                        _ms_sp_score5 -= _MS_pointup[j] / 6 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score6 += (int)(_MS_pointup[j] / 6 * up_magni); //éqãüÇ¡Ç€Ç≥Çë´Ç∑  
+                        _ms_sp_score5 -= (int)(_MS_pointup[j] / 6 * up_magni); //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
                     }
                 }
 
@@ -347,9 +349,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName06)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score2 += _MS_pointup[j] / 4 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
-                        _ms_sp_score6 += _MS_pointup[j] / 4 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score2 += (int)(_MS_pointup[j] / 4 * up_magni); //äCÇÁÇµÇ≥Çâ¡éZ
+                        _ms_sp_score6 += (int)(_MS_pointup[j] / 4 * up_magni); //éqãüÇ¡Ç€Ç≥Çë´Ç∑
                        
                     }
                 }
@@ -377,8 +380,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName07)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score9 += _MS_pointup[j] / 4 * _msvalue[i]; //åıÇÁÇµÇ≥Çâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score9 += (int)(_MS_pointup[j] / 4 * up_magni); //åıÇÁÇµÇ≥Çâ¡éZ
                     }
                 }
                 //ëäê´Ç…ä÷åWÇ»Ç≠ÅAïKÇ∏ì_êîÇë´Ç∑
@@ -404,8 +408,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName08)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score10 += _MS_pointup[j] / 4 * _msvalue[i]; //òaïóä¥Çâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score10 += (int)(_MS_pointup[j] / 4 * up_magni); //òaïóä¥Çâ¡éZ
 
                     }
                 }
@@ -430,9 +435,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName09)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score7 += _MS_pointup[j] / 4 * _msvalue[i]; //ÉÅÉãÉwÉìÇâ¡éZ
-                        _ms_sp_score5 -= _MS_pointup[j] / 4 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score7 += (int)(_MS_pointup[j] / 4 * up_magni); //ÉÅÉãÉwÉìÇâ¡éZ
+                        _ms_sp_score5 -= (int)(_MS_pointup[j] / 4 * up_magni); //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
                     }
                 }
                 //ëäê´Ç…ä÷åWÇ»Ç≠ÅAïKÇ∏ì_êîÇë´Ç∑
@@ -457,8 +463,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName10)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score3 += _MS_pointup[j] / 3 * _msvalue[i]; //à§Çâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score3 += (int)(_MS_pointup[j] / 3 * up_magni); //à§Çâ¡éZ
                         
                     }
                 }
@@ -484,9 +491,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName11)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score4 += _MS_pointup[j] / 3 * _msvalue[i]; //âFíàÇâ¡éZ
-                        _ms_sp_score8 += _MS_pointup[j] / 3 * _msvalue[i]; //å|èpÇâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score4 += (int)(_MS_pointup[j] / 3 * up_magni); //âFíàÇâ¡éZ
+                        _ms_sp_score8 += (int)(_MS_pointup[j] / 3 * up_magni); //å|èpÇâ¡éZ
                     }
                 }
 
@@ -514,8 +522,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName12)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score5 += _MS_pointup[j] / 3 * _msvalue[i]; //ëÂêlÇâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score5 += (int)(_MS_pointup[j] / 3 * up_magni); //ëÂêlÇâ¡éZ
 
                     }
                 }
@@ -541,9 +550,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName13)
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score4 += _MS_pointup[j] / 4 * _msvalue[i]; //à§Çâ¡éZ
-                        _ms_sp_score8 += _MS_pointup[j] / 2 * _msvalue[i]; //å|èpÇâ¡éZ
+                        up_magni = UpParamKeisan(_msvalue[i]);
+                        _compatible = (int)(_MS_pointup[j] * up_magni);
+                        _ms_sp_score4 += (int)(_MS_pointup[j] / 4 * up_magni); //à§Çâ¡éZ
+                        _ms_sp_score8 += (int)(_MS_pointup[j] / 2 * up_magni); //å|èpÇâ¡éZ
 
                     }
                 }
@@ -567,6 +577,20 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         }
     }
 
+    //ñÇñ@èKìæLVÇ…âûÇ∂ÇΩè„Ç∞ïùÇÃê›íË
+    float UpParamKeisan(int _magiclv)
+    {
+        if (_magiclv > 1)
+        {
+            _tempf = 1.0f + (0.3f * _magiclv); //LV*0.3Ç∏Ç¬
+        }
+        else if (_magiclv == 1)
+        {
+            _tempf = 1.0f;
+        }
+        return _tempf;
+    }
+
     void MS_aisho_database(int _compa, int _magiclv)
     {
         _ms_aisho = "";
@@ -583,19 +607,19 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         }
         else if (_compa >= 10 && _compa < 30) //Ç‹Ç†Ç‹Ç†
         {
-            _add_magicbeauty += (int)(_compa * 1.25f);
+            _add_magicbeauty += (int)(_compa * 1.12f);
             _ms_aisho = "ÅZ";
         }
         else if (_compa >= 30 && _compa < 50) //ëäê´Ç“Ç¡ÇΩÇË
         {
-            _add_magicbeauty += (int)(_compa * 1.5f);
+            _add_magicbeauty += (int)(_compa * 1.25f);
             _ms_aisho = "Åù";
 
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
         else if (_compa >= 50) //ç≈çÇÇ…ëäê´Ç™Ç¢Ç¢
         {
-            _add_magicbeauty += (int)(_compa * 2.0f);
+            _add_magicbeauty += (int)(_compa * 1.35f);
             _ms_aisho = "Åô";
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
@@ -639,7 +663,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         _mlv = magicskill_database.skillName_SearchLearnLevel("Beautiful_Power");
         if(_mlv > 0)
         {
-            Buf_SpScoreKeisan(1.06f * _mlv);
+            Buf_SpScoreKeisan(1.0f + (0.18f * _mlv));
+            _add_magicbeauty = (int)(_add_magicbeauty * (1.0f + (0.04f * _mlv)));
         }
     }
 
