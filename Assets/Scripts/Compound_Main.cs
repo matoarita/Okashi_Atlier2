@@ -1869,8 +1869,8 @@ public class Compound_Main : MonoBehaviour
                 //デバッグ用　本編では必ずオフにする。
                 if (GameMgr.System_DebugCommonSet_ON)
                 {
-                    magicskill_database.skillHyoujiKaikin("Float_Material");
-                    pitemlist.addPlayerItemString("alice_oldcoin", 1);
+                    //magicskill_database.skillHyoujiKaikin("Float_Material");
+                    //pitemlist.addPlayerItemString("alice_oldcoin", 1);
                 }
                 //
 
@@ -3382,19 +3382,19 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
                 //magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
 
-                magicskill_database.skillHyoujiKaikin("Cookie_Study");
-                magicskill_database.skillHyoujiKaikin("Caramelized");
-                magicskill_database.skillHyoujiKaikin("Fire_Flowers");
+                //magicskill_database.skillHyoujiKaikin("Cookie_Study");
+                //magicskill_database.skillHyoujiKaikin("Caramelized");
+                //magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 
                 //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
-                magicskill_database.skillHyoujiKaikin("Appaleil_Study");
-                magicskill_database.skillHyoujiKaikin("Wind_Ark");
+                //magicskill_database.skillHyoujiKaikin("Appaleil_Study");
+                //magicskill_database.skillHyoujiKaikin("Wind_Ark");
 
                 break;
 
-            case "mg_chocolatemagic_book":
+            case "mg_chocolatemagic_book": //チョコレートの魔術書
 
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
                 magicskill_database.skillHyoujiKaikin("Bake_Beans");
@@ -3402,15 +3402,35 @@ public class Compound_Main : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Night_Barron");
                 break;
 
+            case "mg_firemagic_book": //火の魔術書
+
+                magicskill_database.skillHyoujiKaikin("Cookie_Study");
+                //magicskill_database.skillHyoujiKaikin("Caramelized");
+                magicskill_database.skillHyoujiKaikin("Fire_Flowers");
+                magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                //magicskill_database.skillHyoujiKaikin("Fire_Ark");
+                break;
+
+            case "mg_icemagic_book": //氷の魔術書
+
+                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
+                magicskill_database.skillHyoujiKaikin("SugerPot");
+                magicskill_database.skillHyoujiKaikin("Mnemonic");
+                //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+                break;
+
             case "mg_windmagic_book": //風の魔術書
 
+                magicskill_database.skillHyoujiKaikin("Appaleil_Study");
+                magicskill_database.skillHyoujiKaikin("Wind_Ark");
                 magicskill_database.skillHyoujiKaikin("Wind_Twister");
-                magicskill_database.skillHyoujiKaikin("Wind_Heart");
-                magicskill_database.skillHyoujiKaikin("Wind_FlatBar");
-                magicskill_database.skillHyoujiKaikin("Wind_Crown");
-                magicskill_database.skillHyoujiKaikin("Wind_Roll");
-                magicskill_database.skillHyoujiKaikin("Wind_Pen");
-                magicskill_database.skillHyoujiKaikin("Bubble_Mist");
+                //magicskill_database.skillHyoujiKaikin("Wind_Heart");
+                //magicskill_database.skillHyoujiKaikin("Wind_FlatBar");
+                //magicskill_database.skillHyoujiKaikin("Wind_Crown");
+                //magicskill_database.skillHyoujiKaikin("Wind_Roll");
+                //magicskill_database.skillHyoujiKaikin("Wind_Pen");
+                //magicskill_database.skillHyoujiKaikin("Bubble_Mist");
+                //magicskill_database.skillHyoujiKaikin("Statue_of_Bear");
 
                 break;
 
@@ -3461,7 +3481,12 @@ public class Compound_Main : MonoBehaviour
 
                 magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
                 break;
-            
+
+            case "mg_fire_ark_book":
+
+                magicskill_database.skillHyoujiKaikin("Fire_Ark");
+                break;
+
             case "mg_controltempature_book":
                 magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
                 //magicskill_database.skillLearnLv_Name("Temperature_of_Control", 1); //入手時点でLV1習得すみの状態
@@ -3539,10 +3564,18 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case "mg_statue_of_material_book":
-                magicskill_database.skillHyoujiKaikin("Statue_of_Penguin");
+                magicskill_database.skillHyoujiKaikin("Wind_Heart");
+                magicskill_database.skillHyoujiKaikin("Wind_FlatBar");
+                magicskill_database.skillHyoujiKaikin("Wind_Crown");
+                magicskill_database.skillHyoujiKaikin("Wind_Roll");
+                magicskill_database.skillHyoujiKaikin("Wind_Pen");
+                magicskill_database.skillHyoujiKaikin("Bubble_Mist");
                 magicskill_database.skillHyoujiKaikin("Statue_of_Bear");
-                magicskill_database.skillHyoujiKaikin("Statue_of_Cat");
-                magicskill_database.skillHyoujiKaikin("Statue_of_Rabitts");
+
+                //magicskill_database.skillHyoujiKaikin("Statue_of_Penguin");
+                //magicskill_database.skillHyoujiKaikin("Statue_of_Bear");
+                //magicskill_database.skillHyoujiKaikin("Statue_of_Cat");
+                //magicskill_database.skillHyoujiKaikin("Statue_of_Rabitts");
                 //magicskill_database.skillHyoujiKaikin("Statue_of_AngelWing");
                 break;
 
@@ -3874,6 +3907,10 @@ public class Compound_Main : MonoBehaviour
 
                 //キャラクタ位置を0にもどす。
                 girl1_status.ResetCharacterPosition();
+
+                //一日進む
+                //時間を次の日に。寝るチェックはしない。
+                time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0);
 
                 girlEat_judge.QuestClearMethod();
 
@@ -4525,7 +4562,7 @@ public class Compound_Main : MonoBehaviour
                             {
                                 case 1:
 
-                                    _getheart_text = "ヒカリの勇気が少しわいてきた！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！"; ;
+                                    _getheart_text = "ヒカリの勇気が少しわいてきた！";
                                     get_heart = 100;
                                     break;
 

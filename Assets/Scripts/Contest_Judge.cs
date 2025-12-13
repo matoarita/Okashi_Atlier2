@@ -1586,7 +1586,6 @@ public class Contest_Judge : MonoBehaviour {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
 
-
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
@@ -2508,7 +2507,7 @@ public class Contest_Judge : MonoBehaviour {
     {
         before_tastescore[1] = GameMgr.contest_Taste_Score[1];        
 
-        total_score[1] = total_score[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f) - before_tastescore[1]; 
+        total_score[1] = total_score[1] - before_tastescore[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f); 
         //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
         Debug.Log("審査員２　王妃は食感の点数は少し下がる。下の食感の値が最終の食感点数");
@@ -2594,46 +2593,46 @@ public class Contest_Judge : MonoBehaviour {
     //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK　各審査員に適用
     void SpScoreHosei_1(int _spscore) //_spscoreは、おかしに入っている値から、好みの判定値を引き算した値　足りてない場合マイナスもある
     {
-        if (_spscore >= 0 && _spscore < 5) //少し上がる
+        if (_spscore >= 0 && _spscore < 10) //ふつう
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
                 total_score[i] = (int)(total_score[i] * 1.0f);
             }
         }
-        else if (_spscore >= 5 && _spscore < 20) //ふつう
+        else if (_spscore >= 10 && _spscore < 20) //ふつう
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 1.1f);
+                total_score[i] = (int)(total_score[i] * 1.05f);
             }
         }
         else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.15f));
+                total_score[i] = (int)(total_score[i] * 1.1f);
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.2f));
+                total_score[i] = (int)(total_score[i] * 1.2f);
             }
         }
         else if (_spscore >= 60 && _spscore < 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
+                total_score[i] = (int)(total_score[i] * 1.25f);
             }
         }
         else if (_spscore >= 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.3f));
+                total_score[i] = (int)(total_score[i] * 1.3f);
             }
         }
         else if (_spscore < 0) //足りてないと0.75
@@ -2666,42 +2665,42 @@ public class Contest_Judge : MonoBehaviour {
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 0.95f));
+                total_score[i] = (int)(total_score[i] * 0.95f);
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.15f));
+                total_score[i] = (int)(total_score[i] * 1.15f);
             }
         }
         else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
+                total_score[i] = (int)(total_score[i] * 1.22f);
             }
         }
         else if (_spscore >= 80 && _spscore < 110) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.35f));
+                total_score[i] = (int)(total_score[i] * 1.32f);
             }
         }
         else if (_spscore >= 110 && _spscore < 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.85f));
+                total_score[i] = (int)(total_score[i] * 1.45f);
             }
         }
         else if (_spscore >= 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 2.25f));
+                total_score[i] = (int)(total_score[i] * 1.65f);
             }
         }
         else if (_spscore < 0) //足りてないと0.75
@@ -2716,7 +2715,7 @@ public class Contest_Judge : MonoBehaviour {
 
     void Contest_ShokukanHintHyouji(int shokukan_score, string shokukan_mes)
     {
-        //食感に関するヒント
+        //食感に関するヒント 「補正後」の食感の値をもとに下の感想が決定
         if (shokukan_score < 20) //
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 F: " + shokukan_mes + "が全然足りない..。" + "</color>";

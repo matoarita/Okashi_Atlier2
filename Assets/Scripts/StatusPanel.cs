@@ -255,14 +255,15 @@ public class StatusPanel : MonoBehaviour {
         InitHikariLearnSkill_View();
 
         HikariParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_HikariParam_Toggle").gameObject;
-        if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
+        HikariParam_Toggle_obj.SetActive(true); //はじめから表示
+        /*if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
         {
             HikariParam_Toggle_obj.SetActive(true);
         }
         else
         {
             HikariParam_Toggle_obj.SetActive(false);
-        }
+        }*/
 
         EquipParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Sta_EquipParam_Toggle").gameObject;
         if (GameMgr.System_TabetaiOkashiStatusUp) //食べたいお菓子をあげたときに、食感も上がる仕様の有無

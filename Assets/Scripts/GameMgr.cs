@@ -38,7 +38,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //** 本編では必ずfalseにする項目 **//
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
-    public static bool DEBUG_TasteSPScore_ON = true; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
+    public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool DEBUG_StarPanelCheck = false; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -2286,6 +2286,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("green_pendant"); //ポンポンファーム
         CollectionItemsName.Add("star_pendant"); //春のお店
         CollectionItemsName.Add("aquamarine_pendant"); //エメラルショップ
+        CollectionItemsName.Add("monocle"); //エメラルショップ
         CollectionItemsName.Add("pink_ninjin"); //エメラルショップ
         CollectionItemsName.Add("hikari_speed_up1"); //エメラルショップ
         CollectionItemsName.Add("hikari_speed_up2"); //エメラルショップ

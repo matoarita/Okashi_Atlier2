@@ -515,7 +515,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //3位
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("trophy_spring"); //エデンレシピ獲得は、Utage_Scenarioに記述
+        GameMgr.PrizeItemList.Add("mg_firemagic_book"); //エデンレシピ獲得は、Utage_Scenarioに記述　//trophy_spring
 
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
@@ -524,7 +524,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(5000);
 
         //二回目出場以降の賞品　GameMgr.EdenPrizeChange=trueのときは使用可能
-        GameMgr.PrizeItemSecond = "trophy_spring";
+        GameMgr.PrizeItemSecond = "mg_firemagic_book";
     }
 
     void PrizeSet03()
@@ -659,7 +659,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2500);
-        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(3000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -1127,7 +1127,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_epiclesis_book");
+        GameMgr.PrizeItemList.Add("mg_moonlight_banana_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();

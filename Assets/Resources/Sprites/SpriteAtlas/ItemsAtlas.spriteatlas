@@ -90,6 +90,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0a4d3ca0f8cef354894163478e084777, type: 3}
   - {fileID: 21300000, guid: cadd83b011cd41b43bfc9ff1b539d440, type: 3}
   - {fileID: 21300000, guid: 344da3b06cc7a3b4a8ea5b5e756b5964, type: 3}
+  - {fileID: 21300000, guid: d01508b0ef5837942869e8a7155e1bab, type: 3}
   - {fileID: 21300000, guid: dac38bb03ad1ed24c8434b58399d6454, type: 3}
   - {fileID: 21300000, guid: e2c9cbb0808b16342a8a01cb71b3ee82, type: 3}
   - {fileID: 21300000, guid: cb0855d0460114343a84306d8f54b11a, type: 3}
@@ -928,6 +929,7 @@ SpriteAtlas:
   - eden_base
   - chocolate_green_twister_3
   - egg
+  - monocle
   - apple_moon
   - parfe_base_strawberry
   - jelly_hydrangea

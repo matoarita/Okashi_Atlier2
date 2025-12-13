@@ -388,7 +388,7 @@ public class GetMaterial : MonoBehaviour
 
                 //日数の経過
                 //PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
-                time_controller.SetMinuteToHour(30, 0, 1, false); //採取中は、ヒカリと一緒に材料とってるので、ヒカリのお菓子制作時間は減らさない
+                time_controller.SetMinuteToHour(30, 0, 0, false); //採取中は、ヒカリと一緒に材料とってるので、ヒカリのお菓子制作時間は減らさない 3番目=0だと猫の採取しない 1だと採取する
                 time_controller.TimeKoushin(0, false);
 
                 //妹の体力消費 一回の行動でマップに応じた量減る。

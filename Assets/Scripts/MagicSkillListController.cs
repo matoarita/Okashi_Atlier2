@@ -167,10 +167,11 @@ public class MagicSkillListController : MonoBehaviour
     void ViewFlagCheck()
     {
         //光
-        if (magicskill_database.skillType_SearchAllLearnCount(2) >= 1) //光先生に魔法教えてもらった
+        OnCateViewName("Cate_03"); //常に表示
+        /*if (magicskill_database.skillType_SearchAllLearnCount(2) >= 1) //光先生に魔法教えてもらった
         {
             OnCateViewName("Cate_03");
-        }
+        }*/
 
         //火
         if (magicskill_database.skillType_SearchAllLearnCount(9) >= 1) //
@@ -215,20 +216,22 @@ public class MagicSkillListController : MonoBehaviour
         }
 
         //心
-        if (magicskill_database.skillType_SearchAllLearnCount(8) >= 1) //
+        OnCateViewName("Cate_09"); //常に表示
+        /*if (magicskill_database.skillType_SearchAllLearnCount(8) >= 1) //
         {
             OnCateViewName("Cate_09");
-        }
+        }*/
         
     }
 
     void ViewFlagCheck2()
     {
         //光
-        if (magicskill_database.skillType_SearchAllGainCount(2) >= 1) //光先生に魔法教えてもらった
+        OnCateViewName("Cate_03"); //常に表示
+        /*if (magicskill_database.skillType_SearchAllGainCount(2) >= 1) //光先生に魔法教えてもらった
         {
             OnCateViewName("Cate_03");
-        }
+        }*/
 
         //火
         if (magicskill_database.skillType_SearchAllGainCount(9) >= 1) //
@@ -273,10 +276,11 @@ public class MagicSkillListController : MonoBehaviour
         }
 
         //心
-        if (magicskill_database.skillType_SearchAllGainCount(8) >= 1) //
+        OnCateViewName("Cate_09"); //常に表示
+        /*if (magicskill_database.skillType_SearchAllGainCount(8) >= 1) //
         {
             OnCateViewName("Cate_09");
-        }
+        }*/
 
 
     }

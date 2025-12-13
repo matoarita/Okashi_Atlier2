@@ -303,7 +303,7 @@ public class SetImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SpScoreHyouji_OFF)
+        if (SpScoreHyouji_OFF) //シーンによっては、強制的に表示させたくない場合があるのでここでSPスコアオフ
         {
             debugTaste_ScorePanel.SetActive(false);
         }
@@ -321,7 +321,14 @@ public class SetImage : MonoBehaviour
                 }
                 else
                 {
-                    debugTaste_ScorePanel.SetActive(false);
+                    if (pitemlist.KosuCount("monocle") >= 1) //モノクルをもっていればSPスコアみれる
+                    {
+                        debugTaste_ScorePanel.SetActive(true);
+                    }
+                    else
+                    {
+                        debugTaste_ScorePanel.SetActive(false);
+                    }
                 }
             }
         }

@@ -1440,7 +1440,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         {
             sc.PlaySe(catDataBase.SetVoice(_catid, 0));
         }*/
-        getmatplace_panel.InitializeResultItemDicts();
+        //getmatplace_panel.InitializeResultItemDicts();
 
         //採取地とアイテムの決定　事前にセレクト画面で決めている
         _mapid = matplace_database.SearchMapString(_place);

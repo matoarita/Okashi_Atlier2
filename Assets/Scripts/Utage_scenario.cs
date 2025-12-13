@@ -5585,6 +5585,8 @@ public class Utage_scenario : MonoBehaviour
 
                         ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_02");
                         pitemlist.add_eventPlayerItem(ev_id, 1);
+
+                        pitemlist.addPlayerItemString("trophy_spring", 1); //トロフィーこっちでもらって、賞品は火の魔術書に。
                         break;
 
                     case "Or_Contest_002": //夏コン
@@ -5610,6 +5612,8 @@ public class Utage_scenario : MonoBehaviour
 
                     ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_02");
                     pitemlist.add_eventPlayerItem(ev_id, 1);
+
+                    pitemlist.addPlayerItemString("trophy_spring", 1); //トロフィーこっちでもらって、賞品は火の魔術書に。
                     break;
 
                 case "Or_Contest_002": //夏コン

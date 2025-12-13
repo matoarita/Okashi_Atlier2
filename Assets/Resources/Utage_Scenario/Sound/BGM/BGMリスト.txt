@@ -87,7 +87,7 @@
 ・BGM_85		Paysage de Strahlburg(なぐもりず)	秋エリアのBGM (古いaudiostock_872985_sample)
 ・BGM_86		PerituneMaterial_Holiday3		夏エリア遊園地のBGM
 ・BGM_87		PerituneMaterial_Enjoyable3_loop	大会コンテスト調合時のBGM02　初級
-・BGM_88		PerituneMaterial_Teatime_loop		大会コンテスト受付のBGM
+・BGM_88		PerituneMaterial_Teatime_loop		【宴用】お屋敷のBGM　旧：大会コンテスト受付BGM
 ・BGM_89		PerituneMaterial_Memories2		サクラフォレストのBGM
 ・BGM_90		audiostock_157663			夏エリアイセヤのお店テーマ曲
 ・BGM_91		audiostock_849596			コンテスト終了後の賞品画面のBGM
@@ -120,7 +120,7 @@
 ・BGM_116		harunoyokan				【宴用】イリスさんのテーマ２　こっちが本当
 ・BGM_117		free_gsound_1				【宴用】家賃BBAの取り立てテーマ曲 旧：PerituneMaterial_Nightmare_loop
 ・BGM_118		Jardin Botanique			秋エリアお店マダムオペラの曲
-・BGM_119		Le Musée				大会コンテスト受付のBGM2 秋イメージ
+・BGM_119		Le Musée				大会コンテスト受付のBGM2 受付メイン曲
 ・BGM_120		audiostock_1126077_sample		大会コンテスト受付のBGM3 夏イメージヒップホップ　※未使用
 ・BGM_121		Cafe-con-Cerveza			【宴用】べるのテーマ
 ・BGM_122		どんぐりとジビエと			酒場秋のイメージ曲 旧：Take-a-break	
