@@ -635,8 +635,17 @@ public class SetImage : MonoBehaviour
     {
         //アイテムタイプを代入//
         item_Name.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
-        item_Category.text = "レシピ";
-        item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
+        
+        if (pitemlist.eventitemlist[check_counter].ev_magicbook == 0)
+        {
+            item_Category.text = "レシピ";
+            item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
+        }
+        else
+        {
+            item_Category.text = "魔法の本";
+            item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemDesc; //魔法の本は、魔法の説明文を表示
+        }
 
         texture2d = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[check_counter].event_fileName);
 

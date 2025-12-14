@@ -5925,6 +5925,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             _special_kansou = "";
+
+            if (contest_type == 10) //コンテストの味見では無視
+            { }
+            else
+            {
+                if (sweat_level >= 7 || bitter_level >= 7 || sour_level >= 7)
+                {
+                    //はじめて味がA+かSでたら、高得点だからもっと狙おうというヒントをくれる。
+                    if (!GameMgr.Beginner_flag[7])
+                    {
+                        GameMgr.check_TasteHighScore_Hintflag = true;
+                    }
+                }
+            }
         }
 
         //クエスト以外で新しいお菓子をあげたときの、感想（共通）

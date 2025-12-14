@@ -899,7 +899,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-
                     if (!GameMgr.Beginner_flag[6])
                     {
                         if (pitemlist.player_extremepanel_itemlist.Count > 0)
@@ -928,7 +927,23 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             }
                         }
                     }
+                }
 
+                //はじめてA+かSを甘さなどの味でだしたとき
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (!GameMgr.Beginner_flag[7])
+                    {
+                        if (GameMgr.check_TasteHighScore_Hintflag)
+                        {
+                            GameMgr.check_TasteHighScore_Hintflag = false;
+
+                            GameMgr.Beginner_flag[7] = true;
+                            Event_startcheck(87, 1, true, false, 0);
+                        }
+                    }
                 }
 
                 //はじめて衣装装備を買った 70番台～

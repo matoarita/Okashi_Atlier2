@@ -21,6 +21,7 @@ public class Entity_eventItemDataBase : ScriptableObject
 		public string fileName;
 		public string name;
 		public string nameHyouji;
+		public string desc;
 		public int cost_price;
 		public int sell_price;
 		public int kosu;
@@ -28,6 +29,7 @@ public class Entity_eventItemDataBase : ScriptableObject
 		public int item_Type;
 		public int costume_Num;
 		public int cos_Equip;
+		public int magic_book;
 		public int list_hyouji_on;
 		public string memo;
 		public int Re_flag_num;

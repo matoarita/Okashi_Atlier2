@@ -863,6 +863,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_OkashiAfter_flag;
     public static bool check_StarPanel_Endflag;
     public static bool check_StarPanel_Eventflag; //スターパネル閉じた後にイベントチェック
+    public static bool check_TasteHighScore_Hintflag;
     public static bool OnCatGetMaterial_modeON; //ねこ採取画面としてマップ画面を開いた
     public static bool[] check_SleepEnd_Eventflag = new bool[10];
     public static int ResultComplete_flag;
@@ -1603,6 +1604,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_ReturnHomeEvent_flag = false;
         check_StarPanel_Endflag = false;
         check_StarPanel_Eventflag = false;
+        check_TasteHighScore_Hintflag = false;
         check_CompoAfter_flag = false;
         check_CompoAfter_SubEventflag = false;
         check_GetMat_flag = false;

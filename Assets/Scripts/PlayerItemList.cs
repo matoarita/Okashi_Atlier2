@@ -60,13 +60,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _ms10_pointup;
     private int _total_kosu;
 
-    private string ev_fileName, ev_itemName, ev_itemNameHyouji;
+    private string ev_fileName, ev_itemName, ev_itemNameHyouji, ev_desc;
     private int ev_kosu;
     private int ev_cost, ev_sell;
     private int ev_itemType;
     private int ev_read_flag; //そのレシピを読み終えたかどうかをチェックするフラグ
     private int ev_costumeNum; //コスチューム番号
     private int ev_costumeEquip;
+    private int ev_magicBook;
     private int ev_list_on; //レシピリストに、表示するか否か。1の場合、リストに表示され、使用すると、そのレシピの内容を読むことができる。
     private string ev_memo;
     private int ev_reflag_num;
@@ -197,6 +198,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_fileName = excel_eventitemdatabase.sheets[sheet_no].list[count].fileName;
                 ev_itemName = excel_eventitemdatabase.sheets[sheet_no].list[count].name;
                 ev_itemNameHyouji = excel_eventitemdatabase.sheets[sheet_no].list[count].nameHyouji;
+                ev_desc = excel_eventitemdatabase.sheets[sheet_no].list[count].desc;
                 ev_cost = excel_eventitemdatabase.sheets[sheet_no].list[count].cost_price;
                 ev_sell = excel_eventitemdatabase.sheets[sheet_no].list[count].sell_price;
                 ev_kosu = excel_eventitemdatabase.sheets[sheet_no].list[count].kosu;
@@ -204,14 +206,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_itemType = excel_eventitemdatabase.sheets[sheet_no].list[count].item_Type;
                 ev_costumeNum = excel_eventitemdatabase.sheets[sheet_no].list[count].costume_Num;
                 ev_costumeEquip = excel_eventitemdatabase.sheets[sheet_no].list[count].cos_Equip;
+                ev_magicBook = excel_eventitemdatabase.sheets[sheet_no].list[count].magic_book;
                 ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
                 ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
                 ev_reflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Re_flag_num;
                 ev_evflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Ev_flag_num;
 
                 //ここでリストに追加している
-                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_itemType, 
-                    ev_costumeNum, ev_costumeEquip,
+                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_desc , ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_itemType, 
+                    ev_costumeNum, ev_costumeEquip, ev_magicBook,
                     ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
 
                 ++count;
@@ -235,6 +238,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_fileName = excel_eventitemdatabase.sheets[sheet_no].list[count].fileName;
                 ev_itemName = excel_eventitemdatabase.sheets[sheet_no].list[count].name;
                 ev_itemNameHyouji = excel_eventitemdatabase.sheets[sheet_no].list[count].nameHyouji;
+                ev_desc = excel_eventitemdatabase.sheets[sheet_no].list[count].desc;
                 ev_cost = excel_eventitemdatabase.sheets[sheet_no].list[count].cost_price;
                 ev_sell = excel_eventitemdatabase.sheets[sheet_no].list[count].sell_price;
                 ev_kosu = excel_eventitemdatabase.sheets[sheet_no].list[count].kosu;
@@ -242,14 +246,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_itemType = excel_eventitemdatabase.sheets[sheet_no].list[count].item_Type;
                 ev_costumeNum = excel_eventitemdatabase.sheets[sheet_no].list[count].costume_Num;
                 ev_costumeEquip = excel_eventitemdatabase.sheets[sheet_no].list[count].cos_Equip;
+                ev_magicBook = excel_eventitemdatabase.sheets[sheet_no].list[count].magic_book;
                 ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
                 ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
                 ev_reflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Re_flag_num;
                 ev_evflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Ev_flag_num;
 
                 //ここでリストに追加している
-                emeralditemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_itemType, 
-                    ev_costumeNum, ev_costumeEquip,
+                emeralditemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_desc, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_itemType, 
+                    ev_costumeNum, ev_costumeEquip, ev_magicBook,
                     ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
 
                 ++count;
