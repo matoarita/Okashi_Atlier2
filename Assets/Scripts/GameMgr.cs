@@ -137,7 +137,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartBlockLv_10 = 25; //エデンレシピ解放 星
     public static int System_HeartBlockLv_11 = 37; //エデンレシピ解放 月
 
-    public static int System_HeartBlockLv_50 = 20; //冬
+    public static int System_HeartBlockLv_50 = 15; //冬
     public static int System_HeartBlockLv_51 = 13; //秋
     public static int System_HeartBlockLv_52 = 10; //夏
     public static int System_HeartBlockLv_53 = 45; //城
@@ -150,7 +150,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン    
+    public static int System_Yachin_Cost02 = 2000; //〇日ごとバージョン    
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
@@ -259,7 +259,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ending_number;    //クリア時のエンディング番号  
     public static bool[] ending_getflag = new bool[10];  //取得したエンディングフラグ　3つぐらい
     public static int stage_number;     //ステージ番号　stage1 stage2のこと
-    public static int stage_quest_num; //メインのクエスト番号
+    public static int stage_quest_num; //メインのクエスト番号　表示用のみで使用
     public static int stage_quest_num_sub; //クエスト番号
     public static int Story_Mode; //0が本編。1が、フリーモード（強くてニューゲーム）。
     public static string Scene_Name; //その場所の固有名　主にセーブした場所を記録する。

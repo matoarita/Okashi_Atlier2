@@ -455,6 +455,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba": //遊園地の広場入口
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[260]) //はじめて遊園地の広場入口へきた。遊園地の簡単なヒントでる。
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[260] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 290100;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_AquariumEntrance": //水族館入口
 
                     if (!GameMgr.NPCHiroba_HikarieventList[300]) //はじめて水族館へきた。
@@ -835,9 +850,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     else
                     {
-                        //GameMgr.NPCHiroba_blockReleaseList[2] = true; //
-                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
-                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
                         On_BlockReleaseActive1(110);
                     }                   
                 }
@@ -982,7 +994,24 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_Entrance":
 
-                On_Active150();
+                //冬エリア入口
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_50) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_03
+                {
+                    On_Active1702(); //まだ通れない
+                }
+                else
+                {
+                    if (GameMgr.NPCHiroba_blockReleaseList[1])
+                    {
+                        On_Active150();
+                    }
+                    else
+                    {
+                        On_BlockReleaseActive1(120);
+                    }
+
+                }
+                //On_Active150();
                 break;
 
             case "Or_Hiroba_Winter_EntranceHiroba":
@@ -1803,9 +1832,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     else
                     {
-                        //GameMgr.NPCHiroba_blockReleaseList[1] = true; //
-                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
-                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
                         On_BlockReleaseActive1(120);
                     }
                     
@@ -1827,9 +1853,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     else
                     {
-                        //GameMgr.NPCHiroba_blockReleaseList[3] = true; //ねこにおかしをあげて、クリアするまでは通れない。
-                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
-                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
                         On_BlockReleaseActive1(100);
                     }
                     
@@ -4360,6 +4383,34 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         GameMgr.hiroba_event_placeNum = 2100; //
 
+        switch(_id) //エリア入口の門番におかしあげる系　種類は関係なく点数チェックのみ
+        {
+            case 100:
+
+                //GameMgr.NPCHiroba_blockReleaseList[1] = true; //
+                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                break;
+
+            case 110:
+
+                //GameMgr.NPCHiroba_blockReleaseList[1] = true; //
+                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                break;
+
+            case 120:
+
+                //GameMgr.NPCHiroba_blockReleaseList[1] = true; //
+                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                break;
+
+            default:
+
+                break;
+        }
+
         //BGMかえる
         sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         bgm_change_flag = true;
@@ -4409,7 +4460,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                //text_area_hyouji_on = true;
+                text_area_hyouji_on = true;
                 break;
 
             case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道

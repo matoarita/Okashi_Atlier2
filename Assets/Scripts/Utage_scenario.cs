@@ -7533,7 +7533,7 @@ public class Utage_scenario : MonoBehaviour
 
             case 120:
 
-                if (total_score >= 220) //クリアしたので、エリア入口フラグ解禁　冬だけショートケーキ限定　まだ判定は入れてない
+                if (total_score >= 320) //クリアしたので、エリア入口フラグ解禁　冬　おかしはなんでもいいが、点数こえないとダメ
                 {
                     GameMgr.NPCHiroba_blockReleaseList[1] = true;
                     engine.Param.TrySetParameter("EventJudge_num", 2);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class NPC_Catsle_Main : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class NPC_Catsle_Main : MonoBehaviour
 
     private BGM sceneBGM;
     public bool bgm_change_flag;
+    private GameObject scene_black_effect;
 
     private GameObject newAreaReleasePanel_obj;
     private GameObject backshopfirst_obj;
@@ -107,6 +109,10 @@ public class NPC_Catsle_Main : MonoBehaviour
         //シーン最初にプレイヤーアイテムリストの生成
         sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
         sceneinit_setting.PlayerItemListController_Init();
+
+        //シーン全てをブラックに消すパネル
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f); //黒い画面は最初ON　イベントチェックしてからオフ
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -262,6 +268,7 @@ public class NPC_Catsle_Main : MonoBehaviour
         GameMgr.Scene_Status = 0;
         StartRead = false;
         check_event = false;
+        GameMgr.hiroba_event_startblack = false;
 
         text_scenario();
         text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
@@ -298,6 +305,14 @@ public class NPC_Catsle_Main : MonoBehaviour
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
         EventCheck();
 
+        //宴途中でブラックをオフにする 宴のBGを最初に表示したい場合などに使用
+        if (GameMgr.Utage_SceneStart_BlackON)
+        {
+            GameMgr.Utage_SceneStart_BlackON = false;
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //こっちはフェードで。
+        }
+
+        
         if (GameMgr.Reset_SceneStatus)
         {
             GameMgr.Reset_SceneStatus = false;
@@ -326,6 +341,9 @@ public class NPC_Catsle_Main : MonoBehaviour
                     backshopfirst_obj.GetComponent<Button>().interactable = true;
 
                     sceneBGM.MuteOFFBGM();
+
+                    //黒をオフ
+                    scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
 
                     //チケットのフラグチェック　チケットイベント終わったら、ボタンが「家を借りる」になる。
                     House_TicketCheck(0);
@@ -377,6 +395,8 @@ public class NPC_Catsle_Main : MonoBehaviour
                 GameMgr.hiroba_event_ID = 100;
                 GameMgr.hiroba_event_flag = true;
                 //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+
+                GameMgr.hiroba_event_startblack = true;
 
                 //BGMかえる
                 sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -443,6 +463,15 @@ public class NPC_Catsle_Main : MonoBehaviour
 
         //Debug.Log("広場イベント　読み中");
 
+        //通常シーンブラックはオフだが、マップの背景を見せたくない場合（宴のBGを使う場合）に最初黒を残す処理
+        if (GameMgr.hiroba_event_startblack)
+        { }
+        else
+        {
+            //ここのタイミングを黒をOFF
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //ブラックをオフ
+        }
+
         while (!GameMgr.scenario_read_endflag)
         {
             yield return null;
@@ -450,6 +479,7 @@ public class NPC_Catsle_Main : MonoBehaviour
 
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
+        GameMgr.hiroba_event_startblack = false;
 
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;

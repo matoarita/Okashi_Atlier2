@@ -592,7 +592,8 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Winter_altar": //冬エリア　祭壇　禁忌の図書館
 
-                                _send_clip = sound51;
+                                _send_clip = sound1000; //sound51
+                                _send_clip_ambient = Ambient9;
                                 break;
 
                             case "Or_Hiroba_MainGate_Street": //正門前ストリート

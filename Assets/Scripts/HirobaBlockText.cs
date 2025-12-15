@@ -112,6 +112,35 @@ public class HirobaBlockText : MonoBehaviour {
                 }
                 break;
 
+            case "MainList_ScrollView_300":
+
+                if (this.gameObject.name == "NPC1_SelectToggle") //
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_50; //
+
+                    if (_player_check < _block_check)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockTextHyouji(_block_check, 0);
+                    }
+                    else
+                    {
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[1])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            BlockTextHyouji(_block_check, 0);
+                        }
+                    }
+                }
+                break;
+
             case "MainList_ScrollView_305":
 
                 if (this.gameObject.name == "NPC1_SelectToggle") //
@@ -143,6 +172,9 @@ public class HirobaBlockText : MonoBehaviour {
 
 
 
+
+            //** **
+            //以下は、現在未使用
             case "MainList_ScrollView_51":
 
                 if (this.gameObject.name == "NPC5_SelectToggle") //冬エリア入口
@@ -255,6 +287,8 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                 }
                 break;
+
+                //** ここまでは未使用 **//
         }
     }
 
