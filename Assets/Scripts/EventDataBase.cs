@@ -782,11 +782,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //2番目はsubEventのnum 3番目はBGM　1のときは宴のBGMを鳴らす
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
                 StarReleaseEvent_check(1, 600, 0, "Non"); //7なのでショートケーキのレシピゲット
-                StarReleaseEvent_check(2, 601, 0, "Non"); //9なのでコスチュームゲット
+                StarReleaseEvent_check(2, 601, 1, "Non"); //9なのでコスチュームゲット
                 StarReleaseEvent_check(3, 302, 1, "Non"); //15なので、トッピング二個同時解放
                 //StarReleaseEvent_check(4, 355, 1, "dragon_carnival"); //18なので、休憩イベント
                 StarReleaseEvent_check(5, 603, 1, "Non"); //20なのでおふろいけるイベント　温泉地の解放？
-                StarReleaseEvent_check(6, 604, 0, "Non"); //22なのでコスチューム2ゲット
+                StarReleaseEvent_check(6, 604, 1, "Non"); //22なのでコスチューム2ゲット
                 //StarReleaseEvent_check(8, 605, 1, "Non"); //30なのでマリトッツォのレシピゲット
                 StarReleaseEvent_check(9, 606, 1, "Non"); //32なのでスウィートホテルいけるイベント
                 StarReleaseEvent_check(10, 610, 1, "event_sakuraring"); //43なのでラストイベント　ヒカリからさくらの指輪をもらう

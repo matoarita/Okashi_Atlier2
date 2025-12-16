@@ -147,7 +147,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 10; //城スター
 
-    public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
+    public static int System_HeartLVevent_01 = 12; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 2000; //〇日ごとバージョン    

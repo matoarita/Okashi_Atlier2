@@ -1425,7 +1425,7 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("CommonEffect05").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
                 magiceffect_result_setting(5); //
 
-                sc.PlaySe(177);
+                sc.PlaySe(263); //
                 break;
 
             case 6: //時

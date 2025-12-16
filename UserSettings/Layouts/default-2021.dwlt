@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 142
+  controlID: 135
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,8 +218,8 @@ MonoBehaviour:
     y: 0
     width: 264
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -244,8 +244,8 @@ MonoBehaviour:
     y: 0
     width: 934
     height: 363
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -1098,7 +1098,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 98bdf4ffe8bdf4ff22c5f4ffbcd1f4ff58def4ffbceff4fff004f5ff3c10f5ffb8a3f7ff9872f8ffcc7ef8ff9083f8ffc487f8ff162cf9ffcc34f9ffe048f9ffa650f9ff5052f9ff2253f9ff3858f9ff4c5cf9ffc464f9ff1ef6f9ff4818fbff7c24fbffae27fbff122bfbff2866fbff16a5fbffdaa5fbff96e1fbff58e2fbff1ce3fbffe0e3fbffa4e4fbff68e5fbff92e5fbff56e6fbff4c2dfcff122efcffac88fcff2c64fdff04fbffff522201007223010060260100082d0100
+      m_ExpandedIDs: cc14f1ff1615f1ff2419f1ff9a25f1ff1232f1ff5243f1ff5858f1ff8063f1ffccf6f3ff82c5f4ff92d1f4ff32d6f4ff42daf4ff707ef5ff0287f5fff29af5ff8ea2f5ff0aa4f5ff5ca4f5ff42a9f5ff28adf5ff68b5f5ff8646f6ff8a68f7ff9a74f7ffa877f7ffe47af7ffd6b5f7ff94f4f7ff34f5f7ffca30f8ff6831f8ff0832f8ffa832f8ff4833f8ffe833f8ffee33f8ff8e34f8ff5c7bf8fffe7bf8ff9e7df8ffee7df8ff0485f8ff7a91f8fff49df8ff36aff8ff48c4f8ff72cff8ffcc62fbff8a31fcff9c3dfcff3e42fcff5046fcff80eafcff14f3fcff0607fdffa40efdff2410fdffd410fdffc015fdffaa19fdfff821fdff26b3fdffd4d5feffece1fefffce4feff3ae8feff3223fffffe61ffffa062ffff409effffe09effff829fffff24a0ffffc6a0ffff68a1ffff70a1ffff12a2ffff3ee9ffffe2e9ffff04fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1206,23 +1206,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG
+    - Assets/Resources/Utage_Scenario/Sound/SE
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG
+  - Assets/Resources/Utage_Scenario/Sound/SE
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 334}
-    m_SelectedIDs: 261a0100
-    m_LastClickedID: 72230
-    m_ExpandedIDs: 0000000006f1000008f100000af100000cf100000ef1000010f1000012f1000014f1000016f1000018f100001af100001cf100001ef1000020f1000022f10000ca1901000c1a010000ca9a3b
+    scrollPos: {x: 0, y: 374}
+    m_SelectedIDs: ca9a0000
+    m_LastClickedID: 39626
+    m_ExpandedIDs: 00000000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000ec70000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1250,7 +1250,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 0000000006f1000008f100000af100000cf100000ef1000010f1000012f1000014f1000016f1000018f100001af100001cf100001ef1000020f1000022f10000
+    m_ExpandedIDs: 00000000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000ec700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1281,18 +1281,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c92000004980000e29400001e950000e6940000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e40600049500009079010040950000360701008a250100009e01004697010032cd000020cd0000d6a4010044cd00006ecd00008ccd000082cd000092cd000058fb0000c0da0000887e00000295000030bd00009e9a0100aabc00006e900100e09f01007427010004650400aebd0000c6d5000080c90000f4e000008ede0000f4970000de9700002a7d01009ecc01002898000076be2c000069010098690100ea6901006c8101003c7101001898000044980000066801004232190090d15200961e0700d4180800d81808006c980000bae0000042ea0500f2b10000249b00006e9e00002ca10100b49d0000cc9f0100e0af010076a80000fc0e01003ade0000d6d10000869c010052a90000e29e000008b40100b09e0000cc9e0000ea9e0000b6c600001e6a120002b10000046a1200f0b20000d4b20000d2b20000ceb20000eca80000a6500100fea900002ac9000092f10000129f000096ad0100ccb00100266800004a59010072a101009ca9010024a1000008a100003ea20000e6a2000094a2000066a50100bac20100505f0100ec490100b0bf0000000000003ad90100b4b00100deae0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: HirobaOr_Scenario
-      m_OriginalName: HirobaOr_Scenario
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 138856
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
