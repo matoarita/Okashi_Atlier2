@@ -943,12 +943,12 @@ public class AAA_TotalResult : MonoBehaviour {
         {
             case 1: //ヒカリが助かるEND　お店を開く
 
-                _hukidashi_content = "にいちゃん" + "\n" + GameMgr.mainGirl_Name + "をゆめから覚ましてくれて、ありがとう！" + "\n" + "にいちゃん.. だ～いすき♪　お店一緒にがんばろ～ね♪";
+                _hukidashi_content = "にいちゃん" + "\n" + GameMgr.mainGirl_Name + "をゆめから覚ましてくれて、ありがとう！" + "\n" + "にいちゃん.. だ～いすき♪　これからも、お店一緒にがんばろ～ね♪";
                 break;
 
             case 2: //ノーマルエンド　ヒカリが消える
 
-                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、思い出を集めれば結末を変えることができたかもしれない・・";
+                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、このかなしい結末を変えることができたかもしれない・・。";
                 break;
 
             case 3: //バッドエンド？

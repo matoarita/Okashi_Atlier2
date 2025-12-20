@@ -134,8 +134,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4; //秘密の花園
-    public static int System_HeartBlockLv_10 = 25; //エデンレシピ解放 星
-    public static int System_HeartBlockLv_11 = 37; //エデンレシピ解放 月
+    public static int System_HeartBlockLv_10 = 45; //春祭壇　エデンレシピ解放 ハート
+    public static int System_HeartBlockLv_11 = 22; //冬祭壇　星の魔術書ゲット
 
     public static int System_HeartBlockLv_50 = 15; //冬
     public static int System_HeartBlockLv_51 = 13; //秋

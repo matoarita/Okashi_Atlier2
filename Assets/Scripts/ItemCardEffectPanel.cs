@@ -101,7 +101,7 @@ public class ItemCardEffectPanel : MonoBehaviour
             foreach (Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
-                m_ParticleSystem.sortingOrder = 500 + count;
+                m_ParticleSystem.sortingOrder = 850 + count;
                 count++;
             }
             
@@ -136,7 +136,7 @@ public class ItemCardEffectPanel : MonoBehaviour
             count = 0;
             foreach (Transform child in this.transform.Find(img_root).transform)
             {
-                child.GetComponent<Canvas>().sortingOrder = 510 + count;
+                child.GetComponent<Canvas>().sortingOrder = 860 + count;
                 count++;
             }
             

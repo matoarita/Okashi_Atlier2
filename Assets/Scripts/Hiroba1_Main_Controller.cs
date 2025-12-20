@@ -1901,8 +1901,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     GameMgr.NPCHiroba_HikarieventList[160] = true;
 
-                    On_Active2000(200031, true); //春のさいだん
-                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
+                    On_Active2000(200031, true); //春のさいだん 白クジラさんからではなく、ここでゲットに変更
+                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05"); //eden_recipi_03
                     pitemlist.add_eventPlayerItem(ev_id, 1);
                 }
                 else
@@ -1948,8 +1948,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     GameMgr.NPCHiroba_HikarieventList[161] = true;
 
-                    On_Active2000(200041, true); //禁忌の図書館
-                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
+                    On_Active2000(200041, true); //禁忌の図書館　☆の魔術書をげっと
+                    ev_id = pitemlist.Find_eventitemdatabase("mg_starmagic_book"); //eden_recipi_04
                     pitemlist.add_eventPlayerItem(ev_id, 1);
                 }
                 else
@@ -3881,12 +3881,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                             sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                             bgm_change_flag = true;
 
+                            //真実のハートをゲット
                             ev_id = pitemlist.Find_eventitemdatabase("mg_TrueofMyheart_book");
                             pitemlist.add_eventPlayerItem(ev_id, 1); //真実のハート魔法を追加
 
                             //最後のエデンレシピ「ハートのレシピ」をゲット
-                            ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05");
-                            pitemlist.add_eventPlayerItem(ev_id, 1); //最後のエデンレシピを追加
+                            //ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05");
+                            //pitemlist.add_eventPlayerItem(ev_id, 1); //最後のエデンレシピを追加
 
                             GameMgr.OsotoIttazoFlag = false;　//イベントあったあとは、お外フラグをオフにしとく。
                         }

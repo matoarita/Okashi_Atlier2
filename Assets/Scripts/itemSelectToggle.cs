@@ -92,6 +92,7 @@ public class itemSelectToggle : MonoBehaviour
     private int kosusum;
 
     private int _sweat, _sour, _bitter;
+    private string _itemName;
 
     private float _success_rate;
 
@@ -1527,41 +1528,78 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (GameMgr.UseMagicParamCustom != 0) //パラメータ操作できる魔法のときは、選んだアイテムのいくつかのパラメータを参照
                 {
-                    if (GameMgr.Final_toggle_Type1 == 0)
+                    if (GameMgr.UseMagicParamCustom == 10) //アイテムごとに参照先が変わる
                     {
-                        _sweat = database.items[GameMgr.Final_list_itemID1].Sweat;
-                        _sour = database.items[GameMgr.Final_list_itemID1].Sour;
-                        _bitter = database.items[GameMgr.Final_list_itemID1].Bitter;
-                    }
-                    else if (GameMgr.Final_toggle_Type1 == 1)
-                    {
-                        _sweat = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sweat;
-                        _sour = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sour;
-                        _bitter = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Bitter;
-                    }
-                    else if (GameMgr.Final_toggle_Type1 == 2)
-                    {
-                        _sweat = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sweat;
-                        _sour = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sour;
-                        _bitter = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Bitter;
-                    }
+                        //一旦見送り
+                        /*if (GameMgr.Final_toggle_Type1 == 0)
+                        {
+                            _itemName = database.items[GameMgr.Final_list_itemID1].itemName;
+                            _sweat = database.items[GameMgr.Final_list_itemID1].Sweat;
+                            _sour = database.items[GameMgr.Final_list_itemID1].Sour;
+                            _bitter = database.items[GameMgr.Final_list_itemID1].Bitter;
+                        }
+                        else if (GameMgr.Final_toggle_Type1 == 1)
+                        {
+                            _itemName = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].itemName;
+                            _sweat = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sweat;
+                            _sour = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sour;
+                            _bitter = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Bitter;
+                        }
+                        else if (GameMgr.Final_toggle_Type1 == 2)
+                        {
+                            _itemName = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].itemName;
+                            _sweat = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sweat;
+                            _sour = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sour;
+                            _bitter = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Bitter;
+                        }
 
-                    switch(GameMgr.UseMagicParamCustom)
-                    {
-                        case 1: //あまさ
-
-                            GameMgr.UseMagicParamCustom_OriginScore = _sweat;
-                            break;
-
-                        case 2: //酸味
-
-                            GameMgr.UseMagicParamCustom_OriginScore = _sour;
-                            break;
-
-                        case 3: //苦味
-
+                        if (_itemName == "strange_grass") //苦さを指定
+                        {
                             GameMgr.UseMagicParamCustom_OriginScore = _bitter;
-                            break;
+                        }
+                        else if (_itemName == "murasaki_mushroom") //酸味を指定
+                        {
+                            GameMgr.UseMagicParamCustom_OriginScore = _sour;
+                        }*/
+                    }
+                    else
+                    {
+                        if (GameMgr.Final_toggle_Type1 == 0)
+                        {
+                            _sweat = database.items[GameMgr.Final_list_itemID1].Sweat;
+                            _sour = database.items[GameMgr.Final_list_itemID1].Sour;
+                            _bitter = database.items[GameMgr.Final_list_itemID1].Bitter;
+                        }
+                        else if (GameMgr.Final_toggle_Type1 == 1)
+                        {
+                            _sweat = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sweat;
+                            _sour = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Sour;
+                            _bitter = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Bitter;
+                        }
+                        else if (GameMgr.Final_toggle_Type1 == 2)
+                        {
+                            _sweat = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sweat;
+                            _sour = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Sour;
+                            _bitter = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Bitter;
+                        }
+
+                        switch (GameMgr.UseMagicParamCustom)
+                        {
+                            case 1: //あまさ
+
+                                GameMgr.UseMagicParamCustom_OriginScore = _sweat;
+                                break;
+
+                            case 2: //酸味
+
+                                GameMgr.UseMagicParamCustom_OriginScore = _sour;
+                                break;
+
+                            case 3: //苦味
+
+                                GameMgr.UseMagicParamCustom_OriginScore = _bitter;
+                                break;
+                        }
                     }
                 }
                 //Debug.Log("一個目選択完了！");

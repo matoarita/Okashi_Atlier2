@@ -459,13 +459,7 @@ public class magicskillSelectToggle : MonoBehaviour
                 CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
-
-            case "Aroma_Potion":
-
-                CompoStatusMethod(0);
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "お花を選んでね。";
-                break;
-
+            
             case "Wind_Ark":
 
                 CompoStatusMethod(0);
@@ -589,6 +583,13 @@ public class magicskillSelectToggle : MonoBehaviour
                 Check_ParamUpdownCounter();
                 break;
 
+            case "Aroma_Potion":
+
+                CompoStatusMethod(0);
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "お花を選んでね。";
+                //Check_ParamUpdownCounter(); //締め切りギリギリでバグりそうなので、一旦見送り
+                break;
+
             //プレイヤーバフ関係
             case "Epiclesis":
 
@@ -707,7 +708,7 @@ public class magicskillSelectToggle : MonoBehaviour
         //Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status[sta_id]: " + PlayerStatus.player_girl_status[sta_id]);
     }
 
-    //魔法によって、パラメータを操作できる。LVによっても表示のON/OFFを変えるので、一度ここでチェック
+    //魔法によって、パラメータを操作できる。LVによっても表示のON/OFFを変えるので、一度ここでチェック itemSelectToggleで設定してる
     void Check_ParamUpdownCounter()
     {
         _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
@@ -732,6 +733,16 @@ public class magicskillSelectToggle : MonoBehaviour
                     GameMgr.UseMagicParamCustom = 2; //すっぱさを参照
                     GameMgr.UseMagicParamCustomText = "すっぱさの値";
                     GameMgr.UseMagicParamCustom_ScoreMinMax = 10;
+                }
+                break;
+
+            case "Aroma_Potion":
+
+                if (_mlv >= 2)
+                {
+                    GameMgr.UseMagicParamCustom = 10; //アイテムごとに参照を変える
+                    GameMgr.UseMagicParamCustomText = "濃縮具合";
+                    GameMgr.UseMagicParamCustom_ScoreMinMax = 0 + ((_mlv-1)*5);
                 }
                 break;
         }

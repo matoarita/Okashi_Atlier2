@@ -211,6 +211,7 @@ public class Updown_counter : MonoBehaviour {
                     updown_counter_setpanel.transform.Find("SetBGImage").gameObject.SetActive(false);
                     updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(false);
 
+                    //最終的な値はUseMagicParamCustom_FinalScoreに入る　Compound_CheckでGameMgr.updown_kosuを左の数値に入れる
                     GameMgr.updown_kosu = GameMgr.UseMagicParamCustom_OriginScore;
                     _zaiko_max = GameMgr.UseMagicParamCustom_OriginScore + GameMgr.UseMagicParamCustom_ScoreMinMax;
                     param_min = GameMgr.UseMagicParamCustom_OriginScore - GameMgr.UseMagicParamCustom_ScoreMinMax;

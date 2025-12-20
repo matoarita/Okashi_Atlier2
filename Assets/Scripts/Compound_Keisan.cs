@@ -1611,23 +1611,25 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else
             {
-                if (_item1_toggleType != 0) //元素材のタイプがオリジナルの場合、出来上がるアイテムもオリジナルになる
+
+                if (_base_itemType == "Mat" || _base_itemType == "Potion")
                 {
-                    GetItemMethod(0); //オリジナルアイテムに登録
-                }
-                else
-                {
-                    if (_base_itemType == "Mat" || _base_itemType == "Potion")
+                    if (_item1_toggleType != 0) //元素材のタイプがオリジナルの場合、出来上がるアイテムもオリジナルになる
                     {
-                        CheckItemType_GetItem();
+                        GetItemMethod(0); //オリジナルアイテムに登録
                     }
                     else
                     {
-                        //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
-                        //アイテム取得処理
-                        GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+                        CheckItemType_GetItem();
                     }
                 }
+                else
+                {
+                    //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
+                    //アイテム取得処理
+                    GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+                }
+
             }
         }
         else

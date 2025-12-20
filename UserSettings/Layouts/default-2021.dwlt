@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 135
+  controlID: 76
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,8 +166,8 @@ MonoBehaviour:
     y: 0
     width: 402
     height: 947
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -218,8 +218,8 @@ MonoBehaviour:
     y: 0
     width: 264
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -1098,7 +1098,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: cc14f1ff1615f1ff2419f1ff9a25f1ff1232f1ff5243f1ff5858f1ff8063f1ffccf6f3ff82c5f4ff92d1f4ff32d6f4ff42daf4ff707ef5ff0287f5fff29af5ff8ea2f5ff0aa4f5ff5ca4f5ff42a9f5ff28adf5ff68b5f5ff8646f6ff8a68f7ff9a74f7ffa877f7ffe47af7ffd6b5f7ff94f4f7ff34f5f7ffca30f8ff6831f8ff0832f8ffa832f8ff4833f8ffe833f8ffee33f8ff8e34f8ff5c7bf8fffe7bf8ff9e7df8ffee7df8ff0485f8ff7a91f8fff49df8ff36aff8ff48c4f8ff72cff8ffcc62fbff8a31fcff9c3dfcff3e42fcff5046fcff80eafcff14f3fcff0607fdffa40efdff2410fdffd410fdffc015fdffaa19fdfff821fdff26b3fdffd4d5feffece1fefffce4feff3ae8feff3223fffffe61ffffa062ffff409effffe09effff829fffff24a0ffffc6a0ffff68a1ffff70a1ffff12a2ffff3ee9ffffe2e9ffff04fbffff
+      m_ExpandedIDs: 06efeaff56efeaff6cf6eaffe402ebff5e0febffa020ebffb235ebffdc40ebff36d4edfff4a2eeff06afeeffa8b3eeffbab7eeffea5befff7e64efff7078efff0e80efff8e81efff3e82efff2a87efff148befff6293efff9224f0ff4a47f1ff6253f1ff7256f1ffbc59f1ffb494f1ff82d3f1ff24d4f1ffc40ff2ff6410f2ff0611f2ffa811f2ff4a12f2ffec12f2fff412f2ff9613f2ff645af2ff085bf2ffea68f2ff3a69f2ff5070f2ffc87cf2ff4289f2ff849af2ff96aff2ffc0baf2ff1a4ef5ffd81cf6ffea28f6ff8c2df6ff9e31f6ffced5f6ff62def6ff54f2f6fff2f9f6ff72fbf6ff22fcf6ff0e01f7fff804f7ff460df7ff769ef7ff2ec1f8ff46cdf8ff56d0f8ffa0d3f8ff980ef9ff664df9ff084ef9ffa889f9ff488af9ffea8af9ff8c8bf9ff2e8cf9ffd08cf9ffd88cf9ff7a8df9ff48d4f9ffecd4f9ff02bbfcff0abbfcff3cbbfcffc001fdffce01fdff3eddfdff04fbffff705402007e580200265f0200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1206,23 +1206,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Utage_Scenario/Sound/SE
+    - Assets/Utage_Scenario
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Utage_Scenario/Sound/SE
+  - Assets/Utage_Scenario
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 374}
-    m_SelectedIDs: ca9a0000
-    m_LastClickedID: 39626
-    m_ExpandedIDs: 00000000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000ec70000000ca9a3b
+    scrollPos: {x: 0, y: 554}
+    m_SelectedIDs: d4fc0000
+    m_LastClickedID: 64724
+    m_ExpandedIDs: 000000004ad900004cd900004ed9000050d9000052d9000054d9000056d9000058d900005ad900005cd900005ed9000060d9000062d9000064d9000066d9000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1250,7 +1250,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000ec700000
+    m_ExpandedIDs: 000000004ad900004cd900004ed9000050d9000052d9000054d9000056d9000058d900005ad900005cd900005ed9000060d9000062d9000064d9000066d90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
