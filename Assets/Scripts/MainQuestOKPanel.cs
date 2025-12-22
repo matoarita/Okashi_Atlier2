@@ -12,6 +12,10 @@ public class MainQuestOKPanel : MonoBehaviour {
 
     private ItemDataBase database;
 
+    private GameObject stagenum_text_obj;
+    private GameObject stage_text_obj;
+    private GameObject prologue_text_obj;
+
     private Text stagenum_text;
     private Image okashiImage;
 
@@ -48,6 +52,10 @@ public class MainQuestOKPanel : MonoBehaviour {
         button = this.transform.Find("Panel1/Button").GetComponent<Button>();
         button.interactable = false;
 
+        stage_text_obj = this.transform.Find("Panel1/QuestClear/Text").gameObject;
+        stagenum_text_obj = this.transform.Find("Panel1/QuestClear/stageNumberText").gameObject;
+        prologue_text_obj = this.transform.Find("Panel1/QuestClear/Prologue_text").gameObject;
+
         stagenum_text = this.transform.Find("Panel1/QuestClear/stageNumberText").GetComponent<Text>();
         stagenum_text.text = GameMgr.stage_quest_num.ToString();
 
@@ -69,6 +77,19 @@ public class MainQuestOKPanel : MonoBehaviour {
         {
             okashiImage.sprite = database.items[GameMgr.SpecialQuestClear_okashiItemID].itemIcon_sprite;
 
+        }
+
+        if(GameMgr.System_PrologueHyouji_on) //２では、10まではプロローグなのでプロローグ表示
+        {
+            stage_text_obj.SetActive(false);
+            stagenum_text_obj.SetActive(false);
+            prologue_text_obj.SetActive(true);
+        }
+        else
+        {
+            stage_text_obj.SetActive(true);
+            stagenum_text_obj.SetActive(true);
+            prologue_text_obj.SetActive(false);
         }
 
         StartAnim(); //開いた最初のアニメ

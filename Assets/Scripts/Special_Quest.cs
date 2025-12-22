@@ -134,19 +134,30 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         //クエストネームの設定
         //RedrawQuestName(); //ネーム更新
 
-        //◆ボタン表示用
+        //◆ボタン表示用 現在ボタンは非表示
         OkashiQuest_AllCount = QuestCountDict[GameMgr.stage_quest_num];
 
         GameMgr.stage_quest_num_sub = OkashiQuest_Count;
 
-        if (GameMgr.GirlLoveEvent_num != 50)
+        if(spquest_set_num >= 0 && spquest_set_num < 10) //10~からが本番でステージ１としてカウント
+        {
+            OkashiQuest_Number = "Prologue" + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
+        }
+        else
+        {
+            OkashiQuest_Number = GameMgr.stage_quest_num.ToString() + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
+        }
+        
+
+        //１の頃のやつ
+        /*if (GameMgr.GirlLoveEvent_num != 50)
         {
             OkashiQuest_Number = GameMgr.stage_quest_num.ToString() + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
         }
         else
         {
             OkashiQuest_Number = "Contest";
-        }
+        }*/
 
         //吹き出しは消す。
         girl1_status.ResetHukidashiNoSound();
@@ -493,11 +504,14 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
+            //ここまではプロローグあつかい　なので_stage_count=1で下とかぶってるが、表示はプロローグにしている。
+
+
             case 10: //コンテストに出場しよう
 
                 girl1_status.OkashiQuest_ID = 100100;
                 _stage_count = 1;
-                OkashiQuest_Count = 2;
+                OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
@@ -513,7 +527,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 11: //露店通りへ行こう
 
                 girl1_status.OkashiQuest_ID = 100110;
-                _stage_count = 2;
+                _stage_count = 1;
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
@@ -523,7 +537,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 12: //まほうのお菓子を作ってみよう！
 
                 girl1_status.OkashiQuest_ID = 100120;
-                _stage_count = 2;
+                _stage_count = 1;
                 OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 0;
                 GameMgr.SPquestPanelOff = false;
@@ -533,7 +547,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 13: //クッキーコンテストで２位以上を取ろう！＜最初のコンテストで取ってた場合は、ここを無視する＞
 
                 girl1_status.OkashiQuest_ID = 100130;
-                _stage_count = 2;
+                _stage_count = 1;
                 OkashiQuest_Count = 4;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
@@ -545,7 +559,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 14: //スターを集めよう！（プラトンアカデミー招待状待ち）　いらんかも。現在は外した。
 
                 girl1_status.OkashiQuest_ID = 100140;
-                _stage_count = 2;
+                _stage_count = 1;
                 OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
@@ -557,7 +571,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 15: //プラトンアカデミーコンテストで優勝しよう！
 
                 girl1_status.OkashiQuest_ID = 100150;
-                _stage_count = 2;
+                _stage_count = 1;
                 OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
@@ -569,7 +583,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 20: //お城へいってみよう！　アロマポーションおぼえる
 
                 girl1_status.OkashiQuest_ID = 100200;
-                _stage_count = 3;
+                _stage_count = 2;
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
@@ -579,7 +593,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 21: //自由時間　エデンのレシピ３つを集めよう！
 
                 girl1_status.OkashiQuest_ID = 100210;
-                _stage_count = 3;
+                _stage_count = 2;
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = true;
@@ -592,7 +606,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100220;
                 _stage_count = 3;
-                OkashiQuest_Count = 3;
+                OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = true;
 
@@ -671,6 +685,15 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 break;
         }
 
+        if (_spquest_setnum < 10)
+        {
+            GameMgr.System_PrologueHyouji_on = true;
+        }
+        else
+        {
+            GameMgr.System_PrologueHyouji_on = false;
+        }
+            
         //各クエスト開始時にフラグがたつ場合ここで処理
         if (_spquest_setnum >= 0)
         {

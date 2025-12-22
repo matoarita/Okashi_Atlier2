@@ -62,6 +62,7 @@ public class Contest_Judge : MonoBehaviour {
     private int judge_Type;
 
     private float contest_bairitsu_hosei;
+    private float jiisan_shokukan_hosei;
 
     public int[] total_score;
     private float _temp_score;
@@ -647,7 +648,7 @@ public class Contest_Judge : MonoBehaviour {
                         if (_status == 1)
                         {
                             //クッキー系は点数が下がる
-                            Contest_CookieHosei(0.85f);
+                            //Contest_CookieHosei(0.85f);
                         }
                         break;
 
@@ -656,7 +657,7 @@ public class Contest_Judge : MonoBehaviour {
                         if (_status == 1)
                         {
                             //クッキー系は点数が下がる
-                            Contest_CookieHosei(0.85f);
+                            //Contest_CookieHosei(0.85f);
                         }
                         break;
                 }
@@ -2424,93 +2425,99 @@ public class Contest_Judge : MonoBehaviour {
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
         if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.45f);
+            jiisan_shokukan_hosei = 0.65f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.65f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 60)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.6f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 60 && GameMgr.contest_Taste_Score[2] < 80)
-        {
+            jiisan_shokukan_hosei = 0.8f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.8f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 90)
+        else if (GameMgr.contest_Taste_Score[2] >= 60 && GameMgr.contest_Taste_Score[2] < 100)
         {
+            jiisan_shokukan_hosei = 0.9f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.9f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 90 && GameMgr.contest_Taste_Score[2] < 100)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
-        }
-
         else if (GameMgr.contest_Taste_Score[2] >= 100 && GameMgr.contest_Taste_Score[2] < 120) //100のかべ
         {
+            jiisan_shokukan_hosei = 1.2f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 120 && GameMgr.contest_Taste_Score[2] < 150) 
         {
+            jiisan_shokukan_hosei = 1.3f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.3f);
         }
 
         else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 200) //150のかべ
         {
+            jiisan_shokukan_hosei = 1.5f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 200 && GameMgr.contest_Taste_Score[2] < 300)
         {
+            jiisan_shokukan_hosei = 1.6f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.6f);
         }
 
         else if (GameMgr.contest_Taste_Score[2] >= 300 && GameMgr.contest_Taste_Score[2] < 400) //300のかべ
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.75f);
+            jiisan_shokukan_hosei = 1.85f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.85f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 400 && GameMgr.contest_Taste_Score[2] < 500) //400
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.8f);
+            jiisan_shokukan_hosei = 2.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.0f);
         }
 
         else if (GameMgr.contest_Taste_Score[2] >= 500 && GameMgr.contest_Taste_Score[2] < 650) //500のかべ
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.85f);
+            jiisan_shokukan_hosei = 2.25f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.25f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 650 && GameMgr.contest_Taste_Score[2] < 800)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.0f);
+            jiisan_shokukan_hosei = 2.4f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.4f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 800 && GameMgr.contest_Taste_Score[2] < 1000)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.2f);
+            jiisan_shokukan_hosei = 2.5f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.5f);
         }
 
         else if (GameMgr.contest_Taste_Score[2] >= 1000 && GameMgr.contest_Taste_Score[2] < 1500) //1000のかべ
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.5f);
+            jiisan_shokukan_hosei = 3.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 1500) 
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+            jiisan_shokukan_hosei = 4.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
         }
         else if (GameMgr.contest_Taste_Score[2] < 0)
         {
+            jiisan_shokukan_hosei = 0.3f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.3f);
         }        
 
         total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
 
-        Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。 " + jiisan_shokukan_hosei + " 下の食感の値が最終の食感点数");
         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
     }
 
-    void Contest_ShokukanHosei_10() //アントワネット王妃は、見た目の比重を大きくするため、食感の点数は影響を下げる。
+    void Contest_ShokukanHosei_10() //アントワネット王妃は、見た目の比重を大きくするため、食感の点数は影響を下げる。ほんの少しでOK。
     {
         before_tastescore[1] = GameMgr.contest_Taste_Score[1];        
 
-        total_score[1] = total_score[1] - before_tastescore[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f); 
+        total_score[1] = total_score[1] - before_tastescore[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.9f); 
         //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
-        Debug.Log("審査員２　王妃は食感の点数は少し下がる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員２　王妃は食感の点数は少し下がる。*0.9。下の食感の値が最終の食感点数");
         Debug.Log("審査員２　食感補正前：" + before_tastescore[1] + "点");
         Debug.Log("審査員２　食感補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }
@@ -2526,7 +2533,7 @@ public class Contest_Judge : MonoBehaviour {
         total_score[2] = total_score[2] + (int)(GameMgr.contest_Taste_Score[2] * 0.75f) - before_tastescore[2];
         //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
-        Debug.Log("審査員全員　食感の点数少し下がる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員全員　食感の点数少し下がる。0.75f。下の食感の値が最終の食感点数");
         Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
         Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
     }
@@ -2883,7 +2890,8 @@ public class Contest_Judge : MonoBehaviour {
         //デバッグパネルの取得
         debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
         debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();       
-        debug_taste_resultText.text += "\n" + "\n" + "\n" + "\n" + "コンテスト倍率補正: " + contest_bairitsu_hosei.ToString("f2");
+        debug_taste_resultText.text += "\n" + "\n" + "\n" + "\n" + "コンテスト倍率補正: " + contest_bairitsu_hosei.ToString("f2")
+            + "\n" + "\n" + "じいさん食感補正: " + jiisan_shokukan_hosei.ToString("f2");    
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

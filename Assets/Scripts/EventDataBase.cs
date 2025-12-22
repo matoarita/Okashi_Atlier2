@@ -742,14 +742,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
                 HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1, "Non"); //ヒカリお菓子作る
 
-                if (pitemlist.ReturnEventItemKosu("eden_recipi_03") < 1) //持ってない場合に発生　持ってるときは、コンテストでイセヤを倒しゲットしている
+                if (pitemlist.ReturnEventItemKosu("eden_recipi_05") < 1) //持ってない場合に発生　持ってるときは、コンテストでイセヤを倒しゲットしている 旧：eden_recipi_03
                 {
                     HeartEvent_check(GameMgr.System_HeartBlockLv_10, 380, 1, "Non"); //エデンレシピの場所解放　星
                 }
-                if (pitemlist.ReturnEventItemKosu("eden_recipi_04") < 1) //持ってない場合に発生　持ってるときは、コンテストでベルを倒しゲットしている
+                /*if (pitemlist.ReturnEventItemKosu("eden_recipi_04") < 1) //持ってない場合に発生　持ってるときは、コンテストでベルを倒しゲットしている
                 {
                     HeartEvent_check(GameMgr.System_HeartBlockLv_11, 381, 1, "Non"); //エデンレシピの場所解放　月
-                }
+                }*/
 
                 //HLVごとに発生するイベント 350番台～
                 //"Non"だと、思い出イベントのフラグ解放はなし　入れる場合は、GameMgrのHikariOmoide_Eventlistに登録する

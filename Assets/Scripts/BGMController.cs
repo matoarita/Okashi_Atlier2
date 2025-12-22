@@ -142,6 +142,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
         if (_bgm[_num].clip == _clip)
         {
             //同じBGMがなってる場合は、そのまま鳴らし続ける
+            //Debug.Log("同じBGMがなってるので、そのまま鳴らし続け");
         }
         else
         {
@@ -252,6 +253,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     {
         DOTween.Kill(_tw);
         fade_volume = _volume;
+        //Debug.Log("BGMController fade_volume: " + fade_volume);
     }
 
 

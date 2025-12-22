@@ -2931,7 +2931,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_girlcrispy[countNum] > 0)
         {
             _temp_kyori = _basecrispy - _girlcrispy[countNum];
-            _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum];
+            _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum] * GameMgr.System_ShokukanParam_ALLHosei;
 
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
@@ -2973,7 +2973,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_girlfluffy[countNum] > 0)
         {
             _temp_kyori = _basefluffy - _girlfluffy[countNum];
-            _temp_deg = 1.0f * _basefluffy / _girlfluffy[countNum];
+            _temp_deg = 1.0f * _basefluffy / _girlfluffy[countNum] * GameMgr.System_ShokukanParam_ALLHosei;
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
             {
@@ -3021,7 +3021,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_girlsmooth[countNum] > 0)
         {
             _temp_kyori = _basesmooth - _girlsmooth[countNum];
-            _temp_deg = 1.0f * _basesmooth / _girlsmooth[countNum];
+            _temp_deg = 1.0f * _basesmooth / _girlsmooth[countNum] * GameMgr.System_ShokukanParam_ALLHosei;
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
             {
@@ -3069,7 +3069,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_girlhardness[countNum] > 0)
         {
             _temp_kyori = _basehardness - _girlhardness[countNum];
-            _temp_deg = 1.0f * _basehardness / _girlhardness[countNum];
+            _temp_deg = 1.0f * _basehardness / _girlhardness[countNum] * GameMgr.System_ShokukanParam_ALLHosei;
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
             {
@@ -3110,7 +3110,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_girljuice[countNum] > 0)
         {
             _temp_kyori = _basejuice - _girljuice[countNum];
-            _temp_deg = 1.0f * _basejuice / _girljuice[countNum];
+            _temp_deg = 1.0f * _basejuice / _girljuice[countNum] * GameMgr.System_ShokukanParam_ALLHosei;
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
             {
@@ -3151,7 +3151,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_girltea_flavor[countNum] > 0)
         {
             _temp_kyori = _basetea_flavor - _girltea_flavor[countNum];
-            _temp_deg = 1.0f * _basetea_flavor / _girltea_flavor[countNum];
+            _temp_deg = 1.0f * _basetea_flavor / _girltea_flavor[countNum] * GameMgr.System_ShokukanParam_ALLHosei;
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
             {

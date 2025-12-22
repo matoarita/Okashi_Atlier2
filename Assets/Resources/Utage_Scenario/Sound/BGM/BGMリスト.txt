@@ -89,7 +89,7 @@
 ・BGM_87		PerituneMaterial_Enjoyable3_loop	大会コンテスト調合時のBGM02　初級
 ・BGM_88		PerituneMaterial_Teatime_loop		【宴用】お屋敷のBGM　旧：大会コンテスト受付BGM
 ・BGM_89		PerituneMaterial_Memories2		サクラフォレストのBGM
-・BGM_90		audiostock_157663			夏エリアイセヤのお店テーマ曲
+・BGM_90		audiostock_157663			夏エリアのテーマ曲
 ・BGM_91		audiostock_849596			コンテスト終了後の賞品画面のBGM
 ・BGM_92		Excursion(なぐもりず)			魔法の先生のテーマ02
 ・BGM_93		icyalove_07(にんじんわいん)		秘密の花園のテーマ
@@ -165,3 +165,4 @@
 ・BGM_161		PerituneMaterial_Rosa_Nera_loop		怪しげなメルヘン曲　バナナフェスの時などに使う
 ・BGM_162		PerituneMaterial_Realm_Daytime_loop	コンテスト高難易度のお城風BGM
 ・BGM_163		PianoSketch_09_颯爽と			コンテスト高難易度　調合時のBGM 
+・BGM_164		audiostock_157663			【宴用】夏エリアの曲　イセヤのお店テーマ曲として使用　BGM_90と同じ

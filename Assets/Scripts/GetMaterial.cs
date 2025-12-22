@@ -3555,7 +3555,7 @@ public class GetMaterial : MonoBehaviour
                 treasureKosuType.Add(1, 0);
                 treasureKosuType.Add(2, 0);
                 treasureKosuType.Add(3, 0);
-                treasureKosuType.Add(3, 2); //2だと、ごっそり手に入る　10個以上～
+                treasureKosuType.Add(4, 2); //2だと、ごっそり手に入る　10個以上～
 
                 break;
 

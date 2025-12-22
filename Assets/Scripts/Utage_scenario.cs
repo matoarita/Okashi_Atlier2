@@ -2898,7 +2898,8 @@ public class Utage_scenario : MonoBehaviour
             }
             else
             {
-                CharacterSpriteFadeON();
+                CharacterSpriteSetON();
+                //CharacterSpriteFadeON();
             }
         }
 
@@ -4249,6 +4250,22 @@ public class Utage_scenario : MonoBehaviour
 
                 switch (GameMgr.hiroba_event_ID)
                 {
+                    case 0:
+
+                        stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                        switch (stationevent_num)
+                        {
+                            case 0: //
+
+                                break;
+
+                            case 1: //どうしたの？と聞く　これで少し友達に。
+
+                                GameMgr.NPCHiroba_eventList[160] = true;
+                                break;
+                        }
+                        break;
+
                     case 10:
 
                         stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
@@ -4262,8 +4279,8 @@ public class Utage_scenario : MonoBehaviour
 
                                 GameMgr.NPCHiroba_eventList[161] = true;
 
-                                //サンティマンの魔法をゲット
-                                ev_id = pitemlist.Find_eventitemdatabase("mg_santiman_book");
+                                //ラトリアの魔法をゲット
+                                ev_id = pitemlist.Find_eventitemdatabase("mg_latria_book");
                                 pitemlist.add_eventPlayerItem(ev_id, 1); //
                                 break;
                         }
@@ -5851,21 +5868,21 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
                 engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
             }
-            else if (GameMgr.contest_Beauty_Score[judge_num] >= 50 && GameMgr.contest_Beauty_Score[judge_num] < 100) //アントワとの差
+            else if (GameMgr.contest_Beauty_Score[judge_num] >= 0 && GameMgr.contest_Beauty_Score[judge_num] < 100) //アントワとの差
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
                 engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
                 engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
             }
-            else if (GameMgr.contest_Beauty_Score[judge_num] >= 0 && GameMgr.contest_Beauty_Score[judge_num] < 50) //アントワとの差
+            else if (GameMgr.contest_Beauty_Score[judge_num] >= -50 && GameMgr.contest_Beauty_Score[judge_num] < 0) //アントワとの差　基準に達してない
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);
                 engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_3);
                 engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_4);
             }
-            else if (GameMgr.contest_Beauty_Score[judge_num] < 0) //アントワとの差 基準に達していない
+            else if (GameMgr.contest_Beauty_Score[judge_num] < -50) //アントワとの差 基準に大きく達していない
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);

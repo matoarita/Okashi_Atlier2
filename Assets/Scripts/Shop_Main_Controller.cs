@@ -261,7 +261,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             case "Or_Shop_B1": //エクレア姉さん
 
-                shopon_toggle_back.SetActive(false);
+                shopon_toggle_back.SetActive(true);
                 break;
 
             case "Or_Shop_C1": //マダム・オペラのばあさん
@@ -271,7 +271,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             case "Or_Shop_D1": //ピティヴィエさん
 
-                shopon_toggle_back.SetActive(false);
+                shopon_toggle_back.SetActive(true);
                 break;
         }
     }

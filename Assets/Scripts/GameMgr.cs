@@ -56,7 +56,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = true; //家賃システムの有無
+    public static bool System_Yachin_ON = false; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
     public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
     
@@ -102,6 +102,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //食感の計算方法の切り替え 0=_basescoreと比率をかける計算 1=加算方式　単純に、判定値から引き算のみ
     public static int System_GirlEat_ShokukanParamKeisan = 0;
     //食感の比率のベース値は各アイテムごとに設定　_basescore = database.itemlist[kettei_item1].Base_Score;
+    public static float System_ShokukanParam_ALLHosei = 1.05f; //食感の値を全体的に上げる調整用 補正かけない場合は1.0fにする。
 
     //見た目点数の基準点
     public static int System_GirlEat_BeautyParamKeisan = 1; //0は比率計算　下の基準点を使用　1=単純に判定値から引き算で加算方式
@@ -1113,6 +1114,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool TitleMain_Live2DMode_ON; //タイトル画面でLive2D表示がONになってるか否か。
     public static Sprite System_newrecipi_sprite; //新しいレシピ表示用の一時スプライト画像
     public static string System_newrecipi_name; //新しいレシピ表示用のアイテム名
+    public static bool System_PrologueHyouji_on; //ステージ表記をプロローグにする
 
 
 
@@ -1778,6 +1780,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MagicUseType_StatusText = "";
         common_itemdatahyouji_list.Clear();
         hiroba_event_startblack = false;
+        System_PrologueHyouji_on = false;
 
         //最初の家賃額
         System_Yachin_Cost_SPRoom = System_Yachin_Cost02;
@@ -2283,6 +2286,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("sakura_ring");       
         CollectionItemsName.Add("milk_bin");
         CollectionItemsName.Add("yukidaruma");
+        CollectionItemsName.Add("trophy_spring"); //ちいさな願いのトロフィー
 
         CollectionItemsName.Add("beorv_iron"); //コンテスト
         CollectionItemsName.Add("green_pendant"); //ポンポンファーム

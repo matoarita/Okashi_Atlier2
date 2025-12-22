@@ -216,6 +216,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             StartRead = true;
             sceneBGM.PlaySub();
             sceneBGM.NowFadeVolumeONBGM();
+            //Debug.Log("広場シーン移動　最初読み込み部分");
         }
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
@@ -637,6 +638,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 bgm_change_flag = false;
                 sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 sceneBGM.PlayAmbient(9999); //指定なしで、マップデフォルトのアンビエントをまた鳴らす
+                Debug.Log("フェードイン BGM");
             }
 
             ToggleFlagCheck();
@@ -3615,7 +3617,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         if (!GameMgr.NPCHiroba_eventList[160]) //はじめて
         {
-            GameMgr.NPCHiroba_eventList[160] = true;
+            //GameMgr.NPCHiroba_eventList[160] = true; //どうしたの？ときくとtrueになる
 
             GameMgr.hiroba_event_ID = 0;
             //BGMかえる
