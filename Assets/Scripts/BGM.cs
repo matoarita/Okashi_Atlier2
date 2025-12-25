@@ -285,7 +285,7 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Bar_C1":
 
-                                _send_clip = sound70;
+                                _send_clip = sound60; //sound70 統一したほうがクエスト感がでる
                                 break;
 
                             case "Or_Bar_D1":

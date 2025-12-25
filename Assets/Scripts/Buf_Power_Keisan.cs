@@ -22,6 +22,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _magicup_f;
     private int original_shokukan_p;
     private int taste_score;
+    private int cook_kaisu, cook_count_buf;
     private int magic_attri;
     private int _magic_rate;
     private int _magicLearnLv;
@@ -415,7 +416,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 1; //LV*1
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 2; //LV*2
             _buf_kakuritsuup += _magicup;
         }
     }
@@ -1005,6 +1006,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
         _itemType_subB = database.items[_id].itemType_subB.ToString();
+        cook_kaisu = database.items[_id].Cook_kaisu;
         magic_attri = _magic_attri;
         _compoID = _compID;
 
@@ -1460,7 +1462,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _magicup = 0;
             if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
             {
-                _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 10; //LV*10
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 5; //LV*10
                 _buf_shokukanup += _magicup;
             }
         }
@@ -1850,6 +1852,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (pitemlist.KosuCount("shokukan_powerup3") >= 1) //
         {
             _buf_shokukanup += 30;
+        }
+
+        //作った回数がわずかに食感に影響する
+        if (GameMgr.System_CookCount_Buf)
+        {
+            cook_count_buf = 0;
+            if (cook_kaisu > 0)
+            {
+                cook_count_buf = Mathf.FloorToInt(cook_kaisu / 3);
+                if(cook_count_buf >= 25) { cook_count_buf = 25; } //上限
+                _buf_shokukanup += (2 * cook_count_buf); //つまり、3回作ると、2*1になり、+2される。
+                Debug.Log("cook_count_buf: " + cook_count_buf + " 食感アップ: +" + 2 * cook_count_buf);
+            }
         }
     }
 

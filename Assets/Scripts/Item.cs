@@ -107,7 +107,8 @@ public class Item
     public int ItemMode; //デフォルトかオリジナルかエクストリームかヒカリ制作かを判別する
 
     //
-    public int Eat_kaisu;
+    public int Eat_kaisu; //食べた回数
+    public int Cook_kaisu; //作った回数　まだパラメータここに設定しただけで、入れてない
     public int HighScore_flag;
     public int last_total_score;
     public int last_rich_score;
@@ -271,7 +272,7 @@ public class Item
         string _ms4_mariage, int _ms4_pointup, string _ms5_mariage, int _ms5_pointup,
         string _ms6_mariage, int _ms6_pointup, string _ms7_mariage, int _ms7_pointup, string _ms8_mariage, int _ms8_pointup,
         string _ms9_mariage, int _ms9_pointup, string _ms10_mariage, int _ms10_pointup,
-        int _mode, string baseitemName)
+        int _mode, string baseitemName, int _cookkaisu)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -376,6 +377,7 @@ public class Item
         SetJudge_Num = _judge_num;
 
         Eat_kaisu = _eat_kaisu;
+        Cook_kaisu = _cookkaisu;
         HighScore_flag = _highscore;
 
         Rare = _rare;

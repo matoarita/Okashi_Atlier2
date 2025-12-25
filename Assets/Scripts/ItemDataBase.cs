@@ -267,7 +267,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                     ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
-                    ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup, 0, ""));
+                    ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup, 0, "", 0));
                 //comp_hoseiでバグらないようにするための、クローン
                 items_gamedefault.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _tea_flavor,
@@ -280,7 +280,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                     ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
-                    ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup, 0, ""));
+                    ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup, 0, "", 0));
                 //システムデータ保存用のアイテムデータリスト
                 items_system.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _tea_flavor,
@@ -293,7 +293,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                     ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
-                    ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup, 0, ""));
+                    ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup, 0, "", 0));
 
                 ++count;
             }

@@ -639,7 +639,16 @@ public class SetImage : MonoBehaviour
         if (pitemlist.eventitemlist[check_counter].ev_magicbook == 0)
         {
             item_Category.text = "レシピ";
-            item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
+            if (pitemlist.eventitemlist[check_counter].event_itemDesc == "non")
+            {
+                item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
+            }
+            else
+            {
+                item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemDesc; //何か入ってるときは説明を表示
+            }
+            
+            
         }
         else
         {

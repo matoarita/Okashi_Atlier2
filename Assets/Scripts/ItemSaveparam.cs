@@ -27,19 +27,21 @@ public class ItemSaveparam
     public int last_jiggly_score;
     public int last_chewy_score;
     public string last_hinttext;
+    public int Cook_kaisu;
     //ここまで
-    
+
 
     //ここでリスト化時に渡す引数をあてがいます   
     public ItemSaveparam(int id, string itemname, int _eat_kaisu, int _highscore, int _lasttotal_score, 
         int _last_rich_score, int _last_sweat_score, int _last_bitter_score, int _last_sour_score,
         int _last_crispy_score, int _last_fluffy_score, int _last_smooth_score, int _last_hardness_score,
-        int _last_jiggly_score, int _last_chewy_score, string _hinttext)
+        int _last_jiggly_score, int _last_chewy_score, string _hinttext, int _cook_kaisu)
     {
         itemID = id;
         itemName = itemname;
         
         Eat_kaisu = _eat_kaisu;
+        Cook_kaisu = _cook_kaisu;
         HighScore_flag = _highscore;
 
         last_total_score = _lasttotal_score;

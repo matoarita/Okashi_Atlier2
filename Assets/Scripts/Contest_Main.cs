@@ -144,7 +144,7 @@ public class Contest_Main : MonoBehaviour {
             ContestDataSetting();
 
             //採点処理
-            contest_judge.Contest_Judge_Start();
+            contest_judge.Contest_Judge_Start(0);
 
             contest_eventStart_flag = true;
             GameMgr.scenario_ON = true;
@@ -240,7 +240,7 @@ public class Contest_Main : MonoBehaviour {
         {
             conteston_toggle_judge.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。          
 
-            contest_judge.Contest_Judge_Start();
+            contest_judge.Contest_Judge_Start(0);
         }
     }
 

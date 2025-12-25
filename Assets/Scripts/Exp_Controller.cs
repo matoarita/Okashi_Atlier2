@@ -537,6 +537,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _ex_text = "";
             }
 
+            //そのお菓子自体の作った回数をカウント（調合DBとは別）　成功したときにカウント
+            database.items[GameMgr.Okashi_makeID].Cook_kaisu += 1;
+            Debug.Log("作った回数: " + database.items[GameMgr.Okashi_makeID].itemName + " " + database.items[GameMgr.Okashi_makeID].Cook_kaisu);
+
             //はじめて、アイテムを制作した場合は、フラグをONに。
             if (!GameMgr.tutorial_ON)
             {
@@ -1415,6 +1419,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     GetExpMethod();
 
                     _ex_text = "";
+                }
+
+                //そのお菓子自体の作った回数をカウント（調合DBとは別）　成功したときにカウント
+                //魔法の場合、できたのがお菓子のみ
+                if (magicskill_database.magicskill_lists[_mid].skill_CompSelect == "Non" || magicskill_database.magicskill_lists[_mid].skill_CompSelect == "MS")
+                {
+                    if (database.items[GameMgr.Okashi_makeID].itemType.ToString() == "Okashi")
+                    {
+                        database.items[GameMgr.Okashi_makeID].Cook_kaisu += 1;
+                        Debug.Log("作った回数: " + database.items[GameMgr.Okashi_makeID].itemName + " " + database.items[GameMgr.Okashi_makeID].Cook_kaisu);
+                    }
                 }
 
                 //はじめて、アイテムを制作した場合は、フラグをONに。

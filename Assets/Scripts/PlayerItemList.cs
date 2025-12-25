@@ -30,6 +30,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string[] _koyutp = new string[5];
     private int _judge_num;
     private int _eat_kaisu;
+    private int _cook_kaisu;
     private int _highscore_flag;
     private int _lasttotal_score;
     private string _hinttext;
@@ -706,7 +707,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
-            1, _basefileName));
+            1, _basefileName, _cook_kaisu));
     }
 
     //エクストリームパネル設定用アイテムを登録する。
@@ -757,7 +758,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
-            2, _basefileName));
+            2, _basefileName, _cook_kaisu));
     }
 
     //ヒカリオリジナルアイテムを登録する。
@@ -810,7 +811,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
-            3, _basefileName));
+            3, _basefileName, _cook_kaisu));
     }
 
     //チェック用のオリジナルアイテムを登録する。
@@ -864,7 +865,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup, 
-            1, _basefileName));
+            1, _basefileName, _cook_kaisu));
     }
 
     void ItemDatabase_Setting()
@@ -882,6 +883,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         _base_score = database.items[i].Base_Score;
         _judge_num = database.items[i].SetJudge_Num;
         _eat_kaisu = database.items[i].Eat_kaisu;
+        _cook_kaisu = database.items[i].Cook_kaisu;
         _highscore_flag = database.items[i].HighScore_flag;
         _lasttotal_score = database.items[i].last_total_score;
         _hinttext = database.items[i].last_hinttext;
@@ -978,7 +980,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].MS7_mariage, player_extremepanel_itemlist[tempID].MS7_pointup,
             player_extremepanel_itemlist[tempID].MS8_mariage, player_extremepanel_itemlist[tempID].MS8_pointup,
             player_extremepanel_itemlist[tempID].MS9_mariage, player_extremepanel_itemlist[tempID].MS9_pointup,
-            player_extremepanel_itemlist[tempID].MS10_mariage, player_extremepanel_itemlist[tempID].MS10_pointup, 1, ""));
+            player_extremepanel_itemlist[tempID].MS10_mariage, player_extremepanel_itemlist[tempID].MS10_pointup, 1, "",
+            player_extremepanel_itemlist[tempID].Cook_kaisu));
     }
 
     void KoyuID_Set()

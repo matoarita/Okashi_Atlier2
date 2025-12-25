@@ -427,7 +427,7 @@ public class magicskillSelectToggle : MonoBehaviour
             case "Freezing_Spell":
 
                 CompoStatusMethod(0);    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。" + "\n" + "（無いときは、LVが低いかも..。）";
                 break;
 
             case "Ice_Cube":

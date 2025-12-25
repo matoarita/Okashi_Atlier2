@@ -3413,7 +3413,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, ""));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "", 0));
     }
 
     void Set_add_originparam()
@@ -3504,7 +3504,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 1, ""));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 1, "", 0));
     }
 
     void Set_add_extremeparam()
@@ -3595,7 +3595,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 2, ""));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 2, "", 0));
     }
 
 

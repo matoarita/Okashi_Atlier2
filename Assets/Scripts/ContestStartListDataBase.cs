@@ -882,7 +882,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 191; //               
+                GameMgr.contest_boss_score = 185; //               
                 break;
 
             case 1:
@@ -897,7 +897,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 191; //
+                GameMgr.contest_boss_score = 185; //
                 break;
 
             case 2:
@@ -912,7 +912,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 191; //
+                GameMgr.contest_boss_score = 185; //
                 break;
 
             case 3:
@@ -927,7 +927,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 232; //
+                GameMgr.contest_boss_score = 185; //
                 break;
         }
 
@@ -946,7 +946,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 252; //点数が等倍なので高い
+        GameMgr.contest_boss_score = 242; //点数が等倍なので高い
         GameMgr.contest_boss_name = "イセヤ";
 
         //決勝戦の場所とBGMを指定
@@ -1029,7 +1029,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 208; //一回戦相手の点数
+                GameMgr.contest_boss_score = 178; //一回戦相手の点数
                 break;
         }
 
@@ -1061,7 +1061,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 212; //
+                GameMgr.contest_boss_score = 242; //
 
                 break;
 
@@ -1077,7 +1077,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 212; //
+                GameMgr.contest_boss_score = 242; //
 
                 break;
 
@@ -1093,7 +1093,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 212; //
+                GameMgr.contest_boss_score = 242; //
 
                 break;
 
@@ -1109,7 +1109,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 232; //
+                GameMgr.contest_boss_score = 242; //
 
                 break;
         }
@@ -1130,7 +1130,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 378; //
+        GameMgr.contest_boss_score = 458; //
         GameMgr.contest_boss_name = "ベル";
 
         //決勝戦の場所とBGMを指定
@@ -2157,7 +2157,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "");
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "", 0);
         }
     }
 

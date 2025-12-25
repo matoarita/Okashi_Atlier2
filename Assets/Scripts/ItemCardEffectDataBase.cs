@@ -630,7 +630,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
             _add_magicbeauty = (int)(_add_magicbeauty * 1.3f);
         }
 
-        aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
+        
     }
 
     void RoomBufKeisan()
@@ -673,6 +673,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
             Buf_SpScoreKeisan(1.0f + (0.18f * _mlv));
             _add_magicbeauty = (int)(_add_magicbeauty * (1.0f + (0.04f * _mlv)));
         }
+
+        aisho_text1 = "Œ©‚½–Ú + " + _add_magicbeauty.ToString();
     }
 
     void Buf_SpScoreKeisan(float _buf)

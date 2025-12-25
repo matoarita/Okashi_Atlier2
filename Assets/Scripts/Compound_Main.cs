@@ -4544,10 +4544,10 @@ public class Compound_Main : MonoBehaviour
                         heartget_ON = true;
                         break;
 
-                    case 130:
+                    case 130: //遊園地
 
                         _getheart_text = "いっぱい遊んで、喜んでいるようだ！";
-                        get_heart = 10;
+                        get_heart = 20;
                         girl1_status.GirlExpressionKoushin(50);
 
                         heartget_ON = true;
@@ -4562,8 +4562,17 @@ public class Compound_Main : MonoBehaviour
                             {
                                 case 1:
 
+
                                     _getheart_text = "ヒカリの勇気が少しわいてきた！";
-                                    get_heart = 100;
+                                    if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || 
+                                        GameMgr.Contest_Name == "Or_Contest_003" || GameMgr.Contest_Name == "Or_Contest_004")
+                                    {
+                                        get_heart = 300; //エデンコンだと多く上がる
+                                    }
+                                    else
+                                    {
+                                        get_heart = 100;
+                                    }                                   
                                     break;
 
                                 case 0:

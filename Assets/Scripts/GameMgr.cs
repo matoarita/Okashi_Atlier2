@@ -59,10 +59,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Yachin_ON = false; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
     public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
-    
+    public static bool System_CookCount_Buf = true; //お菓子を作った回数で、わずかに食感をアップする仕様のON/OFF
+
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数の〇分の一にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
-
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
     public static bool System_TabetaiOkashiStatusUp = false; //食べたいおかしをあげたときに、そのお菓子の食感が固定ステで上昇する仕様。falseならオフ。
 
@@ -135,8 +135,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4; //秘密の花園
-    public static int System_HeartBlockLv_10 = 45; //春祭壇　エデンレシピ解放 ハート
-    public static int System_HeartBlockLv_11 = 22; //冬祭壇　星の魔術書ゲット
+    public static int System_HeartBlockLv_10 = 27; //春祭壇　エデンレシピ解放 ハート
+    public static int System_HeartBlockLv_11 = 20; //冬祭壇　星の魔術書ゲット
 
     public static int System_HeartBlockLv_50 = 15; //冬
     public static int System_HeartBlockLv_51 = 13; //秋
@@ -148,7 +148,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 10; //城スター
 
-    public static int System_HeartLVevent_01 = 12; //ヒカリがお菓子作りを覚えるイベント発生
+    public static int System_HeartLVevent_01 = 15; //ヒカリがお菓子作りを覚えるイベント発生
+
+    //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
+    public static int System_trueheart_cost = 3000;
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 2000; //〇日ごとバージョン    
@@ -178,10 +181,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static string System_MagicLVName = "魔法Lv"; //各魔法ごとの個別LVも魔法LVとよぶから混同注意
     public static string System_MagicLVPoint = "魔法ポイント";
-    public static string System_MagicEXPName = "魔法経験値";
-
-    //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
-    public static int System_trueheart_cost = 3000;
+    public static string System_MagicEXPName = "魔法経験値";    
 
     //ゴンドラ乗り場の料金
     public static int System_gondra_cost = 5000;    
@@ -2100,7 +2100,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "");
+                        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, 0, "", 0);
         contest_okashiID = 0;
         contest_lasthint_text = ""; //
         contest_shokukan_param = 0; //

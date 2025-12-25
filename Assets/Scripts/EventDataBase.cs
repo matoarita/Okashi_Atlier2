@@ -781,7 +781,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //StarRank_ReleaseListの配列番号をみる　例)1 = starが7のときに解放されるイベントのこと GameMgr.Star_Eventlistを参照
                 //2番目はsubEventのnum 3番目はBGM　1のときは宴のBGMを鳴らす
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
-                StarReleaseEvent_check(1, 600, 0, "Non"); //7なのでショートケーキのレシピゲット
+                StarReleaseEvent_check(1, 600, 1, "Non"); //7なのでショートケーキのレシピゲット
                 StarReleaseEvent_check(2, 601, 1, "Non"); //9なのでコスチュームゲット
                 StarReleaseEvent_check(3, 302, 1, "Non"); //15なので、トッピング二個同時解放
                 //StarReleaseEvent_check(4, 355, 1, "dragon_carnival"); //18なので、休憩イベント

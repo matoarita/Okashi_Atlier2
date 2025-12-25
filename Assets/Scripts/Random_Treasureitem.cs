@@ -5,6 +5,7 @@ using UnityEngine;
 public class Random_Treasureitem : MonoBehaviour {
 
     private GameObject canvas;
+    private ItemDataBase database;
 
     private SoundController sc;
 
@@ -14,6 +15,7 @@ public class Random_Treasureitem : MonoBehaviour {
     private HirobaTreasureGetController hirobaTreasureget_Controller;
 
     private int i;
+    private int _itemid;
 
     // Use this for initialization
     void Start () {
@@ -26,6 +28,9 @@ public class Random_Treasureitem : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         hirobaTreasureget_Controller_obj = canvas.transform.Find("HirobaTreasureGetController").gameObject;
         hirobaTreasureget_Controller = hirobaTreasureget_Controller_obj.GetComponent<HirobaTreasureGetController>();
@@ -101,7 +106,9 @@ public class Random_Treasureitem : MonoBehaviour {
     {
         //青ジェム　もってると、MaxMPが1上がる
         GameMgr.hiroba_treasureget_Num = 0; //宝箱番号 メッセージが変わる 基本0のままでOK
-        GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01;
+
+        _itemid = database.SearchItemIDString("blue_jemstone");
+        GameMgr.hiroba_treasureget_Name = database.items[_itemid].itemNameHyouji; // GameMgr.System_TreasureItem01
         GameMgr.hiroba_treasureget_Kosu = 1;
 
         //アイテムの取得処理

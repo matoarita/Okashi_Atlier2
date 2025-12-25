@@ -4414,13 +4414,16 @@ public class GetMaterial : MonoBehaviour
             ItemGetMethodHikari(count, 1, _catID); //2番目が1だと、猫として指定。3番目の数字はcatid
         }
 
-        _cat_rarekaisu = _cat_kaisu / 3;
-        if(_cat_rarekaisu < 1) { _cat_rarekaisu = 1; }
-        //レアアイテムの入手
-        for (count = 0; count < _cat_rarekaisu; count++) //〇回繰り返す
+        _cat_rarekaisu = 0;
+        _cat_rarekaisu = Mathf.FloorToInt(_cat_kaisu / 4);
+        if (_cat_rarekaisu >= 1)
         {
+            //レアアイテムの入手
+            for (count = 0; count < _cat_rarekaisu; count++) //〇回繰り返す
+            {
 
-            RareItemGetMethodHikari(count, 1, _catID);
+                RareItemGetMethodHikari(count, 1, _catID);
+            }
         }
 
         //さらに、宝箱レアアイテムの入手

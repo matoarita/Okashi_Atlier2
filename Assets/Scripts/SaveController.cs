@@ -224,7 +224,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
                 database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
                 database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
-                database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+                database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext, database.items[i].Cook_kaisu));
         }
 
         //酒場クエストリストの人気フラグの獲得の取得
@@ -1164,8 +1164,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 if (playerData.save_itemdatabase[count].itemName == database.items[i].itemName)
                 {
                     database.items[i].HighScore_flag = playerData.save_itemdatabase[count].HighScore_flag;
-                    database.items[i].Eat_kaisu = playerData.save_itemdatabase[count].Eat_kaisu;    
-                    
+                    database.items[i].Eat_kaisu = playerData.save_itemdatabase[count].Eat_kaisu;
+                    database.items[i].Cook_kaisu = playerData.save_itemdatabase[count].Cook_kaisu;
+
                     database.items[i].last_total_score = playerData.save_itemdatabase[count].last_total_score;
                     database.items[i].last_rich_score = playerData.save_itemdatabase[count].last_rich_score;
                     database.items[i].last_sweat_score = playerData.save_itemdatabase[count].last_sweat_score;
@@ -1487,6 +1488,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < database.items.Count; i++)
         {
             database.items[i].Eat_kaisu = 0;
+            database.items[i].Cook_kaisu = 0;
 
             //装備品の引き継ぎは、強制的にオフ
             if (database.items[i].itemType_sub.ToString() == "Equip")

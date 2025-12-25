@@ -1235,7 +1235,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         yield return new WaitForSeconds(2.0f); //2秒待つ
 
         //お菓子を採点する
-        contest_judge.Contest_Judge_Start();
+        contest_judge.Contest_Judge_Start(0);
 
         //パネルのお菓子を削除
         pitemlist.deleteExtremePanelItem(0, 1);
@@ -1364,7 +1364,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     //デバッグ用にすぐに計算するボタン
     public void OnDebugContest_Judge_Now()
     {
-        contest_judge.Contest_Judge_Start();
+        contest_judge.Contest_Judge_Start(9999);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

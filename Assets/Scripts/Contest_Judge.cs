@@ -145,7 +145,7 @@ public class Contest_Judge : MonoBehaviour {
 	}
 
     //判定前に作ったお菓子のセッティング
-    public void Contest_Judge_Start()
+    public void Contest_Judge_Start(int _debug_status)
     {
         Debug.Log("コンテスト判定ON");
         Debug.Log("コンテスト場所: " + GameMgr.ContestSelectNum);
@@ -380,7 +380,10 @@ public class Contest_Judge : MonoBehaviour {
             }
             else
             {
-                GameMgr.contest_okashiNameList.Add(GameMgr.contest_okashiName);
+                if (_debug_status == 0) //デバッグのときは登録しない
+                {
+                    GameMgr.contest_okashiNameList.Add(GameMgr.contest_okashiName);
+                }
             }
         }
     }
@@ -639,7 +642,7 @@ public class Contest_Judge : MonoBehaviour {
                         if (_status == 1)
                         {
                             //クッキー系は点数が下がる
-                            //Contest_CookieHosei(0.65f);
+                            //Contest_CookieHosei(0.9f);
                         }
                         break;
 
@@ -647,8 +650,7 @@ public class Contest_Judge : MonoBehaviour {
 
                         if (_status == 1)
                         {
-                            //クッキー系は点数が下がる
-                            //Contest_CookieHosei(0.85f);
+
                         }
                         break;
 
@@ -656,8 +658,7 @@ public class Contest_Judge : MonoBehaviour {
 
                         if (_status == 1)
                         {
-                            //クッキー系は点数が下がる
-                            //Contest_CookieHosei(0.85f);
+
                         }
                         break;
                 }
@@ -729,8 +730,12 @@ public class Contest_Judge : MonoBehaviour {
                             {
                                 //SpScoreの値によって全体の点数に補正
                                 SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
+                                //クッキー系は点数が下がる
+                                //Contest_CookieHosei(0.9f);
                             }
-                        } else
+                        }
+                        else
                         {
                             //自由課題
                         }
@@ -738,7 +743,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 2:
 
-                        _score_hosei = 150;
+                        _score_hosei = 125;
 
                         if (GameMgr.ContestThemeSelectNum == 0)  //ひとつは光魔法を使ったおかし
                         {
@@ -757,9 +762,6 @@ public class Contest_Judge : MonoBehaviour {
                             {
                                 //SpScoreの値によって全体の点数に補正
                                 SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
-
-                                //クッキー系は点数が下がる
-                                Contest_CookieHosei(0.75f);
                             }
                         }
                         else if (GameMgr.ContestThemeSelectNum == 1) //チョコレート
@@ -778,8 +780,7 @@ public class Contest_Judge : MonoBehaviour {
 
                             if (_status == 1)
                             {
-                                //クッキー系は点数が下がる
-                                Contest_CookieHosei(0.75f);
+
                             }
                         }
                         else if (GameMgr.ContestThemeSelectNum == 2) //氷のおかし
@@ -802,8 +803,7 @@ public class Contest_Judge : MonoBehaviour {
                             //自由課題
                             if (_status == 1)
                             {
-                                //クッキー系は点数が下がる
-                                Contest_CookieHosei(0.75f);
+
                             }
                         }
                         break;
@@ -814,8 +814,7 @@ public class Contest_Judge : MonoBehaviour {
 
                         if (_status == 1)
                         {
-                            //クッキー系は点数が下がる
-                            Contest_CookieHosei(0.75f);
+                            
                         }
                         break;
                 }
@@ -830,7 +829,10 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
-                    
+
+                    //クッキー系は点数が下がる
+                    Contest_CookieHosei(0.9f);
+
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
@@ -851,7 +853,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     case 1:
 
-                        _score_hosei = 170;
+                        _score_hosei = 150;
 
                         if (GameMgr.ContestThemeSelectNum == 0) //メルヘンお菓子
                         {
@@ -908,7 +910,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 2:
 
-                        _score_hosei = 190;
+                        _score_hosei = 150;
 
                         if (GameMgr.ContestThemeSelectNum == 0) //風のチョコレート
                         {
@@ -977,7 +979,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 3:
 
-                        _score_hosei = 190;
+                        _score_hosei = 120; //等倍する代わりに、ベルちゃんも点数が高め
                         break;
                 }
 
@@ -991,8 +993,8 @@ public class Contest_Judge : MonoBehaviour {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
 
-                    //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.65f);
+                    //クッキー系は点数が下がる 結構きつめ
+                    Contest_CookieHosei(0.85f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1036,7 +1038,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.65f);
+                    Contest_CookieHosei(0.9f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1164,7 +1166,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
-                    Contest_ShokukanHosei_10();
+                    Contest_ShokukanHosei_11();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -1721,7 +1723,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.75f);
+                    Contest_CookieHosei(0.85f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1790,7 +1792,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.85f);
+                    Contest_CookieHosei(0.9f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1839,7 +1841,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(120); //50%
+                    ScoreNormalized(100); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -1911,9 +1913,6 @@ public class Contest_Judge : MonoBehaviour {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
 
-                    //クッキー系は点数が下がる
-                    //Contest_CookieHosei(0.75f);
-
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
@@ -1954,9 +1953,6 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
-
-                    //クッキー系は点数が下がる
-                    //Contest_CookieHosei(0.75f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -2006,11 +2002,11 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
 
-                    //審査員３　じいさんだけ、食感の補正
-                    Contest_ShokukanHosei_1();
+                    //審査員３　じいさんだけ、食感の補正　
+                    Contest_ShokukanHosei_1(); //香りなので、香り用の補正を中でかける
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(170); //50%
+                    ScoreNormalized(120); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -2064,7 +2060,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(100); //50%
+                    ScoreNormalized(120); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -2093,7 +2089,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.75f);
+                    Contest_CookieHosei(0.85f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -2132,7 +2128,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_KoyuOkashiHosei_1();
 
                     //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.75f);
+                    Contest_CookieHosei(0.9f);
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -2176,7 +2172,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(130); //80%
+                    ScoreNormalized(120); //80%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -2217,9 +2213,6 @@ public class Contest_Judge : MonoBehaviour {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
 
-                    //クッキー系は点数が下がる
-                    //Contest_CookieHosei(0.75f);
-
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
@@ -2231,7 +2224,7 @@ public class Contest_Judge : MonoBehaviour {
                     SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(170); //50%
+                    ScoreNormalized(130); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
@@ -2320,7 +2313,6 @@ public class Contest_Judge : MonoBehaviour {
     {
         SetBeforeScore();
         
-
         //クッキー・ラスクは点数が下がる
         if (item_subType == "Cookie" || item_subType == "Rusk" || 
             item_subTypeB == "a_Cookie" || item_subTypeB == "a_Cookie_Hard" || item_subTypeB == "a_Rusk")
@@ -2422,6 +2414,19 @@ public class Contest_Judge : MonoBehaviour {
 
     void Contest_ShokukanHosei_1()
     {
+        if (item_subType == "Tea" || item_subType == "Coffee") //香り用の食感補正
+        {
+            Contest_Shokukan_TeaHosei();
+        }
+        else
+        {
+            Contest_Shokukan_NormalOkashiHosei();
+        }
+        
+    }
+
+    void Contest_Shokukan_NormalOkashiHosei()
+    {
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
         if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
         {
@@ -2443,7 +2448,7 @@ public class Contest_Judge : MonoBehaviour {
             jiisan_shokukan_hosei = 1.2f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 120 && GameMgr.contest_Taste_Score[2] < 150) 
+        else if (GameMgr.contest_Taste_Score[2] >= 120 && GameMgr.contest_Taste_Score[2] < 150)
         {
             jiisan_shokukan_hosei = 1.3f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.3f);
@@ -2492,7 +2497,7 @@ public class Contest_Judge : MonoBehaviour {
             jiisan_shokukan_hosei = 3.0f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 1500) 
+        else if (GameMgr.contest_Taste_Score[2] >= 1500)
         {
             jiisan_shokukan_hosei = 4.0f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
@@ -2501,7 +2506,7 @@ public class Contest_Judge : MonoBehaviour {
         {
             jiisan_shokukan_hosei = 0.3f;
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.3f);
-        }        
+        }
 
         total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
 
@@ -2509,6 +2514,82 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
     }
+
+    //ティーなどの香り用　倍率が違う
+    void Contest_Shokukan_TeaHosei()
+    {
+        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+        if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
+        {
+            jiisan_shokukan_hosei = 1.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 60)
+        {
+            jiisan_shokukan_hosei = 1.2f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.3f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 60 && GameMgr.contest_Taste_Score[2] < 100)
+        {
+            jiisan_shokukan_hosei = 1.4f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.4f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 100 && GameMgr.contest_Taste_Score[2] < 120) //100のかべ
+        {
+            jiisan_shokukan_hosei = 1.6f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.6f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 120 && GameMgr.contest_Taste_Score[2] < 150)
+        {
+            jiisan_shokukan_hosei = 1.8f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.8f);
+        }
+
+        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 200) //150のかべ
+        {
+            jiisan_shokukan_hosei = 2.2f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.2f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 200 && GameMgr.contest_Taste_Score[2] < 300)
+        {
+            jiisan_shokukan_hosei = 2.5f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.5f);
+        }
+
+        else if (GameMgr.contest_Taste_Score[2] >= 300 && GameMgr.contest_Taste_Score[2] < 400) //300のかべ
+        {
+            jiisan_shokukan_hosei = 3.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 400 && GameMgr.contest_Taste_Score[2] < 500) //400
+        {
+            jiisan_shokukan_hosei = 4.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
+        }
+
+        else if (GameMgr.contest_Taste_Score[2] >= 500 && GameMgr.contest_Taste_Score[2] < 650) //500のかべ
+        {
+            jiisan_shokukan_hosei = 5.25f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 5.25f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 650)
+        {
+            jiisan_shokukan_hosei = 6.0f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 6.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] < 0)
+        {
+            jiisan_shokukan_hosei = 0.3f;
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.6f);
+        }
+
+        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
+
+        Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。 " + jiisan_shokukan_hosei + " 下の食感の値が最終の食感点数");
+        Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
+        Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
+    }
+
 
     void Contest_ShokukanHosei_10() //アントワネット王妃は、見た目の比重を大きくするため、食感の点数は影響を下げる。ほんの少しでOK。
     {
@@ -2518,6 +2599,18 @@ public class Contest_Judge : MonoBehaviour {
         //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
         Debug.Log("審査員２　王妃は食感の点数は少し下がる。*0.9。下の食感の値が最終の食感点数");
+        Debug.Log("審査員２　食感補正前：" + before_tastescore[1] + "点");
+        Debug.Log("審査員２　食感補正後：" + GameMgr.contest_Taste_Score[1] + "点");
+    }
+
+    void Contest_ShokukanHosei_11() //アントワネット王妃は、見た目の比重を大きくするため、食感の点数は影響を下げる。ベオルヴ家など。やや比重大きめ。
+    {
+        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
+
+        total_score[1] = total_score[1] - before_tastescore[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f);
+        //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
+
+        Debug.Log("審査員２　王妃は食感の点数は少し下がる。*0.7。下の食感の値が最終の食感点数");
         Debug.Log("審査員２　食感補正前：" + before_tastescore[1] + "点");
         Debug.Log("審査員２　食感補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }
@@ -2537,6 +2630,9 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
         Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
     }
+
+
+
 
     void Contest_BeautyHosei_1() //contest_Beauty_Scoreは、judge_beautyからベースを単純に引いた点数
     {
@@ -2569,11 +2665,11 @@ public class Contest_Judge : MonoBehaviour {
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 270 && GameMgr.contest_Beauty_Score[1] < 320)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.9f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 320)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.2f);
         }
         else if (GameMgr.contest_Beauty_Score[1] <= 0)
         {
@@ -2596,6 +2692,14 @@ public class Contest_Judge : MonoBehaviour {
 
         Debug.Log("審査員３　じいさん　見た目点数を0に。");
     }
+
+
+
+
+
+
+
+
 
     //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK　各審査員に適用
     void SpScoreHosei_1(int _spscore) //_spscoreは、おかしに入っている値から、好みの判定値を引き算した値　足りてない場合マイナスもある
@@ -2651,21 +2755,21 @@ public class Contest_Judge : MonoBehaviour {
         }
     }
 
-    //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK
+    //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK　補正強め　低いか同じぐらいだと点数でない
     void SpScoreHosei_2(int _spscore)
     {
         if (_spscore >= 0 && _spscore < 5) //少し上がる
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 0.65f);
+                total_score[i] = (int)(total_score[i] * 0.8f);
             }
         }
         else if (_spscore >= 5 && _spscore < 20) //ふつう
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 0.75f);
+                total_score[i] = (int)(total_score[i] * 0.85f);
             }
         }
         else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
@@ -2679,42 +2783,42 @@ public class Contest_Judge : MonoBehaviour {
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 1.15f);
+                total_score[i] = (int)(total_score[i] * 1.25f);
             }
         }
         else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 1.22f);
+                total_score[i] = (int)(total_score[i] * 1.32f);
             }
         }
         else if (_spscore >= 80 && _spscore < 110) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 1.32f);
+                total_score[i] = (int)(total_score[i] * 1.55f);
             }
         }
         else if (_spscore >= 110 && _spscore < 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 1.45f);
+                total_score[i] = (int)(total_score[i] * 2.05f);
             }
         }
         else if (_spscore >= 150) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 1.65f);
+                total_score[i] = (int)(total_score[i] * 2.55f);
             }
         }
-        else if (_spscore < 0) //足りてないと0.75
+        else if (_spscore < 0) //足りてないと0.55
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 0.35f);
+                total_score[i] = (int)(total_score[i] * 0.55f);
             }
         }
     }

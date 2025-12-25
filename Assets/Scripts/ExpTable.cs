@@ -231,7 +231,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
 
                 case 30:
-                    
+
+                    MagicLearnPanelHyouji("Rainbow_Rain");
                     break;
 
                 case 31:
@@ -251,7 +252,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 50:
 
-                    MagicLearnPanelHyouji("Rainbow_Rain");
+                    
                     ShiageUpPanelHyouji();
                     break;
 
@@ -388,7 +389,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 Magic_Learn("Warming_Handmade");
             }
 
-            if (_lv >= 50)
+            if (_lv >= 30)
             {
                 Magic_Learn("Rainbow_Rain");
             }

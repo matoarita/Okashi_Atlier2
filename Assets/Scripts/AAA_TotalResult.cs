@@ -145,6 +145,7 @@ public class AAA_TotalResult : MonoBehaviour {
         BG_1 = BG_panel.transform.Find("Title_BG").gameObject;
         BG_2 = BG_panel.transform.Find("Title_BG_Black").gameObject;
         BG_2.SetActive(false);
+        
 
         foreach (Transform child in canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList4/ED_View/Viewport/Content").transform) //
         {
@@ -239,6 +240,25 @@ public class AAA_TotalResult : MonoBehaviour {
         //** デバッグ用 **/
         //DebugParam();
         // *** //
+
+        switch (GameMgr.ending_number)
+        {
+            case 1: //ヒカリが助かるEND　お店を開く
+
+                BG_1.SetActive(true); //ベストED背景
+                BG_2.SetActive(false);
+                break;
+
+            case 2: //ノーマルエンド　ヒカリが消える
+                BG_1.SetActive(false);
+                BG_2.SetActive(true); //黒背景に☆がキラキラ
+                break;
+
+            case 3: //バッドエンド？
+
+
+                break;
+        }
 
         //クリア時のハートを更新
         GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
@@ -948,7 +968,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
             case 2: //ノーマルエンド　ヒカリが消える
 
-                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、このかなしい結末を変えることができたかもしれない・・。";
+                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、なにか別の結末に、変えることができたかもしれない・・。";
                 break;
 
             case 3: //バッドエンド？

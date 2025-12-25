@@ -1039,12 +1039,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_Street2":
 
-                if (GameMgr.NPCHiroba_eventList[12]) //先にエデンコンを優勝した場合
+                /*if (GameMgr.NPCHiroba_eventList[12]) //先にエデンコンを優勝した場合
                 {
                     On_Active2000(200200, false); //不思議な力で通れない
                 }
                 else
-                {
+                {*/
                     if (GameMgr.outgirl_Nowprogress) //ヒカリがいないと不思議な力で通れない
                     {
                         On_Active2000(200200, false); //不思議な力で通れない
@@ -1068,7 +1068,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                             }
                         }
                     }
-                }
+                //}
                 break;
 
             case "Or_Hiroba_Winter_ContestBridge": //冬の橋
@@ -1629,12 +1629,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_RotenStreet2":
 
-                if (GameMgr.NPCHiroba_eventList[11]) //先にエデンコンを優勝した場合
+                /*if (GameMgr.NPCHiroba_eventList[11]) //先にエデンコンを優勝した場合
                 {
                     On_Active2000(200200, false); //不思議な力で通れない
                 }
                 else
-                {
+                {*/
                     if (GameMgr.outgirl_Nowprogress) //ヒカリがいないと不思議な力で通れない
                     {
                         On_Active2000(200200, false); //不思議な力で通れない
@@ -1649,7 +1649,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         {
                             if (GameMgr.NPCHiroba_blockReleaseList[10])
                             {
-                                //エデンレシピ星の祭壇へ
+                                //エデンレシピハートの祭壇へ
                                 On_Active18();
 
                             }
@@ -1660,7 +1660,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                             }
                         }
                     }
-                }
+                //}
                 break;
 
             case "Or_Hiroba_Spring_Flower_Campo":
@@ -4933,7 +4933,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    default_scenetext = "ホテルたのしかった～！" + "\n" + "またいこ～ね♪" + "\n" + "体力とMPが全回復した！";
+                    default_scenetext = "ホテルたのしかった～！" + "\n" + "またいこ～ね♪";// + "\n" + "体力とMPが全回復した！";
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
@@ -4955,7 +4955,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    default_scenetext = "温泉きもちよかったね～！" + "\n" + "コーヒー牛乳うまい。にいちゃん♪" + "\n" + "体力とMPが全回復した！";
+                    default_scenetext = "温泉きもちよかったね～！" + "\n" + "コーヒー牛乳うまい。にいちゃん♪"; // + "\n" + "体力とMPが全回復した！";
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
