@@ -1714,7 +1714,7 @@ public class Quest_Judge : MonoBehaviour {
                 _MSMoney = 0;
                 for (i = 0; i < _baseMS.Length; i++)
                 {
-                    _MSMoney = _baseMSvalue[i] * 200;
+                    _MSMoney = _baseMSvalue[i] * 300;
                     _getMoney += _MSMoney; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
                 }
 

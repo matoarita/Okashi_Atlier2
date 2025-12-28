@@ -633,7 +633,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
 
     //バージョン情報
-    public static float GameVersion = 2.0f;
+    public static float GameVersion = 2.01f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
