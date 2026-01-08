@@ -787,9 +787,32 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.CompoundEvent_num[30] = true;
             GameMgr.CompoundEvent_flag = true;
 
+            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+            GameMgr.SubEvAfterHeartGet_num = 111;
+
             check_event = true;           
 
             EventReadingStart();
+        }
+
+        if (GameMgr.NPCHiroba_eventList[0]) //はじめてきたは終了
+        {
+            if (!GameMgr.NPCHiroba_eventList[20]) //はじめてきた
+            {
+                GameMgr.NPCHiroba_eventList[20] = true;
+
+                //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+                GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント場所番号　Excelの「Hiroba_Or_Contest_ReceptionTalk」を指定
+                GameMgr.hiroba_event_ID = 1010;
+
+                //BGMかえる
+                sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                bgm_change_flag = true;
+
+                check_event = true;
+
+                EventReadingStart();
+            }
         }
 
         if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
@@ -1135,6 +1158,7 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
             GameMgr.Contest_BGMSelectHall = conteststartList_database.conteststart_lists[_id].ContestBGMSelectHall;
+            GameMgr.Contest_FightsCount = conteststartList_database.conteststart_lists[_id].ContestFightsCount;
 
             //出場回数+1
             conteststartList_database.conteststart_lists[_id].ContestFightsCount++;

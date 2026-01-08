@@ -562,16 +562,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     {
         stage1_hlvTable.Clear();
         stage1_hlvTable.Add(15); //LV2。LV1で、次のレベルが上がるまでの好感度値
-        stage1_hlvTable.Add(60);　//LV3 LV1の分は含めない。
-        stage1_hlvTable.Add(120); //LV4
-        stage1_hlvTable.Add(200); //LV5
-        stage1_hlvTable.Add(300); //LV6
-        stage1_hlvTable.Add(410); //LV7
-        stage1_hlvTable.Add(530); //LV8
-        stage1_hlvTable.Add(650); //LV9
-        stage1_hlvTable.Add(780); //LV10
-        stage1_hlvTable.Add(920); //LV11
-        stage1_hlvTable.Add(1050); //LV12
+        stage1_hlvTable.Add(40);　//LV3 LV1の分は含めない。
+        stage1_hlvTable.Add(80); //LV4
+        stage1_hlvTable.Add(150); //LV5
+        stage1_hlvTable.Add(220); //LV6
+        stage1_hlvTable.Add(300); //LV7
+        stage1_hlvTable.Add(400); //LV8
+        stage1_hlvTable.Add(550); //LV9
+        stage1_hlvTable.Add(700); //LV10
+        stage1_hlvTable.Add(850); //LV11
+        stage1_hlvTable.Add(1000); //LV12
         stage1_hlvTable.Add(1200); //LV13
         stage1_hlvTable.Add(1350); //LV14
         stage1_hlvTable.Add(1500); //LV15

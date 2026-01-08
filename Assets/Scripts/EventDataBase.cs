@@ -378,6 +378,16 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             ReturnHome_check(110, false); //ミラボ先生にはじめて会って帰ってきた
             ReturnHome_check(120, false); //ぬねちゃんにはじめて会って帰ってきた
             ReturnHome_check(130, false); //遊園地で遊んで帰ってきた 何度でも発生する
+            ReturnHome_check(200, false); //はじめての家　さいしょの家
+            ReturnHome_check(201, false); //はじめての家　お花と森
+            ReturnHome_check(202, false); //はじめての家　ラベンダー
+            ReturnHome_check(203, false); //はじめての家　すずらん
+            ReturnHome_check(204, false); //はじめての家　オーシャン
+            ReturnHome_check(205, false); //はじめての家　おほしさま
+            ReturnHome_check(206, false); //はじめての家　ヨーロピアン
+            ReturnHome_check(207, false); //はじめての家　ねこ
+            ReturnHome_check(208, false); //はじめての家　ゲージュツ
+
 
             if (!GameMgr.CompoundEvent_num[30]) //コンテストについて知ったので、アマクサ帰りのコンテストどこ～？イベントは発生しなくなる。
             {
@@ -1373,18 +1383,46 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (!GameMgr.GirlLoveSubEvent_stage1[700])
                         {
                             GameMgr.GirlLoveSubEvent_stage1[700] = true;
-                            Event_startcheck(700, 0, false, false, 0);
+                            Event_startcheck(700, 1, false, false, 0);
                         }
                     }
                 }
-
-
-
-
+               
 
                 //
                 //寝ておきたあとにチェックする系のイベント
                 //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[0]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[0] = false;
+
+                        Debug.Log("チェック　本日がコンテスト開催日かどうか");
+                        i = 0;
+                        while (i < GameMgr.contest_accepted_list.Count)
+                        {
+                            if (GameMgr.contest_accepted_list[i].Month == PlayerStatus.player_cullent_month &&
+                                GameMgr.contest_accepted_list[i].Day == PlayerStatus.player_cullent_day)
+                            {
+                                Debug.Log("本日コンテスト開催日 " + GameMgr.contest_accepted_list[i].Month + "/" + GameMgr.contest_accepted_list[i].Day + " " +
+                                    GameMgr.contest_accepted_list[i].contestName);
+
+                                GameMgr.GirlLoveSubEvent_num = 1000;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                                GameMgr.Mute_on = true;
+                                break;
+                            }
+                            i++;
+                        }
+
+                    }
+                }
+
+
 
                 //
                 //コンテストの開催日になった
@@ -1694,7 +1732,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.Contest_afterHomeEventFlag = false;
 
                             //コンテスト一回でたあと、コンテストメモについてのイベント
-                            if (conteststartList_database.SearchContestVictory("Or_Contest_010") != 0) //クッキーコンテストでとりあえず出場し順位入った。
+                            /*if (conteststartList_database.SearchContestVictory("Or_Contest_010") != 0) //クッキーコンテストでとりあえず出場し順位入った。
                             {
                                 //
                                 if (!GameMgr.GirlLoveSubEvent_stage1[420])
@@ -1706,7 +1744,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.Mute_on = true;
 
                                 }
-                            }
+                            }*/
 
                             //夏コンテスト優勝した場合、エデン２つめをゲットしたぞ～のイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1) //一位をゲットしてた＝エデン２をゲット
@@ -1782,29 +1820,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         GameMgr.check_SleepEnd_Eventflag[4] = false;
                         Debug.Log("コンテスト終了後　ヒカリorNPCがくるイベントチェック");
 
-                        //コンテスト初出場し、ミラボ先生にあった後から、発生する
-                        if (GameMgr.NPCMagic_eventList[0])
-                        {
-                            if (conteststartList_database.ReturnVictoryCount(1) >= 1) //一位のトータル取得数をゲット
-                            {
-                                if (GameMgr.NPCHiroba_eventDayCounter[0] <= 0) //カウンタは寝たあとで1減っていく
-                                {
-                                    //一位を一回以上取った場合、アマクサが初優勝時にほめてくれるイベント発生　2日後ぐらいに発生する。
-                                    if (!GameMgr.NPCHiroba_eventList[1031])
-                                    {
-                                        GameMgr.NPCHiroba_eventList[1031] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 3000;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GameMgr.Mute_on = true;
-
-                                        //アマノシャンメリーくれる
-                                        pitemlist.addPlayerItemString("amano_champmery", 1);
-                                        //pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
-                                    }
-                                }
-                            }
-                        }
+                        
 
                         //街へでよう！クエストのとき、まだコンテスト会場いってない場合 会場へいこうと促すイベント
                         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -2392,6 +2408,43 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
             }*/
+
+
+            //
+            //お昼の12時をこえたらチェックするイベント
+            //
+            if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 20) //
+            {
+                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                {
+                }
+                else
+                {
+                    if (!GameMgr.outgirl_Nowprogress) //ヒカリが家にいないと発生しない
+                    {
+                        if (GameMgr.NPCMagic_eventList[0]) //コンテスト初出場し、ミラボ先生にあった後から、発生する
+                        {
+                            if (conteststartList_database.ReturnVictoryCount(1) >= 1) //一位のトータル取得数をゲット
+                            {
+                                //一位を一回以上取った場合、アマクサが初優勝時にほめてくれるイベント発生　次の日の昼に発生　すぐ発生だと味気がないので間を空ける
+                                if (!GameMgr.NPCHiroba_eventList[1031])
+                                {
+                                    GameMgr.NPCHiroba_eventList[1031] = true;
+
+                                    GameMgr.GirlLoveSubEvent_num = 3000;
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                    //アマノシャンメリーくれる
+                                    pitemlist.addPlayerItemString("amano_champmery", 1);
+                                    //pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
 
             //ねこがランダムでやってくる
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避

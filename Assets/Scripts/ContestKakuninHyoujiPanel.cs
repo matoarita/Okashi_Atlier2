@@ -324,8 +324,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     public void OnMoveContestA()
     {
-        //入店の音
-        sc.PlaySe(150);
+        //決定の音
+        sc.PlaySe(28); //150 入店の音
         GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。        
@@ -337,8 +337,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     public void OnMoveContestB()
     {
-        //入店の音
-        sc.PlaySe(150);
+        //決定の音
+        sc.PlaySe(28); //150 入店の音
         GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。        
@@ -350,8 +350,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     public void OnMoveContestC()
     {
-        //入店の音
-        sc.PlaySe(150);
+        //決定の音
+        sc.PlaySe(28); //150 入店の音
         GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。        
@@ -363,8 +363,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     public void OnMoveContestD()
     {
-        //入店の音
-        sc.PlaySe(150);
+        //決定の音
+        sc.PlaySe(28); //150 入店の音
         GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。        

@@ -144,6 +144,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_Name = contest_name_origin;
         GameMgr.Contest_NameHyouji = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestNameHyouji;
         GameMgr.Contest_EnshutuNameHyouji = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestEnshutuName;
+        
+
 
         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
         {

@@ -149,6 +149,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     public int star_Count;
     private int emeraldonguri_status;
 
+    private bool highscore_SPEventlist_heartup;
+
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -1559,6 +1561,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         topping_flag_point = 0;
         topping_flag = false;
         topping_all_non = false; //判定のトッピングスロットが全てNon
+        highscore_SPEventlist_heartup = false;
         //last_score_kousin = false;
 
         //未使用。
@@ -1965,8 +1968,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         if (_basename == items)
                         {
-                            if (total_score >= GameMgr.sp_omoide_high_score)
+                            Debug.Log("高得点おかし　クリア点数: " + items + " " + GameMgr.Highscore_SPEventScore[items]);
+                            if (total_score >= GameMgr.Highscore_SPEventScore[items])
                             {
+                                highscore_SPEventlist_heartup = true; //特別ボーナスでハートが多めに上がる
+
                                 //さらに思い出イベントリストをチェックし、一致するおかしの名前があれば、そのイベントは思い出イベントでもあるので、回想シーン用にフラグ解禁する
                                 GameMgr.SetHikariOmoideFlag(items, true);
 
@@ -3798,7 +3804,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
 
 
-            //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
+            //ハートレベルにつれて、ハート量補正。
+            if (PlayerStatus.girl1_Love_lv < 9)
+            {
+                Getlove_exp = (int)(Getlove_exp * 1.75f);
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 9 && PlayerStatus.girl1_Love_lv < 15)
+            {
+                Getlove_exp = (int)(Getlove_exp * 1.45f);
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 15 && PlayerStatus.girl1_Love_lv < 35)
+            {
+                Getlove_exp = (int)(Getlove_exp * 1.25f);
+            }
             /*if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 80)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.85f);
@@ -3820,8 +3838,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Getlove_exp = (int)(Getlove_exp * 1.0f);
             }*/
 
-            //コンテスト攻略を軸にするため、おかしでのハート上げはほぼ効果なしバージョン。コンテストクリアでハート上がる。
-            //Getlove_exp = (int)(Getlove_exp * 0.3f);
+            //おかし高得点イベントが発生してた場合、ハート量をアップ
+            if(highscore_SPEventlist_heartup)
+            {
+                highscore_SPEventlist_heartup = false;
+                Getlove_exp = (int)(Getlove_exp * 1.55f);
+            }
 
             //ハート　装備品による補正
             if (pitemlist.KosuCount("aroma_potion1") >= 1)
@@ -5505,28 +5527,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100210:
 
-                //水族館へ行き、白クジラと会話すればクリア
-                /*if (GameMgr.NPCHiroba_eventList[260])
+                //ソーダアイランドへ行けばクリア
+                if (GameMgr.NPCHiroba_HikarieventList[250])
                 {
-                    Debug.Log("白くじらに会ったので、クエストクリア");
+                    Debug.Log("ソーダアイランドへ行ったので、クエストクリア");
                     sp_quest_clear = true;
-                }*/
+                }
+                break;
 
-                //夏か秋どちらかのコンテストで優勝し、2つ目のレシピをゲットすれば先へすすめる
-                /*if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1 ||
-                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
-                {
-                    Debug.Log("エデンレシピ2つ目をとったので、クエストクリア");
-                    sp_quest_clear = true;
-                }*/
-
-                //夏コンテストで優勝すると先へ進める
-                /*_id = conteststartList_database.SearchContestString("Or_Contest_002");
-                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
-                {
-                    Debug.Log("エデンコンテスト②で優勝したので、クエストクリア");
-                    sp_quest_clear = true;
-                }*/
+            case 100220:
 
                 //エデンレシピ2つ目をゲットしたのでクリア
                 if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1)
@@ -5536,24 +5545,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
                 break;
 
-            case 100220:
-
-                //エデンのレシピ３つを持った時点でクリア
-                /*if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
-                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
-                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
-                {
-                    Debug.Log("エデンレシピ３つそろったので、クエストクリア");
-                    sp_quest_clear = true;
-                }*/
-
-                //秋コンテストで優勝すると先へ進める
-                /*_id = conteststartList_database.SearchContestString("Or_Contest_003");
-                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
-                {
-                    Debug.Log("エデンコンテスト③で優勝したので、クエストクリア");
-                    sp_quest_clear = true;
-                }*/
+            case 100230:
 
                 //エデンレシピ3つ目をゲットしたのでクリア
                 if (pitemlist.KosuCountEvent("eden_recipi_04") >= 1)

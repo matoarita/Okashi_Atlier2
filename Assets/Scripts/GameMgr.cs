@@ -121,6 +121,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //スタンプラリーボードのコマ上限　すなわちスタンプのゴール
     public static int System_StampStarMax = 43;
 
+    //ベストED到達条件　HLV
+    public static int System_HeartLV_BestED = 50;
+
     //シーン移動の際の切り替え時間
     public static float SceneFadeTime = 0.5f;
 
@@ -729,7 +732,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int low_score;
     public static int high_score;
     public static int high_score_2;
-    public static int sp_omoide_high_score = 500; //お菓子の高得点で思い出イベントが発生する点数
+    //public static int sp_omoide_high_score = 500; //お菓子の高得点で思い出イベントが発生する点数
 
     //水っぽさなどの基準値
     public static int Watery_Line;
@@ -804,8 +807,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //スターで発生するイベントリスト　左が目標スター, 右がそのとき発生するイベント番号
     public static Dictionary<int, int> Star_Eventlist = new Dictionary<int, int>();
 
-    //150点以上で発生するイベントリスト
+    //150点以上で発生するイベントリスト　各お菓子ごとに高得点の範囲は多少調整（一応150点以上だが、ケーキとかは300点とか）
     public static Dictionary<string, int> Highscore_SPEventlist = new Dictionary<string, int>();
+    public static Dictionary<string, int> Highscore_SPEventScore = new Dictionary<string, int>();
 
     //はじめておかし作ったイベントリスト
     public static Dictionary<string, int> OkashiAtFirst_eventlist = new Dictionary<string, int>();
@@ -962,6 +966,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static int Contest_commentDB_Select; //番号に応じて、コメントのDBを指定
     public static int Contest_JudgeType; //コンテストによって、女の子の好み判定のほうを使用する場合もあり
+    public static int Contest_FightsCount; //コンテストの出場回数
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
     public static string Contest_Spscore_text; //特殊点の名前
@@ -1308,6 +1313,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] System_savepanel_slot = new bool[System_SaveSlot_Count]; //そこのスロットにセーブデータがあるかどうか
     public static string[] System_savepanel_title = new string[System_SaveSlot_Count];
     public static int[] System_savepanel_playtime = new int[System_SaveSlot_Count];
+    public static int[] System_savepanel_girllovelv = new int[System_SaveSlot_Count];
     public static int System_save_nowslot; //現在使用しているセーブスロット　セーブしたときにスロット番号も更新　オートセーブでここの番号を使用
 
     //ロードしたセーブデータのバージョン情報
@@ -2221,7 +2227,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各NPCイベントの日数カウンタのリセット
     public static void InitNPCEvent_DayCounterReset()
     {
-        NPCHiroba_eventDayCounter[0] = 1; //アマクサ優勝イベント発生までの日数
+        NPCHiroba_eventDayCounter[0] = 2; //アマクサ優勝イベント発生までの日数
         NPCHiroba_eventDayCounter[1] = 1; //ねこみみ少女　次会話発生までの日数
     }
 
@@ -2246,8 +2252,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomCost[5] = 50000;
         OrRoomCost[6] = 50000;
         OrRoomCost[7] = 50000;
-        OrRoomCost[8] = 300000;
-        OrRoomCost[9] = 500000;
+        OrRoomCost[8] = 100000;
+        OrRoomCost[9] = 150000;
 
         OrRoomNameHyouji[0] = "最初の家";
         OrRoomNameHyouji[1] = "花と森";
@@ -2783,21 +2789,40 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Star_Eventlist.Add(43, 10);
     }
 
-    //150点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり
+    //300点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり　各お菓子ごとで得点の範囲は多少変える　
     public static void Init_HighScoreSpecialSubEvent_Library()
     {
         Highscore_SPEventlist.Clear();
+        Highscore_SPEventScore.Clear();
 
         //思い出も解放される
         Highscore_SPEventlist.Add("star_cookie", 250); //右の番号は、GirlLoveSubEvent_numの番号
+        Highscore_SPEventScore.Add("star_cookie", 300); //右の数字は、クリア点数
         Highscore_SPEventlist.Add("maritozzo", 251);
+        Highscore_SPEventScore.Add("maritozzo", 300);
         Highscore_SPEventlist.Add("lumi_sapphire_neko_cookie", 254);
+        Highscore_SPEventScore.Add("lumi_sapphire_neko_cookie", 300);
         Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
+        Highscore_SPEventScore.Add("strawberry_sponge_cake", 300); //
+        
 
         //解放なしで読むイベントのみ（下の思い出リストには入ってないよ～という意味）
         Highscore_SPEventlist.Add("figure_bear_choco", 253); //くまのおにいさんかいもうと　食べると、ふたりのおうち制作のヒントレシピ解放
+        Highscore_SPEventScore.Add("figure_bear_choco", 300);
         Highscore_SPEventlist.Add("figure_bear_whitechoco", 253);
+        Highscore_SPEventScore.Add("figure_bear_whitechoco", 300);
         Highscore_SPEventlist.Add("princess_tota", 255);
+        Highscore_SPEventScore.Add("princess_tota", 500); //ケーキ系は500~
+        Highscore_SPEventlist.Add("cheese_cake", 256);
+        Highscore_SPEventScore.Add("cheese_cake", 300); 
+        Highscore_SPEventlist.Add("huwakoro", 257);
+        Highscore_SPEventScore.Add("huwakoro", 300); //
+        Highscore_SPEventlist.Add("potate_jewerybox", 258);
+        Highscore_SPEventScore.Add("potate_jewerybox", 300); //
+        Highscore_SPEventlist.Add("lumi_grape_cookie", 259);
+        Highscore_SPEventScore.Add("lumi_grape_cookie", 200); //クッキーラスク系は基本200~
+        Highscore_SPEventlist.Add("house_for_noisette", 260);
+        Highscore_SPEventScore.Add("house_for_noisette", 500); //
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
@@ -2940,7 +2965,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             
             if (CountHikariOmoideFlag() >= HikariOmoide_Eventlist.Count) //②思い出　ギャラリーすべて埋める 　※なくした　エデンの得点が500点以上 GirlEat_JudgeでOkashi_totalscoreは事前計算 Okashi_totalscore >= 500
             {
-                if(PlayerStatus.girl1_Love_maxlv >= 70) //③ハートレベルが70
+                if(PlayerStatus.girl1_Love_maxlv >= System_HeartLV_BestED) //③ハートレベルが50
                 {
                     if (game_Recipi_archivement_rate >= 70.0f) //④おかし手帳が70%以上　※システム共通データを参照でOK
                     {
@@ -2956,7 +2981,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 }
                 else
                 {
-                    Debug.Log("HLVが70未満");
+                    Debug.Log("HLVが" + System_HeartLV_BestED + "未満");
                     GirlLoveEvent_num = 100;
                     ending_number = 2;
                 }               

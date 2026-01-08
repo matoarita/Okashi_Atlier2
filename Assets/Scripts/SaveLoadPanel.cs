@@ -12,6 +12,8 @@ public class SaveLoadPanel : MonoBehaviour {
 
     private GameObject canvas;
 
+    private Girl1_status girl1_status; //女の子ステータス
+
     private SaveController save_controller;
     private TimeController time_controller;
 
@@ -31,12 +33,16 @@ public class SaveLoadPanel : MonoBehaviour {
     private GameObject _modetitle_obj1;
     private GameObject _modetitle_obj2;
 
-    private Sprite texture2d;
-    private Image _Img;
+    private Sprite icon_texture1;
+    private Sprite icon_texture2;
+    private Sprite icon_texture3;
+    private Sprite icon_texture4;
+    private Image _iconImg;
 
     private int count;
     private int i, n;
     private int _lv;
+    private int _girllove_lv, _girlgokigen_status;
     
 
     // Use this for initialization
@@ -55,6 +61,9 @@ public class SaveLoadPanel : MonoBehaviour {
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
         //スクロールビュー内の、コンテンツ要素を取得
         content = this.transform.Find("Panel/ScrollView/Viewport/Content").gameObject;
         textPrefab = (GameObject)Resources.Load("Prefabs/SaveloadListSelectToggle");           
@@ -65,6 +74,11 @@ public class SaveLoadPanel : MonoBehaviour {
 
         _modetitle_obj1 = this.transform.Find("Panel/titleText1").gameObject;
         _modetitle_obj2 = this.transform.Find("Panel/titleText2").gameObject;
+
+        icon_texture1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_04_Little_fine");
+        icon_texture2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_01_Normal");
+        icon_texture3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_02_Joukigen");
+        icon_texture4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_06_Tereru");
 
         i = 0;
         _listitem.Clear();
@@ -131,13 +145,16 @@ public class SaveLoadPanel : MonoBehaviour {
         //Debug.Log(i);
         _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
 
-        //_Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _iconImg = _listitem[list_count].transform.Find("SaveONButton/ImageFaceBG/ImageFaceIcon").GetComponent<Image>(); //アイテムの画像データ
+        _iconImg.sprite = icon_texture2; //デフォルトセット
 
         _toggle_itemID = _listitem[list_count].GetComponent<SaveloadListSelectToggle>();
         _toggle_itemID._toggleID = i; //アイテムIDを、リストビューのトグル自体にも記録させておく。 
 
         _text_title = _listitem[list_count].transform.Find("SaveONButton/Title").GetComponent<Text>(); //
         _text_playtime = _listitem[list_count].transform.Find("SaveONButton/PlayTime").GetComponent<Text>(); //
+
+
 
         //以下、セーブデータの有無とセーブかロードかで、表示を4パターン変更する。
         switch(GameMgr.SaveLoadPanel_mode)
@@ -157,6 +174,7 @@ public class SaveLoadPanel : MonoBehaviour {
 
                     _text_title.text = "ヒカリのセーブ " + (i + 1).ToString();
                     PlayTimeHyouji();
+                    GirlLoveIconHyouji();
                 }
 
                 break;
@@ -179,6 +197,7 @@ public class SaveLoadPanel : MonoBehaviour {
 
                     _text_title.text = "ヒカリのセーブ " + (i + 1).ToString();
                     PlayTimeHyouji();
+                    GirlLoveIconHyouji();
                 }
 
                 break;
@@ -186,9 +205,7 @@ public class SaveLoadPanel : MonoBehaviour {
         
 
 
-        //画像を変更
-        //texture2d = database.items[i].itemIcon_sprite;
-        //_Img.sprite = texture2d;
+        
 
         ++list_count;
     }
@@ -199,6 +216,30 @@ public class SaveLoadPanel : MonoBehaviour {
         _text_playtime.text = GameMgr.System_tempTime_Hour.ToString("00") + ":" +
             GameMgr.System_tempTime_Minute.ToString("00") + ":" +
             GameMgr.System_tempTime_Second.ToString("00"); //何分何秒にもどす
+    }
+
+    void GirlLoveIconHyouji()
+    {
+        _girllove_lv = GameMgr.System_savepanel_girllovelv[i];
+        _girlgokigen_status = girl1_status.CheckGokigenReturn(_girllove_lv);
+
+        //画像を変更 girl1_statusのゴキゲン状態とそろえる
+        if (_girlgokigen_status < 4) //LV4まではしょぼん
+        {
+            _iconImg.sprite = icon_texture1;
+        }
+        else if (_girlgokigen_status >= 4 && _girlgokigen_status < 6) //LV35まで通常元気
+        {
+            _iconImg.sprite = icon_texture2;
+        }
+        else if (_girlgokigen_status >= 6 && _girlgokigen_status < 7) //LV35上機嫌
+        {
+            _iconImg.sprite = icon_texture3;
+        }
+        else if (_girlgokigen_status >= 7) //LV40~照れ
+        {
+            _iconImg.sprite = icon_texture4;
+        }
     }
 
     public void OnNoButton()

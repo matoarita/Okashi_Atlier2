@@ -439,6 +439,23 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     break;
 
+                case "Or_Hiroba_Summer_Entrance":
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[10]) //はじめて夏エリアへきた
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[10] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 220100;
+
+                        check_event = true;
+
+                        //matplace_database.matPlaceKaikin("Or_Hiroba1"); //解禁
+
+                        EventReadingStart();
+                    }
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_Map": //遊園地入口マップ
 
                     if (!GameMgr.NPCHiroba_HikarieventList[250]) //はじめてソーダアイランドきた
@@ -481,6 +498,40 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_ID = 300000;
 
                         check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
+
+                case "Or_Hiroba_Autumn_Entrance":
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[20]) //はじめて秋エリアへきた
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[20] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 220200;
+
+                        check_event = true;
+
+                        //matplace_database.matPlaceKaikin("Or_Hiroba1"); //解禁
+
+                        EventReadingStart();
+                    }
+                    break;
+
+                case "Or_Hiroba_Winter_Entrance":
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[30]) //はじめて冬エリアへきた
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[30] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 220300;
+
+                        check_event = true;
+
+                        //matplace_database.matPlaceKaikin("Or_Hiroba1"); //解禁
 
                         EventReadingStart();
                     }
@@ -4262,7 +4313,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1621; //
 
-        GameMgr.NPCHiroba_eventList[1220] = true; //はじめてイベントは無くした。
+        //GameMgr.NPCHiroba_eventList[1220] = true; //はじめてイベントは無くした。
 
         if (!GameMgr.NPCHiroba_eventList[1220]) //はじめて
         {

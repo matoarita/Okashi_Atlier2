@@ -657,14 +657,14 @@ public class Compound_Main : MonoBehaviour
             starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").gameObject.SetActive(false);
         }
 
-        if (GameMgr.System_ContestIcon_OnFlag) //スターパネルをもらったあとはコンテストアイコンをON
+        /*if (GameMgr.System_ContestIcon_OnFlag) //スターパネルをもらったあとはコンテストアイコンをON
         {
             contest_kakuninButton_iconobj.SetActive(true);
         }
         else
         {
             contest_kakuninButton_iconobj.SetActive(false);
-        }
+        }*/
 
         /*if (!GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
         {
@@ -2195,9 +2195,9 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
-                //text_area.SetActive(true);
+                text_area.SetActive(true);
                 WindowOff();
-                //black_panel_A.SetActive(true);
+                black_panel_A.SetActive(true);
                 StartCoroutine("Contest_Final_select");
                 break;
 
@@ -3055,13 +3055,13 @@ public class Compound_Main : MonoBehaviour
                     else
                     {
                         GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                        _text.text = "コンテストに出るの？";
+                        _text.text = "コンテストに出場する？　にいちゃん。";
                         GameMgr.compound_status = 40;
-                        contest_CheckPanel_obj.SetActive(true);
+                        //contest_CheckPanel_obj.SetActive(true);
 
-                        /*yes_no_clear_panel.SetActive(true);
-                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
-                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;*/
+                        yes_no_clear_panel.SetActive(true);
+                        yes_no_clear_panel.transform.Find("Yes_Contest_Go").GetComponent<Button>().interactable = true;
+                        yes_no_clear_panel.transform.Find("Yes_Contest_Go").GetComponent<Sound_Trigger>().enabled = true;
                     }
                 }
                 else
@@ -3937,28 +3937,32 @@ public class Compound_Main : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
-
+        yes_selectitem_kettei.onclick = false;
         black_panel_A.SetActive(false);
+        yes_no_clear_panel.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {
             case true:
 
+                _text.text = "どのコンテスト会場にいく～？";
+                contest_CheckPanel_obj.SetActive(true);
+
+                /*
                 //コンテストへ進む処理
 
                 yes_no_clear_panel.SetActive(false);
-                yes_selectitem_kettei.onclick = false;
 
                 //キャラクタ位置を0にもどす。
                 girl1_status.ResetCharacterPosition();
-
-                switch (GameMgr.stage_number)
+                */
+                /*switch (GameMgr.stage_number)
                 {
                     case 1:
 
                         GameMgr.SceneSelectNum = GameMgr.Contest_MainStoryPlaceNum;
                         FadeManager.Instance.LoadScene("Or_Contest_Reception", 0.3f);
-                        break;
+                        break;*/
 
                     /*case 2:
 
@@ -3974,7 +3978,7 @@ public class Compound_Main : MonoBehaviour
                         FadeManager.Instance.LoadScene("100_Ending", 0.3f);
                         break;*/
 
-                }
+                //}
                 
 
                 break;
@@ -3986,7 +3990,6 @@ public class Compound_Main : MonoBehaviour
                 StartMessage();
                 GameMgr.compound_status = 0;
 
-                yes_selectitem_kettei.onclick = false;
                 break;
 
         }
@@ -4535,10 +4538,19 @@ public class Compound_Main : MonoBehaviour
                         heartget_ON = true;
                         break;
 
-                    case 110:
+                    case 110: //初ショップから帰ってきたときにハートアップ
 
                         _getheart_text = "ほんの少し、ヒカリの勇気がわいてきた！";
                         get_heart = 15;
+                        girl1_status.GirlExpressionKoushin(50);
+
+                        heartget_ON = true;
+                        break;
+
+                    case 111: //初コンテスト会場から帰ってきたときにハートアップ
+
+                        _getheart_text = "少しだけ、ヒカリの勇気がわいてきた！";
+                        get_heart = 50;
                         girl1_status.GirlExpressionKoushin(50);
 
                         heartget_ON = true;
@@ -4567,11 +4579,11 @@ public class Compound_Main : MonoBehaviour
                                     if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || 
                                         GameMgr.Contest_Name == "Or_Contest_003" || GameMgr.Contest_Name == "Or_Contest_004")
                                     {
-                                        get_heart = 300; //エデンコンだと多く上がる
+                                        get_heart = 25; //エデンコンだと多く上がる
                                     }
                                     else
                                     {
-                                        get_heart = 100;
+                                        get_heart = 10;
                                     }                                   
                                     break;
 
@@ -4591,38 +4603,46 @@ public class Compound_Main : MonoBehaviour
                             {
                                 case 1:
 
-                                    _getheart_text = "ヒカリは喜びのダンスを踊っている！";
-                                    get_heart = 100;
+                                    if (GameMgr.Contest_pastVictory_on) //過去優勝したことがある場合
+                                    {
+                                        _getheart_text = "さすがだ、にいちゃん！！　せかいいちぃ～♪";
+                                        get_heart = 0;
+                                    }
+                                    else
+                                    {
+                                        _getheart_text = "にいちゃん、すっごいよ～！！　ヒカリうれしい～♪";
+                                    }
+                                    get_heart = 20;
                                     break;
 
                                 case 2:
 
-                                    _getheart_text = "ヒカリは応援している！";
-                                    get_heart = 25;
+                                    _getheart_text = "たのしかった～♪　ヒカリは応援している！";
+                                    get_heart = 0;
                                     break;
 
                                 case 3:
 
                                     _getheart_text = "ヒカリは応援している！";
-                                    get_heart = 10;
+                                    get_heart = 0;
                                     break;
 
                                 case 4:
 
                                     _getheart_text = "ヒカリは励ましている！";
-                                    get_heart = 3;
+                                    get_heart = 0;
                                     break;
 
                                 case 5:
 
                                     _getheart_text = "ヒカリは励ましている！";
-                                    get_heart = 1;
+                                    get_heart = 0;
                                     break;
                                
                                 default:
 
                                     _getheart_text = "ヒカリは応援している！";
-                                    get_heart = 1;
+                                    get_heart = 0;
                                     break;
                             }
 
@@ -4751,7 +4771,7 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
-            _textmain.text = "どうしようかなぁ？"; //デフォルトメッセージ
+            _textmain.text = "にいちゃん。きょうは何する？"; //デフォルトメッセージ
 
             if (GameMgr.Story_Mode == 0)
             {
@@ -4771,7 +4791,7 @@ public class Compound_Main : MonoBehaviour
                             }
                             else
                             {
-                                _textmain.text = "どうしようかなぁ？";
+                                _textmain.text = "にいちゃん。きょうは何する？";
                             }
                         }
                         break;
@@ -4896,12 +4916,12 @@ public class Compound_Main : MonoBehaviour
         {
             switch (i) //各条件
             {
-                case 0: //アマクサ　初優勝後お祝いにくる
+                case 0: //アマクサ　初優勝後お祝いにくる　お昼12時に発生に変更した
 
-                    if (conteststartList_database.ReturnVictoryCount(1) >= 1) //初優勝後から
+                    /*if (conteststartList_database.ReturnVictoryCount(1) >= 1) //初優勝後から
                     {
                         GameMgr.NPCHiroba_eventDayCounter[i]--;
-                    }
+                    }*/
                     break;
 
                 case 1: //ねこみみ少女　次の会話発生までのかうんた 連続でイベント発生するのを防止

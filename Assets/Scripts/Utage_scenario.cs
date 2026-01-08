@@ -4758,7 +4758,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.System_Yachin_Cost_SPRoom = GameMgr.System_Yachin_Cost02;
                                 GameMgr.yachinSPRoomON_Flag = true;
 
-                                RoomBuyCheck(0);                                                          
+                                RoomBuyCheck(0, 200);                                                          
                                 break;
 
                             case 2: //
@@ -4768,7 +4768,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(1);
+                                RoomBuyCheck(1, 201);
                                 break;
 
                             case 3: //
@@ -4778,7 +4778,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(2);
+                                RoomBuyCheck(2, 202);
                                 break;
 
                             case 4: //
@@ -4788,7 +4788,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(3);
+                                RoomBuyCheck(3, 203);
                                 break;
 
                             case 5: //
@@ -4798,7 +4798,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(4);
+                                RoomBuyCheck(4, 204);
                                 break;
 
                             case 6: //
@@ -4808,7 +4808,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(5);
+                                RoomBuyCheck(5, 205);
                                 break;
 
                             case 7: //
@@ -4818,7 +4818,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(6);
+                                RoomBuyCheck(6, 206);
                                 break;
 
                             case 8: //
@@ -4828,7 +4828,7 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(7);
+                                RoomBuyCheck(7, 207);
                                 break;
 
                             case 9: //
@@ -4838,18 +4838,18 @@ public class Utage_scenario : MonoBehaviour
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(8);
+                                RoomBuyCheck(8, 208);
                                 break;
 
-                            case 10: //
+                            /*case 10: //これは現在いれてない　とりあえず置いてる
 
                                 GameMgr.OrCompound_RoomNum = 9;
                                 GameMgr.System_Yachin_Cost_SPRoom = 3000;
                                 GameMgr.yachinSPRoomON_Flag = true;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
-                                RoomBuyCheck(9);
-                                break;
+                                RoomBuyCheck(9, 208);
+                                break;*/
 
                         }
                         break;
@@ -4889,7 +4889,7 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
 
-    void RoomBuyCheck(int _id)
+    void RoomBuyCheck(int _id, int _roomev_num)
     {
         if (GameMgr.OrRoomBuy[_id])
         {
@@ -4899,9 +4899,20 @@ public class Utage_scenario : MonoBehaviour
         {
             moneyStatus_Controller.UseMoney(GameMgr.OrRoomCost[_id]);
             GameMgr.OrRoomBuy[_id] = true;
+           
         }
 
-        if(_id == 1) //花と森の部屋は、秘密の花園解放
+        if (_roomev_num != 9999)
+        {
+            if (!GameMgr.CompoundEvent_readend[_roomev_num]) //もしまだ読んでなければ、はじめて家かったときのイベント読む
+            {
+                //メイン画面にもどったときに、イベントを発生させるフラグをON　はじめて家を買った
+                GameMgr.CompoundEvent_num[_roomev_num] = true; //イベント番号のこと
+                GameMgr.CompoundEvent_flag = true;
+            }
+        }
+
+        if (_id == 1) //花と森の部屋は、秘密の花園解放
         {
             //次回以降、秘密の花園にいけるようになる。
             matplace_database.matPlaceKaikin("Secret_Garden");
@@ -5098,6 +5109,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_ranking_Type", GameMgr.Contest_Cate_Ranking); //トーナメントかランキング形式か 
         engine.Param.TrySetParameter("contest_TournamentON", GameMgr.System_ContestEdenFinalStart_ON); //トーナメントの場合、3回戦形式か決勝戦のみか
         engine.Param.TrySetParameter("contest_NameHyouji", GameMgr.Contest_NameHyouji); //コンテスト名前表記
+        engine.Param.TrySetParameter("contest_fights_count", GameMgr.Contest_FightsCount); //コンテスト出場回数
+        engine.Param.TrySetParameter("GirlGokigen_Status", girl1_status.GirlGokigenStatus); //いもうとのハートの状態      
         engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name);
 
         //課題をセット

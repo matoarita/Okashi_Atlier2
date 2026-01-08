@@ -1563,6 +1563,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 GameMgr.System_savepanel_slot[i] = true;
                 GameMgr.System_savepanel_playtime[i] = playerData.save_Game_timeCount;
+                GameMgr.System_savepanel_girllovelv[i] = playerData.save_girl_love_lv;
             }
             else
             {

@@ -50,6 +50,17 @@ public class Sound_Trigger : MonoBehaviour {
                 
                 break;
 
+            case "Yes_Contest_Go": //ステージクリアを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0); //28
+
+                break;
+
             case "Yes_okashiSet": //
 
                 //ポインタが入ったときに鳴る音

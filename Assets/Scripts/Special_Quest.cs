@@ -515,7 +515,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
-
+                ContestButton_WindowOn(0);
                 /*
                 if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
                 {
@@ -552,7 +552,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                //ContestButton_WindowOn(0);
+                ContestButton_WindowOn(0);
 
                 break;
 
@@ -564,7 +564,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                //ContestButton_WindowOn(0);
+                ContestButton_WindowOn(0);
 
                 break;
 
@@ -576,7 +576,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                //ContestButton_WindowOn(0);
+                ContestButton_WindowOn(0);
 
                 break;
 
@@ -590,27 +590,39 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 21: //自由時間　エデンのレシピ３つを集めよう！
+            case 21: //ソーダアイランドへいこう！
 
                 girl1_status.OkashiQuest_ID = 100210;
                 _stage_count = 2;
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = true;
+                GameMgr.SPquestPanelOff = false;
 
-                //ContestButton_WindowOn(10);
+                ContestButton_WindowOn(10);
 
                 break;
 
-            case 22: //自由時間　エデンのレシピ３つを集めよう！あと一つ。
+            case 22: //自由時間　エデンのレシピサマードリームスフェスティバル
 
                 girl1_status.OkashiQuest_ID = 100220;
+                _stage_count = 2;
+                OkashiQuest_Count = 3;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+
+                ContestButton_WindowOn(10);
+
+                break;
+
+            case 23: //自由時間　エデンのレシピ３つを集めよう！あと一つ。
+
+                girl1_status.OkashiQuest_ID = 100230;
                 _stage_count = 3;
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = true;
+                GameMgr.SPquestPanelOff = false;
 
-                //ContestButton_WindowOn(20);
+                ContestButton_WindowOn(20);
 
                 break;
 
@@ -620,7 +632,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 _stage_count = 4;
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = true;
+                GameMgr.SPquestPanelOff = false;
 
                 //ContestButton_WindowOn(20);
 
@@ -633,9 +645,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
+                ContestButton_WindowOn(20);
 
                 //エデンレシピそろったことにする
-                if(pitemlist.KosuCountEvent("eden_recipi_02") < 1)
+                if (pitemlist.KosuCountEvent("eden_recipi_02") < 1)
                 {
                     pitemlist.add_eventPlayerItemString("eden_recipi_02", 1);
                 }
@@ -668,6 +681,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
+                ContestButton_WindowOn(20);
 
                 break;
 
@@ -717,6 +731,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             }
         }
 
+        if (_spquest_setnum >= 4)
+        {
+            matplace_database.ReSetMapFlagString("Or_Contest_A1", 1);
+        }
+
         if (_spquest_setnum >= 11)
         {
             matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
@@ -752,11 +771,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             //matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
             //matplace_database.ReSetMapFlagString("Or_Contest_D1", 1);
-        }
-
-        if (_spquest_setnum >= 22)
-        {
-     
         }
 
         if (_spquest_setnum >= 30)
