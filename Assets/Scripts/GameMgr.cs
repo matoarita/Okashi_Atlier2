@@ -1033,6 +1033,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Utage_Prizepanel_Type; //コンテストのシーン再生中、賞品リストか順位表を表示する際のタイプ指定
     public static bool Utage_MapMoveON; //シナリオ読み後、シーンを移動するフラグ
     public static bool Utage_FadeOutWhiteON; //宴読み後に、白からフェードアウトするフラグ
+    public static bool Utage_FadeOutWhiteOFF; //宴読み後に、白からフェードアウトするフラグ　別スクリプトからCompound_Mainを参照するときに使う
     public static bool Ajimi_AfterFlag; //味見直後　テキスト更新用のフラグ
     public static string AjimiAfter_Text; //味見直後　テキスト
     public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
@@ -1712,6 +1713,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_MapMoveBlackON = false;
         Utage_MapMoveON = false;
         Utage_FadeOutWhiteON = false;
+        Utage_FadeOutWhiteOFF = false;
         Utage_Prizepanel_Type = 0;
         Ajimi_AfterFlag = false;
         Station_TrainGoFlag = false;
@@ -2832,7 +2834,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_12", "スターチップシュガーでクッキーを作ると・・？"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_12", "ほしクッキーで高得点を出す"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "マリトッツォで高得点を出す"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(003, "lumi_sapphire_neko_cookie", "サファイアクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_13", "光るサファイアクッキーで高得点を出す"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_a2_03", "ショートケーキで高得点を出す"));

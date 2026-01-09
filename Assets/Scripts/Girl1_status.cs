@@ -559,7 +559,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         timeOut = Default_hungry_cooltime;
                         timeOut2 = 5.0f;
                         GirlEat_Judge_on = true;
-
                         break;
                 }
 
@@ -788,6 +787,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             //ランダムセリフ＋モーションを決定する
                             Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
                         }
+
+                        
                         break;
 
                     case 1000: //タイトル　ランダムモーション
@@ -817,6 +818,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             //
                         }
+
+                        //Debug.Log("ベストED一度でも迎えた: " + GameMgr.bestend_on_flag); 
                         break;
 
                     default:
@@ -1033,13 +1036,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 4;
 
         }
-        else if (_girllv >= 15 && _girllv < 35) //15~35 元気
+        else if (_girllv >= 15 && _girllv < 30) //15~30 元気
         {
             //元気
             GirlGokigenStatus = 5;
 
         }
-        else if (_girllv >= 35 && _girllv < 40) //35~50 上機嫌　甘えてくる
+        else if (_girllv >= 30 && _girllv < 40) //30~50 上機嫌　甘えてくる
         {
             //上機嫌
             GirlGokigenStatus = 6;
@@ -1405,6 +1408,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             sceneBGM.MuteOFFBGM();
             map_ambience.MuteOFF();
             sceneBGM.PlayMain();
+
+            if (GameMgr.Utage_FadeOutWhiteON)
+            {
+                GameMgr.Utage_FadeOutWhiteON = false;
+
+                GameMgr.Utage_FadeOutWhiteOFF = true; //CompoundMainのフェードアウトパネルをオフにする。                
+            }
         }    
 
         //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。パネル表示後にネーム更新されるように、ここで描画更新している。
@@ -1767,12 +1777,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         if (_nowchange == 0) //即時変える
                         {
                             //自信のあるなしで仕草が変わる
-                            if (GirlGokigenStatus < 4) //~LV20までは自信がない
+                            if (GirlGokigenStatus < 4) //~LV15までは自信がない
                             {
                                 live2d_animator.Play("facemotion_32", motion_layer_num, 0.0f);
                                 live2d_animator.Update(0f);
                             }
-                            else if (GirlGokigenStatus >= 4 && GirlGokigenStatus < 8) //LV20~50まで通常元気
+                            else if (GirlGokigenStatus >= 4 && GirlGokigenStatus < 8) //LV15~50まで通常元気
                             {
                                 live2d_animator.Play("facemotion_29", motion_layer_num, 0.0f);
                                 live2d_animator.Update(0f);
@@ -1798,7 +1808,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 trans_motion = 1032; //Idleにリセット
                                 live2d_animator.SetInteger("trans_motion", trans_motion);
                             }
-                            else if (GirlGokigenStatus >= 4 && GirlGokigenStatus < 8) //LV20~50まで通常元気
+                            else if (GirlGokigenStatus >= 4 && GirlGokigenStatus < 8) //LV15~50まで通常元気
                             {
                                 trans_motion = 1029; //Idleにリセット
                                 live2d_animator.SetInteger("trans_motion", trans_motion);
@@ -2768,25 +2778,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     break;
 
-                case 5: //15~35
+                case 5: //15~30
 
                     random = Random.Range(0, 10); 
                     hukidashi_number = 30;
                     break;
 
-                case 6:
+                case 6: //30~40
 
                     random = Random.Range(0, 11); 
                     hukidashi_number = 40;                    
                     break;
 
-                case 7:
+                case 7: //40~45
 
                     random = Random.Range(0, 12);
                     hukidashi_number = 40;
                     break;
 
-                case 8: //25~50
+                case 8: //45~50
 
                     random = Random.Range(0, 12);
                     hukidashi_number = 40;
@@ -2829,6 +2839,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     break;
             }
 
+
+
+            //
+            //上のrandomからセリフを決める
+            //
             switch (random) //モーション決定＋セリフがそれらにつく
             {
                 case 0:
@@ -2931,8 +2946,61 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 8:
 
-                    //ボウルをガシャガシャ                    
-                    IdleMotionHukidashiSetting(34);
+                    if (GameMgr.Scene_Category_Num == 1000) //タイトルのときの判定
+                    {
+                        if (GameMgr.bestend_on_flag) //さくらのゆびわをゲットしたら、専用のセリフが登場
+                        {
+                            random = Random.Range(0, 2); //
+
+                            switch (random)
+                            {
+                                case 0:
+
+                                    //さくらのゆびわの専用セリフ集
+                                    IdleMotionHukidashiSetting(310);
+                                    break;
+
+                                case 1:
+
+                                    //ボウルをガシャガシャ                    
+                                    IdleMotionHukidashiSetting(34);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            //ボウルをガシャガシャ                    
+                            IdleMotionHukidashiSetting(34);
+                        }
+                    }
+                    else
+                    {
+                        if (pitemlist.KosuCount("sakura_ring") >= 1) //さくらのゆびわをゲットしたら、専用のセリフが登場
+                        {
+                            random = Random.Range(0, 2); //
+
+                            switch (random)
+                            {
+                                case 0:
+
+                                    //さくらのゆびわの専用セリフ集
+                                    IdleMotionHukidashiSetting(310);
+                                    break;
+
+                                case 1:
+
+                                    //ボウルをガシャガシャ                    
+                                    IdleMotionHukidashiSetting(34);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            //ボウルをガシャガシャ                    
+                            IdleMotionHukidashiSetting(34);
+                        }
+                    }
+                    
                     break;
 
                 case 9:
@@ -3856,6 +3924,38 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
 
+            case 310: //さくらのゆびわの専用セリフ
+
+                random = Random.Range(0, 3); //0~4
+
+                switch (random)
+                {
+                    case 0:
+
+                        FaceMotionPlay(1006); //るんるんモーション
+                        _touchface_comment_lib.Add("へへ。いっつもにいちゃんそばにいるからうれしい♪");                        
+                        _touchface_comment_lib.Add("こんど、ピクニックいこ～ね！");                        
+                        
+                        break;
+
+                    case 1:
+
+                        FaceMotionPlay(1044); //照れで上目遣い
+                        _touchface_comment_lib.Add("にいちゃん。お肩とんとんする～？");
+                        
+                        break;
+
+                    case 2:
+
+                        FaceMotionPlay(1047); //ふんふ～ん　はなうた
+                        _touchface_comment_lib.Add("にいちゃん。おそうじ自動でしてくれる魔法、ないかなぁ～？");
+                        _touchface_comment_lib.Add("さくらまいちる～、中にかすかな記憶と～..♪");
+                        break;
+
+                }                
+                break;
+
+
             case 350: //家ごとのセリフ
 
                 switch (GameMgr.OrCompound_RoomNum)
@@ -4450,7 +4550,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         var state = live2d_animator.GetCurrentAnimatorStateInfo(0);
         if (state.length >= 15.0f)
         {
-            //timeOut2 = 35.0f; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
             timeOut2 = state.length; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
         }
     }

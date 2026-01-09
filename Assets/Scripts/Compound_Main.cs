@@ -1040,6 +1040,16 @@ public class Compound_Main : MonoBehaviour
                 fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
             }
 
+            //フラグをもらうと、宴終了時にホワイトをオフにする Girl1_statusから読み出し
+            if(GameMgr.Utage_FadeOutWhiteOFF)
+            {
+                GameMgr.Utage_FadeOutWhiteOFF = false;
+
+                //白からフェードイン        
+                fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+                fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
+            }
+
             //宴途中でブラックをオフにする 他シーンへ移動する演出用
             if (GameMgr.Utage_SceneEnd_BlackON)
             {
@@ -4297,9 +4307,11 @@ public class Compound_Main : MonoBehaviour
             //キラキラ音もなる
             sc.PlaySe(78);
 
+            GameMgr.Utage_FadeOutWhiteOFF = true;
+
             //白からフェードイン        
-            fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
-            fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
+            //fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+            //fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
         }
 
         if (GameMgr.Utage_MapMoveON)

@@ -1133,6 +1133,22 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //
+                //はじめてムシメガネをとったときのイベントチェック
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[471] == false)
+                    {
+                        if (pitemlist.KosuCount("monocle") >= 1)
+                        {
+                            Event_startcheck(471, 1, false, false, 0);
+                        }
+                    }
+                }
+
 
                 /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }

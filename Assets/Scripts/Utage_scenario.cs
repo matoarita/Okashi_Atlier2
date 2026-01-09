@@ -2404,6 +2404,20 @@ public class Utage_scenario : MonoBehaviour
             engine.ResumeScenario();
         }
 
+        if(sp_Okashi_ID == 100220) //夏コンテストイベント開始前　ちょっとままの思い出シーンのような感じで白フェードアウトで終わる
+        {
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            //白切り替え
+            GameMgr.Utage_FadeOutWhiteON = true;
+
+            //元のシナリオにもどる。
+            engine.ResumeScenario();
+        }
+
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {

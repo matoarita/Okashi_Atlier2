@@ -2048,6 +2048,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
             Debug.Log("システムロード完了");
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
+            Debug.Log("ベストED一度でも迎えた: " + GameMgr.bestend_on_flag);
             Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
             Debug.Log("現行のバージョン情報: " + GameMgr.GameVersion);
             Debug.Log("セーブデータのバージョン情報: " + GameMgr.Load_GameVersion);

@@ -609,6 +609,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
                 ednum_text.text = "A";
                 GameMgr.ending_getflag[0] = true;
+                GameMgr.bestend_on_flag = true;
                 break;
 
             case 2:

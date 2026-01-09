@@ -1673,8 +1673,8 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 200) //120~150
                 {
-                    _getMoney = (int)(_baseMoney * 3.0f);
-                    debug_money_text = "(基準値 * 3.0f)";
+                    _getMoney = (int)(_baseMoney * 2.75f);
+                    debug_money_text = "(基準値 * 2.75f)";
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                     BarNPC_FriendPointUP(1);
                 }
@@ -1945,22 +1945,24 @@ public class Quest_Judge : MonoBehaviour {
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
+
+        CostHosei_Counter();
     }
 
     void CostHosei_default()
     {
         if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 3.5f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 3.5f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 3.25f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 3.25f)";
             _getNinki = 0;
             _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ここから下ファンファーレ
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 3.65f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 3.65f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 3.55f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 3.55f)";
             _getNinki = 0;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
@@ -1990,12 +1992,17 @@ public class Quest_Judge : MonoBehaviour {
             BarNPC_FriendPointUP(5);
         }
 
-        if(_getMoney >= 30000) //30000超えた場合、上がりにくくなるよう補正
+        CostHosei_Counter(); 
+    }
+
+    void CostHosei_Counter()
+    {
+        if (_getMoney >= 30000) //30000超えた場合、上がりにくくなるよう補正
         {
             _getMoney = (int)(_getMoney * 0.7f);
         }
 
-        if(_getMoney >= 999999) //ないとは思うけど、上限999999
+        if (_getMoney >= 999999) //ないとは思うけど、上限999999
         {
             _getMoney = 999999;
         }
