@@ -57,6 +57,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool GirlEat_Judge_on; //吹き出しやランダムモーションを発生するまでの時間をカウントONにするフラグ ONにすると、ランダムモーションや吹き出しが自動で出てくるようになる
     public int GirlGokigenStatus; //女の子の現在のご機嫌の状態。6段階ほどあり、好感度が上がるにつれて、だんだん見た目が元気になっていく。
+    private int GirlGokigenStatus_SubStage; //ステータスの中でさらに何段階か分ける場合　こっちも使う
     public int GirlOishiso_Status; //食べたあとの、「おいしそ～」の状態。この状態では、アイドルモーションが少し変化する。
 
     private GameObject hukidashiPrefab;
@@ -392,6 +393,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         QuestManzoku_counter = 10;
 
         GirlGokigenStatus = 0;
+        GirlGokigenStatus_SubStage = 0;
         GirlOishiso_Status = 0;
         Special_ignore_count = 0;
         special_animatFirst = false;
@@ -1041,12 +1043,42 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //元気
             GirlGokigenStatus = 5;
 
+            //さらに微変化の段階分け
+            if (_girllv >= 15 && _girllv < 18) //
+            {
+                GirlGokigenStatus_SubStage = 1;
+            }
+            else if (_girllv >= 18 && _girllv < 21) //
+            {
+                GirlGokigenStatus_SubStage = 2;
+            }
+            else if (_girllv >= 21 && _girllv < 24) //
+            {
+                GirlGokigenStatus_SubStage = 3;
+            }
+            else if (_girllv >= 24 && _girllv < 27) //
+            {
+                GirlGokigenStatus_SubStage = 4;
+            }
+            else if (_girllv >= 27 && _girllv < 30) //
+            {
+                GirlGokigenStatus_SubStage = 5;
+            }
         }
         else if (_girllv >= 30 && _girllv < 40) //30~50 上機嫌　甘えてくる
         {
             //上機嫌
             GirlGokigenStatus = 6;
 
+            //さらに微変化の段階分け
+            if (_girllv >= 30 && _girllv < 35) //
+            {
+                GirlGokigenStatus_SubStage = 1;
+            }
+            else if (_girllv >= 35 && _girllv < 40) //
+            {
+                GirlGokigenStatus_SubStage = 2;
+            }
         }
         else if (_girllv >= 40 && _girllv < 45)
         {
@@ -1121,20 +1153,55 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 face_girl_Normal(); 
                 break;
 
-            case 5: //~元気
-                face_girl_Normal2();
+            case 5: //~元気 この中でも表情は微妙に細かく変わる
+
+                switch (GirlGokigenStatus_SubStage)
+                {
+                    case 1:
+                        face_girl_Normal2();
+                        break;
+                    case 2:
+                        face_girl_Normal2();
+                        break;
+                    case 3:
+                        face_girl_Set(44); //よろこび表情の口とじ
+                        break;
+                    case 4:
+                        face_girl_Yorokobi();
+                        break;
+                    case 5:
+                        face_girl_Set(26); //お～って感じでリラックス
+                        break;
+                    default:
+                        face_girl_Normal2();
+                        break;
+                }
+                
                 break;
 
             case 6: //~上機嫌　甘えてくる
-                face_girl_Joukigen();
+
+                switch (GirlGokigenStatus_SubStage)
+                {
+                    case 1:
+                        face_girl_Joukigen();
+                        break;
+                    case 2:
+                        face_girl_Tereru();
+                        break;
+                    default:
+                        face_girl_Joukigen();
+                        break;
+                }
+                        
                 break;
 
             case 7:
-                face_girl_Joukigen();
+                face_girl_Joukigen2();
                 break;
 
-            case 8:
-                face_girl_Joukigen2();
+            case 8:                
+                face_girl_Tereru();
                 break;
 
             case 9: //~にいちゃんを気遣う
@@ -1153,8 +1220,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 face_girl_Tereru4();
                 break;
 
-            case 13: 
-                face_girl_Tereru4();
+            case 13:
+                face_girl_Set(50); //とろ～んとしたおめめ
                 break;
 
             default:
@@ -3658,75 +3725,44 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //ごきげんに応じて、ヒントをだす。
                 else if (GirlGokigenStatus >= 4) 
                 {
-                    random = Random.Range(0, 5); //0~4
-
+                    
                     if (GameMgr.Contest_PanelON) //コンテスト開催中だとセリフが変わる。
                     {
-                        switch (random)
+                        random = Random.Range(0, 2); //0~4
+
+                        if (random == 0)
                         {
-                            case 0:
+                            random = Random.Range(0, 5); //0~4
 
-                                FaceMotionPlay(2000);
-                                _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわく～！");
-                                break;
+                            switch (random)
+                            {
+                                case 0:
 
-                            case 1:
+                                    FaceMotionPlay(2000);
+                                    _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわく～！");
+                                    break;
 
-                                FaceMotionPlay(1005);
-                                _touchface_comment_lib.Add("ちゃんと準備できたかなぁ～？");
-                                break;
+                                case 1:
 
-                            default:
+                                    FaceMotionPlay(1005);
+                                    _touchface_comment_lib.Add("ちゃんと準備できたかなぁ～？");
+                                    break;
 
-                                FaceMotionPlay(1014);
-                                _touchface_comment_lib.Add("お砂糖とバター・・忘れないようにせんと。あせあせ。");
-                                break;
+                                default:
+
+                                    FaceMotionPlay(1014);
+                                    _touchface_comment_lib.Add("お砂糖とバター・・忘れないようにせんと。あせあせ。");
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            zatsudan2(); //ビールと枝豆のざつだん
                         }
                     }
                     else
                     {
-                        switch (random)
-                        {
-                            case 0:
-
-                                FaceMotionPlay(2000);
-                                _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
-                                break;
-
-                            case 1:
-
-                                FaceMotionPlay(2000);
-                                _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、じゃがバターとシチューだよ～♪");
-                                break;
-
-                            case 2:
-
-                                FaceMotionPlay(1017);
-                                _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
-                                break;
-
-                            case 3:
-
-                                FaceMotionPlay(1017);
-                                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
-                                    pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
-                                    pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
-                                {
-                                    _touchface_comment_lib.Add("エデンの材料さがそ～。にいちゃん！");
-                                }
-                                else
-                                {
-                                    _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
-                                }
-                                break;
-
-                            default:
-
-                                FaceMotionPlay(1018);
-                                _touchface_comment_lib.Add("にいちゃん。クッキーで出来たお家のレシピが・・。どこかにあるらしいよ。");
-                                _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
-                                break;
-                        }
+                        zatsudan2();
                     }
 
                 }
@@ -3918,6 +3954,30 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         _touchface_comment_lib.Add("うわぁ～☆　ハートリボンお気に入り♪");
                         _touchface_comment_lib.Add("赤くてオシャレな服～♪　お外でかけたいな～♪");
                         _touchface_comment_lib.Add("にいちゃん！　ちょっと大人っぽい服だよ！　似合う～？");
+                        break;
+
+                    case 5: //ラベンダー
+
+                        FaceMotionPlay(1006); //るんるんモーション
+                        _touchface_comment_lib.Add("むらさき色のふく～♪　かわいい色だ。");
+                        _touchface_comment_lib.Add("かわいい♪　宝石がワンポイント・・にいちゃん！");
+                        _touchface_comment_lib.Add("くんくん♪　このふく、お花の香りもするかも・・？");
+                        break;
+
+                    case 6: //ピンクうさぎ
+
+                        FaceMotionPlay(1006); //るんるんモーション
+                        _touchface_comment_lib.Add("ぴんくぴんく～♪");
+                        _touchface_comment_lib.Add("ピョンピョン！　うさぎさんだ。にいちゃん！");
+                        _touchface_comment_lib.Add("へへ♪　お出かけしたいなぁ～。");
+                        break;
+
+                    case 7: //チョコミント
+
+                        FaceMotionPlay(1006); //るんるんモーション
+                        _touchface_comment_lib.Add("うわぁ～☆　にいちゃん！今日はいいのが作れそう！");
+                        _touchface_comment_lib.Add("気合が入ってきた！　りっぱなパティシエめざすぞ～♪");
+                        _touchface_comment_lib.Add("えへへ♪　にいちゃんにちょっと近づけたかなぁ～？");
                         break;
                 }
 
@@ -4495,6 +4555,71 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             default:
                
+                break;
+        }
+    }
+
+    void zatsudan2()
+    {
+        random = Random.Range(0, 5); //0~4
+
+        switch (random)
+        {
+            case 0:
+
+                FaceMotionPlay(2000);
+                _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
+
+                if (GirlGokigenStatus >= 5) //元気になってくるとセリフ追加
+                {
+                    _touchface_comment_lib.Add("にいちゃん。今日のご飯は、うまうまスイトンだよ♪");
+                    _touchface_comment_lib.Add("にいちゃん。今日のご飯は、甘口カレーライスだよ♪");
+                }
+                break;
+
+            case 1:
+
+                FaceMotionPlay(2000);
+                _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、じゃがバターとシチューだよ～♪");
+
+                if (GirlGokigenStatus >= 6) //元気になってくるとセリフ追加
+                {
+                    _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、オムライスだよ～♪");
+                    _touchface_comment_lib.Add("にいちゃん。道ばたのお花かわいかった～♪");
+                }
+                break;
+
+            case 2:
+
+                FaceMotionPlay(1017);
+                _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
+
+                if (GirlGokigenStatus >= 6) //元気になってくるとセリフ追加
+                {
+                    _touchface_comment_lib.Add("にいちゃん。朝はパンとごはん、どっちがいい？");
+                }
+                break;
+
+            case 3:
+
+                FaceMotionPlay(1017);
+                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                    pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                    pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+                {
+                    _touchface_comment_lib.Add("エデンの材料さがそ～。にいちゃん！");
+                }
+                else
+                {
+                    _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
+                }
+                break;
+
+            default:
+
+                FaceMotionPlay(1018);
+                _touchface_comment_lib.Add("にいちゃん。クッキーで出来たお家のレシピが・・。どこかにあるらしいよ。");
+                _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
                 break;
         }
     }
@@ -5809,6 +5934,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //intパラメーターの値を設定する.  
         trans_expression = 36; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    //表情を指定した番号で任意に指定
+    public void face_girl_Set(int _facenum)
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = _facenum; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
     }

@@ -3748,7 +3748,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
 
             //食べたいおかしをあげたときの処理
-            //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
             GameMgr.RandomEatOkashi_counter++;
 
             _pstatus_up = 0;
@@ -3757,7 +3756,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
                     
-
                     GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
                     GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
 
@@ -3817,7 +3815,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp = (int)(Getlove_exp * 1.25f);
             }
-            /*if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 80)
+            /*if (PlayerStatus.girl1_Love_lv >= 35 && PlayerStatus.girl1_Love_lv < 80)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.85f);
             }

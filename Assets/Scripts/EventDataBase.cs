@@ -2473,20 +2473,35 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     //HLV12~  
                     if (GameMgr.System_CatGetMat_Flag)
                     {
-                        if(GameMgr.OrCompound_RoomNum == 7) //ねこの家にいると、猫がよくくるようになる。
+                        if (GameMgr.GirlLoveSubEvent_stage1[170])
                         {
-                            cat_come_day = 5;
-                        }
-                        else
-                        {
-                            cat_come_day = 15;
-                        }
-
-                        if (PlayerStatus.player_cullent_day % cat_come_day == 0) //15日or30日だけ、抽選する
-                        {
-                            if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 15) //12時から15時の間に、サイコロふる
+                            if (GameMgr.OrCompound_RoomNum == 7) //ねこの家にいると、猫がよくくるようになる。
                             {
-                                CatRandomComingEvent();
+                                cat_come_day = 5;
+                            }
+                            else
+                            {
+                                cat_come_day = 10;
+                            }
+
+                            if (PlayerStatus.player_cullent_day % cat_come_day == 0) //10日ごとに、抽選する
+                            {
+                                if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 15) //12時から15時の間に、サイコロふる
+                                {
+                                    CatRandomComingEvent();
+                                }
+                            }
+                        }
+                        else //まだねこが一回も来たことない場合は、最初は出現しやすくなる
+                        {
+                            cat_come_day = 2;
+
+                            if (PlayerStatus.player_cullent_day % cat_come_day == 0) //10日ごとに、抽選する
+                            {
+                                if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 15) //12時から15時の間に、サイコロふる
+                                {
+                                    CatRandomComingEvent();
+                                }
                             }
                         }
                     }

@@ -860,6 +860,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100200, 20);
         QuestDict.Add(100210, 21);
         QuestDict.Add(100220, 22);
+        QuestDict.Add(100230, 23);
         QuestDict.Add(100300, 30);
         QuestDict.Add(100400, 40);
         QuestDict.Add(100410, 41);

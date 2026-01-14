@@ -778,7 +778,10 @@ public class CompoundMainController : MonoBehaviour {
                     //ミニゲーム演出は閉じ
                     magic_minigame_Panel.SetActive(false);
 
-                    text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
+                    if (!GameMgr.Special_OkashiEnshutsuFlag) //スペシャル演出はいったときは表示させる
+                    {
+                        text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
+                    }
 
                     //できるアイテムを表示
                     if (GameMgr.MagicUseTypeSelect == 0)

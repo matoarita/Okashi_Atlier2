@@ -1915,7 +1915,7 @@ public class GetMaterial : MonoBehaviour
 
                 //顔アイコンも切り替え
                 msg_window.Setting_WindowIcon(35); //めとじ
-                _text.text = "にいちゃん～・・。とってもしずかな湖。おちつき～・・。";
+                _text.text = "にいちゃん～・・。とってもしずかな湖。" + "\n" + "おちつき～・・。";
                 break;
 
             case 1:
