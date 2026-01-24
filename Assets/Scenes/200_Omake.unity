@@ -77765,7 +77765,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 55ad670c46d3006438763ab2821d1659, type: 2}
-  - {fileID: 2100000, guid: 4e03e5f7cf4ed6c46b07d3487d0bd5a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139472,7 +139471,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1255973716}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.2046332
+  m_Size: 0.20463322
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -144900,6 +144899,8 @@ MonoBehaviour:
   sound78: {fileID: 0}
   sound79: {fileID: 0}
   sound80: {fileID: 0}
+  sound81: {fileID: 0}
+  sound82: {fileID: 0}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 0}
   Ambient2: {fileID: 0}
@@ -174591,7 +174592,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a17f9af6b19c3f74292365a5c9b6c31b, type: 2}
-  - {fileID: 2100000, guid: 4e03e5f7cf4ed6c46b07d3487d0bd5a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

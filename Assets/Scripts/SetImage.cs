@@ -609,12 +609,29 @@ public class SetImage : MonoBehaviour
         CardParamOFF_2();
     }
 
-    //２で優勝したおかしを表示の場合など　一時アイテムリストにカードデータを入れて汎用的に表示
+    //２で優勝したおかしを表示の場合など　一時アイテムリストにカードデータを入れて汎用的に表示　こっちは全体画像
     public void SetInitCommonItemData()
     {
         Card_drawCommonHyouji();
-        CardParamOFF_2();
+        //CardParamOFF_2();
+        //CardParamOFF(); //デフォルトでは、データの表示はオフ。なんかボタンとかおしたら、詳細データが見えるようにする。
+
+        CardOFF_ItemOnlyHyouji(); //アイテムアイコンのみ表示
+        CardOFF_PlateHyouji(); //おさら表示
+        item_Name.text = ""; //見出しの名前表示があるので、ここではオフ
     }
+
+    public void SetInitCommonItemData2() //こっちはデータ詳細表示
+    {
+        Card_drawCommonHyouji();
+        CardParamOFF_2();
+        //CardParamOFF(); //デフォルトでは、データの表示はオフ。なんかボタンとかおしたら、詳細データが見えるようにする。
+
+        //CardOFF_ItemOnlyHyouji(); //アイテムアイコンのみ表示
+        //CardOFF_PlateHyouji(); //おさら表示
+        //item_Name.text = ""; //見出しの名前表示があるので、ここではオフ
+    }
+
 
     //アイテムリストから開いた場合
     public void SetInitPitemList()
@@ -1139,7 +1156,7 @@ public class SetImage : MonoBehaviour
         Slotname_Hyouji();
 
         //実際にカードの表示を更新する部分
-        DrawCardParam();
+        DrawCardParam(0);
     }
 
     //カード描画用のパラメータ　予測表示用
@@ -1257,7 +1274,7 @@ public class SetImage : MonoBehaviour
         Slotname_Hyouji();
 
         //実際にカードの表示を更新する部分
-        DrawCardParam();
+        DrawCardParam(0);
     }
 
     //カード描画用のパラメータ　コンテストクリア時のお菓子パラメータ用
@@ -1374,7 +1391,7 @@ public class SetImage : MonoBehaviour
         Slotname_Hyouji();
 
         //実際にカードの表示を更新する部分
-        DrawCardParam();
+        DrawCardParam(0);
     }
 
     //カード描画用のパラメータ　汎用　ここに入れたリストのアイテムデータをカード表示する
@@ -1492,10 +1509,10 @@ public class SetImage : MonoBehaviour
         Slotname_Hyouji();
 
         //実際にカードの表示を更新する部分
-        DrawCardParam();
+        DrawCardParam(1);
     }
 
-    void DrawCardParam()
+    void DrawCardParam(int _effectstatus)
     {
         CardTasteView_flag1 = false;
         SpScoreHyouji_OFF = false; //trueだと強制的にSPスコア表示はオフになる。デバッグモードでも表示されない。一部の画面でのみ。
@@ -1505,7 +1522,7 @@ public class SetImage : MonoBehaviour
         item_Icon.sprite = texture2d;
 
         //魔法がかかってるおかしは、エフェクトパネルもON/OFF
-        DrawMagicEffect();
+        DrawMagicEffect(_effectstatus);
 
         //ウィンドアークなどかけてたら、魔法アイコンを表示
         DrawMagicIconView();        
@@ -2023,7 +2040,7 @@ public class SetImage : MonoBehaviour
 
 
 
-    void DrawMagicEffect()
+    void DrawMagicEffect(int _effstatus)
     {
         //Debug.Log("魔法エフェクト　カード表示check");
 
@@ -2045,8 +2062,21 @@ public class SetImage : MonoBehaviour
         _magic_addspscore9 = itemCardEffect_database._ms_sp_score9;
         _magic_addspscore10 = itemCardEffect_database._ms_sp_score10;
 
-        //魔法のエフェクト表示部分
-        itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 0); //2番目の数字は、アクセスする場所を指定　0=カードから
+        switch(_effstatus)
+        {
+            case 0:
+
+                //魔法のエフェクト表示部分
+                itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 0); //2番目の数字は、アクセスする場所を指定　0=カードから
+                break;
+
+            case 1: //おかしの名前一覧画面で表示するとき
+
+                //魔法のエフェクト表示部分
+                itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 3); //2番目の数字は、アクセスする場所を指定　3=カードから　おかし一覧
+                break;
+        }
+        
     }
 
     void DrawMagicIconView()

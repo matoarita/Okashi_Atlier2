@@ -2147,7 +2147,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
-                if (_status == 2 || _status == 3)//なめらかor歯ごたえのバフ
+                if (_status == 2)//なめらかのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
 
@@ -2183,6 +2183,27 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     {    //3回以上重ね掛けするとき、効果が大きくなる                    
                         _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.06f)); //大体元値の1.25倍
                         Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.06f) 習得LV: " + _magicLearnLv);
+                    }
+
+                    if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
+
+                    Debug.Log("ファイアアークの最終バフ: " + _magicup);
+                    _buf_shokukanup += _magicup;
+                }
+
+                if (_status == 3)//歯ごたえのバフ
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Fire_Ark");
+
+                    if (_attri5 < 3) //重ね掛け2回までだと効果が小さい
+                    {
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.02f)); //大体元値の1.1倍 LV3で1.2倍
+                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.02f) 習得LV: " + _magicLearnLv);
+                    }
+                    else
+                    {    //3回以上重ね掛けするとき、効果が大きくなる                    
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.05f)); //大体元値の1.25倍
+                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.05f) 習得LV: " + _magicLearnLv);
                     }
 
                     if (_magicup < 1) { _magicup = 1; } //必ず１は上がる

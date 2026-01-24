@@ -822,12 +822,45 @@ public class ContestListController : MonoBehaviour
         
     }
 
-    //デバッグ用　全てのクエストを表示する。
-    public void DebugQuestAllRequest()
+    //デバッグ用　全てのコンテストを表示する。
+    public void DebugContestAllRequest()
     {
-        for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
+        Debug_reset_and_DrawView();
+    }
+
+    // リストビューの描画部分。重要。
+    void Debug_reset_and_DrawView()
+    {
+        //現在、受注リストを開いている状態       
+
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _contest_listitem.Clear();
+
+        i = 0;
+        while (i < conteststartList_database.conteststart_lists.Count)
         {
 
+            if (conteststartList_database.conteststart_lists[i].ContestID >= read_ID)
+            {
+
+                //条件関係なく、そのコンテストで出れるやつを全てだす
+                if (conteststartList_database.conteststart_lists[i].Contest_Flag >= 1)
+                {
+                    DrawContest();
+                }
+
+
+                if (conteststartList_database.conteststart_lists[i].read_endflag == 1)
+                {
+                    break;
+                }
+            }
+            i++;
         }
     }
 }

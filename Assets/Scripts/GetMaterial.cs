@@ -2370,14 +2370,14 @@ public class GetMaterial : MonoBehaviour
 
                 //顔アイコンも切り替え
                 msg_window.Setting_WindowIcon(18); //目キラキラでよろこび
-                _text.text = "にいちゃん。青色のお花がじゅうたんみたい。きれい～♪";
+                _text.text = "にいちゃん。むらさきのお花がいい香り～♪";
                 break;
 
             case 1:
 
                 //顔アイコンも切り替え
                 msg_window.Setting_WindowIcon(35); //めとじ
-                _text.text = "くんくん..。このお花、お茶っぱにできないかなぁ～？";
+                _text.text = "お日様のひかりがあったかいね～。にいちゃん！";
                 break;
 
             case 2:
@@ -2388,13 +2388,13 @@ public class GetMaterial : MonoBehaviour
                 random_param = Random.Range(2, 4);
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
-                _text.text = "にいちゃん！　あそこでピクニック～！　持ってきたぱん食べよ♪" + "\n" +
+                _text.text = "にいちゃん！　きょうはいちご狩りだ～♪" + "\n" +
                     "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 break;
 
             case 3:
 
-                event_itemGet01();
+                event_itemGet02(4);
                 break;
 
 
@@ -2405,7 +2405,7 @@ public class GetMaterial : MonoBehaviour
 
                 random_param = Random.Range(2, 4);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "いてぇっ！　にいちゃん、トゲがささったぁ～・・！！" + "\n" +
+                _text.text = "あいてっ！　にいちゃん、ツタがひっかかった～・・！！" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
@@ -3850,6 +3850,14 @@ public class GetMaterial : MonoBehaviour
                     treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
 
+                if (!GameMgr.NPCHiroba_eventList[161]) //まだコインを渡していない
+                {
+                    if (pitemlist.KosuCount("alice_oldcoin") == 0)
+                    {
+                        treasureInfoHikari.Add(2, "alice_oldcoin");
+                        treasureDropDictHikari.Add(2, 20.0f + (int)(rare_event_kakuritsu));
+                    }
+                }
                 break;
 
             case "Bluetopaz_Garden":
@@ -3863,10 +3871,13 @@ public class GetMaterial : MonoBehaviour
                     treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
 
-                if (pitemlist.KosuCount("alice_oldcoin") == 0)
+                if (!GameMgr.NPCHiroba_eventList[161]) //まだコインを渡していない
                 {
-                    treasureInfoHikari.Add(2, "alice_oldcoin");
-                    treasureDropDictHikari.Add(2, 20.0f + (int)(rare_event_kakuritsu));
+                    if (pitemlist.KosuCount("alice_oldcoin") == 0)
+                    {
+                        treasureInfoHikari.Add(2, "alice_oldcoin");
+                        treasureDropDictHikari.Add(2, 20.0f + (int)(rare_event_kakuritsu));
+                    }
                 }
                 break;
 

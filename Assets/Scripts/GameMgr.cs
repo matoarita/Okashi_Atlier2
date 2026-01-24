@@ -636,7 +636,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
 
     //バージョン情報
-    public static float GameVersion = 2.02f;
+    public static float GameVersion = 2.03f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -689,6 +689,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool questclear_After;            //クエストクリアボタンを押したよ、というフラグ。セーブの必要はなし。次のSPクエストへ進行するためのフラグ。
 
     public static int GirlLoveSubEvent_num;
+    public static int GirlLoveSubEvent_bunki_num; //サブイベントでさらに分岐する場合はここを使う
     public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
 
     public static int GirlLoveSubEvent_NPC_num; //NPC・酒場NPCのご依頼イベントの際に、どのNPCかを特定する番号 NPC_FriendPointは0~ NPC_BarFriendPointは1000~はじまりで表す
@@ -2249,12 +2250,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomCost[1] = 30000;
         OrRoomCost[2] = 50000;
         OrRoomCost[3] = 50000;
-        OrRoomCost[4] = 50000;
+        OrRoomCost[4] = 80000;
 
-        OrRoomCost[5] = 50000;
+        OrRoomCost[5] = 100000;
         OrRoomCost[6] = 50000;
-        OrRoomCost[7] = 50000;
-        OrRoomCost[8] = 100000;
+        OrRoomCost[7] = 70000;
+        OrRoomCost[8] = 300000;
         OrRoomCost[9] = 150000;
 
         OrRoomNameHyouji[0] = "最初の家";

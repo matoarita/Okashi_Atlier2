@@ -11,6 +11,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     private TimeController time_controller;
 
+    private GameObject canvas;
+
     private SoundController sc;
 
     private GameObject ContestOn_obj;
@@ -39,6 +41,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
     private GameObject contest_placelist;
     private GameObject placeicon_obj;
 
+    private GameObject contestvictory_okashipanel_obj;
+
     private int i, _kosu;
     private int _money;
     private int _list;
@@ -66,6 +70,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     void InitSetup()
     {
+        
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -99,7 +104,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         _Img = this.transform.Find("PanelB/OnPanel/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
         ContestOn_obj = this.transform.Find("PanelB/OnPanel").gameObject; //
-        NoContestText_obj = this.transform.Find("PanelB/OffPanel").gameObject; //
+        NoContestText_obj = this.transform.Find("PanelB/OffPanel").gameObject; //        
 
         conteststartList_database.Contest_ArchivementKeisan(); //各コンテスト達成率を計算
 
@@ -378,5 +383,15 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
     {
         GameMgr.SceneMoveAfter_Koushin = true; //コンテスト会場いってから、時間を変動
         GameMgr.SceneMoveAfter_TimeParam = _time;
+    }
+
+    public void OnContestVitory_PanelON()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        contestvictory_okashipanel_obj = canvas.transform.Find("ContestVictoryOkashiPanel").gameObject;
+        //contestvictory_okashipanel_obj.SetActive(false);
+        contestvictory_okashipanel_obj.SetActive(true);
     }
 }

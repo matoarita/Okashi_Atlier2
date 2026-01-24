@@ -105,7 +105,7 @@ public class Random_Treasureitem : MonoBehaviour {
     void ItemGet01()
     {
         //青ジェム　もってると、MaxMPが1上がる
-        GameMgr.hiroba_treasureget_Num = 0; //宝箱番号 メッセージが変わる 基本0のままでOK
+        GameMgr.hiroba_treasureget_Num = 0; //宝箱番号 メッセージが変わる 基本0のままでOK　宴のメッセージもここで指定
 
         _itemid = database.SearchItemIDString("blue_jemstone");
         GameMgr.hiroba_treasureget_Name = database.items[_itemid].itemNameHyouji; // GameMgr.System_TreasureItem01

@@ -901,22 +901,38 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //
     //コンテスト優勝したときのお菓子データをカード表示処理　２の機能
     //
-    public void ContestVictoryItemDataHyouji(int _result_item)
+    public void ContestVictoryItemDataHyouji(int _result_item, int _status)
     {
         //初期化しておく
         DeleteCard_DrawView();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
-        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 5000;
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 23000;
 
         _cardImage.Pitem_or_Origin = 0;
         _cardImage.check_counter = _result_item;
-        _cardImage.SetInitCommonItemData();
-        _cardImage.CardMagicEffect_OFF(); //なぜかパーティクルの座標系が狂ってしまい正常に表示されない..。しょうがないのでオフ
 
-        //位置とスケール
-        Draw5();
+        switch(_status)
+        {
+            case 0:
+
+                _cardImage.SetInitCommonItemData();
+
+                //位置とスケール
+                Draw6();
+                break;
+
+            case 1:
+
+                _cardImage.SetInitCommonItemData2();
+
+                //位置とスケール
+                Draw6_2();
+                break;
+        }       
+
+        
     }
 
     //ショップで、選択したときのカード表示処理
@@ -989,11 +1005,27 @@ public class CardView : SingletonMonoBehaviour<CardView>
         DrawStatus = 1;
     }
 
-    void Draw5() //コンテストクリア用
+    void Draw5() //１のコンテストロフィー
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(-100, 50, 0);
         _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage.CardHyoujiAnim();
+    }
+
+    void Draw6() //２コンテストクリア用
+    {
+        _cardImage_obj[0].transform.localScale = new Vector3(1.2f, 1.2f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 50, 0);
+        _cardImage.def_scale = new Vector3(1.2f, 1.2f, 1);
+        _cardImage.CardHyoujiAnim();
+    }
+
+    void Draw6_2() //２コンテストクリア用　データ詳細
+    {
+        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(-190, 115, 0);
+        _cardImage.def_scale = new Vector3(0.85f, 0.85f, 1);
         _cardImage.CardHyoujiAnim();
     }
 

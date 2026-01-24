@@ -400,6 +400,8 @@ public class CatGetStartPanel : MonoBehaviour
         namechange_panel.SetActive(true);
         text_area_compound.SetActive(false);
 
+        inputField_catname.text = ""; //入力欄は毎回初期化
+
         CatIconImage_Hyouji(namechange_panel);
         FinalCheck_CatDataKoushin(namechange_panel, GameMgr.Select_cat_num);
 
@@ -465,9 +467,11 @@ public class CatGetStartPanel : MonoBehaviour
         {
             case true: //決定が押された
 
+                sc.PlaySe(catDataBase.SetVoice(GameMgr.Select_cat_num, 0)); //ねこごとに鳴き声変わる
+
                 catDataBase.Sayonara_Cat(GameMgr.Select_cat_num);
                 _textcomp.text = GameMgr.Select_cat_nameHyouji + "は、悲しい顔で去っていった..。";
-
+                
                 reset_and_DrawView(); //リストが移動するので、一度全部書き直し
                 break;
 
@@ -541,6 +545,7 @@ public class CatGetStartPanel : MonoBehaviour
 
     public void CloseZairyoCheckButton()
     {
+        sc.PlaySe(18); //キャンセル音
         catzairyocheck_panel.SetActive(false);
     }
 

@@ -2069,8 +2069,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             if (database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName == "blue_jemstone")
             {
-                PlayerStatus.player_maxmp += result_kosu * 1; //ジェムを買った場合、マックスMPがここで上がる。
+                PlayerStatus.player_maxmp += result_kosu * 1; //青いジェムを買った場合、マックスMPがここで上がる。
                 Debug.Log("ブルージェムを購入 " + result_kosu + "個");
+            }
+
+            if (database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName == "red_jemstone")
+            {
+                PlayerStatus.player_patissier_job_pt += result_kosu * 1; //赤いジェムを買った場合、まほうポイントがここで上がる。
+                Debug.Log("レッドジェムを購入 " + result_kosu + "個");
             }
         }
         else //トッピングなど

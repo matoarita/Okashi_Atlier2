@@ -21,6 +21,7 @@
 ・Ambience_21		audiostock_913857				春の森の音<宴で使用> MapAmbience_06と一緒
 ・Ambience_22		strong_wind1					高所の強風<宴で使用>
 ・Ambience_23		audiostock_1371853				魔法発動中キラキラ音<宴で使用>
+・Ambience_24		水のしたたる洞窟				洞窟で水がしたたる音<宴で使用>
 
 マップで使う環境音は「Map_Ambience」フォルダに入れる。内容は同じでも、宴とデータは共有しないようにする。
 

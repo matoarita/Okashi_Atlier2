@@ -50,6 +50,28 @@ public class Sound_Trigger : MonoBehaviour {
                 
                 break;
 
+            case "Yes_NameSet": //名前をきめるをおしたとき
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+
+                break;
+
+            case "Yes_TeiShutu": //提出するをおしたとき
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0); //28
+
+                break;
+
             case "Yes_Contest_Go": //ステージクリアを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -102,6 +124,17 @@ public class Sound_Trigger : MonoBehaviour {
 
                 break;
 
+            case "ContestOn_Toggle_NameOK": //ステージクリアを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(28);
+
+                break;
+
             case "No_okashiSet": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -144,6 +177,16 @@ public class Sound_Trigger : MonoBehaviour {
                 break;
 
             case "No_saveloadpanel": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(18);
+                break;
+
+            case "ContestOn_Toggle_Cancel": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
@@ -343,6 +386,33 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(0);
+                break;
+
+            case "ContestVictory_CheckButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "ContestVictoryOkashi_DataButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "ContextVictory_OpenButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
                 break;
 
             case "Sta_StatusMain_Toggle": //メモ開くときの音
@@ -970,6 +1040,16 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(46);
+                break;
+
+            case "EsaSelectButtonCancel": //変更なしの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(18);
                 break;
 
             case "GameStartButton":

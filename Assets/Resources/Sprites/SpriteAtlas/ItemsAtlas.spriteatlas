@@ -498,6 +498,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 56372c487be929c4fb41cbe3773d618e, type: 3}
   - {fileID: 21300000, guid: 14d3ce480a628e2449d84616061fe451, type: 3}
   - {fileID: 21300000, guid: 243a4d58658ce9e4da339cf1e2a5b4a3, type: 3}
+  - {fileID: 21300000, guid: 576dcd683c14f9d45b2a5ac6a26f16ae, type: 3}
   - {fileID: 21300000, guid: e8aabe68ae0022b44a838a1aebcdb104, type: 3}
   - {fileID: 21300000, guid: 170a3078950a04e4f844d2927f50f06e, type: 3}
   - {fileID: 21300000, guid: b7507b789a7e489458518bde0ce5a82e, type: 3}
@@ -1337,6 +1338,7 @@ SpriteAtlas:
   - blueberry_neko_cookie
   - ice_coffee
   - crepe_icecream
+  - red_jemstone
   - shortcake_sponge_cake_one
   - chocolate_green
   - ice_candy

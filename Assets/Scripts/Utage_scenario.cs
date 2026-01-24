@@ -1857,6 +1857,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
+        engine.Param.TrySetParameter("Girllove_event_bunki_num", GameMgr.GirlLoveSubEvent_bunki_num);
         engine.Param.TrySetParameter("Talk_num", GameMgr.GirlTalk_num);
         engine.Param.TrySetParameter("StationEvent_num", 0);
         engine.Param.TrySetParameter("Quest_NPC_Num", GameMgr.GirlLoveSubEvent_NPC_num);
@@ -5580,6 +5581,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("ContestPastVictory_Flag", GameMgr.Contest_pastVictory_on); //過去、優勝したことがあるかどうか。
         engine.Param.TrySetParameter("EdenFirstVictory_Flag", GameMgr.EdenFirstVictory); //エデンコン初出場で優勝したかどうか
         engine.Param.TrySetParameter("EdenPrizeChange_Flag", GameMgr.EdenPrizeChange); //エデンコンで、敵からくれるかそのまま賞品としてもらえるかの分岐がある場合
+        engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name); //ボスネーム再設定　帰り道でも出てくる可能性あるため
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

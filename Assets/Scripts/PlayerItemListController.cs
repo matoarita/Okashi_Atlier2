@@ -548,7 +548,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         case 3: //依頼
 
                             //お菓子のみ表示
-                            if (check_itemType == "Okashi" || check_itemType_sub == "FrozenFruits")
+                            if (check_itemType == "Okashi" || check_itemType_subB == "a_FrozenFruits")
                             {
                                 itemlist_hyouji_Check(check_itemListType, 0);
                             }

@@ -75,7 +75,7 @@ public class ContestClearList : MonoBehaviour
         }
     }
     
-    //アイテム画面を開いた時の処理。アイテムを選択すると、カードを表示する。
+    //
     void ContestList_Open()
     {
         black_panel.SetActive(true);

@@ -884,7 +884,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 185; //               
+                GameMgr.contest_boss_score = 235; //               
                 break;
 
             case 1:
@@ -899,7 +899,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 185; //
+                GameMgr.contest_boss_score = 235; //
                 break;
 
             case 2:
@@ -914,7 +914,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 185; //
+                GameMgr.contest_boss_score = 235; //
                 break;
 
             case 3:
@@ -929,7 +929,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 185; //
+                GameMgr.contest_boss_score = 235; //
                 break;
         }
 
@@ -948,7 +948,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 242; //点数が等倍なので高い
+        GameMgr.contest_boss_score = 432; //点数が等倍なので高い
         GameMgr.contest_boss_name = "イセヤ";
 
         //決勝戦の場所とBGMを指定
@@ -1726,7 +1726,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 163000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
-        GameMgr.Contest_ProblemSentence = "テーマ：お花のクッキー・ケーキ・チョコレート";
+        GameMgr.Contest_ProblemSentence = "テーマ：お花のクッキー・ケーキ・チョコレート・ゼリー";
         GameMgr.Contest_ProblemSentence2 = "お花をモチーフにしたお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定

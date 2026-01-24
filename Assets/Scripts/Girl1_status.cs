@@ -1961,8 +1961,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 default:
 
-                    //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
                     trans_makemotion = 100;
+
+                    if (GirlGokigenStatus >= 6 && GirlGokigenStatus < 9) //LV30~
+                    {
+                        trans_makemotion = 600;
+                    }
+                    else if (GirlGokigenStatus >= 9 && GirlGokigenStatus < 11) //LV50~
+                    {
+                        trans_makemotion = 300;
+                    }
+                    else if (GirlGokigenStatus >= 11) //LV70~
+                    {
+                        trans_makemotion = 200;
+                    }
+                    else
+                    {  }                    
                     break;
             }
 
@@ -1985,21 +1999,26 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 default:
 
                     random = Random.Range(0, 10);
-                    if (random >= 0 && random < 4)
+                    if (random >= 0 && random < 3)
                     {
                         //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);                              
                         trans_makemotion = 100;
 
                     }
-                    else if (random >= 4 && random < 7)
+                    else if (random >= 3 && random < 6)
                     {
                         //live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
                         trans_makemotion = 200;
                     }
-                    else if (random >= 7 && random < 10)
+                    else if (random >= 6 && random < 8)
                     {
                         //live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //棒目で上機嫌
                         trans_makemotion = 300;
+                    }
+                    else if (random >= 8 && random < 10)
+                    {
+                        //live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //目がキラキラでテンション高めでぐるぐる
+                        trans_makemotion = 700;
                     }
                     break;
             }
@@ -3978,6 +3997,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         _touchface_comment_lib.Add("うわぁ～☆　にいちゃん！今日はいいのが作れそう！");
                         _touchface_comment_lib.Add("気合が入ってきた！　りっぱなパティシエめざすぞ～♪");
                         _touchface_comment_lib.Add("えへへ♪　にいちゃんにちょっと近づけたかなぁ～？");
+                        _touchface_comment_lib.Add("ちょこみんとの服～♪　かわいいでしょ～♪");
                         break;
                 }
 

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System; //DateTimeを使用する為追加。
+using Random = UnityEngine.Random;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +27,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     private GetMatPlace_Panel getmatplace_panel;
     private GetMaterial get_material;
+
+    //DateTimeを使うため変数を設定
+    private DateTime TodayNow;
+    private int _hour;
 
     private int event_num;
     private bool GetEmeraldItem;
@@ -82,6 +88,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //時間を取得
+        TodayNow = DateTime.Now;
 
         //お金オブジェクト
         moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
@@ -709,7 +718,56 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                         if (!GameMgr.outgirl_Nowprogress)
                         {
-                            if (GameMgr.GirlLoveEvent_num == 50) //コンテストのとき
+                            GameMgr.GirlLoveSubEvent_num = 90;                           
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                            GameMgr.GirlLoveSubEvent_bunki_num = 0; //さらにイベント内で分岐したい場合はこれを使う デフォルト
+
+                            _hour = TodayNow.Hour;
+                            Debug.Log("現在の時間: " + _hour + "時");
+                            if (_hour >= 0 && _hour < 3)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 1; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 3 && _hour < 4)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 2; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 4 && _hour < 7)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 3; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 7 && _hour < 11)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 4; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 11 && _hour < 13)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 0; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 13 && _hour < 15)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 7; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 15 && _hour < 17)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 0; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 17 && _hour < 20)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 5; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else if (_hour >= 20 && _hour < 24)
+                            {
+                                GameMgr.GirlLoveSubEvent_bunki_num = 6; //さらにイベント内で分岐したい場合はこれを使う
+                            }
+                            else //例外処理
+                            {
+                                
+                            }
+                            Debug.Log("ログインセリフ: " + GameMgr.GirlLoveSubEvent_bunki_num);
+
+
+                            /*if (GameMgr.GirlLoveEvent_num == 50) //コンテストのとき
                             {
 
                                 GameMgr.GirlLoveSubEvent_num = 91;
@@ -725,7 +783,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 GameMgr.GirlLoveSubEvent_num = 90;
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
-                            }
+                            }*/
                         }
                         else
                         {
@@ -1960,21 +2018,21 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 case 1:
 
-                    read_ID = 1000; //春
+                    read_ID = 1000; //夏
                     archive_area = 1000;
                     archivement_percent = GameMgr.Contest_archivement_percent[1];
                     break;
 
                 case 2:
 
-                    read_ID = 2000; //春
+                    read_ID = 2000; //秋
                     archive_area = 2000;
                     archivement_percent = GameMgr.Contest_archivement_percent[2];
                     break;
 
                 case 3:
 
-                    read_ID = 3000; //春
+                    read_ID = 3000; //冬
                     archive_area = 3000;
                     archivement_percent = GameMgr.Contest_archivement_percent[3];
                     break;

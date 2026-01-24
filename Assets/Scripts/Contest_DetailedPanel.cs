@@ -39,9 +39,18 @@ public class Contest_DetailedPanel : MonoBehaviour {
     private Color newColor;
 
     private string _contest_Grade;
+    private Text contest_Itemname;
 
     private GameObject msg_window;
     private GameObject yes_no_panel;
+
+    private GameObject money_panel;
+    private GameObject ninki_panel;
+
+    private GameObject contestscore_panel;
+    private Text contestscore_text;
+
+    private int data_changeflag;
 
     // Use this for initialization
     void Start () {
@@ -74,8 +83,11 @@ public class Contest_DetailedPanel : MonoBehaviour {
 
         contestVictory_ItemDataPanel = this.transform.parent.Find("Contest_VictoryItemCheckPanel").gameObject;
         contestVictory_ItemDataPanel.SetActive(false);
+        contest_Itemname = contestVictory_ItemDataPanel.transform.Find("NamePlate/NameText").GetComponent<Text>();
+        contestscore_panel = contestVictory_ItemDataPanel.transform.Find("ScorePanel").gameObject;
+        contestscore_panel.SetActive(false);
+        contestscore_text = contestscore_panel.transform.Find("ScoreText").GetComponent<Text>();
 
-        
         contest_detailed_datapanel = this.transform.Find("ContestDetailed_datapanel").gameObject;
         contest_title = contest_detailed_datapanel.transform.Find("background/ContestTitle").GetComponent<Text>();
         contest_cost = contest_detailed_datapanel.transform.Find("background/ContestCost").GetComponent<Text>();
@@ -92,6 +104,9 @@ public class Contest_DetailedPanel : MonoBehaviour {
 
         msg_window = canvas.transform.Find("MessageWindow").gameObject;
         yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
+
+        money_panel = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        ninki_panel = canvas.transform.Find("NinkiStatusPanel").gameObject;
     }
 
     //
@@ -228,22 +243,9 @@ public class Contest_DetailedPanel : MonoBehaviour {
     //過去優勝したときのおかしデータを見る
     public void OnVictoryItemData_Button()
     {
-        GameMgr.common_itemdatahyouji_list.Clear();
-
-        //Debug.Log("リスト選択番号: " + _list + " " + conteststartList_database.conteststart_lists[_list].ContestName);
-        GameMgr.common_itemdatahyouji_list.Add(conteststartList_database.conteststart_lists[_list].Contest_VictoryItemData);
-        card_view.ContestVictoryItemDataHyouji(0);
-
         contestVictory_ItemDataPanel.SetActive(true);
-        msg_window.SetActive(false);
-        yes_no_panel.SetActive(false);
-    }
+        contestVictory_ItemDataPanel.GetComponent<Contest_VictoryItemCheckPanel>().InitSetting(_list);
 
-    public void CloseVictory_ItemDataPanel() //閉じるをおす
-    {
-        card_view.DeleteCard_DrawView();
-        contestVictory_ItemDataPanel.SetActive(false);
-        msg_window.SetActive(true);
-        yes_no_panel.SetActive(true);
     }
+   
 }

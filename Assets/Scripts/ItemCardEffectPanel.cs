@@ -117,6 +117,17 @@ public class ItemCardEffectPanel : MonoBehaviour
             }
             
         }
+        else if (_status == 3) //コンテストお菓子の名前一覧画面
+        {
+            count = 0;
+            foreach (Transform child in this.transform.Find(pt_root).transform)
+            {
+                m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
+                m_ParticleSystem.sortingOrder = 23060 + count;
+                count++;
+            }
+
+        }
         else //デフォ　元のオーダー使う　5010とかになってる
         {
             count = 0;
@@ -150,6 +161,16 @@ public class ItemCardEffectPanel : MonoBehaviour
                 count++;
             }
             
+        }
+        else if (_status == 3) //コンテストお菓子の名前一覧画面
+        {
+            count = 0;
+            foreach (Transform child in this.transform.Find(img_root).transform)
+            {
+                child.GetComponent<Canvas>().sortingOrder = 23070 + count;
+                count++;
+            }
+
         }
         else //デフォ　元のオーダー使う　5010とかになってる
         {

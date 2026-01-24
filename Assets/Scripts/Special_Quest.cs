@@ -141,7 +141,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         if(spquest_set_num >= 0 && spquest_set_num < 10) //10~からが本番でステージ１としてカウント
         {
-            OkashiQuest_Number = "Prologue" + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
+            OkashiQuest_Number = "Pre" + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
         }
         else
         {

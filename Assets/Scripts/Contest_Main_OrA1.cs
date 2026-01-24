@@ -75,12 +75,21 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     private GameObject yes_no_submit_panel;
     private GameObject yes_no_giveup_panel;
+    private GameObject yes_no_namekakunin_panel;
 
     private GameObject contest_select;
     private GameObject conteston_toggle_01;
     private GameObject conteston_toggle_giveup;
     private GameObject hinttaste_toggle;
+    private GameObject conteston_toggle_nameok;
     private GameObject okashihint_panel;
+
+    private GameObject namesetting_panel;
+    private Text nameplate_text;
+    private InputField inputField_okashiname;
+    private Image okashi_img;
+    private string default_itemName;
+    private string kettei_itemName;
 
     private GameObject mainUI_panel;
 
@@ -141,28 +150,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
         contestPrizeScore_dataBase = ContestPrizeScoreDataBase.Instance.GetComponent<ContestPrizeScoreDataBase>();
 
-        /* デバッグ用 */
-        //GameMgr.System_DebugItemSet_ON = true;
-
-        if (GameMgr.System_DebugItemSet_ON) //上のデバッグ用のチェックをONにするだけでいい　アイテムは下で設定
-        {
-            _id = conteststartList_database.SearchContestString("Or_Contest_001"); //コンテストの会場番号　コンテスト名いれたらOK
-
-            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
-            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
-            GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
-            GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
-            GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
-            GameMgr.Contest_NameHyouji = conteststartList_database.conteststart_lists[_id].ContestNameHyouji;
-            GameMgr.Contest_EnshutuNameHyouji = conteststartList_database.conteststart_lists[_id].ContestEnshutuName;
-
-            //GameMgr.Story_Mode = 1;
-            GameMgr.GirlLoveEvent_num = 10;
-            GameMgr.System_MagicUse_Flag = true;
-            GameMgr.System_HikariMakeUse_Flag = true;
-        }
-        /* */
-
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
@@ -214,6 +201,17 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         yes_no_submit_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
         yes_no_giveup_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
+        yes_no_namekakunin_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel4").gameObject;
+
+        namesetting_panel = canvas.transform.Find("NameSettingPanel").gameObject;
+        namesetting_panel.SetActive(false);
+        nameplate_text = namesetting_panel.transform.Find("NamePlate/Text").GetComponent<Text>();
+        nameplate_text.text = "";
+        inputField_okashiname = namesetting_panel.transform.Find("NameInput").GetComponent<InputField>();
+        inputField_okashiname.text = "";
+        okashi_img = namesetting_panel.transform.Find("ItemPanel/ItemImg").GetComponent<Image>();
+
+        conteston_toggle_nameok = namesetting_panel.transform.Find("Yesno_Select/Viewport/Content/ContestOn_Toggle_NameOK").gameObject;
 
         contestPrizePanel = canvas.transform.Find("ContestPrizePanel").gameObject;
         contestPrizePanel.GetComponent<CanvasGroup>().alpha = 0;
@@ -324,10 +322,26 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
         GameMgr.Window_CharaName = "";
 
-        
-        //デバッグ用　最初に所持するアイテム
+
+        //デバッグ用
+        //GameMgr.System_DebugItemSet_ON = true;
         if (GameMgr.System_DebugItemSet_ON)
         {
+            _id = conteststartList_database.SearchContestString("Or_Contest_001"); //コンテストの会場番号　コンテスト名いれたらOK
+
+            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
+            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
+            GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
+            GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
+            GameMgr.Contest_NameHyouji = conteststartList_database.conteststart_lists[_id].ContestNameHyouji;
+            GameMgr.Contest_EnshutuNameHyouji = conteststartList_database.conteststart_lists[_id].ContestEnshutuName;
+
+            //GameMgr.Story_Mode = 1;
+            GameMgr.GirlLoveEvent_num = 10;
+            GameMgr.System_MagicUse_Flag = true;
+            GameMgr.System_HikariMakeUse_Flag = true;
+
             Debug_StartItem();
         }
 
@@ -408,6 +422,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
+            //名前欄を空白に
+            nameplate_text.text = "";
+            inputField_okashiname.text = "";
+
             //MPは全回復
             PlayerStatus.player_mp = PlayerStatus.player_maxmp;
 
@@ -451,6 +469,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //優勝した場合、そのコンテスト優勝時のアイテムデータを記録
             if(GameMgr.contest_Rank_Count == 1)
             {
+                GameMgr.Contest_tempSubmitItemData.ContestVictory_Score = GameMgr.contest_TotalScore;
                 conteststartList_database.SetVictoryItemData(GameMgr.Contest_Name, GameMgr.Contest_tempSubmitItemData);
             }
 
@@ -598,6 +617,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     yes_no_panel.SetActive(false);
                     yes_no_giveup_panel.SetActive(false);
                     yes_no_submit_panel.SetActive(false);
+                    yes_no_namekakunin_panel.SetActive(false);
+                    namesetting_panel.SetActive(false);
                     mainUI_panel.SetActive(true);
                     sceneBGM.MuteOFFBGM();
 
@@ -704,6 +725,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     break;
 
                 case 13: //あげるかあげないかを選択中
+
+                    break;
+
+                case 20: //名前を決め中
 
                     break;
 
@@ -832,7 +857,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         mainUI_panel.transform.Find("HintTaste_Toggle").GetComponent<Toggle>().interactable = false;
         mainUI_panel.transform.Find("HintTaste_Toggle").GetComponent<Sound_Trigger>().se_sound_ON = false;
         mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Button>().interactable = false;
-        mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Sound_Trigger>().se_sound_ON = false;
+        mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Sound_Trigger>().se_sound_ON = false;        
         mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_01").GetComponent<Toggle>().interactable = false;
         mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_01").GetComponent<Sound_Trigger>().se_sound_ON = false;
         mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_GiveUp").GetComponent<Toggle>().interactable = false;
@@ -1196,13 +1221,71 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
         yes_selectitem_kettei.onclick = false;
 
+        
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                yes_no_submit_panel.SetActive(false);
+                yes_no_namekakunin_panel.SetActive(true); //名前確認にとぶ
+
+                if (girl1_status.GirlGokigenStatus < 6)
+                {
+                    _text.text = "にいちゃん！　おかしに名前をつける？";
+                }
+                else if (girl1_status.GirlGokigenStatus >= 6 && girl1_status.GirlGokigenStatus < 9)
+                {
+                    _text.text = "にいちゃん！　せっかくだから、おかしに名前つけたいな！";
+                }
+                else if (girl1_status.GirlGokigenStatus >= 9 && girl1_status.GirlGokigenStatus < 12)
+                {
+                    _text.text = "にいちゃんが作ったおかし.." + "\n" + "名前つけてあげたいな！";
+                }
+                else if (girl1_status.GirlGokigenStatus >= 12)
+                {
+                    _text.text = "にいちゃん..。 このおかしに、名前をつけてあげて！";
+                }
+
+                default_itemName = pitemlist.player_extremepanel_itemlist[0].item_FullName;
+                conteston_toggle_nameok.GetComponent<Button>().interactable = false;
+
+                StartCoroutine("NameSet_select");
+                break;
+
+            case false:
+
+                black_panel_A.SetActive(false);
+                //Debug.Log("cancel");
+
+                //_textmain.text = "";
+                GameMgr.Scene_Status = 0;
+                yes_no_submit_panel.SetActive(false);
+                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
+                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+
+                break;
+
+        }
+    }
+
+    //名前を決定するか確認中　ただし、「そのまま」をおすか「キャンセル」か入力されるまでここで待つ　「名前を決める」をおすと、さらに中に進み、「決定」をおされるまで待つ
+    IEnumerator NameSet_select()
+    {
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false;
+
         black_panel_A.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {
             case true:
 
-                yes_no_submit_panel.SetActive(false);
+                yes_no_namekakunin_panel.SetActive(false);
+                namesetting_panel.SetActive(false);
 
                 sceneBGM.MuteBGM();
                 scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
@@ -1210,6 +1293,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                 GameMgr.contest_event_num = GameMgr.ContestSelectNum;
                 GameMgr.Contest_tempSubmitItemData = pitemlist.player_extremepanel_itemlist[0];
+
+                Debug.Log("作品名（デフォルト）: " + GameMgr.Contest_tempSubmitItemData.itemNameHyouji);
+                Debug.Log("作品名（ユーザー入力）: " + GameMgr.Contest_tempSubmitItemData.user_customname);
 
                 StartCoroutine("WaitForJudge");
 
@@ -1221,6 +1307,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                 //_textmain.text = "";
                 GameMgr.Scene_Status = 0;
+                namesetting_panel.SetActive(false);
+                yes_no_namekakunin_panel.SetActive(false);
                 yes_no_submit_panel.SetActive(false);
                 yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
                 yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
@@ -1246,6 +1334,60 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.contest_or_contestjudge_flag = true;
 
         scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
+    }
+
+
+
+    //「名前を決める」ボタンをおした
+    public void OnNameSettingButton()
+    {
+        GameMgr.Scene_Status = 20;
+
+        namesetting_panel.SetActive(true);
+        yes_no_namekakunin_panel.SetActive(false);
+
+        okashi_img.sprite = pitemlist.player_extremepanel_itemlist[0].itemIcon_sprite;
+    }
+
+    //名前を入力しEnterをおした　もしくはOKボタン　名前の確定
+    public void OnSubmitNameInput()
+    {
+        nameplate_text.text = inputField_okashiname.text;
+        kettei_itemName = inputField_okashiname.text;
+
+        conteston_toggle_nameok.GetComponent<Button>().interactable = true;
+    }
+
+    //名前を入力し終えて、これで提出をおした
+    public void OnOK_NameSetting()
+    {
+        //nameplate_text.text = inputField_okashiname.text;
+        kettei_itemName = inputField_okashiname.text;
+
+        //提出ネームの決定
+        pitemlist.player_extremepanel_itemlist[0].user_customname = kettei_itemName;        
+
+        //Yesをおしたのと一緒
+        yes_selectitem_kettei.onclick = true;
+        yes_selectitem_kettei.kettei1 = true;
+    }
+
+    //名前入力画面でやめるをおした
+    public void OnCancel_NameSetting()
+    {
+        namesetting_panel.SetActive(false);
+        yes_no_namekakunin_panel.SetActive(true);
+    }
+
+    //名前入力画面でデフォルト名に戻すをおした
+    public void OnDefaultReset_NameSetting()
+    {
+        nameplate_text.text = default_itemName;
+        kettei_itemName = "";
+        pitemlist.player_extremepanel_itemlist[0].user_customname = "";
+        inputField_okashiname.text = "";
+
+        conteston_toggle_nameok.GetComponent<Button>().interactable = true; //カスタムネーム内は空だけど、ここからも通常通り提出できる
     }
 
 
@@ -1365,6 +1507,58 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     public void OnDebugContest_Judge_Now()
     {
         contest_judge.Contest_Judge_Start(9999);
+    }
+
+    //デバッグ用　プライズ画面へすぐ飛ぶ　一位で優勝したことにする
+    public void OnDebugContest_GetPrize_AfterSkipButton()
+    {
+        GameMgr.Contest_ON = false;
+
+        Debug.Log("コンテスト　本戦終了！！");
+        GameMgr.contest_Rank_Count = 1;
+
+        //GameMgr.contest_TotalScoreList.Clear();
+        GameMgr.contest_okashiNameList.Clear(); //提出したお菓子を各回ごとに記録したもの　リセット
+
+        if (GameMgr.Contest_Cate_Ranking == 0)
+        {
+            GameMgr.ContestRoundNum = 3; //〇回戦　決勝戦スタートということにする
+        }
+        else
+        {
+            GameMgr.ContestRoundNum = 1;
+        }
+
+        StartSetReset();
+
+        //DBで初期設定を行っている
+        conteststartList_database.ContestSetting();
+
+        sceneBGM.MuteBGM();
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+        GameMgr.Contest_tempSubmitItemData = database.items[0];
+
+        StartCoroutine("WaitForDebugPrizeSkip");
+    }
+
+    IEnumerator WaitForDebugPrizeSkip()
+    {
+        yield return new WaitForSeconds(2.0f); //2秒待つ
+
+        GameMgr.Contest_PrizeGet_flag = true;
+
+        //お菓子を採点する
+        //contest_judge.Contest_Judge_Start(0);
+
+        //パネルのお菓子を削除
+        //pitemlist.deleteExtremePanelItem(0, 1);
+
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

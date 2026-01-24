@@ -105,6 +105,7 @@ public class Item
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
     public string user_customname; //ユーザーが決めたお菓子のオリジナル名前
     public int ItemMode; //デフォルトかオリジナルかエクストリームかヒカリ制作かを判別する
+    public int ContestVictory_Score; //優勝したときの点数　コンテストごとに保存
 
     //
     public int Eat_kaisu; //食べた回数
@@ -389,6 +390,8 @@ public class Item
 
         //以下、Excelに記載はなし
         total_kyori = _total_kyori;
+        user_customname = "";
+        ContestVictory_Score = 0;
 
         last_total_score = _lasttotal_score;
         last_rich_score = 0;

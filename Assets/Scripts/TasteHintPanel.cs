@@ -252,7 +252,8 @@ public class TasteHintPanel : MonoBehaviour {
             Okashi_lastbitter_param_text.text = "0";
         }
 
-        Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.contest_okashiSlotName + "</color>" + GameMgr.contest_okashiNameHyouji;
+        //Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.contest_okashiSlotName + "</color>" + GameMgr.contest_okashiNameHyouji;
+        Okashi_lastname_text.text = GameMgr.contest_okashiNameHyouji;
         Okashi_lastscore_text.text = GameMgr.contest_TotalScore.ToString();
        
 

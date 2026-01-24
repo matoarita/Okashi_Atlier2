@@ -26,7 +26,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_default_mp; //ゲーム初期値　セーブ不要
     public static int player_patissier_lv;
     public static int player_patissier_exp; //パティシエLV用だが、LVはハートLVに依存するので、現在未使用。使ってもいい。
-    public static int player_patissier_job_pt;
+    public static int player_patissier_job_pt; //まほうポイントのこと。魔法のレベルを上げる。
     public static int player_patissier_Rank;
     public static string player_patissier_Rank_hyouki; //ランクの名前　セーブ不要
     public static List<string> player_patissier_Rank_hyoukiList = new List<string>();　//ランクの名前　配列番号から呼び出せる　セーブ不要

@@ -1658,6 +1658,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         || _base_itemType_subB == "a_SugerFlower" ||
         _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_sub == "FloatFruits" || _base_itemType_sub == "FloatSuger" ||
         _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
+        _base_itemType_subB == "a_Freezeflower" || _base_itemType_subB == "a_FrozenFruits" ||
         _base_itemType_subB == "a_Mazipan" ||
         _basename == "lumi_banana" || _base_itemType_subCategory == "Original")
         {

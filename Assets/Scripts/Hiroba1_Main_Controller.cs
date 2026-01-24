@@ -82,6 +82,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     private bool StartRead;
     private bool check_event;
+    private int random;
 
     //private bool map_move;
     private int map_move_num;
@@ -4313,8 +4314,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1621; //
 
-        //GameMgr.NPCHiroba_eventList[1220] = true; //はじめてイベントは無くした。
-
         if (!GameMgr.NPCHiroba_eventList[1220]) //はじめて
         {
             GameMgr.NPCHiroba_eventList[1220] = true;
@@ -4333,8 +4332,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             if (GameMgr.NPCHiroba_eventList[1220]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 //頭から順番に会話をまわしていく。
-                GameMgr.hiroba_event_ID = 10 + talkrot;               
-                //TalkRotation(2, 1); //2つめが1の時は、パターンがローテーションせずに止まる
+                GameMgr.hiroba_event_ID = 10 + talkrot;
+                //日でランダムに話が切り替わる
+                GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3;
+                //TalkRotation(2, 0); //2つめが1の時は、パターンがローテーションせずに止まる
 
 
                 //BGMかえる
@@ -4509,8 +4510,29 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
+                    random = Random.Range(0, 3);
+
                     GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                    default_scenetext = "にいちゃん！　おっきい噴水があるよ～！";
+
+                    switch (random)
+                    {
+                        case 0:
+                            default_scenetext = "にいちゃん！　おっきい噴水があるよ～！";
+                            break;
+
+                        case 1:
+                            default_scenetext = "見て、にいちゃん！　虹ができてる～！！";
+                            break;
+
+                        case 2:
+                            default_scenetext = "水がキラキラしてる～♪　にいちゃん！";
+                            break;
+
+                        default:
+                            default_scenetext = "にいちゃん！　おっきい噴水があるよ～！";
+                            break;
+                    }
+                    
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
@@ -4614,7 +4636,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　なんかいっぱいお店がある～！";
+                default_scenetext = "にいちゃん！　たくさんお店あるよ～！";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 //text_area_hyouji_on = true;
@@ -4652,9 +4674,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                 default_scenetext = "らーめんイベントとか。広場でスタートする場合はここ使いたい";
-
-                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                //text_area_hyouji_on = true;
 
                 break;
 
@@ -5415,6 +5434,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 talkrot++;
             }
+
+            if (talkrot > _talkmax_rot)
+            {
+                talkrot = 0;
+            }
         }
         else if (_stopstatus == 1) //1の場合、パターン終わりで止まる
         {
@@ -5422,12 +5446,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 talkrot++;
             }
-        }        
-
-        if (talkrot > _talkmax_rot)
-        {
-            talkrot = 0;
-        }
+        }               
     }
 
     //ネームプレートの設定とアニメーションON

@@ -870,11 +870,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.BarQuest_NewReset = playerData.save_BarQuest_NewReset; 
         GameMgr.BarQuest_NewReset2 = playerData.save_BarQuest_NewReset2;
 
-        //初期設定　配布時は消してOK
+        //初期設定
         GameMgr.OrRoomBuy[0] = true;
         GameMgr.OrRoomRelease[0] = true;
-        GameMgr.OrRoomRelease[1] = true;
-        GameMgr.OrRoomRelease[2] = true;
+
 
         //満月の夜の月と日
         GameMgr.System_Fullmoon_month = playerData.save_System_Fullmoon_month;

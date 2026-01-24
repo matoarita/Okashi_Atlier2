@@ -166,3 +166,4 @@
 ・BGM_162		PerituneMaterial_Realm_Daytime_loop	コンテスト高難易度のお城風BGM
 ・BGM_163		PianoSketch_09_颯爽と			コンテスト高難易度　調合時のBGM 
 ・BGM_164		audiostock_157663			【宴用】夏エリアの曲　イセヤのお店テーマ曲として使用　BGM_90と同じ
+・BGM_165		PerituneMaterial_Tango_Romantic_loop	フォルトーネのテーマ　なんか切ないタンゴ

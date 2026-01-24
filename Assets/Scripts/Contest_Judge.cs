@@ -234,7 +234,14 @@ public class Contest_Judge : MonoBehaviour {
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[kettei_itemID].item_SlotName;
             GameMgr.contest_okashiName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
-            GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemNameHyouji;
+            if (pitemlist.player_extremepanel_itemlist[kettei_itemID].user_customname != "")
+            {
+                GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[kettei_itemID].user_customname;
+            }
+            else
+            {
+                GameMgr.contest_okashiNameHyouji = GameMgr.contest_okashiSlotName + pitemlist.player_extremepanel_itemlist[kettei_itemID].itemNameHyouji;
+            }
             GameMgr.contest_okashiSubType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
             GameMgr.contest_okashiID = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemID;            
 
@@ -627,7 +634,7 @@ public class Contest_Judge : MonoBehaviour {
 
                         if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                         {
-                            if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
+                            if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Cookie_Hard_Mat"
                                 || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
                                 || item_subType == "Cannoli" || item_subType == "Biscotti" || item_subType == "BakedSweets" || item_subTypeB == "a_Maritozzo")
                             {
@@ -699,7 +706,7 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
+                                if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Cookie_Hard_Mat"
                                     || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
                                     || item_subType == "Cannoli" || item_subType == "Biscotti" || item_subType == "BakedSweets" || item_subTypeB == "a_Maritozzo")
                                 {
@@ -1059,7 +1066,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if(item_subType == "Cookie" || item_subType == "Cookie_Hard"
+                    if(item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Cookie_Hard_Mat"
                         || item_subTypeB == "a_GlowCookie" || item_subTypeB == "a_GlowCookie_Hard")
                     {
                         judge_flag = true;
@@ -1257,28 +1264,6 @@ public class Contest_Judge : MonoBehaviour {
                 break;
 
             case "Or_Contest_070":　//ルミエール・カンデラ　光りのお菓子で採点される　キラキラ感で補正がはいる
-
-                /*if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
-                {
-                    if (item_subTypeB == "a_GlowCake" || item_subTypeB == "a_GlowCookie" || item_subTypeB == "a_GlowCookie_Hard"
-                        || item_subTypeB == "a_GlowCheeseCake" || item_subTypeB == "a_GlowJelly" || item_subTypeB == "a_GlowCandy"
-                        || item_subTypeB == "a_GlowRusk" || item_subTypeB == "a_GlowJuice")
-                    {
-                        judge_flag = true;
-                    }
-                    else
-                    {
-                        //上記タイプのおかしでなくても、光りの演出魔法がかかっていれば、採点は通る
-                        if (_basemagicslot_Name == GameMgr.System_MagicSlotName02 || _basemagicslot_Name == GameMgr.System_MagicSlotName07)
-                        {
-                            judge_flag = true;
-                        }
-                        else
-                        {
-                            judge_flag = false;
-                        }
-                    }
-                }*/
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -1562,7 +1547,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Rusk")
+                    if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Cookie_Hard_Mat" ||
+                        item_subType == "Rusk")
                     {
                         judge_flag = false;
                     }
@@ -2183,7 +2169,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Chocolate"
+                    if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Cookie_Hard_Mat" || 
+                        item_subType == "Chocolate"
                         || item_subType == "Cake" || item_subType == "CheeseCake" || item_subType == "Jelly")
                     {
                         judge_flag = true;
