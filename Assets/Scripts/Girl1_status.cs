@@ -2108,9 +2108,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 hukidashiitem = Instantiate(hukidashiPrefab, chara_hukidashiPos.transform);
 
+                Debug.Log("GameMgr.Bend_FadeAnimStart: " + GameMgr.Bend_FadeAnimStart);
                 if (GameMgr.Bend_FadeAnimStart)
                 {
-                    //半透明モードのときは、音を鳴らさない。
+                    //半透明モードのときは、音を鳴らさない。→　音をならすに変更。ただし、吹き出しを透明にして、いなくなった感じをだす。
+
+                    //音を鳴らす
+                    sc.PlaySe(7);
                 }
                 else
                 {
@@ -4029,7 +4033,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         FaceMotionPlay(1047); //ふんふ～ん　はなうた
                         _touchface_comment_lib.Add("にいちゃん。おそうじ自動でしてくれる魔法、ないかなぁ～？");
-                        _touchface_comment_lib.Add("さくらまいちる～、中にかすかな記憶と～..♪");
+                        _touchface_comment_lib.Add("さくらまいちる～、中にかすかなキオクと～..♪");
                         break;
 
                 }                

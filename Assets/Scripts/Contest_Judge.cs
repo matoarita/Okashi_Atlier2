@@ -986,7 +986,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 3:
 
-                        _score_hosei = 120; //等倍する代わりに、ベルちゃんも点数が高め
+                        _score_hosei = 120; //ベルちゃん点数が高め
                         break;
                 }
 

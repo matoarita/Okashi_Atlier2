@@ -1132,7 +1132,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 458; //
+        GameMgr.contest_boss_score = 638; //
         GameMgr.contest_boss_name = "ベル";
 
         //決勝戦の場所とBGMを指定

@@ -108,6 +108,9 @@ public class TextController : MonoBehaviour
         //Debug.Log("_contents: " + _contents);
         scenarios.Add(_contents);
 
+        //ヒカリ半透明モード
+        TransHukidashi();
+
         SetNextLine();
         OnReadFlag = true; //読み込み開始
     }
@@ -126,7 +129,36 @@ public class TextController : MonoBehaviour
         //Debug.Log("_contents: " + _contents);
         scenarios.Add(_contents);
 
+        //ヒカリ半透明モード
+        TransHukidashi();
+
         SetNextLine();
         OnReadFlag = true; //読み込み開始
+    }
+
+    void TransHukidashi()
+    {
+        //ヒカリ半透明のとき、吹き出しも少し透ける
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 1000: //タイトルシーン
+
+                if (GameMgr.Bend_FadeAnimStart)
+                {
+                    //半透明モード
+                    this.GetComponent<CanvasGroup>().alpha = 0.95f;
+                }
+                else
+                {
+                    
+                }
+
+                break;
+
+            default:
+
+                
+                break;
+        }
     }
 }

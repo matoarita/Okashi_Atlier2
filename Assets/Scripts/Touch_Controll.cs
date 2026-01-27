@@ -141,7 +141,7 @@ public class Touch_Controll : MonoBehaviour
 
         if (ALL_touch_flag)
         {
-            sc.PlaySe(11); //触ったときの音
+            Touch_Sound(); //触ったときの音
             //Debug.Log("Touch_Hair");
 
             if (!touch_interval_flag)
@@ -257,7 +257,7 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
-            sc.PlaySe(11); //触ったときの音
+            Touch_Sound(); //触ったときの音
 
             if (!touch_interval_flag)
             {
@@ -349,7 +349,7 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
-            sc.PlaySe(11); //触ったときの音
+            Touch_Sound(); //触ったときの音
 
             if (!touch_interval_flag)
             {
@@ -416,7 +416,7 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
-            sc.PlaySe(11); //触ったときの音
+            Touch_Sound(); //触ったときの音
 
             if (!touch_interval_flag)
             {
@@ -462,7 +462,7 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
-            sc.PlaySe(11); //触ったときの音
+            Touch_Sound(); //触ったときの音        
 
             if (!touch_interval_flag)
             {
@@ -502,6 +502,35 @@ public class Touch_Controll : MonoBehaviour
             girl1_status.Girl1_touchchest_start = false;
             //EndTouchMethod();
         }
+    }
+
+    void Touch_Sound()
+    {
+        //音を鳴らす
+        sc.PlaySe(11); //触ったときの音
+
+        /*switch (GameMgr.Scene_Category_Num)
+        {
+            case 1000: //タイトルシーン
+
+                if (GameMgr.Bend_FadeAnimStart)
+                {
+                    //半透明モードのとき
+                }
+                else
+                {
+                    //音を鳴らす
+                    sc.PlaySe(11); //触ったときの音
+                }
+
+                break;
+
+            default:
+
+                sc.PlaySe(11); //触ったときの音
+                break;
+        }*/
+        
     }
 
     void TimeReset()

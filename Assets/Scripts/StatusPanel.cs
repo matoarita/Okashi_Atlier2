@@ -498,6 +498,8 @@ public class StatusPanel : MonoBehaviour {
 
         for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
         {
+            //Debug.Log("GameMgr.CollectionItemsName[i]: " + GameMgr.CollectionItemsName[i]);
+
             if (pitemlist.ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、画像として表示される。
             {
                 _itemID = database.SearchItemIDString(GameMgr.CollectionItemsName[i]);

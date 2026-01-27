@@ -364,6 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4538284151537662}
   - component: {fileID: 114169658414777918}
+  - component: {fileID: 2550453246074126508}
   m_Layer: 0
   m_Name: hukidashi
   m_TagString: Hukidashi
@@ -404,6 +405,18 @@ MonoBehaviour:
   intervalForCharacterDisplay: 0.05
   hint_on: 0
   textend_flag: 0
+--- !u!225 &2550453246074126508
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241201988060640}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1492839226592294
 GameObject:
   m_ObjectHideFlags: 0

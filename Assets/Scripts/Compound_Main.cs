@@ -1869,6 +1869,9 @@ public class Compound_Main : MonoBehaviour
                 //スターによって解放されるスキルがないかチェック
                 exp_table.StarLVCheck();
 
+                //必要なアイテムの二重チェック　アップデートなどで、アイテムのExcelが動いたときになくなる可能性があるものは、ここで確実に入るようにチェックする
+                Check_ItemForUpdate();
+
                 //魔法一番使ってるものをここでチェック
                 GameMgr.MagicSkill_TopUseName = magicskill_database.Count_TopUseMagicSkill();
 
@@ -3692,6 +3695,19 @@ public class Compound_Main : MonoBehaviour
 
             default:
                 break;
+        }
+    }
+
+    //アップデート用などで、アイテムが消失するバグ？があるかも。なので、ここで二重チェック。
+    void Check_ItemForUpdate()
+    {
+        //いくつかのアイテムが、アイテムExeclアップデート後に入手できなくなる？　ちょっと謎なので、さくらのゆびわはスターチェックで二重チェックいれる。
+        if (PlayerStatus.player_ninki_param >= GameMgr.System_StampStarMax)
+        {
+            if (pitemlist.KosuCount("sakura_ring") == 0)
+            {
+                pitemlist.addPlayerItemString("sakura_ring", 1); //さくらのゆびわゲット
+            }
         }
     }
 
