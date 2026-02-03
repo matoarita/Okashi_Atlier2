@@ -1871,6 +1871,10 @@ public class Utage_scenario : MonoBehaviour
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
 
+        //さっきたべたお菓子を設定
+        engine.Param.TrySetParameter("Okashi_LastEat", GameMgr.Okashi_lastname);
+        
+
         //家賃額設定
         engine.Param.TrySetParameter("YachinCost", GameMgr.Yachin_Cost_cullent);
         engine.Param.TrySetParameter("YachinDay", GameMgr.System_Yachin_Day);

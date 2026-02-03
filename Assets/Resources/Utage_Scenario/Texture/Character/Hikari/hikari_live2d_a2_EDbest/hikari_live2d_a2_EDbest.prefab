@@ -7450,7 +7450,7 @@ MonoBehaviour:
   _modelMultiplyColor: {r: 0, g: 0, b: 0, a: 0}
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
-  _sortingMode: 2
+  _sortingMode: 0
   _sortingOrder: 0
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
@@ -7470,7 +7470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967223d908bf07b4f90945995bdca68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maskTexture: {fileID: 11400000, guid: 16bf142754640ab4487bb625c30931fd, type: 2}
+  _maskTexture: {fileID: 0}
 --- !u!114 &4858143340865148009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7533,7 +7533,7 @@ Animator:
   m_GameObject: {fileID: 3367887370626777097}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4e68d51835cba894f8f1098027067c3f, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

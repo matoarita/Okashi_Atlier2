@@ -446838,6 +446838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GetMatPlace_Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 1901144554655786, guid: a3a823db655bd404abc7a42f1cf750ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224025280680974648, guid: a3a823db655bd404abc7a42f1cf750ee,
         type: 3}
       propertyPath: m_Pivot.x
@@ -446941,6 +446945,41 @@ PrefabInstance:
     - target: {fileID: 224025280680974648, guid: a3a823db655bd404abc7a42f1cf750ee,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224501434452557746, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224501434452557746, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224636977446530806, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224636977446530806, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224787336055738614, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224787336055738614, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224787336055738614, guid: a3a823db655bd404abc7a42f1cf750ee,
+        type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

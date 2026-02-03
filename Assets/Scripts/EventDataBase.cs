@@ -1438,7 +1438,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         GameMgr.SpecialSubevent_EatAfterflag = false;
 
-                        Event_startcheck(GameMgr.SpecialSubevent_Num, 1, false, false, 0);
+                        Event_startcheck(GameMgr.SpecialSubevent_Num, GameMgr.SpecialSubevent_BgmON, false, false, 0);
                     }
                 }
 

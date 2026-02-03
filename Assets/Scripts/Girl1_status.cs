@@ -1158,10 +1158,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 switch (GirlGokigenStatus_SubStage)
                 {
                     case 1:
-                        face_girl_Normal2();
+                        face_girl_Normal();
                         break;
                     case 2:
-                        face_girl_Normal2();
+                        face_girl_Normal();
                         break;
                     case 3:
                         face_girl_Set(44); //よろこび表情の口とじ
@@ -1387,7 +1387,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             { }
             else
             {
-                girlRandomEat_List.Add(_id);
+                //サファイアでてないおかしを優先的に食べたいという
+                if (database.items[_id].HighScore_flag < 2)
+                {
+                    girlRandomEat_List.Add(_id);
+                }
+                else
+                {
+                    //すでにサファイアまでだしたおかしの場合　30%で抽選がはずれる。
+                    random = Random.Range(0, 100);
+                    if(random <= 70) //% はずれ
+                    { }
+                    else
+                    {
+                        girlRandomEat_List.Add(_id);
+                    }
+                }
+                    
                 //Debug.Log("databaseCompo.compoitems[i].cmpitemID_result: " + databaseCompo.compoitems[i].cmpitemID_result);
             }
 

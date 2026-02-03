@@ -1097,7 +1097,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(100); //90%
+                    ScoreNormalized(75); //100%が基準
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -1218,7 +1218,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(100); //90%
+                    ScoreNormalized(75); //90%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }

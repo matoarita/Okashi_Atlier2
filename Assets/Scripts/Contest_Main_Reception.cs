@@ -795,23 +795,28 @@ public class Contest_Main_Reception : MonoBehaviour
             EventReadingStart();
         }
 
-        if (GameMgr.NPCHiroba_eventList[0]) //はじめてきたは終了
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        {  }
+        else
         {
-            if (!GameMgr.NPCHiroba_eventList[20]) //はじめてきた
+            if (GameMgr.NPCHiroba_eventList[0]) //はじめてきたは終了
             {
-                GameMgr.NPCHiroba_eventList[20] = true;
+                if (GameMgr.GirlLoveSubEvent_stage1[503] && !GameMgr.NPCHiroba_eventList[20]) //アカデミーの招待状は届いたが、まだイベントは発生してない。
+                {
+                    GameMgr.NPCHiroba_eventList[20] = true;
 
-                //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
-                GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント場所番号　Excelの「Hiroba_Or_Contest_ReceptionTalk」を指定
-                GameMgr.hiroba_event_ID = 1010;
+                    //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+                    GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント場所番号　Excelの「Hiroba_Or_Contest_ReceptionTalk」を指定
+                    GameMgr.hiroba_event_ID = 1010;
 
-                //BGMかえる
-                sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                bgm_change_flag = true;
+                    //BGMかえる
+                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                    bgm_change_flag = true;
 
-                check_event = true;
+                    check_event = true;
 
-                EventReadingStart();
+                    EventReadingStart();
+                }
             }
         }
 

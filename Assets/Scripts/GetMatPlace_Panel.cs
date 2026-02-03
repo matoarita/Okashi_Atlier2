@@ -367,7 +367,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             break;
                         }
                     }
-                    category_toggleList_obj.SetActive(false);
+                    //category_toggleList_obj.SetActive(false);
 
                     break;
 
@@ -386,7 +386,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             break;
                         }
                     }
-                    category_toggleList_obj.SetActive(true);
+                    //category_toggleList_obj.SetActive(true);
 
 
                     break;
@@ -406,7 +406,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             break;
                         }
                     }
-                    category_toggleList_obj.SetActive(true);
+                    //category_toggleList_obj.SetActive(true);
 
                     break;
             }

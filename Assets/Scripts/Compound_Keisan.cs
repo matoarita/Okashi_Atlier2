@@ -3368,6 +3368,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType = database.items[_id].itemType.ToString();
         _add_itemType_sub = database.items[_id].itemType_sub.ToString();
         _addmagic = database.items[_id].Magic;
+        
 
         //店売りアイテムを合成に使う場合。通常トッピング＋固有トッピングどちらも計算
 

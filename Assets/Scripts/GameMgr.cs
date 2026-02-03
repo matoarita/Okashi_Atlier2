@@ -65,6 +65,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数の〇分の一にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
     public static bool System_TabetaiOkashiStatusUp = false; //食べたいおかしをあげたときに、そのお菓子の食感が固定ステで上昇する仕様。falseならオフ。
+    public static bool System_HighscoreOkashi_SPEventComment_ON = true; //150点をこえたときに、少しだけ特別なセリフを表示する。
 
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
@@ -889,6 +890,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int RandomEatOkashi_counter; //食べたいお菓子が変わるまでのカウンタ
     public static bool SpecialSubevent_EatAfterflag; //お菓子の採点が777のときに、サブイベントを呼び出すときのフラグ
     public static int SpecialSubevent_Num; //そのときのサブイベント番号
+    public static int SpecialSubevent_BgmON; //そのときBGM宴使うかそのままか
     public static string hikarimakeokashi_itemTypeSub_nameHyouji; //ヒカリのお菓子Expテーブルの各お菓子の名前表記。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_finalgetexp; //ヒカリのお菓子経験値　最終獲得値。一時的。
@@ -2826,6 +2828,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Highscore_SPEventScore.Add("lumi_grape_cookie", 200); //クッキーラスク系は基本200~
         Highscore_SPEventlist.Add("house_for_noisette", 260);
         Highscore_SPEventScore.Add("house_for_noisette", 500); //
+
+        //GirlLoveSubEvent_num=290は、150点こえたときの特殊メッセージ表示で使うので、ここでは使用しない
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる

@@ -1465,12 +1465,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 5; //LV*10
                 _buf_shokukanup += _magicup;
             }
+
+            //さらに少しだけ上がる
+            _buf_shokukanup += (int)(original_shokukan_p * 1.2f) - original_shokukan_p;
         }
     }
 
     void AppaleilIcecreamBuf()
     {
-        if (databaseCompo.compoitems[_compoID].buf_kouka_on == 1) //アイス水溶液を泡だて器で混ぜることによるバフ　少し上がり幅せまい
+        if (databaseCompo.compoitems[_compoID].buf_kouka_on == 1) //初期作成時は大きいバフ
         {
             //魔法のバフ
             _magicup = 0;
@@ -1489,6 +1492,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 3; //LV*3
                 _buf_shokukanup += _magicup;
             }
+
+            //さらに少しだけ上がる
+            _buf_shokukanup += (int)(original_shokukan_p * 1.2f) - original_shokukan_p;
         }
     }
 

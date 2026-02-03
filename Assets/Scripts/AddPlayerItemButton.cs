@@ -76,7 +76,7 @@ public class AddPlayerItemButton : MonoBehaviour {
     {
         InitSetting();
 
-        //デバッグ用　すべてのアイテムを減らす。
+        //デバッグ用　材料アイテムを減らす。
         for (i = 0; i < database.items.Count; i++)
         {
             if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" ||
@@ -93,6 +93,27 @@ public class AddPlayerItemButton : MonoBehaviour {
             }
             //Debug.Log(database.items[i].itemName);
            
+        }
+
+        pitemlistController.AddItemList();
+    }
+
+    public void OnClickDeleteItemALL()
+    {
+        InitSetting();
+
+        //デバッグ用　すべてのアイテムを減らす。
+        for (i = 0; i < database.items.Count; i++)
+        {
+            if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" ||
+                database.items[i].itemType_sub.ToString() == "Equip" || database.items[i].itemType_sub.ToString() == "Object")
+            {
+                //生地タイプ、クッキーベースタイプ、アパレイユ、アクセサリー装備品を無視する。これはallアイテム追加のときに増えないので、ここでも減らさない。
+            }else
+            {
+                pitemlist.deletePlayerItem(database.items[i].itemName, 5);
+            }
+            
         }
 
         pitemlistController.AddItemList();

@@ -457,16 +457,22 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     GameMgr.temp_attriID1[1] = database.items[GameMgr.Final_list_itemID1].Attribute2;
                     GameMgr.temp_attriID1[3] = database.items[GameMgr.Final_list_itemID1].Attribute4;
+                    GameMgr.temp_attriID1[4] = database.items[GameMgr.Final_list_itemID1].Attribute5;
+                    GameMgr.temp_attriID1[6] = database.items[GameMgr.Final_list_itemID1].Attribute7;
                 }
                 else if (GameMgr.Final_toggle_Type1 == 1)
                 {
                     GameMgr.temp_attriID1[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute2;
                     GameMgr.temp_attriID1[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute4;
+                    GameMgr.temp_attriID1[4] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute5;
+                    GameMgr.temp_attriID1[6] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute7;
                 }
                 else if (GameMgr.Final_toggle_Type1 == 2)
                 {
                     GameMgr.temp_attriID1[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute2;
                     GameMgr.temp_attriID1[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute4;
+                    GameMgr.temp_attriID1[4] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute5;
+                    GameMgr.temp_attriID1[6] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute7;
                 }
 
 
@@ -533,16 +539,22 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     GameMgr.temp_attriID2[1] = database.items[GameMgr.Final_list_itemID2].Attribute2;
                     GameMgr.temp_attriID2[3] = database.items[GameMgr.Final_list_itemID2].Attribute4;
+                    GameMgr.temp_attriID2[4] = database.items[GameMgr.Final_list_itemID2].Attribute5;
+                    GameMgr.temp_attriID2[6] = database.items[GameMgr.Final_list_itemID2].Attribute7;
                 }
                 else if (GameMgr.Final_toggle_Type2 == 1)
                 {
                     GameMgr.temp_attriID2[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute2;
                     GameMgr.temp_attriID2[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute4;
+                    GameMgr.temp_attriID2[4] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute5;
+                    GameMgr.temp_attriID2[6] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute7;
                 }
                 else if (GameMgr.Final_toggle_Type2 == 2)
                 {
                     GameMgr.temp_attriID2[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute2;
                     GameMgr.temp_attriID2[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute4;
+                    GameMgr.temp_attriID2[4] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute5;
+                    GameMgr.temp_attriID2[6] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute7;
                 }
 
                 //押したタイミングで、分岐＝２に。
@@ -597,16 +609,22 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     GameMgr.temp_attriID3[1] = database.items[GameMgr.Final_list_itemID3].Attribute2;
                     GameMgr.temp_attriID3[3] = database.items[GameMgr.Final_list_itemID3].Attribute4;
+                    GameMgr.temp_attriID3[4] = database.items[GameMgr.Final_list_itemID3].Attribute5;
+                    GameMgr.temp_attriID3[6] = database.items[GameMgr.Final_list_itemID3].Attribute7;
                 }
                 else if (GameMgr.Final_toggle_Type3 == 1)
                 {
                     GameMgr.temp_attriID3[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute2;
                     GameMgr.temp_attriID3[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute4;
+                    GameMgr.temp_attriID3[4] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute5;
+                    GameMgr.temp_attriID3[6] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute7;
                 }
                 else if (GameMgr.Final_toggle_Type3 == 2)
                 {
                     GameMgr.temp_attriID3[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute2;
                     GameMgr.temp_attriID3[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute4;
+                    GameMgr.temp_attriID3[4] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute5;
+                    GameMgr.temp_attriID3[6] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute7;
                 }
 
                 //押したタイミングで、分岐＝３に。

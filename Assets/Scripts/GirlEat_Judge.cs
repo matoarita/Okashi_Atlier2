@@ -1978,6 +1978,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                                 GameMgr.SpecialSubevent_EatAfterflag = true;
                                 GameMgr.SpecialSubevent_Num = GameMgr.Highscore_SPEventlist[items];
+                                GameMgr.SpecialSubevent_BgmON = 1;
 
                                 //プリンセストータは、魔法おぼえる
                                 if (items == "princess_tota")
@@ -1988,7 +1989,27 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                             }
                         }
-                    }                  
+                    }
+
+                    //上記を満たさなかった場合、次に150点を超えたかどうかをみる。超えた場合も特殊なセリフがきける。一回とってた場合はもう聞けない
+                    if (GameMgr.System_HighscoreOkashi_SPEventComment_ON) //システム利用をする
+                    {                        
+                        if (!GameMgr.SpecialSubevent_EatAfterflag)
+                        {
+                            if (total_score >= GameMgr.high_score_2)
+                            {
+                                if (database.items[_baseID].HighScore_flag < 2)
+                                {
+                                    //highscore_SPEventlist_heartup = true; //特別ボーナスでハートが多めに上がる
+
+                                    GameMgr.SpecialSubevent_EatAfterflag = true;
+                                    GameMgr.SpecialSubevent_Num = 290;
+                                    GameMgr.GirlLoveSubEvent_bunki_num = database.items[_baseID].SetJudge_Num; //セリフパターンお菓子ごとに設定　もし宴で未設定のやつは、勝手にランダムでセリフ決まる
+                                    GameMgr.SpecialSubevent_BgmON = 0;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 /*
@@ -2676,7 +2697,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 80;
+            taste_score = 60;
             taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 7;
         }
@@ -2761,7 +2782,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 100;
+            taste_score = 80;
             taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 6;
         }

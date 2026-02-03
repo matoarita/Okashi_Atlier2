@@ -1745,6 +1745,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             trans_motion = 99;
             live2d_animator.SetInteger("trans_motion", trans_motion);
         }
+
+        //共通パラメータオフ
+        Reset_TempParam();
+
     }
 
 
@@ -1964,6 +1968,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         NewRecipiFlag = false; //ヒカリが作る場合、強制的に新レシピ解放フラグをOFFに。
         card_view.ResultCardYosoku_DrawView(1, new_item);
 
+        //共通パラメータオフ
+        Reset_TempParam();
+
         //エフェクトON
         HikariMake_effect_Particle_KiraExplode.SetActive(true);
 
@@ -2016,6 +2023,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _getexp2 = 2;
         hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[result_item].itemType_sub.ToString(), _getexp2, 1, 0);
         */
+    }
+
+    void Reset_TempParam()
+    {
+        //パラメータのリセット
+        for (i = 0; i < GameMgr.temp_attriID1.Length; i++)
+        {
+            GameMgr.temp_attriID1[i] = 0;
+            GameMgr.temp_attriID2[i] = 0;
+            GameMgr.temp_attriID3[i] = 0;
+            GameMgr.Appaleil_Attribute[i] = 0;
+        }
     }
 
 
