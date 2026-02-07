@@ -1895,7 +1895,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         Debug.Log("コンテスト終了後　ヒカリorNPCがくるイベントチェック");
 
                         
-
                         //街へでよう！クエストのとき、まだコンテスト会場いってない場合 会場へいこうと促すイベント
                         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                         { }
