@@ -4838,6 +4838,20 @@ public class Compound_Main : MonoBehaviour
 
                         break;
 
+                    case 11: //露店通りへいこう
+
+
+                        if (!GameMgr.NPCMagic_eventList[10]) //先生にまだ魔法を教えてもらってない
+                        {
+                            _textmain.text = "にいちゃん。きょうは何する？" + "\n" + "（春エリアの露店通りへ行ってみよう。）";
+                        }
+                        else
+                        {
+
+                        }
+
+                        break;
+
                 }
             }
         }

@@ -824,6 +824,37 @@ public class Contest_Main_Reception : MonoBehaviour
         { }
         else
         {
+            if (GameMgr.NPCHiroba_eventList[0]) //はじめてきたは終了
+            {
+                if (GameMgr.NPCHiroba_eventList[20]) //もしこのイベント読む前に、招待状もらってたら、発生しない
+                {  }
+                else
+                {
+                    //15=アカデミー招待状がきたクエスト中に発生
+                    if (GameMgr.GirlLoveEvent_num == 15 && !GameMgr.NPCHiroba_eventList[21]) //アカデミーの招待状は届いたが、まだイベントは発生してない。
+                    {
+                        GameMgr.NPCHiroba_eventList[21] = true;
+
+                        //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+                        GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント場所番号　Excelの「Hiroba_Or_Contest_ReceptionTalk」を指定
+                        GameMgr.hiroba_event_ID = 1020;
+
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                }
+            }
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
                 default:
@@ -841,13 +872,13 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.System_ContestIcon_OnFlag = true;
         }
 
-        if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
+        if (!GameMgr.NPCHiroba_eventList[1]) //はじめてきた
         {
-            GameMgr.NPCHiroba_eventList[0] = true;
+            GameMgr.NPCHiroba_eventList[1] = true;
 
             //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
             GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
-            GameMgr.hiroba_event_ID = 1000;
+            GameMgr.hiroba_event_ID = 1200;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             //GameMgr.CompoundEvent_num = 0;
@@ -880,13 +911,13 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.System_ContestIcon_OnFlag = true;
         }
 
-        if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
+        if (!GameMgr.NPCHiroba_eventList[2]) //はじめてきた
         {
-            GameMgr.NPCHiroba_eventList[0] = true;
+            GameMgr.NPCHiroba_eventList[2] = true;
 
             //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
             GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
-            GameMgr.hiroba_event_ID = 1000;
+            GameMgr.hiroba_event_ID = 1300;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             //GameMgr.CompoundEvent_num = 0;

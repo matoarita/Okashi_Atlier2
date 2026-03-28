@@ -3370,7 +3370,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         case 1:
 
                             FaceMotionPlay(1005);
-                            _touchface_comment_lib.Add("にいちゃん！　コンテスト、なれてきたね♪");
+                            _touchface_comment_lib.Add("にいちゃん！　コンテスト、なれてきたな♪");
                             break;
 
                         case 2:
