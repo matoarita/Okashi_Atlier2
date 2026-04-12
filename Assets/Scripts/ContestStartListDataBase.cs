@@ -884,7 +884,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 235; //               
+                GameMgr.contest_boss_score = 190; //               
                 break;
 
             case 1:
@@ -899,7 +899,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 235; //
+                GameMgr.contest_boss_score = 190; //
                 break;
 
             case 2:
@@ -914,7 +914,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 235; //
+                GameMgr.contest_boss_score = 190; //
                 break;
 
             case 3:
@@ -929,7 +929,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 235; //
+                GameMgr.contest_boss_score = 190; //
                 break;
         }
 
@@ -948,7 +948,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 432; //点数が等倍なので高い
+        GameMgr.contest_boss_score = 372; //点数が等倍なので高い
         GameMgr.contest_boss_name = "イセヤ";
 
         //決勝戦の場所とBGMを指定
@@ -1132,7 +1132,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 638; //
+        GameMgr.contest_boss_score = 508; //
         GameMgr.contest_boss_name = "ベル";
 
         //決勝戦の場所とBGMを指定

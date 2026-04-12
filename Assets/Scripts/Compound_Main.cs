@@ -247,9 +247,10 @@ public class Compound_Main : MonoBehaviour
     private bool starrank_kaikin_ON;
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
-    private GameObject yes_no_clear_panel; //クリア時のYes, noボタン
+    private GameObject yes_no_clear_panel; //コンテスト進むのYes, noボタン
     private GameObject yes_no_clear_okashi_panel; //クリア時のYes, noボタン
     private GameObject yes_no_sleep_panel; //寝るかどうかのYes, noボタン
+    private GameObject yes_no_contestrestart_panel; //コンテスト再戦するかどうかのYes, noボタン
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -282,6 +283,7 @@ public class Compound_Main : MonoBehaviour
     private int cat_cost;
     private bool closebutton;
     private string _getheart_text;
+    private string _contestrestart_message;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -462,6 +464,7 @@ public class Compound_Main : MonoBehaviour
         yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
         yes_no_sleep_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
         yes_no_clear_okashi_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel3").gameObject;
+        yes_no_contestrestart_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel4").gameObject;
 
         //システムパネルの取得
         system_panel = canvas.transform.Find("SystemPanel").gameObject;
@@ -3062,8 +3065,8 @@ public class Compound_Main : MonoBehaviour
                         }
                         GameMgr.compound_status = 40;
                         yes_no_clear_panel.SetActive(true);
-                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
-                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
+                        yes_no_clear_panel.transform.Find("Yes_Contest_Go").GetComponent<Button>().interactable = false;
+                        yes_no_clear_panel.transform.Find("Yes_Contest_Go").GetComponent<Sound_Trigger>().enabled = false;
                     }
                     else
                     {
@@ -3964,55 +3967,66 @@ public class Compound_Main : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
         yes_selectitem_kettei.onclick = false;
-        black_panel_A.SetActive(false);
+        
         yes_no_clear_panel.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {
             case true:
 
-                _text.text = "どのコンテスト会場にいく～？";
-                contest_CheckPanel_obj.SetActive(true);
-
-                /*
-                //コンテストへ進む処理
-
-                yes_no_clear_panel.SetActive(false);
-
-                //キャラクタ位置を0にもどす。
-                girl1_status.ResetCharacterPosition();
-                */
-                /*switch (GameMgr.stage_number)
+                if (GameMgr.ContestRestart_Giveup_flag)
                 {
-                    case 1:
 
-                        GameMgr.SceneSelectNum = GameMgr.Contest_MainStoryPlaceNum;
-                        FadeManager.Instance.LoadScene("Or_Contest_Reception", 0.3f);
-                        break;*/
+                    if (GameMgr.ContestRestart_Giveup_flagNum == 0) //ギブアップの場合のセリフ
+                    {
+                        _contestrestart_message = "にいちゃん！　前回抜けたところから、再開する？";
+                    }
+                    else //負けた場合のセリフ
+                    {
+                        if (GameMgr.ContestRestart_contestRankType == 0) //トーナメントでまけた　失格などでもこのセリフになる。
+                        {
+                            _contestrestart_message = "にいちゃん！　負けたところから、再開する？";
+                        }
+                        else //こっちはランキング形式
+                        {
+                            _contestrestart_message = "にいちゃん！　前のコンテストに再挑戦する？";
+                        }
+                    }
 
-                    /*case 2:
+                    if (GameMgr.ContestRestart_contestRankType == 0) //トーナメント形式は、〇回戦まで表示
+                    {
+                        
+                        if (GameMgr.ContestRestart_contestRoundNum == GameMgr.ContestRestart_contestRoundNumMax)
+                        {
+                            _text.text = _contestrestart_message + "\n" + "★" +
+                                                        GameMgr.ContestRestart_contestnameHyouji + " " + "決勝戦";
+                        }
+                        else
+                        {
+                            _text.text = _contestrestart_message + "\n" + "★" +
+                                                        GameMgr.ContestRestart_contestnameHyouji + " " + GameMgr.ContestRestart_contestRoundNum.ToString() + "回戦";
+                        }
+                    }
+                    else
+                    {
+                        _text.text = _contestrestart_message + "\n" + "★" + GameMgr.ContestRestart_contestnameHyouji;
+                    }
+                    yes_no_contestrestart_panel.SetActive(true);
+                    StartCoroutine("Contest_Restart_select");
 
-                        GameMgr.stage2_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
-                        GameMgr.stage2_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
-                        FadeManager.Instance.LoadScene("003_Stage3_eyecatch", 0.3f);
-                        break;
-
-                    case 3:
-
-                        GameMgr.stage3_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
-                        GameMgr.stage3_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
-                        FadeManager.Instance.LoadScene("100_Ending", 0.3f);
-                        break;*/
-
-                //}
-                
+                }
+                else
+                {
+                    black_panel_A.SetActive(false);
+                    _text.text = "どのコンテスト会場にいく～？";
+                    contest_CheckPanel_obj.SetActive(true);
+                }
 
                 break;
 
             case false:
 
-                yes_no_clear_panel.SetActive(false);
-
+                black_panel_A.SetActive(false);
                 StartMessage();
                 GameMgr.compound_status = 0;
 
@@ -4020,6 +4034,46 @@ public class Compound_Main : MonoBehaviour
 
         }
     }
+
+    //コンテスト再戦するかどうか
+    IEnumerator Contest_Restart_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false;
+
+        yes_no_contestrestart_panel.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+                //再戦する場合　直接コンテスト開始シーンまで飛ぶ
+                GameMgr.ContestRestart_MainStart = true;
+                FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+
+                break;
+
+            case false: //しない場合、通常のコンテストセレクト画面へもどる
+
+                black_panel_A.SetActive(false);
+
+                _text.text = "どのコンテスト会場にいく～？";
+                contest_CheckPanel_obj.SetActive(true);
+                break;
+
+        }
+    }
+
+
+
 
     IEnumerator Sleep_Final_select()
     {

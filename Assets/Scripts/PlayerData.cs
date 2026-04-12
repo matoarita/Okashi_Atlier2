@@ -339,6 +339,16 @@ public class PlayerData
     public int save_contest_bitter_param; //
     public Item save_contest_okashi_ItemData;
 
+    //コンテスト再開用データ
+    public string save_ContestRestart_contestname;
+    public string save_ContestRestart_contestnameHyouji;
+    public int save_ContestRestart_contestRankType;
+    public int save_ContestRestart_contestRoundNum;
+    public int save_ContestRestart_contestRoundNumMax;
+    public string[] save_ContestRestart_contest_okashiNameList = new string[GameMgr.ContestRestart_contest_okashiNameList.Length]; //提出したお菓子の名前
+    public bool save_ContestRestart_Giveup_flag;
+    public int save_ContestRestart_Giveup_flagNum;
+
     //牧場のイベントリスト
     public bool[] save_FarmEvent_stage = new bool[GameMgr.FarmEvent_stage.Length];
 

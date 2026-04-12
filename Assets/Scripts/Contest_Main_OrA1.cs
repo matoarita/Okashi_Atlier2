@@ -294,7 +294,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             BG_contest_chuubou_List.Add(obj.gameObject);
         }
-        ContestHall_Select(GameMgr.Contest_HallBGName, GameMgr.Contest_ChubouBGName); //会場背景と厨房背景を設定
+        
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
@@ -323,6 +323,43 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Window_CharaName = "";
 
 
+        //コンテスト再開用データがあり、メイン画面から「再開」してここに来た場合は、データをここで入れる
+        //いくつかのデータは後ろでリセットされるので、Updataのほうでも更新
+        if(GameMgr.ContestRestart_MainStart)
+        {
+            //もしエクストリームパネルにすでにお菓子があった場合は、オリジナルリストへ移動しておく。
+            pitemlist.MoveExtremeToOriginalItem();
+
+            //さらに、ヒカリが制作中の場合、制作を一度リセット
+            pitemlist.HikariMakeReset();
+
+            _id = conteststartList_database.SearchContestString(GameMgr.ContestRestart_contestname); //コンテストの会場番号　コンテスト名いれたらOK
+
+            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
+            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_id].Contest_BringType;
+            GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
+            GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
+            GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
+            GameMgr.Contest_BGMSelectHall = conteststartList_database.conteststart_lists[_id].ContestBGMSelectHall;
+            GameMgr.Contest_FightsCount = conteststartList_database.conteststart_lists[_id].ContestFightsCount;
+
+            //出場回数+1
+            conteststartList_database.conteststart_lists[_id].ContestFightsCount++;
+
+            //素材持ち込み不可の場合、一時的に預かりリストへ持ち物を預ける
+            if (GameMgr.Contest_BringType == 1) //素材のみ持ち込みOK
+            {
+                pitemlist.Keep_PitemList(1);
+            }
+            else if (GameMgr.Contest_BringType == 2) //素材持ち込み×
+            {
+                pitemlist.Keep_PitemList(2);
+            }
+
+            //参加費用は再戦の場合、かからない仕様
+        }
+
         //デバッグ用
         //GameMgr.System_DebugItemSet_ON = true;
         if (GameMgr.System_DebugItemSet_ON)
@@ -331,9 +368,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
             GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_id].Contest_BringType;
             GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
+            GameMgr.Contest_BGMSelectHall = conteststartList_database.conteststart_lists[_id].ContestBGMSelectHall;
             GameMgr.Contest_NameHyouji = conteststartList_database.conteststart_lists[_id].ContestNameHyouji;
             GameMgr.Contest_EnshutuNameHyouji = conteststartList_database.conteststart_lists[_id].ContestEnshutuName;
 
@@ -344,6 +383,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             Debug_StartItem();
         }
+
+        //背景設定
+        ContestHall_Select(GameMgr.Contest_HallBGName, GameMgr.Contest_ChubouBGName); //会場背景と厨房背景を設定
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -359,45 +401,55 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             contest_eventStart_flag = true;
             GameMgr.Contest_ON = true;
            
+            //コンテスト開始時のみリセット
             GameMgr.contest_TotalScoreList.Clear();
             GameMgr.contest_okashiNameList.Clear(); //提出したお菓子を各回ごとに記録したもの　リセット
 
             if (GameMgr.Contest_Cate_Ranking == 0)
             {
-                //さらに何回戦かを初期設定
-                if(!GameMgr.System_ContestEdenFinalStart_ON)
+                if (GameMgr.ContestRestart_MainStart) //コンテスト再開する場合　〇回戦をここで指定
                 {
-                    GameMgr.ContestRoundNum = 1; //〇回戦　一回戦からスタート
+                    GameMgr.ContestRoundNum = GameMgr.ContestRestart_contestRoundNum;
                 }
                 else
                 {
-                    GameMgr.ContestRoundNum = 3; //〇回戦　決勝戦スタート
+                    //さらに何回戦かを初期設定
+                    if (!GameMgr.System_ContestEdenFinalStart_ON)
+                    {
+                        GameMgr.ContestRoundNum = 1; //〇回戦　一回戦からスタート
+                    }
+                    else
+                    {
+                        GameMgr.ContestRoundNum = 3; //〇回戦　決勝戦スタート
+                    }
                 }
-                
             }
             else
             {
                 GameMgr.ContestRoundNum = 1;
             }
 
-            StartSetReset();
-            ContestDataSetting();
+            //コンテスト開始前に、データなどの設定や初期化まとめ
+            Contest_CommonReset();
             
 
-            GameMgr.scenario_ON = true;
+            //コンテスト再開した場合、ここでもデータをセット。
+            if (GameMgr.ContestRestart_MainStart)
+            {
+                GameMgr.ContestRestart_MainStart = false;
 
-            sceneBGM.MuteBGM();      
-            
-            //会場ホールのBGMは宴で鳴らしてるので、Utage_Scenarioの「SubRoutine」で選択する。
-            //コンテスト中BGMは、スクリプトのBGM.cs
+                for (i = 0; i < GameMgr.ContestRestart_contest_okashiNameList.Length; i++)
+                {
+                    if(GameMgr.ContestRestart_contest_okashiNameList[i] == "Non" || GameMgr.ContestRestart_contest_okashiNameList[i] == "")
+                    { }
+                    else {
+                        GameMgr.contest_okashiNameList.Add(GameMgr.ContestRestart_contest_okashiNameList[i]);
+                    }
+                }               
+            }
 
-            GameMgr.contest_event_num = GameMgr.ContestSelectNum;
-            GameMgr.contest_or_event_flag = true;
-            GameMgr.contest_MainMatchStart = false;
-            PlayerStatus.player_contest_second = 0;
-
-            //プレイヤーステータスのリセット
-            PlayerStatus.ResetPlayerMagicStatus();
+            //コンテスト開始時　データ読み込み後に、再開用データをリセット
+            ContestRestart_DataReset();
 
             //scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
@@ -411,38 +463,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             GameMgr.ContestRoundNum++;
 
-            StartSetReset();
-            ContestDataSetting();           
-
-            GameMgr.scenario_ON = true;
-
-            sceneBGM.MuteBGM();
-
-            GameMgr.contest_or_event_flag = true;
-            GameMgr.contest_MainMatchStart = false;
-            PlayerStatus.player_contest_second = 0;
-
-            //名前欄を空白に
-            nameplate_text.text = "";
-            inputField_okashiname.text = "";
-
-            //MPは全回復
-            PlayerStatus.player_mp = PlayerStatus.player_maxmp;
-
-            //プレイヤーステータスのリセット
-            PlayerStatus.ResetPlayerMagicStatus();
-
-            //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する
-            if (GameMgr.ContestRoundNum == GameMgr.ContestRoundNumMax)
-            {
-                if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || GameMgr.Contest_Name == "Or_Contest_003"
-                    || GameMgr.Contest_Name == "Or_Contest_004")
-                {
-                    GameMgr.Contest_BGMSelect = GameMgr.Contest_BGMSelectFinal; //sound38
-                    ContestHall_Select(GameMgr.Contest_HallBGNameFinal, GameMgr.Contest_ChubouBGNameFinal);
-                }
-            }
-            
+            //コンテスト開始前に、データなどの設定や初期化まとめ
+            Contest_CommonReset();           
+                        
             //
 
             //scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
@@ -495,6 +518,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //支給されたアイテムはここで削除
             PlayerItem_Delete_Return();
 
+            //通常コンテストで一位以外のとき、再戦できるように保存
+            if(GameMgr.contest_Rank_Count != 1)
+            {
+                ContestRestartDataSave(1);
+            }
+
             //家に帰って寝る
             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
             GameMgr.Contest_afterHomeEventFlag = true;           
@@ -505,7 +534,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
 
-        //コンテスト終了　エデンコンテストで負けた
+        //コンテスト終了　トーナメント形式コンテストで負けた
         if (GameMgr.contest_eventEdenLoser_flag)
         {
             GameMgr.contest_eventEdenLoser_flag = false;
@@ -515,6 +544,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             //支給されたアイテムはここで削除
             PlayerItem_Delete_Return();
+
+            //負けたとき、途中再開できるように保存
+            ContestRestartDataSave(1);
 
             if (!GameMgr.System_ContestGameOver_ON)
             {              
@@ -806,6 +838,53 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
+    void Contest_CommonReset()
+    {
+        StartSetReset();
+        ContestDataSetting(); //重要　コンテストのデータセッティング
+       
+        sceneBGM.MuteBGM();
+
+        //会場ホールのBGMは宴で鳴らしてるので、Utage_Scenarioの「SubRoutine」で選択する。
+        //コンテスト中BGMは、スクリプトのBGM.cs
+        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+
+        if (GameMgr.ContestRestart_MainStart) //再戦のときは、いきなりスタートする
+        {
+            if(GameMgr.ContestThemeSelectUse) //ただし、途中で課題セレクトがある試合は、そこまでスキップして選択できる
+            {
+                GameMgr.scenario_ON = true;
+                GameMgr.contest_or_event_flag = true;
+                GameMgr.ContestRestart_ThemeSelectJump = true;
+            }
+            else
+            {
+                GameMgr.ContestRestart_ThemeSelectJump = false;
+            }
+        }
+        else
+        {
+            GameMgr.scenario_ON = true;
+            GameMgr.contest_or_event_flag = true;
+        }
+
+        GameMgr.contest_MainMatchStart = false;
+        PlayerStatus.player_contest_second = 0;
+
+        //名前欄を空白に
+        nameplate_text.text = "";
+        inputField_okashiname.text = "";
+
+        //MPは全回復
+        PlayerStatus.player_mp = PlayerStatus.player_maxmp;
+
+        //プレイヤーステータスのリセット
+        PlayerStatus.ResetPlayerMagicStatus();
+
+        //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する
+        ContestFinal_BGChange();
+    }
+
     void StartSetReset()
     {
         GameMgr.contest_LimitTimeOver_DegScore_flag = false;
@@ -818,6 +897,37 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.ContestThemeSelectUse = false;
         GameMgr.ContestThemeSelectNum = 0;
         GameMgr.ContestThemeCount = 0;
+        GameMgr.ContestRestart_ThemeSelectJump = false;
+
+    }
+
+    void ContestRestart_DataReset()
+    {
+        //コンテスト再開フラグ関係も開始時に一度リセット
+        GameMgr.ContestRestart_contestname = "";
+        GameMgr.ContestRestart_contestnameHyouji = "";
+        GameMgr.ContestRestart_contestRankType = 0;
+        GameMgr.ContestRestart_contestRoundNum = 1;       
+        GameMgr.ContestRestart_contestRoundNumMax = 1;
+        for (i = 0; i < GameMgr.ContestRestart_contest_okashiNameList.Length; i++)
+        {
+            GameMgr.ContestRestart_contest_okashiNameList[i] = "Non";
+        }
+        GameMgr.ContestRestart_Giveup_flag = false; //再開用のフラグ 
+    }
+
+    //特定のコンテスト決勝戦でもし背景を変える場合、ここで指定する
+    void ContestFinal_BGChange()
+    {
+        if (GameMgr.ContestRoundNum == GameMgr.ContestRoundNumMax)
+        {
+            if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || GameMgr.Contest_Name == "Or_Contest_003"
+                || GameMgr.Contest_Name == "Or_Contest_004")
+            {
+                GameMgr.Contest_BGMSelect = GameMgr.Contest_BGMSelectFinal; //sound38
+                ContestHall_Select(GameMgr.Contest_HallBGNameFinal, GameMgr.Contest_ChubouBGNameFinal);
+            }
+        }
     }
 
     IEnumerator StartEnshutu()
@@ -1156,7 +1266,41 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //MPは全回復
         PlayerStatus.player_mp = PlayerStatus.player_maxmp;
 
+        //あきらめた場合、出場してたコンテストのデータを保存し、フラグたてる。これはセーブされ、次回再開できる。
+        ContestRestartDataSave(0);       
+
         StartCoroutine("WaitForGiveUpContest");
+    }
+
+    void ContestRestartDataSave(int _bunki)
+    {
+        GameMgr.ContestRestart_contestname = GameMgr.Contest_Name;
+        GameMgr.ContestRestart_contestnameHyouji = GameMgr.Contest_NameHyouji;
+        GameMgr.ContestRestart_contestRankType = GameMgr.Contest_Cate_Ranking;
+        GameMgr.ContestRestart_contestRoundNum = GameMgr.ContestRoundNum;
+        GameMgr.ContestRestart_contestRoundNumMax = GameMgr.ContestRoundNumMax;
+
+        if (GameMgr.Contest_Cate_Ranking == 0) //トーナメント形式のみの処理
+        {
+            if (_bunki == 1) //負けた場合は、その回の提出したお菓子自体は、保存しない
+            {
+                GameMgr.contest_okashiNameList.RemoveAt(GameMgr.contest_okashiNameList.Count - 1);
+            }
+
+            if (GameMgr.contest_okashiNameList.Count > 0)
+            {
+                i = 0;
+                foreach (string _name in GameMgr.contest_okashiNameList)
+                {
+                    Debug.Log("GameMgr.contest_okashiNameList: " + _name);
+                    GameMgr.ContestRestart_contest_okashiNameList[i] = _name;
+                    i++;
+                }
+            }
+        }
+
+        GameMgr.ContestRestart_Giveup_flag = true; //再開用のフラグ 
+        GameMgr.ContestRestart_Giveup_flagNum = _bunki;
     }
 
     IEnumerator WaitForGiveUpContest()
@@ -1204,8 +1348,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         else //まだできていない
         {
             _text.text = "にいちゃん！" + "\n" + "お菓子がまだできてないよ～・・。";
-            yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
-            yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
+            yes_no_submit_panel.transform.Find("Yes_TeiShutu").GetComponent<Button>().interactable = false;
+            yes_no_submit_panel.transform.Find("Yes_TeiShutu").GetComponent<Sound_Trigger>().enabled = false;
         }
         
         StartCoroutine("Submit_Final_select");       
@@ -1260,8 +1404,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 //_textmain.text = "";
                 GameMgr.Scene_Status = 0;
                 yes_no_submit_panel.SetActive(false);
-                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
-                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                yes_no_submit_panel.transform.Find("Yes_TeiShutu").GetComponent<Button>().interactable = true;
+                yes_no_submit_panel.transform.Find("Yes_TeiShutu").GetComponent<Sound_Trigger>().enabled = true;
 
                 break;
 
@@ -1310,8 +1454,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 namesetting_panel.SetActive(false);
                 yes_no_namekakunin_panel.SetActive(false);
                 yes_no_submit_panel.SetActive(false);
-                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
-                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                yes_no_submit_panel.transform.Find("Yes_TeiShutu").GetComponent<Button>().interactable = true;
+                yes_no_submit_panel.transform.Find("Yes_TeiShutu").GetComponent<Sound_Trigger>().enabled = true;
 
                 break;
 

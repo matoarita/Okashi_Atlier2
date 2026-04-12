@@ -2609,13 +2609,40 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             case "Cookie_SecondBake":
 
-                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01;
+                switch (GameMgr.UseMagicSkillLv)
+                {
+                    case 1:
+                        GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01;
+                        break;
+
+                    case 2:
+                        GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01;
+                        break;
+
+                    case 3:
+                        GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01 + 1.0f; //けっこうゆっくりになるので、その分のばしておく。
+                        break;
+                }
+                
                 break;
 
             case "Chocolate_Tempering":
 
                 //_magiclv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering");
-                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02;
+                switch(GameMgr.UseMagicSkillLv)
+                {
+                    case 1:
+                        GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02;
+                        break;
+
+                    case 2:
+                        GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02 + 0.5f;
+                        break;
+
+                    case 3:
+                        GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02 + 1.5f; //けっこうゆっくりになるので、その分のばしておく。
+                        break;
+                }
                 break;
 
             case "Bake_Beans":

@@ -276,10 +276,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }*/
 
 
-        //一回でも成功したことがあれば、+3%ほど成功率が上昇する。
+        //一回でも成功したことがあれば、+10%ほど成功率が上昇する。
         if (databaseCompo.compoitems[_compoID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compoID].cmpitem_flag != 9999) //9999は除外するので計算しない
         {
-            _buf_kakuritsuup += 3;
+            _buf_kakuritsuup += 10;
         }
 
         //成功率　ヒカリのおかし経験値とLVによって、成功率も上昇する。

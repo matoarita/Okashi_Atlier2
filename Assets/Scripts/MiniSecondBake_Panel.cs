@@ -59,13 +59,13 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         switch (_magiclv) //LV1で1.5f がデフォ速度 めちゃはや
         {
             case 1:
-                _speed_hosei = 1.5f;
+                _speed_hosei = 1.05f;
                 break;
             case 2:
-                _speed_hosei = 1.25f;
+                _speed_hosei = 0.65f;
                 break;
             case 3:
-                _speed_hosei = 1.15f;
+                _speed_hosei = 0.45f;
                 break;
         }
         _interval = _interval * _speed_hosei; //さらにスピード補正　早い

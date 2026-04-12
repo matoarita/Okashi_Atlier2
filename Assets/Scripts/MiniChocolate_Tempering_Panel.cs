@@ -86,16 +86,16 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         guage_length2 = 600; //スライダの長さ　手動で入力
         guage_length3 = 600; //スライダの長さ　手動で入力
 
-        switch(_magiclv) //LV1で1.5f がデフォ速度 めちゃはや
+        switch(_magiclv) //LV1で1.5f がデフォ速度 めちゃはや 全体の演出時間も調整したいときは、Exp_controllerで調整する
         {
             case 1:
-                _speed_hosei = 1.25f;
-                break;
-            case 2:
                 _speed_hosei = 1.15f;
                 break;
-            case 3:
+            case 2:
                 _speed_hosei = 0.9f;
+                break;
+            case 3:
+                _speed_hosei = 0.75f;
                 break;
         }
         _param_hosei = _magiclv * 0.05f;

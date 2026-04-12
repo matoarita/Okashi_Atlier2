@@ -5144,6 +5144,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_ThemeTitle4", GameMgr.ContestThemeTitle4);
         engine.Param.TrySetParameter("contest_ThemeSetting", GameMgr.ContestThemeCount);
 
+        //再開からスタートする場合、課題の選択肢がある箇所までとぶ　そもそも課題選択がないときは、スキップされる
+        engine.Param.TrySetParameter("ThemeSelectJump_Flag", GameMgr.ContestRestart_ThemeSelectJump);
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -5225,7 +5228,13 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
+        engine.Param.TrySetParameter("Costume_BGMHall_num", GameMgr.Contest_BGMSelectHall);
         engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
+        engine.Param.TrySetParameter("contest_ranking_Type", GameMgr.Contest_Cate_Ranking); //トーナメントかランキング形式か 
+        engine.Param.TrySetParameter("contest_TournamentON", GameMgr.System_ContestEdenFinalStart_ON); //トーナメントの場合、3回戦形式か決勝戦のみか
+        engine.Param.TrySetParameter("contest_NameHyouji", GameMgr.Contest_NameHyouji); //コンテスト名前表記
+        engine.Param.TrySetParameter("contest_fights_count", GameMgr.Contest_FightsCount); //コンテスト出場回数
+        engine.Param.TrySetParameter("GirlGokigen_Status", girl1_status.GirlGokigenStatus); //いもうとのハートの状態      
 
         //提出したお菓子の名前をセット
         engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
@@ -7581,9 +7590,9 @@ public class Utage_scenario : MonoBehaviour
                 }
                 break;
 
-            case 120:
+            case 120:　//冬エリア入り口
 
-                if (total_score >= 320) //クリアしたので、エリア入口フラグ解禁　冬　おかしはなんでもいいが、点数こえないとダメ
+                if (total_score >= 230) //クリアしたので、エリア入口フラグ解禁　冬　おかしはなんでもいいが、点数こえないとダメ
                 {
                     GameMgr.NPCHiroba_blockReleaseList[1] = true;
                     engine.Param.TrySetParameter("EventJudge_num", 2);

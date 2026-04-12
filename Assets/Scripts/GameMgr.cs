@@ -152,7 +152,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 10; //城スター
 
-    public static int System_HeartLVevent_01 = 15; //ヒカリがお菓子作りを覚えるイベント発生
+    public static int System_HeartLVevent_01 = 12; //ヒカリがお菓子作りを覚えるイベント発生
 
     //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
     public static int System_trueheart_cost = 3000;
@@ -436,6 +436,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
 
+    //コンテストあきらめたとき（負けたとき）、その時のデータをセーブ
+    public static string ContestRestart_contestname;
+    public static string ContestRestart_contestnameHyouji;
+    public static int ContestRestart_contestRankType;
+    public static int ContestRestart_contestRoundNum;
+    public static int ContestRestart_contestRoundNumMax;
+    public static string[] ContestRestart_contest_okashiNameList = new string[10]; //提出したお菓子の名前
+    public static bool ContestRestart_Giveup_flag; //あきらめるを選択したフラグ　次のコンテストスタート時にリセット
+    public static int ContestRestart_Giveup_flagNum; //あきらめた場合か、トーナメントで負けた場合を分岐
+
     //白紙のメモ保存
     public static string[] System_WhiteMemo_text = new string[10];
 
@@ -637,7 +647,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
 
     //バージョン情報
-    public static float GameVersion = 2.06f;
+    public static float GameVersion = 2.071f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -788,7 +798,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_or_contestjudge_flag;
     public static bool contest_or_prizeget_flag;
     public static bool contest_or_limittimeover_flag;
-    public static int contest_event_num;
+    public static int contest_event_num; //宴シナリオ用　コンテスト番号
     public static bool contest_MainMatchStart; //コンテスト実際の試合開始の合図   
 
     public static bool special_shogo_flag;
@@ -1124,7 +1134,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static Sprite System_newrecipi_sprite; //新しいレシピ表示用の一時スプライト画像
     public static string System_newrecipi_name; //新しいレシピ表示用のアイテム名
     public static bool System_PrologueHyouji_on; //ステージ表記をプロローグにする
-
+    public static bool ContestRestart_MainStart; //メイン画面から再開をおして、コンテストを途中再開するフラグ
+    public static bool ContestRestart_ThemeSelectJump; //コンテストで、途中で課題選択がある場合　選択しなおしができる
 
 
     //セリフ関連の一時変数
@@ -1792,6 +1803,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         common_itemdatahyouji_list.Clear();
         hiroba_event_startblack = false;
         System_PrologueHyouji_on = false;
+        ContestRestart_MainStart = false;
 
         //最初の家賃額
         System_Yachin_Cost_SPRoom = System_Yachin_Cost02;
@@ -1950,6 +1962,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
 
         
+        
 
         //コンテストイベントフラグの初期化
         for (system_i = 0; system_i < ContestEvent_stage.Length; system_i++)
@@ -2002,6 +2015,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_PrizeGet_Money = 0;
         special_shogo_flag = false;
         contest_accepted_list.Clear();
+        ContestRestart_Giveup_flag = false;
 
 
         //コンテスト感想初期化
@@ -2010,6 +2024,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             contest_judge1_comment[system_i] = "";
             contest_judge2_comment[system_i] = "";
             contest_judge3_comment[system_i] = "";
+        }
+        //コンテスト再開用　提出おかしの名前初期化
+        for (system_i = 0; system_i < ContestRestart_contest_okashiNameList.Length; system_i++)
+        {
+            ContestRestart_contest_okashiNameList[system_i] = "Non";
         }
 
         //白紙メモの初期化

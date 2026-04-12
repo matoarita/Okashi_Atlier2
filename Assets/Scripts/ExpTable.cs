@@ -151,7 +151,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     
                     break;
 
-                case 9: //ヒカリのおかし作り解禁
+                case 9: 
 
                     break;
 
@@ -167,7 +167,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     //MagicLearnPanelHyouji("SugerPot");
                     break;
 
-                case 12:
+                case 12: //ヒカリのおかし作り解禁
 
                     //MagicLearnPanelHyouji("Buttelfy_illumination");
                     break;

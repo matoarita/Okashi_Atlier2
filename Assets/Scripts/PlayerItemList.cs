@@ -13,6 +13,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private ItemDataBase database;
 
     private Exp_Controller exp_Controller;
+    private Compound_Keisan compound_keisan;
 
     private DateTime TodayNow;
 
@@ -1372,6 +1373,47 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         if (keep_player_originalitemlist.Count >= 0)
         {
             player_originalitemlist = new List<Item>(keep_player_originalitemlist);
+        }
+    }
+
+    //コンテスト前に、一度ヒカリの制作中アイテムをリセットする
+    public void HikariMakeReset()
+    {
+        //合成計算オブジェクトの取得
+        compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
+
+        GameMgr.hikari_make_okashiFlag = false;
+        GameMgr.hikari_makeokashi_startflag = false;
+        GameMgr.hikari_zairyo_no_flag = false;
+
+        //うけとる処理
+        if (GameMgr.hikari_make_okashiKosu >= 1)
+        {
+            if (player_yosokuitemlist.Count > 0)
+            {
+                Debug.Log("コンテスト始まる前　ヒカリすでにお菓子作ってたのを受け取り");
+                compound_keisan.HikariMakeGetItem(0);
+            }
+            GameMgr.hikari_make_okashiKosu = 0;
+        }
+        else
+        {
+            GameMgr.hikari_make_okashiKosu = 0;
+        }
+
+        //個数リセット
+        GameMgr.Result_Kosu = 0;
+        GameMgr.hikari_make_success_count = 0;
+        GameMgr.hikari_make_failed_count = 0;
+    }
+
+    //エクストリームパネルにすでにお菓子があった場合、オリジナルリストへ移動する処理　コンテスト前に使う
+    public void MoveExtremeToOriginalItem()
+    {
+        if (player_extremepanel_itemlist.Count > 0)
+        {
+            ExtremeToCopyOriginalItem(99);
+            deleteAllExtremePanelItem();
         }
     }
 

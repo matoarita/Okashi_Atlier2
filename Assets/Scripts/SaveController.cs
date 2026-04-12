@@ -577,6 +577,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_contest_bitter_param = GameMgr.contest_bitter_param,
             save_contest_okashi_ItemData = GameMgr.contest_okashi_ItemData,
 
+            save_ContestRestart_contestname = GameMgr.ContestRestart_contestname,
+            save_ContestRestart_contestnameHyouji = GameMgr.ContestRestart_contestnameHyouji,
+            save_ContestRestart_contestRankType = GameMgr.ContestRestart_contestRankType,
+            save_ContestRestart_contestRoundNum = GameMgr.ContestRestart_contestRoundNum,
+            save_ContestRestart_contestRoundNumMax = GameMgr.ContestRestart_contestRoundNumMax,
+            save_ContestRestart_contest_okashiNameList = GameMgr.ContestRestart_contest_okashiNameList, //提出したお菓子の名前
+            save_ContestRestart_Giveup_flag = GameMgr.ContestRestart_Giveup_flag,
+            save_ContestRestart_Giveup_flagNum = GameMgr.ContestRestart_Giveup_flagNum,
+
             //牧場のイベントリスト
             save_FarmEvent_stage = GameMgr.FarmEvent_stage,
 
@@ -1071,6 +1080,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.contest_sour_param = playerData.save_contest_sour_param;
         GameMgr.contest_bitter_param = playerData.save_contest_bitter_param;
         GameMgr.contest_okashi_ItemData = playerData.save_contest_okashi_ItemData;
+
+        //コンテスト再戦用データ
+        GameMgr.ContestRestart_contestname = playerData.save_ContestRestart_contestname;
+        GameMgr.ContestRestart_contestnameHyouji = playerData.save_ContestRestart_contestnameHyouji;
+        GameMgr.ContestRestart_contestRankType = playerData.save_ContestRestart_contestRankType;
+        GameMgr.ContestRestart_contestRoundNum = playerData.save_ContestRestart_contestRoundNum;
+        GameMgr.ContestRestart_contestRoundNumMax = playerData.save_ContestRestart_contestRoundNumMax;
+        GameMgr.ContestRestart_contest_okashiNameList = playerData.save_ContestRestart_contest_okashiNameList; //提出したお菓子の名前
+        GameMgr.ContestRestart_Giveup_flag = playerData.save_ContestRestart_Giveup_flag;
+        GameMgr.ContestRestart_Giveup_flagNum = playerData.save_ContestRestart_Giveup_flagNum;
 
         //牧場のイベントリスト
         GameMgr.FarmEvent_stage = playerData.save_FarmEvent_stage;

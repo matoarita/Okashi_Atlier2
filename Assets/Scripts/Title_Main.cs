@@ -87,7 +87,7 @@ public class Title_Main : MonoBehaviour {
         _model_rendertexture_obj = canvas.transform.Find("CharaUI").gameObject;
 
         version_text = canvas.transform.Find("VersionText").gameObject;
-        version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString("f2");
+        version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString("f3");
 
         //システムロード
         save_controller.SystemloadCheck();

@@ -2008,6 +2008,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (Kosu_keisanmethod)
             {
                 //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
+                Debug.Log("_result_cmpID: " + _result_cmpID + " _set_kaisu: " + _set_kaisu +
+                    " _kettei_id1: " + _kettei_id1 + " _kettei_id2: " + _kettei_id2 + " _kettei_id3: " + _kettei_id3 +
+                    " _toggletype1: " + _toggletype1 + " _toggletype2: " + _toggletype2 + " _toggletype3: " + _toggletype3 +
+                    " _kosu1: " + _kosu1 + " _kosu2: " + _kosu2 + " _kosu3: " + _kosu3);
                 Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _toggletype1, _toggletype2, _toggletype3, _kosu1, _kosu2, _kosu3);
             }
             else
@@ -2086,28 +2090,31 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //プレイヤーアイテムかエクストリームアイテムのIDをアイテムDBのIDに戻す。
-        if (_toggletype3 == 0)
+        if (_kettei_id3 != 9999) //3個目空のときは無視
         {
-            _id = _kettei_id3;
-        }
-        else if (_toggletype3 == 1)
-        {
-            _id = database.SearchItemID(pitemlist.player_originalitemlist[_kettei_id3].itemID);
-        }
-        else if (_toggletype3 == 2)
-        {
-            _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[_kettei_id3].itemID);
-        }
-
-        if (_id != 9999)
-        {
-            if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-                database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-                database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
+            if (_toggletype3 == 0)
             {
-                Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu3);
-                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu3;
-                Kosu_ExSetting = true;
+                _id = _kettei_id3;
+            }
+            else if (_toggletype3 == 1)
+            {
+                _id = database.SearchItemID(pitemlist.player_originalitemlist[_kettei_id3].itemID);
+            }
+            else if (_toggletype3 == 2)
+            {
+                _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[_kettei_id3].itemID);
+            }
+
+            if (_id != 9999)
+            {
+                if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+                    database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+                    database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
+                {
+                    Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu3);
+                    result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu3;
+                    Kosu_ExSetting = true;
+                }
             }
         }
 

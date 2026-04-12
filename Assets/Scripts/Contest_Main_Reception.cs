@@ -730,14 +730,16 @@ public class Contest_Main_Reception : MonoBehaviour
             }
         }
 
+
         //新コンテストがないかチェック
+        contest_newrelease = 9999;
+        contest_newrelease = contestListController.ContestJoukenLibrary();
+
         if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
         { }
         else
-        {
-            contest_newrelease = 9999;
-            contest_newrelease = contestListController.ContestJoukenLibrary();
-
+        {           
+            //新コンテストがあったら、宴でお祝いメッセージ（上で先に重要イベントが発生してたら、こっちが発生しない可能性はあり）
             switch(contest_newrelease)
             {
                 case 1: //新しいコンテスト解禁
@@ -893,11 +895,24 @@ public class Contest_Main_Reception : MonoBehaviour
         { }
         else
         {
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.NPCHiroba_eventList[1]) //はじめてきたは終了
             {
-                default:
+                if (GameMgr.GirlLoveSubEvent_stage1[501] && !GameMgr.NPCHiroba_eventList[30]) //サマードリームスの招待状は届いたが、まだイベントは発生してない。
+                {
+                    GameMgr.NPCHiroba_eventList[30] = true;
 
-                    break;
+                    //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+                    GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント場所番号　Excelの「Hiroba_Or_Contest_ReceptionTalk」を指定
+                    GameMgr.hiroba_event_ID = 1210;
+
+                    //BGMかえる
+                    //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                    //bgm_change_flag = true;
+
+                    check_event = true;
+
+                    EventReadingStart();
+                }
             }
         }
 
@@ -911,35 +926,67 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.System_ContestIcon_OnFlag = true;
         }
 
-        if (!GameMgr.NPCHiroba_eventList[2]) //はじめてきた
+        //3枚目のエデンのレシピが開始　イベントで招待状ももらっている状態
+        if (GameMgr.GirlLoveEvent_num == 23 && !GameMgr.NPCHiroba_eventList[40]) //アルクアンシェルの招待状は届いたが、まだイベントは発生してない。
         {
-            GameMgr.NPCHiroba_eventList[2] = true;
-
-            //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
-            GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
-            GameMgr.hiroba_event_ID = 1300;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num = 0;
-            //GameMgr.CompoundEvent_flag = true;
-
-            check_event = true;            
-
-            EventReadingStart();
+            if (!GameMgr.NPCHiroba_eventList[2]) //はじめてきたがまだ発生してない場合。先に招待状を優先する。
+            {
+                Event_C1_Content1();
+            }
         }
 
         if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
         { }
         else
         {
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (!GameMgr.NPCHiroba_eventList[2]) //はじめてきた
             {
-                default:
+                GameMgr.NPCHiroba_eventList[2] = true;
 
-                    break;
+                //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+                GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
+                GameMgr.hiroba_event_ID = 1300;
+
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                //GameMgr.CompoundEvent_num = 0;
+                //GameMgr.CompoundEvent_flag = true;
+
+                check_event = true;
+
+                EventReadingStart();
             }
         }
 
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[2]) //はじめてきたは終了
+            {
+                //3枚目のエデンのレシピが開始　イベントで招待状ももらっている状態
+                if (GameMgr.GirlLoveEvent_num == 23 && !GameMgr.NPCHiroba_eventList[40]) //アルクアンシェルの招待状は届いたが、まだイベントは発生してない。
+                {
+                    Event_C1_Content1();                   
+                }
+            }
+        }
+    }
+
+    void Event_C1_Content1()
+    {
+        GameMgr.NPCHiroba_eventList[40] = true;
+
+        //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+        GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント場所番号　Excelの「Hiroba_Or_Contest_ReceptionTalk」を指定
+        GameMgr.hiroba_event_ID = 1310;
+
+        //BGMかえる
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        //bgm_change_flag = true;
+
+        check_event = true;
+
+        EventReadingStart();
     }
 
     void EventCheck_OrD1()
@@ -1175,14 +1222,15 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.Contest_ReadyToStart = false;
 
             //もしエクストリームパネルにすでにお菓子があった場合は、オリジナルリストへ移動しておく。
-            if(pitemlist.player_extremepanel_itemlist.Count > 0)
+            pitemlist.MoveExtremeToOriginalItem();
+            /*if (pitemlist.player_extremepanel_itemlist.Count > 0)
             {
                 pitemlist.ExtremeToCopyOriginalItem(99);
                 pitemlist.deleteAllExtremePanelItem();
-            }
+            }*/
 
             //さらに、ヒカリが制作中の場合、制作を一度リセット
-            HikariMakeReset();
+            pitemlist.HikariMakeReset();
 
             contest_list = 0;
             _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
@@ -1268,8 +1316,9 @@ public class Contest_Main_Reception : MonoBehaviour
     }
 
     //コンテスト前にヒカリが作るをリセット
-    void HikariMakeReset()
+    /*void HikariMakeReset()
     {
+        
         GameMgr.hikari_make_okashiFlag = false;
         GameMgr.hikari_makeokashi_startflag = false;
         GameMgr.hikari_zairyo_no_flag = false;
@@ -1293,7 +1342,7 @@ public class Contest_Main_Reception : MonoBehaviour
         GameMgr.Result_Kosu = 0;
         GameMgr.hikari_make_success_count = 0;
         GameMgr.hikari_make_failed_count = 0;
-    }
+    }*/
 
 
     //

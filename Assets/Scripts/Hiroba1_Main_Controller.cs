@@ -4454,7 +4454,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
                 break;
 
-            case 120:
+            case 120: //冬エリア入り口
 
                 //GameMgr.NPCHiroba_blockReleaseList[1] = true; //
                 GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
