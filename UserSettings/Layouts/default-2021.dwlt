@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 77
+  controlID: 80
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 76
+  controlID: 138
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1122,7 +1122,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0617ebff5617ebff5c1eebffd42aebff4e37ebff9048ebff6e5eebff9869ebfff2fcedffb8cbeeffcad7eeff6cdceeff7ee0eeffae84efff428defff34a1efffd2a8efff52aaefff02abefffeeafefffd8b3efff26bcefff564df0ffd271f1ffea7df1fffa80f1ff4484f1ff3cbff1ff0afef1ffacfef1ff4c3af2ffec3af2ff8e3bf2ff303cf2ffd23cf2ff743df2ff7c3df2ff1e3ef2ff4685f2ffea85f2ff9eeaf2ff74f6f2ffc8f6f2ffd4fdf2ff500af3ffce16f3ff1428f3fff63df3ff2449f3ff82dcf5ff4cabf6ff62b7f6ff08bcf6ff1ec0f6ff5264f7ffea6cf7ffe080f7ff8888f7ff148af7ffc88af7ffc08ff7ffb693f7ff109cf7ff4c2df8ff1651f9ff2c5df9ff4060f9ff8663f9ff7e9ef9ff4eddf9fff4ddf9ff9219faff361afaffdc1afaff821bfaff281cfaffce1cfaffda1cfaff801dfaffb264faff5a65faffbc14fdff9c4dfeff4ce1ffff9cedfffff2faffffae4b0200eaa10200a8be020004f70400604d05003c6a0500
+      m_ExpandedIDs: 5ecaf0ffa8caf0ffb6cef0ff2cdbf0ffa4e7f0ffe4f8f0ffb60ef1ffde19f1ff2aadf3ffe87bf4fff887f4ff988cf4ffa890f4ffd634f5ff683df5ff5851f5fff458f5ff705af5ffc25af5ffa85ff5ff8e63f5ffce6bf5ffecfcf5ffae20f7ffbe2cf7ffcc2ff7ff0833f7fffa6df7ffb8acf7ff58adf7ffeee8f7ff8ce9f7ff2ceaf7ffcceaf7ff6cebf7ff0cecf7ff12ecf7ffb2ecf7ffda33f8ff7c34f8ffda40f8ff2e41f8ff3a48f8ffb654f8ff3461f8ff7a72f8ff5c88f8ff8a93f8ffe826fbffb2f5fbffc801fcff6e06fcff840afcffb8aefcff50b7fcff46cbfcffeed2fcff7ad4fcff2ed5fcff26dafcff1cdefcff76e6fcffb277fdff369cfeff52a8feff66abfeffb4aefeffb0e9feff8228ffff2829ffffcc64ffff7065ffff1666ffffbc66ffff6267ffff0868ffff1468ffffba68ffffe6afffff8eb0fffff4faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1230,23 +1230,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Resources/Excel
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Resources/Excel
   m_LastFoldersGridSize: 16
   m_LastProjectPath: "C:\\Users\\mator\\OneDrive\\\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\Unity\\Okashi_Atlier2"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 466}
-    m_SelectedIDs: 3aa60000
-    m_LastClickedID: 42554
-    m_ExpandedIDs: 00000000a8a50000aaa50000aca50000aea50000b0a50000b2a50000b4a5000000ca9a3b
+    scrollPos: {x: 0, y: 106}
+    m_SelectedIDs: 9afb0000
+    m_LastClickedID: 64410
+    m_ExpandedIDs: 0000000072fb000074fb000076fb000078fb00007afb00007cfb00007efb000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1274,7 +1274,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000a8a50000aaa50000aca50000aea50000b0a50000b2a50000b4a50000
+    m_ExpandedIDs: 0000000072fb000074fb000076fb000078fb00007afb00007cfb00007efb0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1305,18 +1305,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c92000004980000e29400001e950000e6940000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e40600049500009079010040950000360701008a250100009e01004697010032cd000020cd0000d6a4010044cd00006ecd00008ccd000082cd000092cd0000c0da0000887e00000295000030bd00009e9a0100aabc00006e900100e09f01007427010004650400aebd0000c6d5000080c90000f4e000008ede0000f4970000de9700002a7d01009ecc01002898000076be2c0000690100ea6901006c8101003c7101001898000044980000066801004232190090d15200961e0700d4180800d81808006c980000bae0000042ea0500f2b10000249b00006e9e00002ca10100b49d0000cc9f0100e0af010076a80000fc0e01003ade0000d6d10000869c010052a90000e29e000008b40100b09e0000cc9e0000ea9e0000b6c600001e6a120002b10000046a1200f0b20000d4b20000d2b20000ceb20000eca80000a6500100fea900002ac9000092f10000129f000096ad0100ccb00100266800004a59010072a101009ca9010024a1000008a100003ea20000e6a2000094a2000066a50100bac20100505f0100ec490100b0bf00003ad90100b4b00100deae01002c29010026e80000bcbc010074770000fe420100e861010016790000047700000677000056cf0000daad000082a20000a2a200005aa2000088cd000022a200000eaa0100de1a010000000000e4a20000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Shop_Main_Controller
+      m_OriginalName: Shop_Main_Controller
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 4140
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 2}
     m_CreateAssetUtility:
@@ -1391,7 +1391,7 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
     m_HSlider: 0
-    m_VSlider: 0
+    m_VSlider: 1
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
@@ -1404,20 +1404,20 @@ MonoBehaviour:
       y: 21
       width: 925
       height: 459
-    m_Scale: {x: 0.765, y: 0.765}
-    m_Translation: {x: 462.50003, y: 229.5}
+    m_Scale: {x: 0.8, y: 0.8}
+    m_Translation: {x: 462.5, y: 229.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -604.5752
-      y: -300
-      width: 1209.1504
-      height: 600
+      x: -578.125
+      y: -286.875
+      width: 1156.25
+      height: 573.75
     m_MinimalGUI: 1
-  m_defaultScale: 0.765
+  m_defaultScale: 0.8
   m_LastWindowPixelSize: {x: 925, y: 480}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
