@@ -4636,10 +4636,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　たくさんお店あるよ～！";
+                default_scenetext = "にいちゃん！　たくさんのお店あるよ～！";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                //text_area_hyouji_on = true;
+                text_area_hyouji_on = true;
 
                 if (GameMgr.OsotoIkitaiFlag) //お外いきたいフラグがたってた場合、来た時点でよろこび
                 {

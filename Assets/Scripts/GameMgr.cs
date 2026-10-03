@@ -153,6 +153,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_04 = 10; //城スター
 
     public static int System_HeartLVevent_01 = 12; //ヒカリがお菓子作りを覚えるイベント発生
+    public static int System_HeartLVevent_02 = 15; //ねこがはじめてくるイベント発生
 
     //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
     public static int System_trueheart_cost = 3000;
@@ -647,7 +648,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
 
     //バージョン情報
-    public static float GameVersion = 2.071f;
+    public static float GameVersion = 2.08f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */

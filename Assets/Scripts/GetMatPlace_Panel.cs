@@ -2436,7 +2436,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         {
                             event_end_flag = true;
 
-                            //ねこイベント　ハートLVに移行
+                            //ねこイベント　ハートLVに移行したのでこちらは使わないこと
                             /*if (!GameMgr.MapEvent_Or[1]) //ししゃもクッキーをもっている
                             {
                                 if (pitemlist.player_extremepanel_itemlist.Count > 0 &&

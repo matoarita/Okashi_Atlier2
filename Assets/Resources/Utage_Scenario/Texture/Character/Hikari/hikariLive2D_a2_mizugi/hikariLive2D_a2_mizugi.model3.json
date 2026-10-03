@@ -1,0 +1,24 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "hikariLive2D_a2_mizugi.moc3",
+		"Textures": [
+			"hikariLive2D_a2_mizugi.4096/texture_00.png",
+			"hikariLive2D_a2_mizugi.4096/texture_01.png"
+		],
+		"Physics": "hikariLive2D_a2_mizugi.physics3.json",
+		"DisplayInfo": "hikariLive2D_a2_mizugi.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		}
+	]
+}

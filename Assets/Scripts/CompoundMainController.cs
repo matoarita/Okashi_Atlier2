@@ -1408,7 +1408,7 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("CommonEffect03").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
                 magiceffect_result_setting(3); //
 
-                sc.PlaySe(177);
+                sc.PlaySe(254); //177
                 break;
 
             case 4: //星
@@ -1418,7 +1418,7 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("CommonEffect04").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
                 magiceffect_result_setting(4); //
 
-                sc.PlaySe(177);
+                sc.PlaySe(254); //177
                 break;
 
             case 5: //森
@@ -1438,7 +1438,7 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("CommonEffect06").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
                 magiceffect_result_setting(6); //
 
-                sc.PlaySe(177);
+                sc.PlaySe(254);
                 break;
 
             case 7: //音
@@ -1448,7 +1448,7 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("CommonEffect07").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
                 magiceffect_result_setting(7); //
 
-                sc.PlaySe(177);
+                sc.PlaySe(254);
                 break;
 
             case 8: //心
@@ -1458,7 +1458,7 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("CommonEffect08").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ 
                 magiceffect_result_setting(9); //
 
-                sc.PlaySe(177);
+                sc.PlaySe(254); //177
                 break;
 
             case 9: //火

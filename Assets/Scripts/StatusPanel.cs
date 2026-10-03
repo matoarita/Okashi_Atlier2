@@ -521,8 +521,19 @@ public class StatusPanel : MonoBehaviour {
 
         HikariStatusList01.SetActive(true);
         HikariStatusList02.SetActive(false);
-        HikariStatusList_changebutton01.SetActive(true);
-        HikariStatusList_changebutton02.SetActive(false);
+        //HikariStatusList_changebutton01.SetActive(true);
+        //HikariStatusList_changebutton02.SetActive(false);
+    }
+
+    public void OnHikariSkillPanel()
+    {
+        WindowAllOFF();
+        HikariStatusList_obj.SetActive(true);
+
+        HikariStatusList01.SetActive(false);
+        HikariStatusList02.SetActive(true);
+        //HikariStatusList_changebutton01.SetActive(false);
+        //HikariStatusList_changebutton02.SetActive(true);
     }
 
     public void OnEquipParamPanel()

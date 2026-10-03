@@ -1,0 +1,575 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "",
+			"Name": "角度 X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "",
+			"Name": "角度 Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "",
+			"Name": "角度 Z"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "",
+			"Name": "左眼　開閉"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "",
+			"Name": "右眼　開閉"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "",
+			"Name": "笑顔"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "",
+			"Name": "目玉 X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "",
+			"Name": "目玉 Y"
+		},
+		{
+			"Id": "ParamEyeHi_yure",
+			"GroupId": "",
+			"Name": "ハイライト揺れ"
+		},
+		{
+			"Id": "ParamRmabuta_yure1",
+			"GroupId": "ParamGroup",
+			"Name": "右まぶた揺れ1"
+		},
+		{
+			"Id": "ParamRmabuta_yure2",
+			"GroupId": "ParamGroup",
+			"Name": "右まぶた揺れ2"
+		},
+		{
+			"Id": "ParamRmatsuge_yure1",
+			"GroupId": "ParamGroup",
+			"Name": "右まつげ揺れ1"
+		},
+		{
+			"Id": "ParamReyeball_yure1",
+			"GroupId": "ParamGroup",
+			"Name": "右ひとみ揺れ1"
+		},
+		{
+			"Id": "ParamReyeball_yure2",
+			"GroupId": "ParamGroup",
+			"Name": "右ひとみ揺れ2"
+		},
+		{
+			"Id": "ParamReyedoko_yure1",
+			"GroupId": "ParamGroup",
+			"Name": "右瞳孔揺れ1"
+		},
+		{
+			"Id": "ParamReyedoko_yure2",
+			"GroupId": "ParamGroup",
+			"Name": "右瞳孔揺れ2"
+		},
+		{
+			"Id": "ParamReyeHi_yure1",
+			"GroupId": "ParamGroup",
+			"Name": "右ハイライト揺れ"
+		},
+		{
+			"Id": "ParamLmabuta_yure1",
+			"GroupId": "ParamGroup2",
+			"Name": "左まぶた揺れ1"
+		},
+		{
+			"Id": "ParamLmabuta_yure2",
+			"GroupId": "ParamGroup2",
+			"Name": "左まぶた揺れ2"
+		},
+		{
+			"Id": "ParamLmatsuge_yure1",
+			"GroupId": "ParamGroup2",
+			"Name": "左まつげ揺れ1"
+		},
+		{
+			"Id": "ParamLeyeball_yure1",
+			"GroupId": "ParamGroup2",
+			"Name": "左ひとみ揺れ1"
+		},
+		{
+			"Id": "ParamLeyeball_yure2",
+			"GroupId": "ParamGroup2",
+			"Name": "左ひとみ揺れ2"
+		},
+		{
+			"Id": "ParamLeyedoko_yure1",
+			"GroupId": "ParamGroup2",
+			"Name": "左瞳孔揺れ1"
+		},
+		{
+			"Id": "ParamLeyedoko_yure2",
+			"GroupId": "ParamGroup2",
+			"Name": "左瞳孔揺れ2"
+		},
+		{
+			"Id": "ParamLeyeHi_yure1",
+			"GroupId": "ParamGroup2",
+			"Name": "左ハイライト揺れ"
+		},
+		{
+			"Id": "ParamBrowLForm",
+			"GroupId": "",
+			"Name": "左眉　変形"
+		},
+		{
+			"Id": "ParamBrowRForm",
+			"GroupId": "",
+			"Name": "右眉　変形"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "",
+			"Name": "口　変形"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "",
+			"Name": "口　開閉"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "",
+			"Name": "体の回転　X"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "",
+			"Name": "体の回転　Y"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "",
+			"Name": "体の回転　Z"
+		},
+		{
+			"Id": "ParamBodyScale",
+			"GroupId": "",
+			"Name": "体の奥行"
+		},
+		{
+			"Id": "ParamArmL",
+			"GroupId": "",
+			"Name": "左腕"
+		},
+		{
+			"Id": "ParamArmL_Updown",
+			"GroupId": "",
+			"Name": "左腕上げ下げ"
+		},
+		{
+			"Id": "ParamHandL_Updown",
+			"GroupId": "",
+			"Name": "左手上げ下げ"
+		},
+		{
+			"Id": "ParamArmR",
+			"GroupId": "",
+			"Name": "右腕"
+		},
+		{
+			"Id": "ParamArmR_Updown",
+			"GroupId": "",
+			"Name": "右腕上げ下げ"
+		},
+		{
+			"Id": "ParamHandR_Updown",
+			"GroupId": "",
+			"Name": "右手上げ下げ"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamWindRot",
+			"GroupId": "",
+			"Name": "風の回転"
+		},
+		{
+			"Id": "ParamCharaPosX",
+			"GroupId": "",
+			"Name": "全体キャラ位置X"
+		},
+		{
+			"Id": "ParamCharaPosY",
+			"GroupId": "",
+			"Name": "全体キャラ位置Y"
+		},
+		{
+			"Id": "ParamCameraX",
+			"GroupId": "",
+			"Name": "カメラX"
+		},
+		{
+			"Id": "ParamCameraY",
+			"GroupId": "",
+			"Name": "カメラY"
+		},
+		{
+			"Id": "ParamCameraZ",
+			"GroupId": "",
+			"Name": "カメラZ"
+		},
+		{
+			"Id": "ParamWaterEffONOFF",
+			"GroupId": "",
+			"Name": "水しぶきのONOFF"
+		},
+		{
+			"Id": "ParamWaterPashaMove",
+			"GroupId": "",
+			"Name": "水パシャアニメ"
+		},
+		{
+			"Id": "ParamWaterSurafaceEffONOFF",
+			"GroupId": "",
+			"Name": "水面のONOFF"
+		},
+		{
+			"Id": "ParamWaterSurface_PosX",
+			"GroupId": "",
+			"Name": "水面の位置X"
+		},
+		{
+			"Id": "ParamWaterSurface_PosY",
+			"GroupId": "",
+			"Name": "水面の位置Y"
+		},
+		{
+			"Id": "ParamWaterSurface_Yure",
+			"GroupId": "",
+			"Name": "水面のゆらゆら"
+		},
+		{
+			"Id": "ParamBGONOFF",
+			"GroupId": "",
+			"Name": "背景のONOFF"
+		},
+		{
+			"Id": "ParamChestX_yure1",
+			"GroupId": "ParamGroup6",
+			"Name": "胸の揺れX"
+		},
+		{
+			"Id": "ParamChestY_yure1",
+			"GroupId": "ParamGroup6",
+			"Name": "胸の揺れY"
+		},
+		{
+			"Id": "ParamRleghip_yure",
+			"GroupId": "ParamGroup6",
+			"Name": "右足しりにくの揺らし"
+		},
+		{
+			"Id": "ParamLhip_yure1",
+			"GroupId": "ParamGroup6",
+			"Name": "おしりの揺れ1"
+		},
+		{
+			"Id": "ParamLhip_yure2",
+			"GroupId": "ParamGroup6",
+			"Name": "おしりの揺れ2"
+		},
+		{
+			"Id": "ParamLleg_yure1",
+			"GroupId": "ParamGroup6",
+			"Name": "左ふとももの揺れ"
+		},
+		{
+			"Id": "ParamRleg_yure1",
+			"GroupId": "ParamGroup6",
+			"Name": "右ふとももの揺れ"
+		},
+		{
+			"Id": "Parambodyz_yure1",
+			"GroupId": "ParamGroup6",
+			"Name": "おへその揺れ"
+		},
+		{
+			"Id": "ParamHairFront1",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ前1"
+		},
+		{
+			"Id": "ParamHairFront2",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ前2"
+		},
+		{
+			"Id": "ParamHairFront3",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ前3"
+		},
+		{
+			"Id": "ParamHairRF1",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ右前1"
+		},
+		{
+			"Id": "ParamHairRF2",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ右前2"
+		},
+		{
+			"Id": "ParamHairRF3",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ右前3"
+		},
+		{
+			"Id": "ParamHairLF1",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ左前1"
+		},
+		{
+			"Id": "ParamHairLF2",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ左前2"
+		},
+		{
+			"Id": "ParamHairLF3",
+			"GroupId": "ParamGroup5",
+			"Name": "髪揺れ左前3"
+		},
+		{
+			"Id": "ParamHairRSide_1",
+			"GroupId": "ParamGroup5",
+			"Name": "右横髪揺れ1"
+		},
+		{
+			"Id": "ParamHairRSide_2",
+			"GroupId": "ParamGroup5",
+			"Name": "右横髪揺れ2"
+		},
+		{
+			"Id": "ParamHairRSide_3",
+			"GroupId": "ParamGroup5",
+			"Name": "右横髪揺れ3"
+		},
+		{
+			"Id": "ParamHairRSide_4",
+			"GroupId": "ParamGroup5",
+			"Name": "右横髪揺れ4"
+		},
+		{
+			"Id": "ParamHairRSide_5",
+			"GroupId": "ParamGroup5",
+			"Name": "右横髪揺れ5"
+		},
+		{
+			"Id": "ParamHairLSide_1",
+			"GroupId": "ParamGroup5",
+			"Name": "左横髪揺れ1"
+		},
+		{
+			"Id": "ParamHairLSide_2",
+			"GroupId": "ParamGroup5",
+			"Name": "左横髪揺れ2"
+		},
+		{
+			"Id": "ParamHairLSide_3",
+			"GroupId": "ParamGroup5",
+			"Name": "左横髪揺れ3"
+		},
+		{
+			"Id": "ParamHairLSide_4",
+			"GroupId": "ParamGroup5",
+			"Name": "左横髪揺れ4"
+		},
+		{
+			"Id": "ParamHairLSide_5",
+			"GroupId": "ParamGroup5",
+			"Name": "左横髪揺れ5"
+		},
+		{
+			"Id": "ParamHairLSide_6",
+			"GroupId": "ParamGroup5",
+			"Name": "左横髪揺れ6"
+		},
+		{
+			"Id": "ParamHairRtwintail_1",
+			"GroupId": "ParamGroup4",
+			"Name": "右ツインテール揺れ1"
+		},
+		{
+			"Id": "ParamHairRtwintail_2",
+			"GroupId": "ParamGroup4",
+			"Name": "右ツインテール揺れ2"
+		},
+		{
+			"Id": "ParamHairRtwintail_3",
+			"GroupId": "ParamGroup4",
+			"Name": "右ツインテール揺れ3"
+		},
+		{
+			"Id": "ParamHairRtwintail_4",
+			"GroupId": "ParamGroup4",
+			"Name": "右ツインテール揺れ4"
+		},
+		{
+			"Id": "ParamHairRtwintail_5",
+			"GroupId": "ParamGroup4",
+			"Name": "右ツインテール揺れ5"
+		},
+		{
+			"Id": "ParamHairLtwintail_1",
+			"GroupId": "ParamGroup4",
+			"Name": "左ツインテール揺れ1"
+		},
+		{
+			"Id": "ParamHairLtwintail_2",
+			"GroupId": "ParamGroup4",
+			"Name": "左ツインテール揺れ2"
+		},
+		{
+			"Id": "ParamHairLtwintail_3",
+			"GroupId": "ParamGroup4",
+			"Name": "左ツインテール揺れ3"
+		},
+		{
+			"Id": "ParamHairLtwintail_4",
+			"GroupId": "ParamGroup4",
+			"Name": "左ツインテール揺れ4"
+		},
+		{
+			"Id": "ParamHairLtwintail_5",
+			"GroupId": "ParamGroup4",
+			"Name": "左ツインテール揺れ5"
+		},
+		{
+			"Id": "ParamLribbon_yure1",
+			"GroupId": "ParamGroup3",
+			"Name": "左リボンの揺れ1"
+		},
+		{
+			"Id": "ParamLribbon_yure2",
+			"GroupId": "ParamGroup3",
+			"Name": "左リボンの揺れ2"
+		},
+		{
+			"Id": "ParamRribbon_yure1",
+			"GroupId": "ParamGroup3",
+			"Name": "右リボンの揺れ1"
+		},
+		{
+			"Id": "ParamRribbon_yure2",
+			"GroupId": "ParamGroup3",
+			"Name": "右リボンの揺れ2"
+		},
+		{
+			"Id": "ParamPhisicsEmpty",
+			"GroupId": "",
+			"Name": "☆物理演算回避用空"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "右目揺れ"
+		},
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "左目揺れ"
+		},
+		{
+			"Id": "ParamGroup6",
+			"GroupId": "",
+			"Name": "おにく揺らし"
+		},
+		{
+			"Id": "ParamGroup5",
+			"GroupId": "",
+			"Name": "髪の毛揺れ"
+		},
+		{
+			"Id": "ParamGroup4",
+			"GroupId": "",
+			"Name": "ツインテールの揺れ"
+		},
+		{
+			"Id": "ParamGroup3",
+			"GroupId": "",
+			"Name": "リボンの揺れ"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "Part9",
+			"Name": "エフェクト"
+		},
+		{
+			"Id": "Part01Face001",
+			"Name": "顔"
+		},
+		{
+			"Id": "Part11",
+			"Name": "チーク"
+		},
+		{
+			"Id": "Part01Eye001",
+			"Name": "目"
+		},
+		{
+			"Id": "Part01EyeBall001",
+			"Name": "目玉"
+		},
+		{
+			"Id": "Part10",
+			"Name": "まゆげ"
+		},
+		{
+			"Id": "Part01Mouth001",
+			"Name": "口"
+		},
+		{
+			"Id": "Part01Nose001",
+			"Name": "鼻"
+		},
+		{
+			"Id": "Part01HairFront001",
+			"Name": "前髪"
+		},
+		{
+			"Id": "Part01HairSide001",
+			"Name": "横髪"
+		},
+		{
+			"Id": "Part01HairBack001",
+			"Name": "後ろ髪"
+		},
+		{
+			"Id": "Part01Neck",
+			"Name": "首"
+		},
+		{
+			"Id": "Part01Body",
+			"Name": "体"
+		},
+		{
+			"Id": "Part",
+			"Name": "エフェクト水面"
+		}
+	]
+}

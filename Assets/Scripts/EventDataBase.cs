@@ -812,7 +812,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 if (pitemlist.ReturnEventItemKosu("eden_recipi_05") < 1) //持ってない場合に発生　持ってるときは、コンテストでイセヤを倒しゲットしている 旧：eden_recipi_03
                 {
-                    HeartEvent_check(GameMgr.System_HeartBlockLv_10, 380, 1, "Non"); //エデンレシピの場所解放　星
+                    HeartEvent_check(GameMgr.System_HeartBlockLv_10, 380, 1, "Non"); //エデンレシピの場所解放　ハート
                 }
                 /*if (pitemlist.ReturnEventItemKosu("eden_recipi_04") < 1) //持ってない場合に発生　持ってるときは、コンテストでベルを倒しゲットしている
                 {
@@ -823,8 +823,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //"Non"だと、思い出イベントのフラグ解放はなし　入れる場合は、GameMgrのHikariOmoide_Eventlistに登録する
 
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
-                //HeartEvent_check(15, 350, 1);
-                //HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
+                HeartEvent_check(GameMgr.System_HeartLVevent_02, 350, 1, "Non"); //ねこがはじめて家にくる
+                //HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる スターで解放されるように移動
 
                 HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
                 HeartEvent_check(50, 356, 1, "ramen"); //らーめん              
@@ -2659,6 +2659,22 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 if (_omoidename != "Non")
                 {
                     GameMgr.SetHikariOmoideFlag(_omoidename, true);
+                }
+
+                //ハートイベント発生時　イベントごとの個別の処理
+                switch(_evnum)
+                {
+                    case 350:
+
+                        GameMgr.System_CatGetMat_Flag = true; //ExpTableでも設定してるので、注意する
+
+                        //ねこ一匹　自動で入る
+                        //ランダムキャットの抽選
+                        catDataBase.RandomCatSelect();
+
+                        //表示されたねこを実際にねこリストに追加する
+                        catDataBase.CatCopyCheckToOrigin();
+                        break;
                 }
             }
         }

@@ -366,11 +366,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
 
         //ねこくるようになる
-        if (_lv < 15)
+        if (_lv < GameMgr.System_HeartLVevent_02)
         {
             GameMgr.System_CatGetMat_Flag = false;
         }
-        else if (_lv >= 15)
+        else if (_lv >= GameMgr.System_HeartLVevent_02)
         {
             GameMgr.System_CatGetMat_Flag = true;
         }
