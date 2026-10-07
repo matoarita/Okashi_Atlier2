@@ -919,7 +919,7 @@ public class StatusPanel : MonoBehaviour {
         if (GameMgr.System_Topping_Multiple_Flag)
         {
             hikaristatuscontent_list.Add(Instantiate(hikaristatuscontent_Prefab, HikariStatusList02.transform.Find("Viewport/Content/Panel/HikariOkashiParamView/Viewport/Content").transform));
-            hikaristatuscontent_list[count].transform.Find("Text").GetComponent<Text>().text = "トッピング個数 +" + GameMgr.System_Topping_Multiple_Max.ToString() + "個";
+            hikaristatuscontent_list[count].transform.Find("Text").GetComponent<Text>().text = "トッピング上限 " + GameMgr.System_Topping_Multiple_Max.ToString() + "個";
             count++;
         }
 

@@ -3887,7 +3887,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (!GameMgr.NPCHiroba_eventList[270]) //ほかに発生するイベントがなく、すでに友達になった。
                 {
-                    if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost) //ハートが3000以上なら場所を教えてくれる。
+                    if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost) //ハートが○○以上なら場所を教えてくれる。
                     {
                         GameMgr.NPCHiroba_eventList[270] = true;
 
@@ -3907,6 +3907,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     {
                         //まだハートが足りてないとき　こころが強くないので教えられないと断られる
                         GameMgr.hiroba_event_ID = 102;
+                        GameMgr.NPCHiroba_eventList[273] = true;
 
                         check_event = true;
                     }
@@ -4027,7 +4028,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         check_event = true;
                     }*/
                 }
-            }            
+            }
+            else
+            { }
         }
 
         if (check_event) { } //上で先にイベント発生したら、以下は読まない。

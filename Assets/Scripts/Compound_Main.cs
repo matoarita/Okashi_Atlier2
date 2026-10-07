@@ -101,6 +101,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject gameQuestPanel;
     private GameObject gameQuestPanel_Panel;
     private GameObject yachinPanel;
+    private GameObject magicbuf_statusPanel;
 
     private GameObject manpuku_bar;
     private Slider manpuku_slider;
@@ -691,6 +692,9 @@ public class Compound_Main : MonoBehaviour
 
         //家賃パネルの取得
         yachinPanel = canvas.transform.Find("MainUIPanel/Comp/YachinPanel").gameObject;
+
+        //プレイヤー状態バフパネルの取得
+        magicbuf_statusPanel = canvas.transform.Find("MainUIPanel/MagicBuf_IconPanel").gameObject;
 
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
 
@@ -2038,6 +2042,12 @@ public class Compound_Main : MonoBehaviour
 
                 }
 
+                //アイテム使用後にメッセージの更新フラグ
+                if(GameMgr.ItemUse_AfterMessage)
+                {
+                    StartMessage();
+                }
+
                 GameMgr.Status_zero_readOK = true;
 
                 break;
@@ -2417,6 +2427,7 @@ public class Compound_Main : MonoBehaviour
         starPanel_kakuninButton_obj.SetActive(false);
         gameQuestPanel_Panel.SetActive(false);
         yachinPanel.SetActive(false);
+        magicbuf_statusPanel.SetActive(false);
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
@@ -2443,6 +2454,7 @@ public class Compound_Main : MonoBehaviour
         starPanel_kakuninButton_obj.SetActive(true);
         gameQuestPanel_Panel.SetActive(true);
         yachinPanel.SetActive(true);
+        magicbuf_statusPanel.SetActive(true);
 
         //Stagepanel_obj.SetActive(true);
 
@@ -4661,11 +4673,11 @@ public class Compound_Main : MonoBehaviour
                                     if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || 
                                         GameMgr.Contest_Name == "Or_Contest_003" || GameMgr.Contest_Name == "Or_Contest_004")
                                     {
-                                        get_heart = 25; //エデンコンだと多く上がる
+                                        get_heart = 150; //エデンコンだと多く上がる
                                     }
                                     else
                                     {
-                                        get_heart = 10;
+                                        get_heart = 100;
                                     }                                   
                                     break;
 
@@ -4693,26 +4705,26 @@ public class Compound_Main : MonoBehaviour
                                     else
                                     {
                                         _getheart_text = "にいちゃん、すっごいよ～！！　ヒカリうれしい～♪";
-                                    }
-                                    get_heart = 20;
+                                        get_heart = 100;
+                                    }                                 
                                     break;
 
                                 case 2:
 
                                     _getheart_text = "たのしかった～♪　ヒカリは応援している！";
-                                    get_heart = 0;
+                                    get_heart = 20;
                                     break;
 
                                 case 3:
 
                                     _getheart_text = "ヒカリは応援している！";
-                                    get_heart = 0;
+                                    get_heart = 10;
                                     break;
 
                                 case 4:
 
                                     _getheart_text = "ヒカリは励ましている！";
-                                    get_heart = 0;
+                                    get_heart = 5;
                                     break;
 
                                 case 5:
@@ -4907,6 +4919,18 @@ public class Compound_Main : MonoBehaviour
                         break;
 
                 }
+            }
+        }
+
+        if(GameMgr.ItemUse_AfterMessage)
+        {
+            GameMgr.ItemUse_AfterMessage = false;
+            switch(GameMgr.ItemUse_AfterMessageNum)
+            {
+                case 0:
+
+                    _textmain.text = "おぼえた魔法をリセットしました！";
+                    break;
             }
         }
 

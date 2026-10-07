@@ -62,7 +62,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     private string _subType;
 
-    public int update_ListSelect_Flag;
+    //private int update_ListSelect_Flag;
     public bool kettei_on_waiting;
 
     private bool playerlist_check_on;
@@ -79,7 +79,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
-        update_ListSelect_Flag = 0;
+        //update_ListSelect_Flag = 0;
         kettei_on_waiting = false;
 
     }
@@ -355,7 +355,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                                 //Debug.Log("一個目はcancel");
 
                                                 All_cancel();
-
+                                                pitemlistController.InteractONCategory();
                                             }
                                         }
 
@@ -405,7 +405,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                                 //Debug.Log("二個目はcancel");
 
                                                 Two_cancel();
-
+                                                pitemlistController.InteractONCategory();
                                             }
                                         }
                                     }
@@ -433,7 +433,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                             pitemlistController.topping_DrawView_1(); //リストビューを更新し、トッピング材料だけ表示する。
 
                                             All_cancel();
-
+                                            pitemlistController.InteractONCategory();
                                         }
                                     }
 
@@ -452,6 +452,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                             exp_Controller._success_rate = 100;
                                             kakuritsuPanel.KakuritsuYosoku_Reset();
                                             Two_cancel();
+                                            pitemlistController.InteractONCategory();
                                         }
                                     }
 
@@ -471,6 +472,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                             exp_Controller._success_rate = exp_Controller._temp_srate_1;
                                             kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                                             Three_cancel();
+                                            pitemlistController.InteractONCategory();
                                         }
                                     }
                                 }
@@ -802,8 +804,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 GameMgr.Comp_kettei_bunki = 0;
 
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
+                update_ListSelect(0); //オールリセットするのみ。 //アイテム選択時の、リストの表示処理
             }
             //エクストリーム調合のときの処理
             else if (GameMgr.compound_select == 2)
@@ -816,8 +817,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                         GameMgr.Comp_kettei_bunki = 0;
 
-                        update_ListSelect_Flag = 0; //オールリセットするのみ。
-                        update_ListSelect(); //アイテム選択時の、リストの表示処理
+                        update_ListSelect(0); //オールリセットするのみ。 //アイテム選択時の、リストの表示処理
 
                         pitemlistController.reset_and_DrawView_Topping();
                     }
@@ -845,8 +845,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 GameMgr.Comp_kettei_bunki = 0;
 
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
+                update_ListSelect(0); //オールリセットするのみ。 //アイテム選択時の、リストの表示処理
             }           
             else if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
@@ -861,8 +860,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 GameMgr.Comp_kettei_bunki = 0;
 
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
+                update_ListSelect(0); //オールリセットするのみ。//アイテム選択時の、リストの表示処理
             }
         }
         else
@@ -878,27 +876,22 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                     GameMgr.Comp_kettei_bunki = 0;
 
-                    update_ListSelect_Flag = 0; //オールリセットするのみ。
-                    update_ListSelect(); //アイテム選択時の、リストの表示処理
+                    update_ListSelect(0); //オールリセットするのみ。 //アイテム選択時の、リストの表示処理
                 }
 
                 else if (GameMgr.compound_select == 99)
                 {
-
-                    update_ListSelect_Flag = 0; //オールリセットするのみ。
-                    update_ListSelect(); //アイテム選択時の、リストの表示処理
+                    update_ListSelect(0); //オールリセットするのみ。 //アイテム選択時の、リストの表示処理
                 }
 
             }
             else if (GameMgr.Scene_Category_Num == 200) //
             {
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                                            //update_ListSelect(); //アイテム選択時の、リストの表示処理
+
             }
             else
             {
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理                
+                update_ListSelect(0); //オールリセットするのみ。//アイテム選択時の、リストの表示処理                
             }
         }
 
@@ -936,8 +929,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         if (GameMgr.Comp_kettei_bunki == 2)
         {
-            update_ListSelect_Flag = 1; //二個目まで、選択できないようにする。
-            update_ListSelect(); //アイテム選択時の、リストの表示処理
+            update_ListSelect(1); //二個目まで、選択できないようにする。//アイテム選択時の、リストの表示処理
 
             pitemlistController._listitem[GameMgr.List_count2].GetComponent<Toggle>().isOn = false; //選択していたものをキャンセル。
 
@@ -949,8 +941,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         if (GameMgr.Comp_kettei_bunki == 11)
         {
-            update_ListSelect_Flag = 10; //ベースアイテム選択のみの状態
-            update_ListSelect(); //アイテム選択時の、リストの表示処理
+            update_ListSelect(10); //ベースアイテム選択のみの状態//アイテム選択時の、リストの表示処理
 
 
             pitemlistController._listitem[GameMgr.List_count1].GetComponent<Toggle>().isOn = false;
@@ -992,8 +983,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         if (GameMgr.Comp_kettei_bunki == 3)
         {
-            update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
-            update_ListSelect(); //アイテム選択時の、リストの表示処理
+            update_ListSelect(2); //二個目まで、選択できないようにする。//アイテム選択時の、リストの表示処理
 
             pitemlistController._listitem[GameMgr.List_count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
 
@@ -1006,9 +996,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         }
 
         if (GameMgr.Comp_kettei_bunki == 12)
-        {
-            update_ListSelect_Flag = 11; //ベース・一個目の選択の状態に戻る。
-            update_ListSelect(); //アイテム選択時の、リストの表示処理
+        { 
+            update_ListSelect(11); //ベース・一個目の選択の状態に戻る。//アイテム選択時の、リストの表示処理
 
             pitemlistController._listitem[GameMgr.List_count2].GetComponent<Toggle>().isOn = false;
 
@@ -1042,8 +1031,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         kettei_on_waiting = false;
 
-        update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
-        update_ListSelect();
+        update_ListSelect(12); //ベースアイテムと一個目・二個目を選択できないようにする。
 
         pitemlistController._listitem[GameMgr.List_count3].GetComponent<Toggle>().isOn = false;
 
@@ -1071,7 +1059,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
     //リストからアイテム選択時に、選択したアイテムを再度入力できなくする処理
-    public void update_ListSelect()
+    public void update_ListSelect(int update_ListSelect_Flag)
     {
         for (i = 0; i < pitemlistController._listitem.Count; i++)
         {

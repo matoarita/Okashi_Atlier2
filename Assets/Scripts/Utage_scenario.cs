@@ -7583,10 +7583,12 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.NPCHiroba_blockReleaseList[2] = true;
                     engine.Param.TrySetParameter("EventJudge_num", 2);
+                    engine.Param.TrySetParameter("NPC_BlockScore", 150);
                 }
                 else
                 {
                     engine.Param.TrySetParameter("EventJudge_num", 1);
+                    engine.Param.TrySetParameter("NPC_BlockScore", 150);
                 }
                 break;
 
@@ -7596,10 +7598,12 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.NPCHiroba_blockReleaseList[1] = true;
                     engine.Param.TrySetParameter("EventJudge_num", 2);
+                    engine.Param.TrySetParameter("NPC_BlockScore", 230);
                 }
                 else
                 {
                     engine.Param.TrySetParameter("EventJudge_num", 1);
+                    engine.Param.TrySetParameter("NPC_BlockScore", 230);
                 }
                 break;
         }

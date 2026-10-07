@@ -90,6 +90,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private Dictionary<int, int> EDList;
 
     private int total_score;
+    private int count_Score;
 
     private Text contest_score_text;
 
@@ -333,7 +334,16 @@ public class AAA_TotalResult : MonoBehaviour {
         contest_score_text.text = "0";
 
         //カウントアップのための秒数を割り出す。
-        countTime = GameMgr.Okashi_totalscore * 0.03f; //1ごとに0.03fで表示する
+        if (GameMgr.Okashi_totalscore >= 1000)
+        {
+            count_Score = 1000; //1000点でのスピードを上限にする。でないと、高得点すぎたときに、止まるまで長すぎる。
+        }
+        else
+        {
+            count_Score = GameMgr.Okashi_totalscore;
+        }
+
+        countTime = count_Score * 0.03f; //1ごとに0.03fで表示する
 
         //①②
         StartCoroutine("panel1_anim1");

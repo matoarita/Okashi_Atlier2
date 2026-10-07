@@ -2,6 +2,11 @@
 	"Version": 3,
 	"Parameters": [
 		{
+			"Id": "ParamToggleModeGameOrVtuber",
+			"GroupId": "",
+			"Name": "ゲーム／配信用切替"
+		},
+		{
 			"Id": "ParamAngleX",
 			"GroupId": "ParamGroup7",
 			"Name": "角度 X"
@@ -772,6 +777,16 @@
 			"Name": "赤い服_スカート横揺れA2"
 		},
 		{
+			"Id": "RedSkirt_FrillYure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカートフリル横揺れ1"
+		},
+		{
+			"Id": "RedSkirt_FrillYure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカートフリル横揺れ2"
+		},
+		{
 			"Id": "RedSkirt_Open_1",
 			"GroupId": "ParamGroup3",
 			"Name": "赤い服_スカート広がり1"
@@ -780,6 +795,41 @@
 			"Id": "RedSkirt_Open_2",
 			"GroupId": "ParamGroup3",
 			"Name": "赤い服_スカート広がり2"
+		},
+		{
+			"Id": "RedSkirt_Open_3",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカート広がり3"
+		},
+		{
+			"Id": "RedSkirt_HineriYure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカートひねり揺れ1"
+		},
+		{
+			"Id": "RedSkirt_HineriYure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカートひねり揺れ2"
+		},
+		{
+			"Id": "RedSkirt_HineriYure_3",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカートひねり揺れ3"
+		},
+		{
+			"Id": "RedFrill_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_フリル揺れ1"
+		},
+		{
+			"Id": "RedFrill_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_フリル揺れ2"
+		},
+		{
+			"Id": "RedSkirt_ZYure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカートZ揺れ1"
 		},
 		{
 			"Id": "RedNeckTie_Yure1",
@@ -820,6 +870,36 @@
 			"Id": "WhitePinkFrill_Yure_A3",
 			"GroupId": "ParamGroup3",
 			"Name": "白い服_スカートピンク横揺れA3"
+		},
+		{
+			"Id": "WhiteSkirt_HineriYure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートひねり揺れ1"
+		},
+		{
+			"Id": "WhiteSkirt_HineriYure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートひねり揺れ2"
+		},
+		{
+			"Id": "WhiteSkirt_HineriYure_3",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートひねり揺れ3"
+		},
+		{
+			"Id": "WhiteSkirt_Hirogari_1",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカート広がり"
+		},
+		{
+			"Id": "WhiteSkirt_Hirogari_2",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカート広がり2"
+		},
+		{
+			"Id": "WhiteSkirt_Zyure",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートZ揺れ"
 		},
 		{
 			"Id": "PattisierFrill_Yure_A1",
@@ -875,6 +955,16 @@
 			"Id": "PattisierFrill_Yure_Hiro4",
 			"GroupId": "ParamGroup3",
 			"Name": "パティシエ服_スカート広がり4"
+		},
+		{
+			"Id": "PattisierFrillArm_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_フリル揺れ1"
+		},
+		{
+			"Id": "PattisierFrillArm_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_フリル揺れ2"
 		},
 		{
 			"Id": "PinkSkirt_Yure_A1",
@@ -947,6 +1037,36 @@
 			"Name": "ピンク服_スカート広がり2"
 		},
 		{
+			"Id": "PinkArmHira_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_服腕揺れ1"
+		},
+		{
+			"Id": "PinkArmHira_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_服腕揺れ2"
+		},
+		{
+			"Id": "PinkClothHira_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_服揺れ1"
+		},
+		{
+			"Id": "PinkClothHira_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_服揺れ2"
+		},
+		{
+			"Id": "PinkFrillHira_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_フリル揺れ1"
+		},
+		{
+			"Id": "PinkFrillHira_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_フリル揺れ2"
+		},
+		{
 			"Id": "LavenderSkirt_Yure_A1",
 			"GroupId": "ParamGroup3",
 			"Name": "ラベンダー服_スカート横揺れA1"
@@ -985,6 +1105,11 @@
 			"Id": "LavenderSkirt_Yure_Hiro2",
 			"GroupId": "ParamGroup3",
 			"Name": "ラベンダー服_スカート広がり2"
+		},
+		{
+			"Id": "LavenderHida_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカートひだ揺れ1"
 		},
 		{
 			"Id": "DongriPorch_Yure_1",
@@ -1542,6 +1667,11 @@
 			"Name": "つばさの開閉2"
 		},
 		{
+			"Id": "ParamWingOpen3",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの開閉3"
+		},
+		{
 			"Id": "ParamWingScale",
 			"GroupId": "ParamGroup16",
 			"Name": "つばさの拡縮"
@@ -1612,6 +1742,11 @@
 			"Name": "きら星スケール3"
 		},
 		{
+			"Id": "ParamStarHirogari_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星全体広がり"
+		},
+		{
 			"Id": "ParamStarMove_1",
 			"GroupId": "ParamGroup14",
 			"Name": "きら星ムーブ1"
@@ -1650,9 +1785,19 @@
 			"Id": "ParamBathWaterShibukiAnim",
 			"GroupId": "",
 			"Name": "水かけ先のアニメ"
+		},
+		{
+			"Id": "ParamDebugEmpty",
+			"GroupId": "",
+			"Name": "物理演算空"
 		}
 	],
 	"ParameterGroups": [
+		{
+			"Id": "ParamGroup12",
+			"GroupId": "",
+			"Name": "※重要：書き出す直前にチェック"
+		},
 		{
 			"Id": "ParamGroup7",
 			"GroupId": "",

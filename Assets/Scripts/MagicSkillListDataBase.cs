@@ -31,6 +31,8 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private string skillJouken_name1;
     private int skillJouken_lv1;
 
+    private int regain_point;
+
     private int i;
     private int count;
     private int sheet_count;
@@ -306,6 +308,31 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         Debug.Log("一番使ってるスキルの使用回数: " + _skillmax_namehyouji + " " + skillcount_max);
 
         return _skillmax_namehyouji;
+    }
+
+    //習得済みの全てのスキルをリセットする。リセットしたポイントは、魔法ポイントに還元する
+    public void SkillAllResetAndRegainPoint()
+    {
+        regain_point = 0;
+
+        for (i = 0; i < magicskill_lists.Count; i++)
+        {
+            //真実のハートは無視
+            if (magicskill_lists[i].skillName == "True_of_Myheart")
+            { }
+            else
+            {
+                if (magicskill_lists[i].skillFlag == 1)
+                {
+                    regain_point += magicskill_lists[i].skillLv;
+
+                    magicskill_lists[i].skillLv = 0;
+                    magicskill_lists[i].skillUseLv = 0;
+                }
+            }
+        }
+
+        PlayerStatus.player_patissier_job_pt += regain_point;
     }
 
     //デバッグ用　全てのスキルの表示フラグをONにする

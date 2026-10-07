@@ -145,11 +145,13 @@ public class CompoundMainController : MonoBehaviour {
 
     private int i;
     private int _id, _category;
+    private int sta_id;
     private string _meffect_resultname;
 
     private GameObject Debug_CompoIcon;
 
     private bool WaitForCompEnd; //調合シーン終了時に一回だけ行う処理のフラグ
+    
 
     // Use this for initialization
     void Start()
@@ -298,6 +300,7 @@ public class CompoundMainController : MonoBehaviour {
         //スペシャル演出用のホワイト
         SpecialwhiteEffect = compoBG_A.transform.Find("SpecialOkashiWhiteEffect").gameObject; //スペシャル演出用のホワイト
         SpecialOkashiEffectView = compoBG_A.transform.Find("SpecialOkashiEffectView").gameObject;
+       
 
 
         //Live2Dモデルの取得 
@@ -378,7 +381,7 @@ public class CompoundMainController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        
+
         //デバッグ用　使用中アイコン
         /*
         if (GameMgr.CompoundSceneStartON)
@@ -388,9 +391,9 @@ public class CompoundMainController : MonoBehaviour {
         else
         {
             Debug_CompoIcon.SetActive(false);
-        }*/
+        }*/        
 
-
+        //メイン処理
         if (GameMgr.CompoundSceneStartON)
         {
             if (!WaitForCompEnd) //
@@ -1106,8 +1109,7 @@ public class CompoundMainController : MonoBehaviour {
         card_view.SelectCard_DrawView(GameMgr.Final_toggle_baseType, GameMgr.Final_list_baseitemID);
         card_view.OKCard_DrawView(GameMgr.Final_kettei_kosu1);
 
-        itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
-        itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+        itemselect_cancel.update_ListSelect(10); //ベースアイテムを選択できないようにする。//アイテム選択時の、リストの表示処理
     }
 
     //

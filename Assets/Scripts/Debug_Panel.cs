@@ -707,7 +707,7 @@ public class Debug_Panel : MonoBehaviour {
         
         //レベルで上がるスキルなどは初期値にしておく。
         exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0);
-
+        exp_table.DebugSkillLvLearn();
 
 
         //レベル表示も更新

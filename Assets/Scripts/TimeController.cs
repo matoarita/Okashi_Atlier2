@@ -980,9 +980,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     void MagicPlayerStatus_CountCheck(int _time)
     {
+        //Debug.Log("おかし制作で、プレイヤー状態バフ時間も減る");
+
         for (i = 0; i < PlayerStatus.player_girl_status_timecounter.Length; i++)
         {
             PlayerStatus.player_girl_status_timecounter[i] -= _time;
+            //Debug.Log("PlayerStatus.player_girl_status_timecounter[i]: " + PlayerStatus.player_girl_status_timecounter[i]);
 
             if (PlayerStatus.player_girl_status_timecounter[i] <= 0)
             {

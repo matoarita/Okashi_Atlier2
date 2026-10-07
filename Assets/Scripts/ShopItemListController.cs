@@ -54,6 +54,7 @@ public class ShopItemListController : MonoBehaviour
     public int shop_itemType;
     public int shop_dongriType;
     public int shop_costprice; //金額
+    public int shop_zaiko; //在庫
     public string shop_itemName_Hyouji; //最終的に買うアイテム名がはいる。
 
     public int shop_final_itemkosu_1; //選択したアイテムIDの個数が入る。
@@ -460,9 +461,10 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.shopitems[i].shop_itemNameHyouji; //表示用の名前
         _toggle_itemID.toggle_shopitem_costprice = shop_database.shopitems[i].shop_costprice; //単価
+        _toggle_itemID.toggle_shopitem_zaiko = shop_database.shopitems[i].shop_itemzaiko; //在庫
 
         //セール表示
-        if(shop_database.shopitems[i].shop_item_hyouji == 100)
+        if (shop_database.shopitems[i].shop_item_hyouji == 100)
         {
             _shop_listitem[list_count].transform.Find("SalePanel").gameObject.SetActive(true);
         }
@@ -513,6 +515,7 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.shopitems[i].shop_itemNameHyouji; //表示用の名前
         _toggle_itemID.toggle_shopitem_costprice = shop_database.shopitems[i].shop_costprice; //単価
+        _toggle_itemID.toggle_shopitem_zaiko = shop_database.shopitems[i].shop_itemzaiko; //在庫
         _toggle_itemID.toggle_shopitem_dongri_type = shop_database.shopitems[i].shop_dongriType; //どんぐりタイプ
 
         //セール表示

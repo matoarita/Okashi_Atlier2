@@ -311,11 +311,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     OnCateViewName("Cate_04");
                 }
 
-                //採取地
-                if (matplace_database.MapType_SearchAllFlagCount(100, 100) >= 1) //
+                //コンテスト会場
+                /*if (matplace_database.MapType_SearchAllFlagCount(100, 100) >= 1) //
                 {
                     OnCateViewName("Cate_10");
-                }
+                }*/
                 break;
         }
 
@@ -556,31 +556,31 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView1() //春エリア
+    public void MapList_DrawView1() //お店
     {
         category_status = 10;
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView2() //夏エリア
+    public void MapList_DrawView2() //街・広場
     {
         category_status = 20;
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView3() //秋エリア
+    public void MapList_DrawView3() //採取地
     {
         category_status = 30;
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView4() //冬エリア
+    public void MapList_DrawView4() //お城
     {
         category_status = 40;
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView10() //採取地
+    public void MapList_DrawView10() //コンテスト会場
     {
         category_status = 100;
         MapIcon_reset_and_DrawView(category_status);

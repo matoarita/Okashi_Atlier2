@@ -667,9 +667,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
-        //エピクレイシスなど　プレイヤー状態をチェック
-        Magic_PStatusCheck();
-
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
     }   
@@ -1022,9 +1019,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
-        //エピクレイシスなど　プレイヤー状態をチェック
-        Magic_PStatusCheck();
-
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
     }
@@ -1271,9 +1265,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
-
-        //エピクレイシスなど　プレイヤー状態をチェック
-        Magic_PStatusCheck();
 
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
@@ -1625,10 +1616,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void Magic_Pstatus_CheckMethod(int _id)
     {
         //エピクレイシスなど　プレイヤー状態をチェック というかここでチェックするのはエピクレイシスだけともいえる
-        if (PlayerStatus.player_girl_status[_id] > 0)
+        /*if (PlayerStatus.player_girl_status[_id] > 0)
         {
             PlayerStatus.player_girl_status[_id] = 0; //一回でも調合したらエピクレイシスは消える
-        }
+        }*/
     }
 
     void degMP()

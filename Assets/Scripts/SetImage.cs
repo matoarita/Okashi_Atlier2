@@ -494,6 +494,7 @@ public class SetImage : MonoBehaviour
 
         //デバッグ用　見た目などのパラメータ
         debugTaste_ScorePanel = this.transform.Find("Card_Param_window/Card_Parameter/DebugTasteScorePanel").gameObject;
+        debugTaste_ScorePanel.SetActive(false);
         item_Beauty_debug = debugTaste_ScorePanel.transform.Find("ItemBeautyScore").gameObject.GetComponent<Text>(); //見た目の値デバッグ用
         item_Spwind = debugTaste_ScorePanel.transform.Find("ItemSP_windScore").gameObject.GetComponent<Text>(); //風
         item_Sp_score2 = debugTaste_ScorePanel.transform.Find("ItemSP_Score2").gameObject.GetComponent<Text>(); //海
@@ -2510,6 +2511,7 @@ public class SetImage : MonoBehaviour
 
     }
 
+    //「使う」があるアイテムのチェック
     public void UseToggleSetInit(int _toggletype, int _kettei_item1)
     {
         this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
@@ -2524,7 +2526,6 @@ public class SetImage : MonoBehaviour
         {
             if (key == database.items[_kettei_item1].itemName)
             {
-                //this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
                 this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);
             }
         }
@@ -2534,8 +2535,16 @@ public class SetImage : MonoBehaviour
         {
             if (key2 == database.items[_kettei_item1].itemName)
             {
-                //this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
                 this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardPlate_Toggle").gameObject.SetActive(true);
+            }
+        }
+
+        //消費アイテム表示
+        foreach (string key in GameMgr.UseConsumableItemsName.Keys)
+        {
+            if (key == database.items[_kettei_item1].itemName)
+            {
+                this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardUse_Toggle").gameObject.SetActive(true);
             }
         }
 

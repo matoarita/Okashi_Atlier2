@@ -278,6 +278,7 @@ public class CatGetStartPanel : MonoBehaviour
 
                 catDataBase.catdata_list[GameMgr.Select_cat_num].catStatus = 0;
                 _textcomp.text = GameMgr.Select_cat_nameHyouji + "を連れ戻した！";
+                sc.PlaySe(catDataBase.SetVoice(GameMgr.Select_cat_num, 0)); //ねこごとに鳴き声変わる
 
                 //それまでとってきた材料リストは一度削除
                 catDataBase.CatDeleteZairyoList(GameMgr.Select_cat_num);

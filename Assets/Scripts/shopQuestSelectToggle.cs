@@ -569,6 +569,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                         pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
                         //pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().isOn = true;
                     }
+                    pitemlistController.InteractONCategory();
 
                     card_view.DeleteCard_DrawView();
 

@@ -1332,6 +1332,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         else { GameMgr.GameSpeedParam = playerData.save_GameSpeedParam; }
         GameMgr.Realtime_speedrange_ON = playerData.save_Realtime_speedrange_ON;
 
+
+        /* バージョン情報更新による　リセットなどの処理 */
+
         //ストーリーモード
         if (GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。
         {
@@ -1341,6 +1344,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             GameMgr.Story_Mode = 0; //強制的に本編のモードに。
         }
+
+        //ver2.09 アイテムリストの処理関係ちょっと触ったので、ヒカリの作り中お菓子は一回リセットする。
+        if(GameMgr.GameVersion >= 2.09f && GameMgr.Load_GameVersion != GameMgr.GameVersion)
+        {
+            GameMgr.Reset_HikariMakeALLFlag();
+        }
+
+        /*** ***/
 
         //ゲーム内プレイ時間
         GameMgr.Game_timeCount = playerData.save_Game_timeCount;

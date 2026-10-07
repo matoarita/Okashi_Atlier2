@@ -5588,9 +5588,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case 100400:
 
                 //白クジラに会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまで＋睡蓮をゲットしたあともう一度会話し、最後のレシピをもらうまで
-                if (GameMgr.NPCHiroba_eventList[272])
+                if (GameMgr.NPCHiroba_eventList[270])
                 {
-                    Debug.Log("白クジラと会い、真実のハートと最後のレシピをもらう　クエストクリア");
+                    Debug.Log("白クジラと会い、ゆめくい沼教えてもらうまで。");
                     sp_quest_clear = true;
                 }
 
@@ -5602,15 +5602,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }*/
                 break;
 
-            /*case 100410:
+            case 100410:
 
-                //白クジラに会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまでが条件
-                if (GameMgr.NPCHiroba_eventList[270])
+                //白クジラに会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまで＋睡蓮をゲットしたあともう一度会話し、最後のレシピをもらうまで
+                if (GameMgr.NPCHiroba_eventList[272])
                 {
-                    Debug.Log("白クジラと会う、クエストクリア");
+                    Debug.Log("白クジラと会い、真実のハートの魔法をもらう　クエストクリア");
                     sp_quest_clear = true;
                 }
-                break;*/
+                break;
 
         }
 
@@ -7134,6 +7134,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_7(_kaisu);
+    }
+
+    public void LvUpPanel8(int _toppingmax) //トッピング上限があがった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_8(_toppingmax);
     }
 
     //ハートLVあっぷパネルの削除　Compound_Mainから読み出し

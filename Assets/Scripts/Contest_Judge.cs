@@ -817,7 +817,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 3:
 
-                        _score_hosei = 100; //決勝戦は点数そのまま。ただし、相手の点数も高い。
+                        _score_hosei = 120; //
 
                         if (_status == 1)
                         {
@@ -986,7 +986,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 3:
 
-                        _score_hosei = 120; //ベルちゃん点数が高め
+                        _score_hosei = 150; //ベルちゃん点数が高め
                         break;
                 }
 

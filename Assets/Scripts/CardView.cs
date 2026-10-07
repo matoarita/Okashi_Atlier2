@@ -283,8 +283,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[0].GetComponent<SetImage>().SlotChangeButtonON();
 
         //位置とスケール
-        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+        SetSelectMainCardPosition(0);
+        
 
         //デバッグ用
         if (SceneManager.GetActiveScene().name == "Hiroba")
@@ -313,8 +313,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
+            SetNewComp_CardPositionA(0);
+            
             _cardImage_obj[0].GetComponent<SetImage>().Kosu_ON(_kosu);
             _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF();
         }
@@ -324,7 +324,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
         {
             SetTopping_BasePosition();
             _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
             _cardImage_obj[0].transform.localPosition = new Vector3(135, -15, 0);
 
             _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
@@ -359,20 +358,16 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
-        {           
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
+        {
+            SetNewComp_CardPositionA(0);            
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(0, 80, 0);
+            SetSelectMainCardPosition(1);
         }
 
         // トッピング調合を選択した場合の処理
         if (GameMgr.compound_select == 2)
         {
             SetTopping_BasePosition();
-            //_cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[1].transform.localPosition = new Vector3(50, 100, 0);           
@@ -393,11 +388,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
-
-            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
+            SetNewComp_CardPositionA(0);
+            SetNewComp_CardPositionB(1); 
+            
             _cardImage_obj[1].GetComponent<SetImage>().Kosu_ON(_kosu);
             _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF();
         }
@@ -406,15 +399,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (GameMgr.compound_select == 2)
         {
             SetTopping_BasePosition();
-            //_cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             SetTopping_PositionA();
             _cardImage_obj[1].GetComponent<SetImage>().CardOFF_ItemOnlyHyouji();
             _cardImage_obj[1].GetComponent<SetImage>().CardOFF_ItemAnimON();
             _cardImage_obj[1].transform.parent = toppingItemRoot.transform;
-            //_cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
 
         }
     }
@@ -438,26 +427,18 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
+            SetNewComp_CardPositionA(0);
+            SetNewComp_CardPositionB(1);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
-
-            _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(0, 80, 0);           
+            SetSelectMainCardPosition(2);         
         }
 
         // トッピング調合を選択した場合の処理
         if (GameMgr.compound_select == 2)
         {
             SetTopping_BasePosition();
-            //_cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
-            SetTopping_PositionA();
-            //_cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);          
+            SetTopping_PositionA();         
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[2].transform.localPosition = new Vector3(50, 100, 0);
@@ -477,14 +458,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
-
-            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
-
-            _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(300, 150, 0);
+            SetNewComp_CardPositionA(0);
+            SetNewComp_CardPositionB(1);
+            SetNewComp_CardPositionC(2);
+            
             _cardImage_obj[2].GetComponent<SetImage>().Kosu_ON(_kosu);
             _cardImage_obj[2].GetComponent<SetImage>().CardParamOFF();
         }
@@ -493,16 +470,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (GameMgr.compound_select == 2)
         {
             SetTopping_BasePosition();
-            //_cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             SetTopping_PositionA();
-            //_cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
-
             SetTopping_PositionB();
-            //_cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[2].transform.localPosition = new Vector3(140, -15, 0);
+
             _cardImage_obj[2].GetComponent<SetImage>().CardOFF_ItemOnlyHyouji();
             _cardImage_obj[2].GetComponent<SetImage>().CardOFF_ItemAnimON();
             _cardImage_obj[2].transform.parent = toppingItemRoot.transform;
@@ -532,16 +503,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (GameMgr.compound_select == 2)
         {
             SetTopping_BasePosition();
-            //_cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             SetTopping_PositionA();
-            //_cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
-
             SetTopping_PositionB();
-            //_cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[2].transform.localPosition = new Vector3(140, -15, 0);
 
             _cardImage_obj[3].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[3].transform.localPosition = new Vector3(50, 100, 0);
@@ -568,24 +532,39 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (GameMgr.compound_select == 2)
         {
             SetTopping_BasePosition();
-            //_cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             SetTopping_PositionA();
-            //_cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
-
             SetTopping_PositionB();
-            //_cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[2].transform.localPosition = new Vector3(140, -15, 0);
-
             SetTopping_PositionC();
-            //_cardImage_obj[3].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            //_cardImage_obj[3].transform.localPosition = new Vector3(280, -15, 0);
+
             _cardImage_obj[3].GetComponent<SetImage>().CardOFF_ItemOnlyHyouji();
             _cardImage_obj[3].GetComponent<SetImage>().CardOFF_ItemAnimON();
             _cardImage_obj[3].transform.parent = toppingItemRoot.transform;
         }
+    }
+
+    void SetSelectMainCardPosition(int _num)
+    {
+        _cardImage_obj[_num].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[_num].transform.localPosition = new Vector3(0, 80, 0);
+    }
+
+    void SetNewComp_CardPositionA(int _num)
+    {
+        _cardImage_obj[_num].transform.localScale = new Vector3(0.45f, 0.45f, 1);
+        _cardImage_obj[_num].transform.localPosition = new Vector3(35, 150, 0);
+    }
+
+    void SetNewComp_CardPositionB(int _num)
+    {
+        _cardImage_obj[_num].transform.localScale = new Vector3(0.45f, 0.45f, 1);
+        _cardImage_obj[_num].transform.localPosition = new Vector3(175, 150, 0);
+    }
+
+    void SetNewComp_CardPositionC(int _num)
+    {
+        _cardImage_obj[_num].transform.localScale = new Vector3(0.45f, 0.45f, 1);
+        _cardImage_obj[_num].transform.localPosition = new Vector3(315, 150, 0);
     }
 
     void SetTopping_BasePosition()

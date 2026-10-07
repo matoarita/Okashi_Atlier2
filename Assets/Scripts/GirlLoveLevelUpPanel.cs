@@ -198,6 +198,13 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
         this.transform.Find("Comp/HeartPanel/HeartLvupImage7/LvParam").GetComponent<Text>().text = "+" + _kaisu.ToString();
     }
 
+    public void SelectPanel_8(int _toppingmax) //トッピング上限　あがった
+    {
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage8").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage8/LvParam").GetComponent<Text>().text = _toppingmax.ToString();
+    }
+
     void offAllPanel()
     {
         foreach (Transform obj in this.transform.Find("Comp/HeartPanel").transform)

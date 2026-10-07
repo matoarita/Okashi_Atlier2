@@ -32,6 +32,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public List<GameObject> _prelistitem = new List<GameObject>(); //リストビューの個数　表示用に、事前に格納しておくリスト。
     public List<GameObject> _listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
+    public List<GameObject> _listcategory = new List<GameObject>(); //カテゴリービュー
     private int list_count; //リストビューに現在表示するリストの個数をカウント
 
     private Text[] _text = new Text[2];
@@ -50,6 +51,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private int count;
     private int i, n;
     private int _lv;
+    private int category_num;
 
     private int check_itemListType;
     private int check_item_Hyouji;
@@ -61,7 +63,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private int check_attribute1;
 
     private int topping_method;
-    
+
+    private GameObject BlackImg;
 
     public List<int> _listcount = new List<int>(); //納品時用の選択番号リスト型
 
@@ -107,8 +110,19 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         content = GameObject.FindWithTag("PlayerItemListContent");
         textPrefab = (GameObject)Resources.Load("Prefabs/itemSelectToggle");
 
+        i = 0;
+        _listcategory.Clear();
+        foreach (Transform child in this.transform.Find("CategoryScrollView/Viewport/Content/").transform)
+        {
+            //Debug.Log(child.name);   
+            _listcategory.Add(child.gameObject);
+            child.gameObject.transform.Find("Button").GetComponent<Button>().interactable = true;
+            child.gameObject.GetComponent<PItemCategory_Button>().pid = i;
+            i++;
+        }
+
         //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
+        canvas = GameObject.FindWithTag("Canvas");       
 
         GameMgr.Comp_kettei_bunki = 0;
         kettei1_on = false;       
@@ -145,6 +159,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
+
+        BlackImg = this.transform.Find("BlackImg").gameObject;
+        BlackImg.SetActive(false);
 
         keymanager.cursor_cullent_num = 0;
         keymanager.itemCursor_On = false;
@@ -801,9 +818,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
+        _toggle_itemID.toggle_listcount = list_count;
         _toggle_itemID.toggleitem_ID = database.items[i].itemID; //アイテムIDを、リストビューのトグル自体にも記録させておく。 
         _toggle_itemID.toggleitem_type = 0; //プレイヤーアイテムリストを識別するための番号。0を入れる。
         _toggle_itemID.toggle_originplist_ID = i; //店売りアイテムのアイテムリスト番号
+        _toggle_itemID.toggle_type = database.items[i].itemType.ToString();
+        _toggle_itemID.toggle_subtype = database.items[i].itemType_sub.ToString();
         //Debug.Log("プレイヤ店売りリスト配列番号: " + _toggle_itemID.toggle_originplist_ID);
 
 
@@ -854,9 +874,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
+        _toggle_itemID.toggle_listcount = list_count;
         _toggle_itemID.toggleitem_ID = pitemlist.player_originalitemlist[i].itemID; //アイテムIDを、リストビューのトグル自体にも記録させておく。
         _toggle_itemID.toggleitem_type = 1; //プレイヤーアイテムリストを識別するための番号。オリジナルアイテムの場合、1を入れる。
         _toggle_itemID.toggle_originplist_ID = i; //オリジナルアイテムリストのリスト番号
+        _toggle_itemID.toggle_type = pitemlist.player_originalitemlist[i].itemType.ToString();
+        _toggle_itemID.toggle_subtype = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
         //Debug.Log("プレイヤオリジナルアイテムリストID: " + _toggle_itemID.toggle_originplist_ID + " " + "アイテムID: " + _toggle_itemID.toggleitem_ID);
 
 
@@ -911,9 +934,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
+        _toggle_itemID.toggle_listcount = list_count;
         _toggle_itemID.toggleitem_ID = pitemlist.player_extremepanel_itemlist[i].itemID; //アイテムIDを、リストビューのトグル自体にも記録させておく。
         _toggle_itemID.toggleitem_type = 2; //プレイヤーアイテムリストを識別するための番号。オリジナルアイテムの場合、1を入れる。
         _toggle_itemID.toggle_originplist_ID = i; //オリジナルアイテムリストのリスト番号
+        _toggle_itemID.toggle_type = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
+        _toggle_itemID.toggle_subtype = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
         //Debug.Log("プレイヤオリジナルアイテムリストID: " + _toggle_itemID.toggle_originplist_ID + " " + "アイテムID: " + _toggle_itemID.toggleitem_ID);
 
 
@@ -1060,7 +1086,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             case "Cookie_SecondBake":
 
                 if (check_itemType_sub == "Cookie" || check_itemType_sub == "Cookie_Hard" || check_itemType_sub == "Cookie_Mat" || check_itemType_sub == "Cookie_Hard_Mat" ||
-                    check_itemType_sub == "Bread" || check_itemType_sub == "Biscotti" || check_itemType_sub == "Financier" || 
+                    check_itemType_sub == "Bread" || check_itemType_sub == "Biscotti" || check_itemType_sub == "Financier" || check_itemType_sub == "BakedSweets" ||
                     check_itemType_sub == "Maffin" || check_itemType_sub == "Rusk")
                 {
                     if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
@@ -1558,6 +1584,190 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     }
                 }
             }
+        }
+    }
+
+    //ドロップダウンやカテゴリービューから、アイテム種類を選択すると、種類別でアイテムを表示する
+    //一度すでにリストを生成してるので、ONOFFで対処
+    public void ItemList_CategoryDraw(int _catenum)
+    {
+        //_catenumはスクロールビューから
+        Debug.Log("スクビューカテゴリー番号: " + _catenum);
+
+        //ドロップダウンメニューを使う場合
+        //category_num = this.transform.Find("DropdownCategory").GetComponent<Dropdown>().value;
+        //Debug.Log("カテゴリー番号: " + category_num);
+
+        //Debug.Log("アイテムリスト表示総数" + _listitem.Count);
+
+        //カテゴリー番号におうじて、表示するアイテム種類を変える
+
+        switch (_catenum)
+        {
+            case 0: //すべて表示
+
+                for (i = 0; i < _listitem.Count; i++)
+                {
+                    _toggle_itemID = _listitem[i].GetComponent<itemSelectToggle>();
+
+                    _listitem[i].SetActive(true);
+                }
+                break;
+
+            case 10: //砂糖
+
+                CategoryView_Setting("Suger");
+                break;
+
+            case 20: //小麦粉
+
+                CategoryView_Setting("Komugiko");
+                break;
+
+            case 30: //バター　たまご
+
+                CategoryView_SettingAllOFF();
+                CategoryView_SettingMulti("Butter");
+                CategoryView_SettingMulti("Egg");
+                break;
+
+            case 40: //水
+
+                CategoryView_Setting("Water");
+                break;
+
+            case 50: //砂糖・バター・小麦粉
+
+                CategoryView_SettingAllOFF();
+                CategoryView_SettingMulti("Komugiko");
+                CategoryView_SettingMulti("Suger");
+                CategoryView_SettingMulti("Butter");
+                CategoryView_SettingMulti("Egg");
+                break;
+
+            case 60: //砂糖・バター・小麦粉以外
+
+                CategoryView_SettingAllOFF();                
+                CategoryView_SettingMulti("Salt");
+                CategoryView_SettingMulti("Milk");
+                CategoryView_SettingMulti("Material");
+                break;
+
+            case 70: //フルーツ　花
+
+                CategoryView_SettingAllOFF();
+                CategoryView_SettingMulti("Fruits");
+                CategoryView_SettingMulti("Berry");
+                CategoryView_SettingMulti("FrozenFruits");
+                CategoryView_SettingMulti("Nuts");
+                CategoryView_SettingMulti("Harb");
+                CategoryView_SettingMulti("Vegetable");
+                CategoryView_SettingMulti("Flower");
+                break;
+
+            case 80: //クリーム生地系
+
+                CategoryView_SettingAllOFF();
+                CategoryView_SettingMulti("Cream");
+                CategoryView_SettingMulti("Appaleil");
+                CategoryView_SettingMulti("Appaleil_Icecream");
+                CategoryView_SettingMulti("Source");
+                break;
+
+            case 100:
+
+                CategoryView_Setting("Machine");
+                break;
+
+            case 200: //オリジナルアイテムとエクストリームパネルアイテム
+
+                for (i = 0; i < _listitem.Count; i++)
+                {
+                    _toggle_itemID = _listitem[i].GetComponent<itemSelectToggle>();
+                    
+                    if (_toggle_itemID.toggleitem_type == 1 || _toggle_itemID.toggleitem_type == 2)
+                    {
+                        _listitem[i].SetActive(true);
+                    }
+                    else
+                    {
+                        _listitem[i].SetActive(false);
+                    }
+                }
+                break;
+
+            case 300: //Etcアイテム
+
+                CategoryView_SettingAllOFF();
+                for (i = 0; i < _listitem.Count; i++)
+                {
+                    _toggle_itemID = _listitem[i].GetComponent<itemSelectToggle>();
+
+                    if (_toggle_itemID.toggle_type == "Etc")
+                    {
+                        if (_toggle_itemID.toggle_subtype != "Machine")
+                        {
+                            _listitem[i].SetActive(true);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                break;
+        }
+        
+    }
+
+    void CategoryView_Setting(string _settype)
+    {
+        for (i = 0; i < _listitem.Count; i++)
+        {
+            _toggle_itemID = _listitem[i].GetComponent<itemSelectToggle>();
+
+            if (_toggle_itemID.toggle_subtype == _settype)
+            {
+                _listitem[i].SetActive(true);
+            }
+            else
+            {
+                _listitem[i].SetActive(false);
+            }
+        }
+    }
+
+    void CategoryView_SettingAllOFF()
+    {
+        for (i = 0; i < _listitem.Count; i++)
+        {
+            _listitem[i].SetActive(false);
+        }
+    }
+
+    void CategoryView_SettingMulti(string _settype)
+    { 
+        for (i = 0; i < _listitem.Count; i++)
+        {
+            _toggle_itemID = _listitem[i].GetComponent<itemSelectToggle>();
+
+            if (_toggle_itemID.toggle_subtype == _settype)
+            {
+                _listitem[i].SetActive(true);
+            }
+            else
+            {
+                
+            }
+        }
+    }
+
+    //カテゴリービューをONにする。
+    public void InteractONCategory()
+    {
+        for (i = 0; i < _listcategory.Count; i++)
+        {
+            _listcategory[i].transform.Find("Button").GetComponent<Button>().interactable = true;
         }
     }
 

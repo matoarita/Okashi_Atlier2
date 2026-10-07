@@ -851,6 +851,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a204d1ee4e7674048a00a44bf5e87c64, type: 3}
   - {fileID: 21300000, guid: ca4d67eea1ecc4b438100d382fffbcba, type: 3}
   - {fileID: 21300000, guid: c190d2fe04fb49147804f0e0644d907b, type: 3}
+  - {fileID: 21300000, guid: a12c76fe2fe0e864690454992f111c0f, type: 3}
   - {fileID: 21300000, guid: a51c58fea7180bc449a2b8118bb567ac, type: 3}
   - {fileID: 21300000, guid: 2c88ccfe0711e3947a30ba0874adfb0d, type: 3}
   - {fileID: 21300000, guid: c7ca1ffe906786b4bb6958f6f2ef6c7d, type: 3}
@@ -1691,6 +1692,7 @@ SpriteAtlas:
   - degoily_potion_gold
   - komugiko_rich
   - jelly_elder
+  - skillreset_ticket
   - rich_tea
   - bush_de_noel_buttefly
   - appaleil_chocolate_heart

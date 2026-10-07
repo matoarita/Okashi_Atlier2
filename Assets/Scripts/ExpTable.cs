@@ -132,55 +132,24 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     ShiageUpPanelHyouji();
                     break;
 
-                case 5:
-                    
-                    break;
-
-                case 6:
-
-                    //MagicLearnPanelHyouji("Cookie_SecondBake");  
-                    break;
-
                 case 7:
 
                     //MagicLearnPanelHyouji("Heart_of_Icecream"); //下の欄の「魔法をおぼえる」のほうも更新すること
+                    MagicLearnMethod("Freezing_Spell", 1);
                     MagicLearnPanelHyouji("Freezing_Spell");
-                    break;
-
-                case 8:
-                    
-                    break;
-
-                case 9: 
-
                     break;
 
                 case 10:
 
-                    //MagicLearnPanelHyouji("Bake_Beans");
-                    //MagicLearnPanelHyouji("Chocolate_Tempering");
                     ShiageUpPanelHyouji();
                     break;
 
                 case 11:
 
-                    //MagicLearnPanelHyouji("SugerPot");
                     break;
 
                 case 12: //ヒカリのおかし作り解禁
 
-                    //MagicLearnPanelHyouji("Buttelfy_illumination");
-                    break;
-
-                case 13:
-
-                    //MagicLearnPanelHyouji("Bubble_Mist");
-                    break;
-
-                case 14:
-
-                    //MagicLearnPanelHyouji("Wind_Crown");
-                    //MagicLearnPanelHyouji("Wind_Pen");
                     break;
 
                 case 15:
@@ -193,18 +162,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     MagicUpPanelHyouji(1);
                     break;
 
-                case 18:
-
-                    //MagicLearnPanelHyouji("Star_Blessing");
-                    break;
-
-                case 19:
-
-                    //MagicLearnPanelHyouji("Latte_Art");
-                    break;
-
                 case 20:
 
+                    MagicLearnMethod("Warming_Handmade", 0);
                     MagicLearnPanelHyouji("Warming_Handmade"); //下の欄の「魔法をおぼえる」のほうも更新すること
                     //girlEat_judge.LvUpPanel3(GameMgr.topping_Set_Count); //二種類～同時トッピングできるようになる。
 
@@ -213,36 +173,26 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 21:
 
-                    //MagicLearnPanelHyouji("Magic_Soda");
                     break;
 
                 case 25:
 
-                    
-                    break;
-
-                case 26:
-
-                    break;
-
-                case 28:
-
-                    //MagicLearnPanelHyouji("Warming_Handmade");
+                    ToppingMaxKosuPanelHyouji(3);
                     break;
 
                 case 30:
 
+                    MagicLearnMethod("Rainbow_Rain", 0);
                     MagicLearnPanelHyouji("Rainbow_Rain");
                     break;
 
                 case 31:
 
-                    //MagicLearnPanelHyouji("Statue_of_Bear");
                     break;
 
                 case 35:
 
-                    //MagicLearnPanelHyouji("Moonlight_Banana");
+                    ToppingMaxKosuPanelHyouji(6);
                     break;
 
                 case 45: //おかしの個数が一個増える　神スキル
@@ -251,9 +201,13 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
 
                 case 50:
-
-                    
+                   
                     ShiageUpPanelHyouji();
+                    break;
+
+                case 60:
+
+                    ToppingMaxKosuPanelHyouji(9);
                     break;
 
                 case 75:
@@ -278,6 +232,29 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         //スキルのチェック
         SkillCheckPatissierLV();
+    }
+
+    public void DebugSkillLvLearn()
+    {
+        //魔法をおぼえる　デバッグ用　上の習得リストと揃える
+        if (GameMgr.System_MagicUse_Flag)
+        {
+            if (_lv >= 7)
+            {
+                //Magic_Learn("Heart_of_Icecream");
+                Magic_Learn("Freezing_Spell", 1);
+            }
+
+            if (_lv >= 20)
+            {
+                Magic_Learn("Warming_Handmade", 0);
+            }
+
+            if (_lv >= 30)
+            {
+                Magic_Learn("Rainbow_Rain", 0);
+            }
+        }
     }
 
     void SkillLVCheck(int _lv)
@@ -338,8 +315,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             GameMgr.topping_Set_Count = 2;
         }*/
 
-        //複数個まとめて数のせる
-        
+
+        //複数個まとめて数のせる        
         if (_lv < 25)
         {
             GameMgr.System_Topping_Multiple_Flag = false;
@@ -351,9 +328,14 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
             if (_lv >= 35)
             {
-                GameMgr.System_Topping_Multiple_Max = 3;
+                GameMgr.System_Topping_Multiple_Max = 6;
+            }
+            if (_lv >= 60)
+            {
+                GameMgr.System_Topping_Multiple_Max = 9;
             }
         }
+
 
         //おかし個数+1
         if (_lv < 45)
@@ -375,29 +357,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             GameMgr.System_CatGetMat_Flag = true;
         }
 
-        //魔法をおぼえる
-        if (GameMgr.System_MagicUse_Flag)
-        {
-            if (_lv >= 7)
-            {
-                //Magic_Learn("Heart_of_Icecream");
-                Magic_Learn("Freezing_Spell");
-            }
+        
+    }
 
-            if (_lv >= 20)
-            {
-                Magic_Learn("Warming_Handmade");
-            }
-
-            if (_lv >= 30)
-            {
-                Magic_Learn("Rainbow_Rain");
-            }
-            /*if (_lv >= 35)
-            {
-                Magic_Learn("Moonlight_Banana");
-            }*/
-        }
+    void MagicLearnMethod(string _learnname, int _learnlv)
+    {
+        Magic_Learn(_learnname, _learnlv);
     }
 
     //スターによって解放されるパラメータがある場合　スターパネルでも記述
@@ -410,12 +375,15 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
     }
 
-    void Magic_Learn(string _magicname)
+    void Magic_Learn(string _magicname, int _learnlv)
     {
         if (magicskill_database.skillName_SearchLearnLevel(_magicname) < 1)
         {
-            magicskill_database.skillHyoujiKaikin(_magicname);
-            magicskill_database.skillLearnLv_Name(_magicname, 1);
+            magicskill_database.skillHyoujiKaikin(_magicname);            
+        }
+        if(_learnlv > 0)
+        {
+            magicskill_database.skillLearnLv_Name(_magicname, _learnlv);
         }
     }
 
@@ -427,6 +395,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     void OkashiKosuAddPanelHyouji()
     {
         girlEat_judge.LvUpPanel7(1);
+    }
+
+    void ToppingMaxKosuPanelHyouji(int _toppingmax)
+    {
+        girlEat_judge.LvUpPanel8(_toppingmax);
     }
 
     void MagicLearnPanelHyouji(string _magicname)

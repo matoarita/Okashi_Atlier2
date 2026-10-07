@@ -845,6 +845,7 @@ public class Compound_Check : MonoBehaviour {
         recipiMemoButton_obj.SetActive(true);
         GameMgr.compound_status = 100;
         itemselect_cancel.Two_cancel();
+        InteractONCategory();
 
         if (GameMgr.compound_select == 7)
         {
@@ -860,6 +861,7 @@ public class Compound_Check : MonoBehaviour {
 
         GameMgr.compound_status = 100;
         itemselect_cancel.Three_cancel();
+        InteractONCategory();
 
         yes.SetActive(true);
         yes_text.text = "作る";
@@ -926,6 +928,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller._success_rate = 100;
                         kakuritsuPanel.KakuritsuYosoku_Reset();
                         itemselect_cancel.Two_cancel();
+                        InteractONCategory();
                         break;
                 }
                 break;
@@ -974,6 +977,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller._success_rate = exp_Controller._temp_srate_1;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                         itemselect_cancel.Three_cancel();
+                        InteractONCategory();
 
                         break;
                 }
@@ -1021,7 +1025,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller._success_rate = exp_Controller._temp_srate_2;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
                         itemselect_cancel.Four_cancel();
-
+                        InteractONCategory();
                         break;
                 }
                 break;
@@ -1091,6 +1095,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller._success_rate = 100;
                         kakuritsuPanel.KakuritsuYosoku_Reset();
                         itemselect_cancel.Two_cancel();
+                        InteractONCategory();
 
                         break;
                 }
@@ -1152,6 +1157,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller._success_rate = exp_Controller._temp_srate_1;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                         itemselect_cancel.Three_cancel();
+                        InteractONCategory();
 
                         break;
                 }
@@ -1195,6 +1201,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller._success_rate = exp_Controller._temp_srate_2;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
                         itemselect_cancel.Four_cancel();
+                        InteractONCategory();
 
                         break;
                 }
@@ -1472,6 +1479,7 @@ public class Compound_Check : MonoBehaviour {
 
                         GameMgr.compound_status = 100;
                         itemselect_cancel.All_cancel();
+                        InteractONCategory();
 
                         break;
                 }
@@ -2173,6 +2181,10 @@ public class Compound_Check : MonoBehaviour {
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
             }
+            for (i = 0; i < pitemlistController._listcategory.Count; i++)
+            {
+                pitemlistController._listcategory[i].transform.Find("Button").GetComponent<Button>().interactable = false;
+            }
         }
 
         yes.SetActive(true);
@@ -2186,6 +2198,15 @@ public class Compound_Check : MonoBehaviour {
             YesSetDesign2();
         }
 
+    }
+
+
+    void InteractONCategory()
+    {
+        for (i = 0; i < pitemlistController._listcategory.Count; i++)
+        {
+            pitemlistController._listcategory[i].transform.Find("Button").GetComponent<Button>().interactable = true;
+        }
     }
 
     void Off_Flag_Setting()

@@ -146,6 +146,25 @@ public class Sound_Trigger : MonoBehaviour {
 
                 break;
 
+            case "Yes_FireCat": //魔法を習得するを押したときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(253);
+                break;
+
+            case "Yes_CatComeback": //魔法を習得するを押したときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音
+                SE_point_click(38);
+                SE_point_click(50);
+                break;
+
             case "ContestOn_Toggle_NameOK": //ステージクリアを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -613,6 +632,46 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "HikariMakeSelect_1": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "HikariMakeSelect_5": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "HikariMakeSelect_2": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "HikariMakeSelect_4": //メインメニュー開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(18);
+                break;
+
             case "itemSelectToggle(Clone)": //アイテム欄で、アイテム選択するときの音
 
                 //ポインタが入ったときに鳴る音
@@ -691,7 +750,7 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(30); //46
-                break;
+                break;           
 
             case "Cate_Basic": //お店カテゴリー開くときの音
 
@@ -1054,13 +1113,44 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(28);
                 break;
 
-            case "CatFireButton":
+            case "CatIconButton": //ねこボタン系
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
-                //クリックしたときに鳴る音。
-                SE_point_click(0);
+
+                //クリックしたときに鳴る音
+                //SE_point_click(30);
+                break;
+
+            case "EsaPanel": //ねこボタン系
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(30);
+                break;
+
+            case "CatGetMatButton": //ねこボタン系
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0); //ねこの鳴き声がなる
+                break;
+
+            case "CatFireButton": //ねこボタン系
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(30);
                 break;
 
             case "EsaSelectButton": //yesを押したときのSE
@@ -1160,15 +1250,6 @@ public class Sound_Trigger : MonoBehaviour {
                 break;
 
             case "HikariMakeButton":
-
-                //ポインタが入ったときに鳴る音
-                SE_point_enter(2);
-
-                //クリックしたときに鳴る音。
-                SE_point_click(46);
-                break;
-
-            case "CatGetMatButton":
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);

@@ -638,7 +638,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 40: //最後　エデンレシピそろったので、白クジラに会いに行く
+            case 40: //最後　エデンレシピそろったので、白クジラに会いに行く 必要なハートをあげろといわれる
 
                 girl1_status.OkashiQuest_ID = 100400;
                 _stage_count = 4;
@@ -664,7 +664,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 41: //廃止
+            case 41: //廃止　ゆめくい沼の場所を教えてくれる。黒い睡蓮をゲットし、白クジラに再度見せにいく。
 
                 girl1_status.OkashiQuest_ID = 100410;
                 _stage_count = 4;
@@ -771,6 +771,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             //matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
             //matplace_database.ReSetMapFlagString("Or_Contest_D1", 1);
+        }
+
+        //秋のストーリー開始
+        if (_spquest_setnum >= 23)
+        {
+            matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
         }
 
         if (_spquest_setnum >= 30)
@@ -928,7 +934,32 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                     GameMgr.System_spquest_message = girlLikeCompo_database.girllike_composet[i].spquest_name1;
                     GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
                     //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
+
+                    //クエスト開始時のタイトル名検索
+                    GameMgr.MainQuestTitleName = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                    OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
                 }
+            }
+
+            //クエストによって、クエスト名に条件などの表記を追加する
+            if (girl1_status.OkashiQuest_ID == 100400)
+            {
+                    //白クジラにあい、ハートを○○以上にしてからきてねといわれた
+                    if (GameMgr.NPCHiroba_eventList[260] && GameMgr.NPCHiroba_eventList[273])
+                    {
+                        OkashiQuest_Name = "ハート" + GameMgr.System_trueheart_cost.ToString() + "ためて、" + OkashiQuest_Name;
+                    }
+            }
+
+            if (girl1_status.OkashiQuest_ID == 100410)
+            {
+                if (!GameMgr.MapEvent_Or[452]) //シスターズに会った
+                { }
+                else
+                {
+                    OkashiQuest_Name = "白クジラに黒い水連の花をみせよう！";
+                }
+
             }
 
             //これをONにすると、下のクエスト表記のところで、〇〇が食べたいが表示される。EatOkashi_DecideFlag=1のクエのみ。
@@ -950,16 +981,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                     OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
                 }
             }*/
-
-            //クエスト開始時のタイトル名検索
-            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-            {
-                if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
-                {
-                    GameMgr.MainQuestTitleName = girlLikeCompo_database.girllike_composet[i].spquest_name1;
-                    OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
-                }
-            }
         }
     }
 

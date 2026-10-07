@@ -316,7 +316,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //エピクレイシス状態をチェック　LVに応じて確率が上がる
         if (PlayerStatus.player_girl_status[0] > 0)
         {
-            _statusup = 5 + (PlayerStatus.player_girl_status[0] * 10); //15~35%も上がる！
+            _statusup = 5 + (PlayerStatus.player_girl_status[0] * 30); //15~35%も上がる！
         }
         _buf_kakuritsuup += _statusup;
     }
@@ -685,7 +685,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //エピクレイシス状態をチェック
         if (PlayerStatus.player_girl_status[0] > 0)
         {
-            _statusup = 20 + (PlayerStatus.player_girl_status[0] * 10); //30~50%も上がる！
+            _statusup = 5 + (PlayerStatus.player_girl_status[0] * 30); //30~50%も上がる！
         }
         _magic_rate += _statusup;
     }
@@ -1367,7 +1367,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //ラトリア状態をチェック
         if (PlayerStatus.player_girl_status[1] > 0)
         {
-            _statusup = -10 + (PlayerStatus.player_girl_status[1] * -3); //各粉っぽさ系をちょっと減らす 使用LVが入ってるはずなので、LVで倍数になる。
+            _statusup = -10 + (PlayerStatus.player_girl_status[1] * -15); //各粉っぽさ系をちょっと減らす 使用LVが入ってるはずなので、LVで倍数になる。
             Debug.Log("ラトリア効果あり　粉っぽさなどの減少: " + _statusup);
         }
         _buf_shokukanup += _statusup;

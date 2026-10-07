@@ -48,6 +48,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private string _area;
     private int _quest_opennum;
     private int[] _movetime = new int[10];
+    private string[] barplace_name = new string[10];
 
     private int _Limit_day;
     private int _Nokori_day;
@@ -131,6 +132,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("BarMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("BarMoveButtonA/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                        barplace_name[0] = matplace_database.matplace_lists[i].placeNameHyouji;
                         _movetime[0] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
@@ -147,6 +149,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("BarMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("BarMoveButtonB/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                        barplace_name[2] = matplace_database.matplace_lists[i].placeNameHyouji;
                         _movetime[2] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
@@ -246,7 +249,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         {
             case 10:
 
-                _area = "春酒場よいどれ亭";
+                _area = barplace_name[0];
                 break;
 
             case 20:
@@ -256,7 +259,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
             case 30:
 
-                _area = "秋酒場さんま亭";
+                _area = barplace_name[2];
                 break;
 
             case 40:
@@ -306,8 +309,8 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     public void OnMoveBarA()
     {
         //入店の音
-        //sc.PlaySe(38);
-        //sc.PlaySe(51);
+        sc.PlaySe(38);
+        sc.PlaySe(51);
         //GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
@@ -320,8 +323,8 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     public void OnMoveBarB()
     {
         //入店の音
-        //sc.PlaySe(38);
-        //sc.PlaySe(51);
+        sc.PlaySe(38);
+        sc.PlaySe(51);
         //GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。

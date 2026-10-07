@@ -57,6 +57,7 @@ public class shopitemSelectToggle : MonoBehaviour
     public int toggle_shopitem_ID; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
     public string toggle_shopitem_nameHyouji; //表示用名前
     public int toggle_shopitem_costprice; //金額も保持
+    public int toggle_shopitem_zaiko; //在庫も保持
     public int toggle_shopitem_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
     public int toggle_shopitem_dongri_type; //どんぐりタイプも保持
 
@@ -64,6 +65,7 @@ public class shopitemSelectToggle : MonoBehaviour
     private int _id;
 
     private int _itemcount; //現在の所持数　店売り＋オリジナル
+    private int _itemzaiko; //在庫カウント
     private string _item_Namehyouji;
     private int pitemlist_max;
     private int count;
@@ -209,24 +211,29 @@ public class shopitemSelectToggle : MonoBehaviour
         _item_Namehyouji = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_nameHyouji; //表示用ネームを入れる。
         shopitemlistController.shop_itemName_Hyouji = _item_Namehyouji;
         shopitemlistController.shop_costprice = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
+        shopitemlistController.shop_zaiko = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_zaiko;
 
         if (shopitemlistController.shop_itemType == 1) //レシピを選択したとき
         {
             _id = pitemlist.SearchEventItemID(shopitemlistController.shop_kettei_item1); //IDをもとにevent_itemsの配列番号に変換
-            _text.text = _item_Namehyouji + "を何個" + GameMgr.System_Shop_text4;
+            _itemcount = pitemlist.KosuCountEvent(pitemlist.eventitemlist[_id].event_itemName);
+            _itemzaiko = shopitemlistController.shop_zaiko;
+            _text.text = "「" + _item_Namehyouji + "」" + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "　在庫: " + _itemzaiko + "\n" + "現在の所持数: " + _itemcount;
             card_view.ShopSelectCard_DrawView(1, _id);
         }
         else if (shopitemlistController.shop_itemType == 5) //エメラルドショップのアイテムを選択したとき
         {
             _id = pitemlist.SearchEmeraldItemID(shopitemlistController.shop_kettei_item1);
             _itemcount = pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[_id].event_itemName);
-            _text.text = _item_Namehyouji + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+            _itemzaiko = shopitemlistController.shop_zaiko;
+            _text.text = "「" + _item_Namehyouji + "」" + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "　在庫: " + _itemzaiko + "\n" + "現在の所持数: " + _itemcount;
         }
         else //それ以外の通常のアイテムは個数が表示
         {
             _id = database.SearchItemID(shopitemlistController.shop_kettei_item1); //IDをもとにitemsの配列番号に変換
             _itemcount = pitemlist.KosuCount(database.items[_id].itemName);
-            _text.text = _item_Namehyouji + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+            _itemzaiko = shopitemlistController.shop_zaiko;
+            _text.text = _item_Namehyouji + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "　在庫: " + _itemzaiko + "\n" + "現在の所持数: " + _itemcount;
             card_view.ShopSelectCard_DrawView(0, _id);
         }
 

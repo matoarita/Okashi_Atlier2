@@ -699,7 +699,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
         PlayerStatus.player_girl_status[sta_id] = magicskill_database.magicskill_lists[_id].skillLv; //習得LVで数字を入れる。すなわち、そのスキルのLV。
         PlayerStatus.player_girl_status_timecounter[sta_id] =
-            magicskill_database.magicskill_lists[_id].status_time * magicskill_database.magicskill_lists[_id].skillLv; //持続時間　分単位
+            magicskill_database.magicskill_lists[_id].status_time + ((magicskill_database.magicskill_lists[_id].skillLv - 1) * 120); //持続時間　分単位
 
         GameMgr.Compo_FinalCostTime = magicskill_database.magicskill_lists[_id].cost_time; //魔法使用にかかる時間
         GameMgr.Magic_CheckIgnore = sta_id; //チェック無視　使用したばかりの魔法は、そのときの使用のカウントはしない。おもにエピクレイシス。ExpControllerでチェック用に使う。

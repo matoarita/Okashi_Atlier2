@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardUseMethod : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class CardUseMethod : MonoBehaviour
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
 
+    private MagicSkillListDataBase magicskill_database;
+
     private GameObject bgpanelmatome;
     private BGAcceTrigger BGAccetrigger;
     private CardView card_view;
@@ -28,6 +31,10 @@ public class CardUseMethod : MonoBehaviour
     private int itemID;
     private int itemType;
     private int i;
+
+    private string itemName;
+
+    private Text kakunin_msg;
 
     // Use this for initialization
     void Start()
@@ -41,6 +48,8 @@ public class CardUseMethod : MonoBehaviour
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
     }
 
@@ -50,19 +59,39 @@ public class CardUseMethod : MonoBehaviour
 
     }
 
+    //消費アイテムの処理
     public void OnUseAction()
     {
         itemID = this.GetComponent<SetImage>().itemID;
+        itemName = database.items[database.SearchItemID(itemID)].itemName;
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //調合メイン取得
+        card_view = GameObject.FindWithTag("CardView").GetComponent<CardView>();
+        yes_selectitem_kettei = GameObject.FindWithTag("SelectItem_kettei").GetComponent<SelectItem_kettei>();
+
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
+        //各アイテムごとの確認メッセージ更新
+        kakunin_msg = canvas.transform.Find("ItemUseKakuninPanel/MessageWindowItemUse/Text").GetComponent<Text>();
+        KakuninMessageKoushin(itemName);
+
+        canvas.transform.Find("ItemUseKakuninPanel").gameObject.SetActive(true);
+        GameMgr.compound_status = 999;
+        StartCoroutine("ItemUse_kakunin");
     }
 
+    //飾るアイテム
     public void OnDecoAction()
     {
         itemID = this.GetComponent<SetImage>().itemID;
+
         bgpanelmatome = GameObject.FindWithTag("BG");
         BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
-
         BGAccetrigger.BGAcceOn(database.items[database.SearchItemID(itemID)].itemName); //ヒンメリだったら、himmeliを入力している。
-
     }
 
     //お皿を変える
@@ -132,14 +161,7 @@ public class CardUseMethod : MonoBehaviour
                 }
 
                 //登録したアイテムは削除
-                if (itemType == 0)
-                {
-                    pitemlist.deletePlayerItem(database.items[database.SearchItemID(itemID)].itemName, 1);
-                }
-                else
-                {
-                    pitemlist.deleteOriginalItem(itemID, i);
-                }
+                deleteItem(itemID);
 
                 canvas.transform.Find("CollectionKakunin").gameObject.SetActive(false);
                 sc.PlaySe(5);
@@ -154,6 +176,53 @@ public class CardUseMethod : MonoBehaviour
                 break;
         }
     }*/
+
+    IEnumerator ItemUse_kakunin()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された
+
+                itemID = this.GetComponent<SetImage>().itemID;
+                itemType = this.GetComponent<SetImage>().Pitem_or_Origin;
+
+                //登録したアイテムは削除
+                deleteItem(itemID);
+
+                //各アイテムごとの処理
+                ItemUseEffort(itemName);
+
+                canvas.transform.Find("ItemUseKakuninPanel").gameObject.SetActive(false);                             
+                card_view.DeleteCard_DrawView();
+
+                GameMgr.compound_status = 0;
+                yes_selectitem_kettei.kettei1 = false;
+
+                itemselect_cancel.All_cancel();
+                GameMgr.List_count1 = 9999;
+                break;
+
+            case false:
+
+                GameMgr.compound_status = 99; //アイテム選択中の画面に。
+                yes_selectitem_kettei.kettei1 = false;
+
+                canvas.transform.Find("ItemUseKakuninPanel").gameObject.SetActive(false);
+                break;
+        }
+    }
 
     void UseEnd()
     {
@@ -171,5 +240,51 @@ public class CardUseMethod : MonoBehaviour
         GameMgr.compound_status = 99; //何も選択していない状態にもどる。
 
         pitemlistController.transform.Find("BlackImg").gameObject.SetActive(false);
+    }
+
+    void deleteItem(int _itemID)
+    {
+        if (itemType == 0)
+        {
+            pitemlist.deletePlayerItem(database.items[database.SearchItemID(_itemID)].itemName, 1);
+        }
+        else if (itemType == 1)
+        {
+            pitemlist.deleteOriginalItem(_itemID, 1);
+        }
+        else
+        {
+            pitemlist.deleteExtremePanelItem(_itemID, 1);
+        }
+    }
+
+    //各アイテムごとの確認メッセージ表示
+    void KakuninMessageKoushin(string _itemName)
+    {
+        switch(_itemName)
+        {
+            case "skillreset_ticket":
+
+                kakunin_msg.text = "スキルリセットをする？　にいちゃん" + "\n" + "（アイテムはなくなっちゃうよ！）";
+                break;
+        }
+    }
+
+    //各アイテムごとの処理をかく
+    void ItemUseEffort(string _itemName)
+    {
+        switch (_itemName)
+        {
+            case "skillreset_ticket":
+
+                sc.PlaySe(175); //5
+
+                //リセットして、魔法ポイントに還元
+                magicskill_database.SkillAllResetAndRegainPoint();
+
+                GameMgr.ItemUse_AfterMessage = true;
+                GameMgr.ItemUse_AfterMessageNum = 0;
+                break;
+        }
     }
 }

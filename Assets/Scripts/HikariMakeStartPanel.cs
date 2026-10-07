@@ -199,8 +199,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
         timecost_kosu = this.transform.Find("Comp2/TimePanel/Image/Time_param").GetComponent<Text>();
         timecost_kosu.text = (GameMgr.hikari_make_okashiTimeCost / 60.0f).ToString("F1");
 
-        select_obj_1 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/Select_2").gameObject;
-        select_obj_2 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/Select_3").gameObject;
+        select_obj_1 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/HikariMakeSelect_2").gameObject;
+        select_obj_2 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/HikariMakeSelect_3").gameObject;
 
         ResetHyouji();
         //SelectHyouji_OnOFF();
@@ -833,9 +833,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
             GameMgr.hikari_make_okashiKosu = 0;
         }
         else
-        {
-            GameMgr.hikari_make_okashiKosu = 0;
-        }
+        { }
+        GameMgr.hikari_make_okashiKosu = 0;
     }
 
     void CharaIconChange()

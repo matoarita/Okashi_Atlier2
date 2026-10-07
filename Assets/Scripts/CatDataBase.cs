@@ -524,7 +524,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         SetInit_CustomCatData("ピサロ", 0, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ノブナガ", 1, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ロドリゲス", 0, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("にゃた", 2, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("にゃ～た", 2, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ティピ", 3, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ぴ～すけ", 4, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("アリス", 5, 0, 250, UnityEngine.Random.Range(400, 800), 1, UnityEngine.Random.Range(1, 4), 2);

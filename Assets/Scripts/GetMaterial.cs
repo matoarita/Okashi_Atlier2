@@ -2098,14 +2098,14 @@ public class GetMaterial : MonoBehaviour
 
                 //顔アイコンも切り替え
                 msg_window.Setting_WindowIcon(6); //
-                _text.text = "にいちゃん！　赤色の実が、草むらにかくれてるよ～♪";
+                _text.text = "にいちゃん！　赤色の実が、いっぱい～♪";
                 break;
 
             case 1:
 
                 //顔アイコンも切り替え
                 msg_window.Setting_WindowIcon(7); //
-                _text.text = "きれいな原っぱ～♪　こんど、ままを連れてきたいな～♪";
+                _text.text = "黄色のじゅうたん～♪　こんど、ままを連れてきたいな～♪";
                 break;
 
             case 2:

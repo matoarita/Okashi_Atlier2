@@ -322,6 +322,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static Dictionary<string, int> PlateSetItemsName = new Dictionary<string, int>(); //こっちはセーブ不要。
     public static int PlateSetNum;
 
+    //消費アイテム系のリスト
+    public static Dictionary<string, int> UseConsumableItemsName = new Dictionary<string, int>(); //こっちはセーブ不要。
+
     //現在覚えているレシピの数と達成率。調合成功率アップのパーセント
     public static int game_Cullent_recipi_count;
     public static int game_All_recipi_count;
@@ -648,7 +651,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
 
     //バージョン情報
-    public static float GameVersion = 2.08f;
+    public static float GameVersion = 2.09f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -1137,6 +1140,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_PrologueHyouji_on; //ステージ表記をプロローグにする
     public static bool ContestRestart_MainStart; //メイン画面から再開をおして、コンテストを途中再開するフラグ
     public static bool ContestRestart_ThemeSelectJump; //コンテストで、途中で課題選択がある場合　選択しなおしができる
+    public static bool ItemUse_AfterMessage; //アイテム使用後に、メイン画面のメッセージにそれを表示するフラグ
+    public static int ItemUse_AfterMessageNum; //どのメッセージを表示するかの番号
 
 
     //セリフ関連の一時変数
@@ -1805,6 +1810,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hiroba_event_startblack = false;
         System_PrologueHyouji_on = false;
         ContestRestart_MainStart = false;
+        ContestRestart_ThemeSelectJump = false;
+        ItemUse_AfterMessage = false;
 
         //最初の家賃額
         System_Yachin_Cost_SPRoom = System_Yachin_Cost02;
@@ -2167,10 +2174,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage2_limit_day = 151;
         stage3_limit_day = 211;
 
-        //コレクションアイテムリストDBと、登録リスト初期化
+        //消費アイテムやコレクションアイテムリストDBと、登録リスト初期化
         InitCollectionItemsLibrary();
         InitBGAcceItemsLibrary();
         InitPlateSetItemsLibrary();
+        InitConsumableUseItemsLibrary();
 
         //いちご少女の殿堂入りリスト初期化
         InitIchigoOkashiLibrary();
@@ -2356,6 +2364,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //CollectionItemsName.Add("music_box");
     }    
 
+    //飾るアイテムセット
     public static void InitBGAcceItemsLibrary() //ここに登録すると「飾る」が表示される。 1のときのやつ
     {
 
@@ -2393,6 +2402,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_plate_sprite[0] = Resources.Load<Sprite>("Sprites/Icon/PlateImg_01");
         System_plate_sprite[1] = Resources.Load<Sprite>("Sprites/Icon/PlateImg_02");
         System_plate_sprite[2] = Resources.Load<Sprite>("Sprites/Icon/PlateImg_03");
+    }
+
+    //消費アイテムセット
+    public static void InitConsumableUseItemsLibrary()
+    {
+        UseConsumableItemsName.Clear();
+        UseConsumableItemsName.Add("skillreset_ticket", 0); //右の数字は、現在とくに使用してない
     }
 
     //いちごお菓子コレクションのリスト　ItemNameとそろえる。
@@ -2995,14 +3011,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             {
                 if(PlayerStatus.girl1_Love_maxlv >= System_HeartLV_BestED) //③ハートレベルが50
                 {
-                    if (game_Recipi_archivement_rate >= 70.0f) //④おかし手帳が70%以上　※システム共通データを参照でOK
+                    if (game_Recipi_archivement_rate >= 50.0f) //④おかし手帳が50%以上　※システム共通データを参照でOK
                     {
                         GirlLoveEvent_num = 101;
                         ending_number = 1;
                     }
                     else
                     {
-                        Debug.Log("おかし手帳が70%未満");
+                        Debug.Log("おかし手帳が50%未満");
                         GirlLoveEvent_num = 100;
                         ending_number = 2;
                     }
@@ -3029,6 +3045,34 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
 
 
+    }
+
+    //指定すると、ヒカリのお菓子作り中パラメータを全リセット
+    public static void Reset_HikariMakeALLFlag()
+    {
+        //ヒカリの作るアイテムリスト初期化
+        for (system_i = 0; system_i < hikari_kettei_item.Length; system_i++)
+        {
+            hikari_kettei_item[system_i] = 0;
+            hikari_kettei_originalID[system_i] = "";
+            hikari_kettei_kosu[system_i] = 0;
+            hikari_kettei_toggleType[system_i] = 0;
+            hikari_kettei_itemName[system_i] = "";
+        }
+        hikari_make_okashiFlag = false;
+        hikari_make_okashiID = 0;
+        hikari_make_okashi_compID = 0;
+        hikari_make_okashiTimeCost = 0;
+        hikari_make_okashiTimeCounter = 0;
+        hikari_make_doubleItemCreated = 0;
+        hikari_make_okashi_totalkyori = 0f;
+        hikari_make_okashiKosu = 0;
+        hikari_make_success_count = 0;
+        hikari_make_failed_count = 0;
+        hikari_makeokashi_startcounter = 0;
+        hikari_makeokashi_startflag = false;
+        hikari_make_Allfailed = false;
+        hikari_zairyo_no_flag = false;
     }
 
     //ヒカリのお菓子経験値テーブル

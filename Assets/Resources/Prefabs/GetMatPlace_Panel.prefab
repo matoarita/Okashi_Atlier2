@@ -11352,7 +11352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1923518cd43eb8b44a462f4e7cdf6d37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82e1c2d7b50d9a848899eb9a86005354, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12049,7 +12049,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u590F\u30A8\u30EA\u30A2"
+  m_Text: "\u8857\u30FB\u5E83\u5834"
 --- !u!1 &1120871238058010
 GameObject:
   m_ObjectHideFlags: 0
@@ -16358,7 +16358,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -24}
-  m_SizeDelta: {x: -80, y: -25}
+  m_SizeDelta: {x: -180, y: -25}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114678645901623068
 MonoBehaviour:
@@ -37852,7 +37852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1923518cd43eb8b44a462f4e7cdf6d37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82e1c2d7b50d9a848899eb9a86005354, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -43937,7 +43937,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u79CB\u30A8\u30EA\u30A2"
+  m_Text: "\u63A1\u53D6\u5730"
 --- !u!1 &1647184206386878
 GameObject:
   m_ObjectHideFlags: 0
@@ -44340,7 +44340,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u51AC\u30A8\u30EA\u30A2"
+  m_Text: "\u304A\u57CE"
 --- !u!1 &1679587967725124
 GameObject:
   m_ObjectHideFlags: 0
@@ -44408,7 +44408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1923518cd43eb8b44a462f4e7cdf6d37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82e1c2d7b50d9a848899eb9a86005354, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -60059,7 +60059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224703118035351846
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60638,7 +60638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1923518cd43eb8b44a462f4e7cdf6d37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82e1c2d7b50d9a848899eb9a86005354, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -62018,7 +62018,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1923518cd43eb8b44a462f4e7cdf6d37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82e1c2d7b50d9a848899eb9a86005354, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -63472,7 +63472,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6625\u30A8\u30EA\u30A2"
+  m_Text: "\u304A\u5E97"
 --- !u!1 &1967461388642168
 GameObject:
   m_ObjectHideFlags: 0

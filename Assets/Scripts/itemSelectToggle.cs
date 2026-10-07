@@ -76,9 +76,12 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject quest_Judge_CanvasPanel;
     private GameObject NouhinKetteiPanel_obj;
 
+    public int toggle_listcount; //表示されてるリストの順の番号（アイテムIDやオリジナルアイテムの配列番号ではない。今表示されてるコントローラー上の数字）
     public int toggleitem_ID; //リストの要素自体に、アイテムIDを保持する。
     public int toggleitem_type; //リストの要素に、プレイヤーアイテムリストか、オリジナルかを識別するための番号を割り振る。
     public int toggle_originplist_ID; //ややこしいが、オリジナルアイテムリストの最初から順番に、IDを割り振っておく。toggleorigin_ID=0だと、オリジナルアイテムプレイヤーリストの0番を参照する。
+    public string toggle_type; //リスト要素自体にアイテムのタイプいれる
+    public string toggle_subtype; //リスト要素自体にアイテムのタイプいれる
 
     private int i;
 
@@ -379,7 +382,7 @@ public class itemSelectToggle : MonoBehaviour
 
         count = 0;
 
-        while (count < pitemlistController._listitem.Count)
+        /*while (count < pitemlistController._listitem.Count)
         {
             if (count != GameMgr.List_count1)
             {
@@ -387,10 +390,11 @@ public class itemSelectToggle : MonoBehaviour
                 if (selectToggle == true) break;
             }
             ++count;
-        }
+        }*/
 
         pitemlistController._listitem[count].GetComponent<Toggle>().interactable = false;
 
+        count = toggle_listcount;
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         GameMgr.List_count1 = count;
 
@@ -405,7 +409,7 @@ public class itemSelectToggle : MonoBehaviour
 
         //あらためて新しく押されたやつ以外の表示をリセットする。
         count = 0;
-        while (count < pitemlistController._listitem.Count)
+        /*while (count < pitemlistController._listitem.Count)
         {
             if (count != GameMgr.List_count1)
             {
@@ -413,7 +417,7 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController._listitem[count].GetComponent<Toggle>().interactable = true;
             }
             ++count;
-        }
+        }*/
         pitemlistController.transform.Find("BlackImg").gameObject.SetActive(true);
 
         card_view.ItemUseWait();
@@ -436,17 +440,20 @@ public class itemSelectToggle : MonoBehaviour
 
                 count = 0;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                     if (selectToggle == true) break;
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count1 = count;
+                //Debug.Log("選択したリストカウント: " + count + " = toggle_listcount: " + toggle_listcount + "左と右の数字が一緒ならOK");
 
-                //リスト中の選択された番号を格納。
+                //リスト中の選択された番号を格納。Final_list_itemID1は、アイテムリスト上の配列番号を保存してる。（今見えてる_listitemのcountとは別）
+                //なので、Final_toggle_Type1とFinal_list_itemID1の二つを逆算すれば、表示中のリストが変わっても選択したやつをちゃんと導き出せる。はず。
                 GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;                
                 GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
                 //GameMgr.Final_list_itemID1という変数には、プレイヤーアイテムリストのリスト番号が入ってる。
@@ -515,7 +522,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 selectToggle = false;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     if (count != GameMgr.List_count1)
                     {
@@ -524,8 +531,9 @@ public class itemSelectToggle : MonoBehaviour
                     }
 
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count2 = count;
 
@@ -582,7 +590,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 selectToggle = false;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     if (count != GameMgr.List_count1)
                     {
@@ -594,8 +602,9 @@ public class itemSelectToggle : MonoBehaviour
                     }
 
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count3 = count;
 
@@ -669,8 +678,8 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                itemselect_cancel.update_ListSelect_Flag = 1; //一個目を選択したものを選択できないようにするときの番号。
-                itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+                itemselect_cancel.update_ListSelect(1); //一個目を選択したものを選択できないようにするときの番号。 //アイテム選択時の、リストの表示処理
+                InteractONCategory();
 
                 GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
                 card_view.OKCard_DrawView(GameMgr.Final_kettei_kosu1);
@@ -700,6 +709,7 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("一個目はcancel");
 
                 itemselect_cancel.All_cancel();
+                InteractONCategory();
 
                 break;
         }
@@ -728,9 +738,9 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
                 //解除
-
-                itemselect_cancel.update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
-                itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+ 
+                itemselect_cancel.update_ListSelect(2); //二個目まで、選択できないようにする。 //アイテム選択時の、リストの表示処理
+                InteractONCategory();
 
                 GameMgr.Final_kettei_kosu2 = GameMgr.updown_kosu;
                 card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
@@ -755,6 +765,7 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("二個目はcancel"); 
 
                 itemselect_cancel.Two_cancel();
+                InteractONCategory();
 
                 break;
         }
@@ -784,8 +795,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("三個目選択完了！");
 
-                itemselect_cancel.update_ListSelect_Flag = 3; //二個目まで、選択できないようにする。
-                itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+                itemselect_cancel.update_ListSelect(3); //二個目まで、選択できないようにする。 //アイテム選択時の、リストの表示処理
+                InteractONCategory();
 
                 GameMgr.Final_kettei_kosu3 = GameMgr.updown_kosu;
                 card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
@@ -841,6 +852,7 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("三個目はcancel");
 
                 itemselect_cancel.Three_cancel();
+                InteractONCategory();
                 break;
         }
     }
@@ -861,13 +873,14 @@ public class itemSelectToggle : MonoBehaviour
                 //ベースアイテムを選択する処理。
                 count = 0;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                     if (selectToggle == true) break;
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_basecount = count;
 
@@ -902,7 +915,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 count = 0;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     //if (count != pitemlistController._base_count)
                     //{
@@ -910,8 +923,9 @@ public class itemSelectToggle : MonoBehaviour
                         if (selectToggle == true) break;
                     //}
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count1 = count;
 
@@ -955,7 +969,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 selectToggle = false;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     //if (count != pitemlistController._base_count)
                     //{
@@ -967,8 +981,9 @@ public class itemSelectToggle : MonoBehaviour
                     //}
 
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count2 = count;
 
@@ -1012,7 +1027,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 selectToggle = false;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     //if (count != pitemlistController._base_count)
                     //{
@@ -1027,8 +1042,9 @@ public class itemSelectToggle : MonoBehaviour
                     //}
 
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count3 = count;
 
@@ -1096,8 +1112,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
 
-                itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
-                itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+                itemselect_cancel.update_ListSelect(10); //ベースアイテムを選択できないようにする。 //アイテム選択時の、リストの表示処理
+                InteractONCategory();
 
                 card_view.OKCard_DrawView(1);
 
@@ -1119,6 +1135,7 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("一個目はcancel");
 
                 itemselect_cancel.All_cancel();
+                InteractONCategory();
                 break;
         }
 
@@ -1145,8 +1162,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
                 //解除
-                itemselect_cancel.update_ListSelect_Flag = 11; //ベースアイテムと一個目を選択できないようにする。
-                itemselect_cancel.update_ListSelect();
+                itemselect_cancel.update_ListSelect(11); //ベースアイテムと一個目を選択できないようにする。
+                
 
                 if (GameMgr.System_Topping_Multiple_Flag)
                 {
@@ -1173,6 +1190,7 @@ public class itemSelectToggle : MonoBehaviour
                     itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
                     _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" + "一個目: "
                     + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" + "二個目を選択するか、決定を押してね。";
+                    InteractONCategory();
                 }
 
 
@@ -1189,6 +1207,7 @@ public class itemSelectToggle : MonoBehaviour
                 exp_Controller._success_rate = 100;
                 kakuritsuPanel.KakuritsuYosoku_Reset();
                 itemselect_cancel.Two_cancel();
+                InteractONCategory();
 
                 break;
         }
@@ -1216,8 +1235,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
                 //解除
-                itemselect_cancel.update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
-                itemselect_cancel.update_ListSelect();
+                itemselect_cancel.update_ListSelect(12); //ベースアイテムと一個目・二個目を選択できないようにする。
+                
 
                 if (GameMgr.System_Topping_Multiple_Flag)
                 {
@@ -1246,6 +1265,7 @@ public class itemSelectToggle : MonoBehaviour
                     _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" +
                     "一個目: " + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" +
                     "二個目: " + database.items[GameMgr.temp_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+                    InteractONCategory();
                 }
                 
 
@@ -1262,6 +1282,7 @@ public class itemSelectToggle : MonoBehaviour
                 exp_Controller._success_rate = exp_Controller._temp_srate_1;
                 kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                 itemselect_cancel.Three_cancel();
+                InteractONCategory();
 
                 break;
         }
@@ -1291,8 +1312,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("三個目選択完了！");
 
-                itemselect_cancel.update_ListSelect_Flag = 13; //ベースアイテムと一個目・二個目・三個目を選択できないようにする。
-                itemselect_cancel.update_ListSelect();
+                itemselect_cancel.update_ListSelect(13); //ベースアイテムと一個目・二個目・三個目を選択できないようにする。
 
                 if (GameMgr.System_Topping_Multiple_Flag)
                 {
@@ -1329,6 +1349,7 @@ public class itemSelectToggle : MonoBehaviour
                 exp_Controller._success_rate = exp_Controller._temp_srate_2;
                 kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
                 itemselect_cancel.Four_cancel();
+                InteractONCategory();
 
                 break;
         }
@@ -1341,13 +1362,14 @@ public class itemSelectToggle : MonoBehaviour
     {
         count = 0;
 
-        while (count < pitemlistController._listitem.Count)
+        /*while (count < pitemlistController._listitem.Count)
         {
             selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
             if (selectToggle == true) break;
             ++count;
-        }
+        }*/
 
+        count = toggle_listcount;
         //表示中リストの、リスト番号を保存。
         GameMgr.List_count1 = count;
 
@@ -1422,13 +1444,14 @@ public class itemSelectToggle : MonoBehaviour
 
                 count = 0;
 
-                while (count < pitemlistController._listitem.Count)
+                /*while (count < pitemlistController._listitem.Count)
                 {
                     selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                     if (selectToggle == true) break;
                     ++count;
-                }
+                }*/
 
+                count = toggle_listcount;
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_count1 = count;
 
@@ -1532,6 +1555,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //itemselect_cancel.update_ListSelect_Flag = 1; //一個目を選択したものを選択できないようにするときの番号。
                 //itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+                InteractONCategory();
 
                 GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
                 //card_view.DeleteCard_DrawView(); //決定したら表示してたカードを削除　もしくは、少し演出のアニメ入れてから消す
@@ -1629,7 +1653,7 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("一個目はcancel");
 
                 itemselect_cancel.All_cancel();
-
+                InteractONCategory();
                 break;
         }
 
@@ -1648,13 +1672,14 @@ public class itemSelectToggle : MonoBehaviour
 
         count = 0;
 
-        while (count < pitemlistController._listitem.Count)
+        /*while (count < pitemlistController._listitem.Count)
         {
             selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
             if (selectToggle == true) break;
             ++count;
-        }
+        }*/
 
+        count = toggle_listcount;
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         GameMgr.List_count1 = count;
 
@@ -1721,6 +1746,7 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+                InteractONCategory();
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -1762,6 +1788,7 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+                InteractONCategory();
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -1788,6 +1815,7 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+                InteractONCategory();
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -1818,13 +1846,14 @@ public class itemSelectToggle : MonoBehaviour
 
         count = 0;
 
-        while (count < pitemlistController._listitem.Count)
+        /*while (count < pitemlistController._listitem.Count)
         {
             selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
             if (selectToggle == true) break;
             ++count;
-        }
+        }*/
 
+        count = toggle_listcount;
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         GameMgr.List_count1 = count;
 
@@ -1879,6 +1908,7 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+                InteractONCategory();
 
                 yes.SetActive(false);
                 no.SetActive(false);                
@@ -1907,6 +1937,7 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+                InteractONCategory();
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -1935,13 +1966,14 @@ public class itemSelectToggle : MonoBehaviour
 
         count = 0;
 
-        while (count < pitemlistController._listitem.Count)
+        /*while (count < pitemlistController._listitem.Count)
         {
             selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
             if (selectToggle == true) break;
             ++count;
-        }
+        }*/
 
+        count = toggle_listcount;
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         pitemlistController._listcount.Add(count);
 
@@ -1989,6 +2021,7 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
 
                 }
+                InteractONCategory();
 
                 //Debug.Log("pitemlistController._listcount[i]: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
 
@@ -2017,6 +2050,10 @@ public class itemSelectToggle : MonoBehaviour
                     {
                         //Debug.Log("pitemlistController._listcount[i]: " + pitemlistController._listcount[i]);
                         pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
+                    }
+                    for (i = 0; i < pitemlistController._listcategory.Count; i++)
+                    {
+                        pitemlistController._listcategory[i].transform.Find("Button").GetComponent<Button>().interactable = false;
                     }
 
                     _text.text = "これで納品する？";
@@ -2078,8 +2115,9 @@ public class itemSelectToggle : MonoBehaviour
                     pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
 
                 }
+                InteractONCategory();
 
-                
+
                 //選択済みのやつだけONにしておく。
                 for (i = 0; i < pitemlistController._listcount.Count; i++)
                 {
@@ -2121,7 +2159,11 @@ public class itemSelectToggle : MonoBehaviour
         {
             pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
         }
-        
+        for (i = 0; i < pitemlistController._listcategory.Count; i++)
+        {
+            pitemlistController._listcategory[i].transform.Find("Button").GetComponent<Button>().interactable = false;
+        }
+
         no.SetActive(true);
         
         yes.SetActive(true);
@@ -2134,6 +2176,14 @@ public class itemSelectToggle : MonoBehaviour
             yes.GetComponent<Image>().sprite = yes_sprite1;
         }
 
+    }
+
+    void InteractONCategory()
+    {
+        for (i = 0; i < pitemlistController._listcategory.Count; i++)
+        {
+            pitemlistController._listcategory[i].transform.Find("Button").GetComponent<Button>().interactable = true;
+        }
     }
 
 
