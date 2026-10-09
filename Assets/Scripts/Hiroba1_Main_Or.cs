@@ -40,7 +40,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
         }
 
         //デバッグ用 チェックが終わったら必ずオフにする
-        //Debug_Scene();        
+        //Debug_Scene(159);        
         //** **//
 
         switch (GameMgr.SceneSelectNum)
@@ -526,14 +526,14 @@ public class Hiroba1_Main_Or : MonoBehaviour
         //SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 
-    void Debug_Scene()
+    void Debug_Scene(int _sceneSelectNum)
     {
         if (!GameMgr.Debug_StartReadOne)
         {
             GameMgr.Debug_StartReadOne = true;
 
-            GameMgr.SceneSelectNum = 153;
-            GameMgr.NPCHiroba_HikarieventList[320] = true; //ホテル解禁
+            GameMgr.SceneSelectNum = _sceneSelectNum;
+            //GameMgr.NPCHiroba_HikarieventList[320] = true; //ホテル解禁
         }
     }
 

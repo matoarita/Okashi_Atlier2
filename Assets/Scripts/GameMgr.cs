@@ -664,7 +664,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ   
     public static int hiroba_event_placeNum;  //どの場所を選んだか
     public static int hiroba_event_ID; //イベントID
-    public static bool hiroba_event_startblack; //広場イベント最初に、シーンの背景をオフのままにしておく。宴途中で黒を解除する。
+    public static bool hiroba_event_startblack; //広場イベント最初に、シーンの背景をオフのままにしておく。宴途中で黒を解除する。    
 
     //通常お菓子を食べた後の感想
     public static int OkashiComment_ID;

@@ -29,6 +29,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
     private Button questGo_Button;
     private GameObject nightcheck_text;
+    private GameObject nightcheck_omote_text;
 
     private GameObject quest_etc_text1;
     private GameObject quest_text1;
@@ -110,6 +111,8 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         questGo_Button = this.transform.Find("PanelB/ClientPanel/Quest_PlaceButton").GetComponent<Button>();
         nightcheck_text = this.transform.Find("PanelB/ClientPanel/NightCheck_text").gameObject;
         nightcheck_text.SetActive(false);
+        nightcheck_omote_text = this.transform.Find("PanelA/QuestCheckList_ScrollView/NightCheck_text_omote").gameObject;
+        nightcheck_omote_text.SetActive(false);
 
         _Img = this.transform.Find("PanelB/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
@@ -130,8 +133,8 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                     {
                         placeicon_obj = bar_placelist.transform.Find("BarMoveButtonA_Panel").gameObject;
                         placeicon_obj.SetActive(true);
-                        placeicon_obj.transform.Find("BarMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
-                        placeicon_obj.transform.Find("BarMoveButtonA/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                        placeicon_obj.transform.Find("BarMoveButton/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("BarMoveButton/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
                         barplace_name[0] = matplace_database.matplace_lists[i].placeNameHyouji;
                         _movetime[0] = matplace_database.matplace_lists[i].placeDay;
                     }
@@ -147,8 +150,8 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                     {
                         placeicon_obj = bar_placelist.transform.Find("BarMoveButtonB_Panel").gameObject;
                         placeicon_obj.SetActive(true);
-                        placeicon_obj.transform.Find("BarMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
-                        placeicon_obj.transform.Find("BarMoveButtonB/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                        placeicon_obj.transform.Find("BarMoveButton/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("BarMoveButton/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
                         barplace_name[2] = matplace_database.matplace_lists[i].placeNameHyouji;
                         _movetime[2] = matplace_database.matplace_lists[i].placeDay;
                     }
@@ -175,6 +178,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         {
             NoQuestText_obj.SetActive(true);
         }
+
+        //夜チェックし、ボタンのonoff
+        Night_Check();
     }
 
     //PanelBを描画する 受注リストのリスト配列番号を受け取って、中身を更新
@@ -278,24 +284,44 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         _Img.sprite = texture2d;
 
         //夜チェックし、ボタンのonoff
-        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
-        {
-            questGo_Button.interactable = false;
-            nightcheck_text.SetActive(true);
-        }
-        else
-        {
-            questGo_Button.interactable = true;
-            nightcheck_text.SetActive(false);
-        }
+        Night_Check();
 
         //個人依頼のときは、移動ボタンをオフに。
-        if(questset_database.questTakeset[_list].QuestType == 2)
+        if (questset_database.questTakeset[_list].QuestType == 2)
         {
             quest_area_button.SetActive(false);
             quest_area_textobj.SetActive(true);
 
             quest_area_textobj.GetComponent<Text>().text = "個人依頼";
+        }
+    }
+
+    void Night_Check()
+    {
+        //夜チェックし、ボタンのonoff
+        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
+        {
+            foreach (Transform child in bar_placelist.transform)
+            {
+                child.gameObject.transform.Find("BarMoveButton").GetComponent<Button>().interactable = false;
+                child.gameObject.transform.Find("BarMoveButton/Text").gameObject.SetActive(false);
+            }
+
+            questGo_Button.interactable = false;
+            nightcheck_text.SetActive(true);
+            nightcheck_omote_text.SetActive(true);
+        }
+        else
+        {
+            foreach (Transform child in bar_placelist.transform)
+            {
+                child.gameObject.transform.Find("BarMoveButton").GetComponent<Button>().interactable = true;
+                child.gameObject.transform.Find("BarMoveButton/Text").gameObject.SetActive(true);
+            }
+
+            questGo_Button.interactable = true;
+            nightcheck_text.SetActive(false);
+            nightcheck_omote_text.SetActive(false);
         }
     }
 

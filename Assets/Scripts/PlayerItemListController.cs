@@ -1616,7 +1616,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case 10: //砂糖
 
-                CategoryView_Setting("Suger");
+                CategoryView_SettingAllOFF();
+                CategoryView_SettingMulti("Suger");
+                CategoryView_SettingMulti("FloatSuger");
                 break;
 
             case 20: //小麦粉
@@ -1633,7 +1635,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case 40: //水
 
-                CategoryView_Setting("Water");
+                CategoryView_SettingAllOFF();
+                CategoryView_SettingMulti("Water");
+                CategoryView_SettingMulti("AromaPotion");
+                CategoryView_SettingMulti("Potion");
                 break;
 
             case 50: //砂糖・バター・小麦粉
@@ -1643,6 +1648,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 CategoryView_SettingMulti("Suger");
                 CategoryView_SettingMulti("Butter");
                 CategoryView_SettingMulti("Egg");
+                CategoryView_SettingMulti("FloatSuger");
                 break;
 
             case 60: //砂糖・バター・小麦粉以外
@@ -1663,6 +1669,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 CategoryView_SettingMulti("Harb");
                 CategoryView_SettingMulti("Vegetable");
                 CategoryView_SettingMulti("Flower");
+                CategoryView_SettingMulti("GlowFruits");
+                CategoryView_SettingMulti("FloatFruits");
                 break;
 
             case 80: //クリーム生地系
@@ -1672,6 +1680,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 CategoryView_SettingMulti("Appaleil");
                 CategoryView_SettingMulti("Appaleil_Icecream");
                 CategoryView_SettingMulti("Source");
+                CategoryView_SettingMulti("Marzipan");
                 break;
 
             case 100:

@@ -75,7 +75,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private BGM sceneBGM;
     private bool bgm_change_flag;
 
-    private int ev_id;
+    private int i, ev_id;
 
     private int rndnum;
     private string default_scenetext;
@@ -88,7 +88,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private int map_move_num;
 
     private int _place_num;
-    private int talkrot;
+    private int[] talkrot = new int[10];
 
     // Use this for initialization
     void Start () {
@@ -166,7 +166,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
-        debug_panel_init.DebugPanel_init(); //パネルの初期化
+        debug_panel_init.DebugPanel_init(); //パネルの初期化        
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -182,7 +182,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         StartRead = false;
         check_event = false;
-        talkrot = 0;
+        for (i= 0; i < talkrot.Length; i++)
+        {
+            talkrot[i] = 0;
+        }
+        
+
+        //デバッグはHiroba1_Main_Orのほうからシーン設定してできる。
+        //GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumMiniHall";
+        //SceneToggleDefaultSetup();
+        //text_scenario(); //テキストの更新
+        //UpdateHiroba1MainScene();
+        //*** ***//
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -1234,6 +1245,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_BarActive02();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall":
+
+                On_Active1545_aquarium_HallEvent(0+ talkrot[0]); //ハオリムシコーナー
+                TalkRotation(1, 1, 0);
+                break;
+
             case "Or_Hiroba_Autumn_Entrance":
 
                 On_Active1001_Nuno();
@@ -1792,6 +1809,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active1009_WhiteWhale();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall":
+
+                On_Active1545_aquarium_HallEvent(10 + talkrot[1]); //ハオリムシコーナー
+                TalkRotation(1, 1, 1); //3つめは、talkrotの配列番号　同じマップ内でtalkrotを使いまわす場合は、1~を設定する
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_beachMae":
 
                 On_NPC_HirobaActive01();
@@ -1989,7 +2012,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 //On_Active70();
                 On_Active1006_Piero();
-                break;            
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall":
+
+                On_Active1545_aquarium_HallEvent(20 + talkrot[2]); //ハオリムシコーナー
+                TalkRotation(1, 1, 2); //3つめは、talkrotの配列番号　同じマップ内でtalkrotを使いまわす場合は、1~を設定する
+                break;
 
             case "Or_Hiroba_Autumn_MainStreet":
 
@@ -3620,8 +3649,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[120]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                GameMgr.hiroba_event_ID = 10 + talkrot;
-                TalkRotation(1, 1); //2つめが1の時は、パターンがローテーションせずに止まる
+                GameMgr.hiroba_event_ID = 10 + talkrot[0];
+                TalkRotation(1, 1, 0); //2つめが1の時は、パターンがローテーションせずに止まる
 
                 check_event = true;
             }
@@ -3812,8 +3841,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[220]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                GameMgr.hiroba_event_ID = 10 + talkrot;
-                TalkRotation(1, 0); //1つめは、会話のパターン数　1だと2個ある。　2つめが0の時は、パターンがローテーションする
+                GameMgr.hiroba_event_ID = 10 + talkrot[0];
+                TalkRotation(1, 0, 0); //1つめは、会話のパターン数　1だと2個ある。　2つめが0の時は、パターンがローテーションする 3つめは、talkrotの配列番号。
 
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -4130,6 +4159,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
+    void On_Active1545_aquarium_HallEvent(int _evnum)
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1545; //       
+
+        GameMgr.hiroba_event_ID = _evnum;
+
+        EventReadingStart();
+    }
+
     void On_Active1550_Amupark_biking()
     {
         //NPC宴の処理へ
@@ -4298,8 +4337,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             if (GameMgr.NPCHiroba_eventList[1200]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 //頭から順番に会話をまわしていく。
-                GameMgr.hiroba_event_ID = 10 + talkrot;
-                TalkRotation(2, 1); //2つめが1の時は、パターンがローテーションせずに止まる
+                GameMgr.hiroba_event_ID = 10 + talkrot[0];
+                TalkRotation(2, 1, 0); //2つめが1の時は、パターンがローテーションせずに止まる
 
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -4335,10 +4374,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             if (GameMgr.NPCHiroba_eventList[1220]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 //頭から順番に会話をまわしていく。
-                GameMgr.hiroba_event_ID = 10 + talkrot;
+                GameMgr.hiroba_event_ID = 10 + talkrot[0];
                 //日でランダムに話が切り替わる
                 GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3;
-                //TalkRotation(2, 0); //2つめが1の時は、パターンがローテーションせずに止まる
+                //TalkRotation(2, 0, 0); //2つめが1の時は、パターンがローテーションせずに止まる
 
 
                 //BGMかえる
@@ -5429,25 +5468,25 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     }
 
-    void TalkRotation(int _talkmax_rot, int _stopstatus)
+    void TalkRotation(int _talkmax_rot, int _stopstatus, int _id)
     {
         if(_stopstatus == 0) //0の場合、止まらずにローテーションする
         {
-            if (talkrot <= _talkmax_rot) //
+            if (talkrot[_id] <= _talkmax_rot) //
             {
-                talkrot++;
+                talkrot[_id]++;
             }
 
-            if (talkrot > _talkmax_rot)
+            if (talkrot[_id] > _talkmax_rot)
             {
-                talkrot = 0;
+                talkrot[_id] = 0;
             }
         }
         else if (_stopstatus == 1) //1の場合、パターン終わりで止まる
         {
-            if (talkrot < _talkmax_rot) //
+            if (talkrot[_id] < _talkmax_rot) //
             {
-                talkrot++;
+                talkrot[_id]++;
             }
         }               
     }

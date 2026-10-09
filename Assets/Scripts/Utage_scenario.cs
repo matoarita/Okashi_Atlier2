@@ -3570,6 +3570,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC103_aquarium_return";
                 break;
 
+            case 1545: //Or水族館内部のイベント
+
+                scenarioLabel = "Or_NPC116_aquarium_hole";
+                break;
+
             case 1550: //Or遊園地バイキング
 
                 scenarioLabel = "Or_NPC104_park_biking";
